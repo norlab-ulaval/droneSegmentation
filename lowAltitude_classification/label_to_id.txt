@@ -1,0 +1,25 @@
+Alders: 0
+Black spruce: 1
+Bog Labrador Tea: 2
+Common Haircap Moss: 3
+Cornflower (bleuets): 4
+Feather Mosses: 5
+Ferns (Fougères): 6
+Fir: 7
+Fire Cherry (Cerisier de pensylvanie): 8
+Jack pine: 9
+Larch: 10
+Leatherleaf (Cassandre): 11
+Mountain Maple (Érable à épis): 12
+Paper birch: 13
+Pixie Cup Lichens (Cladonia): 14
+Red raspberry (Framboisier): 15
+Sedges (Carex): 16
+Serviceberries (amélanchier): 17
+Sheep Laurel (Kalmia): 18
+Sphagnum Mosses: 19
+Trembling aspen: 20
+Viburnums: 21
+Willowherbs (Épilobe): 22
+Willows: 23
+yellow birch: 24
