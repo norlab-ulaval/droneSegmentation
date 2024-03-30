@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="version iNaturalist_0">
-      <change afterPath="$PROJECT_DIR$/dataset/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dataset/sampling_Altitude_based.py" afterDir="false" />
+    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="sampling dataset based on the altitude">
+      <change afterPath="$PROJECT_DIR$/dataset/dataset_index.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +47,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "dataset",
-    "last_opened_file_path": "/home/kamyar/PycharmProjects/droneSegmentation",
+    "last_opened_file_path": "/home/kamyar/PycharmProjects/dataset_indexing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -75,7 +74,7 @@
       <updated>1711726353717</updated>
       <workItem from="1711726355005" duration="2440000" />
       <workItem from="1711728821323" duration="4611000" />
-      <workItem from="1711812936658" duration="366000" />
+      <workItem from="1711812936658" duration="2204000" />
     </task>
     <task id="LOCAL-00001" summary="version 0.0">
       <option name="closed" value="true" />
@@ -93,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711730674723</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="sampling dataset based on the altitude">
+      <option name="closed" value="true" />
+      <created>1711813550769</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711813550769</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,6 +120,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="version 0.0" />
     <MESSAGE value="version iNaturalist_0" />
-    <option name="LAST_COMMIT_MESSAGE" value="version iNaturalist_0" />
+    <MESSAGE value="sampling dataset based on the altitude" />
+    <option name="LAST_COMMIT_MESSAGE" value="sampling dataset based on the altitude" />
   </component>
 </project>
