@@ -4,16 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="dataset indexing" />
+    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="sampling dataset based on the altitude">
+      <change afterPath="$PROJECT_DIR$/dataset/dataset_index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -36,12 +46,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/kamyar/PycharmProjects/droneSegmentation",
+    "git-widget-placeholder": "dataset",
+    "last_opened_file_path": "/home/kamyar/PycharmProjects/dataset_indexing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -61,6 +73,8 @@
       <option name="presentableId" value="Default" />
       <updated>1711726353717</updated>
       <workItem from="1711726355005" duration="2440000" />
+      <workItem from="1711728821323" duration="4611000" />
+      <workItem from="1711812936658" duration="2204000" />
     </task>
     <task id="LOCAL-00001" summary="version 0.0">
       <option name="closed" value="true" />
@@ -70,14 +84,43 @@
       <option name="project" value="LOCAL" />
       <updated>1711727951337</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="version iNaturalist_0">
+      <option name="closed" value="true" />
+      <created>1711730674723</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711730674723</updated>
+    </task>
+    <task id="LOCAL-00003" summary="sampling dataset based on the altitude">
+      <option name="closed" value="true" />
+      <created>1711813550769</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711813550769</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="version 0.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 0.0" />
+    <MESSAGE value="version iNaturalist_0" />
+    <MESSAGE value="sampling dataset based on the altitude" />
+    <option name="LAST_COMMIT_MESSAGE" value="sampling dataset based on the altitude" />
   </component>
 </project>
