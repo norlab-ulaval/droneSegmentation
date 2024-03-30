@@ -1,0 +1,56 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"b1de5c55-4b5a-4662-8979-5264efe5b013\" name=\"Changes\" comment=\"sampling dataset based on the altitude\">\n      <change afterPath=\"$PROJECT_DIR$/dataset/dataset_index.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 7\n}</component>\n  <component name=\"ProjectId\" id=\"2eMtcV9HEHMyEKLXDjzJz7SUYXe\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"git-widget-placeholder\": \"dataset\",\n    \"last_opened_file_path\": \"/home/kamyar/PycharmProjects/dataset_indexing\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"settings.editor.selected.configurable\": \"com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"b1de5c55-4b5a-4662-8979-5264efe5b013\" name=\"Changes\" comment=\"\" />\n      <created>1711726353717</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1711726353717</updated>\n      <workItem from=\"1711726355005\" duration=\"2440000\" />\n      <workItem from=\"1711728821323\" duration=\"4611000\" />\n      <workItem from=\"1711812936658\" duration=\"2204000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"version 0.0\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1711727951337</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1711727951337</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"version iNaturalist_0\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1711730674723</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1711730674723</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"sampling dataset based on the altitude\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1711813550769</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1711813550769</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"4\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"version 0.0\" />\n    <MESSAGE value=\"version iNaturalist_0\" />\n    <MESSAGE value=\"sampling dataset based on the altitude\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"sampling dataset based on the altitude\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,8 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="sampling dataset based on the altitude">
+-      <change afterPath="$PROJECT_DIR$/dataset/dataset_index.py" afterDir="false" />
++    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="dataset indexing">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -74,7 +73,7 @@
+       <updated>1711726353717</updated>
+       <workItem from="1711726355005" duration="2440000" />
+       <workItem from="1711728821323" duration="4611000" />
+-      <workItem from="1711812936658" duration="2204000" />
++      <workItem from="1711812936658" duration="3432000" />
+     </task>
+     <task id="LOCAL-00001" summary="version 0.0">
+       <option name="closed" value="true" />
+@@ -100,7 +99,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1711813550769</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary="dataset indexing">
++      <option name="closed" value="true" />
++      <created>1711816212080</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1711816212080</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -121,6 +128,7 @@
+     <MESSAGE value="version 0.0" />
+     <MESSAGE value="version iNaturalist_0" />
+     <MESSAGE value="sampling dataset based on the altitude" />
+-    <option name="LAST_COMMIT_MESSAGE" value="sampling dataset based on the altitude" />
++    <MESSAGE value="dataset indexing" />
++    <option name="LAST_COMMIT_MESSAGE" value="dataset indexing" />
+   </component>
+ </project>
+\ No newline at end of file
