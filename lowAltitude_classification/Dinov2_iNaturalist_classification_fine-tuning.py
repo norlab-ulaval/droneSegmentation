@@ -22,7 +22,7 @@ train_dataset = ImageFolder(root=train_dataset_path)
 valid_dataset = ImageFolder(root=valid_dataset_path)
 test_dataset = ImageFolder(root=test_dataset_path)
 label_to_id = train_dataset.class_to_idx
-output_file_path = "label_to_id.txt"
+output_file_path = "lowAltitude_classification/label_to_id.txt"
 
 with open(output_file_path, 'w') as file:
     for label, idx in label_to_id.items():
@@ -59,7 +59,7 @@ test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num
 
 
 model = model.to(device)
-num_classes = 24
+num_classes = 25
 model.classifier = nn.Linear(2048, num_classes).to(device)
 torch.manual_seed(1)
 num_epochs = 5
