@@ -136,7 +136,7 @@ for epoch in range(num_epochs):
         best_accuracy = accuracy_hist_valid[epoch]
         best_epoch = epoch
         best_model_weights = model.state_dict()
-        torch.save(best_model_weights, 'best_model_weights.pth')
+        torch.save(best_model_weights, 'best_classification_weights.pth')
         print(f"Best model weights saved at epoch {best_epoch + 1} with validation accuracy {best_accuracy:.4f}")
 
 

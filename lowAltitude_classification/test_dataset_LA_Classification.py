@@ -18,12 +18,12 @@ model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 24
+num_classes = 25
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('best_model_weights.pth'))
+model.load_state_dict(torch.load('best_classification_weights.pth'))
 model.eval()
 
 transform = transforms.Compose([
