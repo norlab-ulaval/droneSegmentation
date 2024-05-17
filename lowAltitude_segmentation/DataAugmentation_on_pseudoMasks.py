@@ -1,7 +1,7 @@
 """
 Doing data augmentation on the results of classification of LA images obtained by iNaturalist
-we do data augmentation here to make it similar to the HA images, so we first crop the LA images, with considering a margin, then downscale it to 256x256 size
-256 can be discussed, might be other options
+we do data augmentation here to make it similar to the HA images, so we first crop the LA images, with considering a margin, then downscale it to 384x384 size
+384 can be discussed, I searched for the Mask2Former training size of ade dataset for semantic segmentation: https://huggingface.co/facebook/mask2former-swin-large-ade-semantic/blob/main/preprocessor_config.json
 margin is to avoid being near borders of the image, because pseudo labels there, are very noisy and inaccurate
 """
 import cv2
@@ -9,7 +9,7 @@ import os
 import numpy as np
 
 def find_largest_multiple(dim):
-    return (dim // 256) * 256
+    return (dim // 384) * 384
 
 
 # margin is to avoid being near borders of the image, because pseudo labels there, are very noisy and inaccurate
@@ -41,10 +41,10 @@ def process_image(image_path, seg_map_path, mode, margin):
 
 
 
-    resized_image = cv2.resize(cropped_image, (256, 256), interpolation=cv2.INTER_AREA)
+    resized_image = cv2.resize(cropped_image, (384, 384), interpolation=cv2.INTER_AREA)
     # For segmentation maps or any other label maps, such as semantic segmentation outputs, using cv2.INTER_NEAREST is preferred.
     # This method assigns the nearest neighbor value to each pixel in the output image, which is crucial for maintaining the discrete nature of class labels.
-    resized_seg_map = cv2.resize(cropped_seg_map, (256, 256), interpolation=cv2.INTER_NEAREST)
+    resized_seg_map = cv2.resize(cropped_seg_map, (384, 384), interpolation=cv2.INTER_NEAREST)
 
     output_path_img = "/home/kamyar/Documents/segmentation_augmentation/" + mode + '/' + 'images/'
     os.makedirs(output_path_img, exist_ok=True)
@@ -63,11 +63,11 @@ val_mask_folder = "/home/kamyar/Documents/segmentation/val/masks"
 
 for image_name in os.listdir(train_img_folder):
     image_path = os.path.join(train_img_folder, image_name)
-    seg_map_path = os.path.join(train_mask_folder, os.path.splitext(image_name)[0] + '_segmentation_map' + '.jpg')
+    seg_map_path = os.path.join(train_mask_folder, os.path.splitext(image_name)[0] + '_segmentation_map' + '.png')
     # margin is to avoid being near borders of the image, because pseudo labels there, are very noisy and inaccurate
     process_image(image_path, seg_map_path, 'train', margin=100)
 
 for image_name in os.listdir(val_img_folder):
     image_path = os.path.join(val_img_folder, image_name)
-    seg_map_path = os.path.join(val_mask_folder, os.path.splitext(image_name)[0] + '_segmentation_map' + '.jpg')
+    seg_map_path = os.path.join(val_mask_folder, os.path.splitext(image_name)[0] + '_segmentation_map' + '.png')
     process_image(image_path, seg_map_path, 'val', margin=100)

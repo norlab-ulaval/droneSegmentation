@@ -4,12 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="minor changes">
-      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/DataAugmentation_on_pseudoMasks.py" afterDir="false" />
+    <list default="true" id="b1de5c55-4b5a-4662-8979-5264efe5b013" name="Changes" comment="mask2former_semantic_Segmentation">
+      <change afterPath="$PROJECT_DIR$/dataset/patchify_LA_images.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/Dinov2_mask2former.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/install.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/Base-ADE20K-SemanticSegmentation.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/maskformer2_R50_bs16_160k.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/configs/ade20k/Drone_semantic-segmentation/Base-drone-SemanticSegmentation.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/configs/ade20k/Drone_semantic-segmentation/maskdino_R50_bs16_160k_steplr.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/datasets/prepare_drone_sem_seg.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/data/datasets/register_drone_semantic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lowAltitude_segmentation/utils_mask2former.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_30_24,_12_57_PM_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_30_24__12_57_PM__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_3_30_24,_1_08_PM_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_3_30_24__1_08_PM__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lowAltitude_classification/Dinov2_iNaturalist_classification_fine-tuning.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_classification/Dinov2_iNaturalist_classification_fine-tuning.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lowAltitude_classification/test_dataset_LA_Classification.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_classification/test_dataset_LA_Classification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_classification/test_oneImage_LA_Classification.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_classification/test_oneImage_LA_Classification.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/DataAugmentation_on_pseudoMasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/DataAugmentation_on_pseudoMasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/demo.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/examples/test.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/examples/test2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/tools/segmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/tools/segmentation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/train_segmentor.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/train_segmentor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/weights/segmentation_model.pt" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dino/Downstream-Dinov2/weights/segmentation_model.pt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/dinov2/notebooks/depth_estimation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/dinov2/notebooks/depth_estimation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/dinov2/notebooks/semantic_segmentation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/dinov2/notebooks/semantic_segmentation.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_segmentation_fine-tuning.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_segmentation_fine-tuning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/data/dataset_mappers/mask_former_semantic_dataset_mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/data/dataset_mappers/mask_former_semantic_dataset_mapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/modeling/backbone/swin.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/modeling/backbone/swin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/data/dataset_mappers/mask_former_semantic_dataset_mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/data/dataset_mappers/mask_former_semantic_dataset_mapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/data/datasets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/data/datasets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/maskdino.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/maskdino.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/modeling/meta_arch/maskdino_head.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/maskdino/modeling/meta_arch/maskdino_head.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lowAltitude_segmentation/train_val_split_segmentation.py" beforeDir="false" afterPath="$PROJECT_DIR$/lowAltitude_segmentation/train_val_split_segmentation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +57,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Jupyter Notebook" />
         <option value="Python Script" />
       </list>
     </option>
@@ -26,10 +65,10 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="segmentation_LA" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -47,10 +86,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.custom_datasets.executor": "Debug",
+    "Python.image_processing_mask2former.executor": "Debug",
+    "Python.positional_encoding.executor": "Debug",
+    "Python.test_dataset_LA_Classification.executor": "Debug",
+    "Python.test_oneImage_LA_Classification.executor": "Run",
+    "Python.train.executor": "Debug",
+    "Python.train_net.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "segmentation__LA",
-    "last_opened_file_path": "/home/kamyar/PycharmProjects/dataset_indexing",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_segmentation/Mask2Former/mask2former/data/datasets",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,10 +106,73 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/mask2former/data/datasets" />
+      <recent name="$PROJECT_DIR$/lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth" />
+      <recent name="$PROJECT_DIR$/lowAltitude_classification" />
+      <recent name="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/configs/ade20k" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.test_oneImage_LA_Classification">
+    <configuration name="test_oneImage_LA_Classification" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="droneSegmentation" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lowAltitude_classification" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lowAltitude_classification/test_oneImage_LA_Classification.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_net" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="droneSegmentation" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.10 (droneSegmentation)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/train_net.py" />
+      <option name="PARAMETERS" value="--config-file $PROJECT_DIR$/lowAltitude_segmentation/MaskDINO/configs/ade20k/Drone_semantic-segmentation/maskdino_R50_bs16_160k_steplr.yaml" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test_oneImage_LA_Classification" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
       </set>
     </attachedChunks>
   </component>
@@ -78,6 +187,21 @@
       <workItem from="1711726355005" duration="2440000" />
       <workItem from="1711728821323" duration="4611000" />
       <workItem from="1711812936658" duration="2204000" />
+      <workItem from="1712009024306" duration="10000" />
+      <workItem from="1712009040382" duration="2285000" />
+      <workItem from="1712014664195" duration="33170000" />
+      <workItem from="1712282834865" duration="39000" />
+      <workItem from="1712282876516" duration="1108000" />
+      <workItem from="1712325081174" duration="12815000" />
+      <workItem from="1712342619803" duration="24400000" />
+      <workItem from="1712514474058" duration="7286000" />
+      <workItem from="1712804425521" duration="4015000" />
+      <workItem from="1714434534228" duration="2584000" />
+      <workItem from="1715001320489" duration="881000" />
+      <workItem from="1715002205559" duration="68885000" />
+      <workItem from="1715128446159" duration="41441000" />
+      <workItem from="1715270090307" duration="30324000" />
+      <workItem from="1715356146863" duration="83584000" />
     </task>
     <task id="LOCAL-00001" summary="version 0.0">
       <option name="closed" value="true" />
@@ -143,6 +267,16 @@
     <MESSAGE value="main" />
     <MESSAGE value="dataset" />
     <MESSAGE value="minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+    <MESSAGE value="mask2former_semantic_Segmentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="mask2former_semantic_Segmentation" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/droneSegmentation$test_dataset_LA_Classification.coverage" NAME="test_dataset_LA_Classification Coverage Results" MODIFIED="1712089276235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lowAltitude_classification" />
+    <SUITE FILE_PATH="coverage/droneSegmentation$custom_datasets.coverage" NAME="custom_datasets Coverage Results" MODIFIED="1712080589112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lowAltitude_segmentation/20240226_Fine_Tuning_Mask2Former" />
+    <SUITE FILE_PATH="coverage/droneSegmentation$train_net.coverage" NAME="train_net Coverage Results" MODIFIED="1715174859242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/droneSegmentation$image_processing_mask2former.coverage" NAME="image_processing_mask2former Coverage Results" MODIFIED="1712065444752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/.venv/lib/python3.10/site-packages/transformers/models/mask2former" />
+    <SUITE FILE_PATH="coverage/droneSegmentation$test_oneImage_LA_Classification.coverage" NAME="test_oneImage_LA_Classification Coverage Results" MODIFIED="1715611998453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lowAltitude_classification" />
+    <SUITE FILE_PATH="coverage/droneSegmentation$train.coverage" NAME="train Coverage Results" MODIFIED="1712072821710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lowAltitude_segmentation/20240226_Fine_Tuning_Mask2Former" />
+    <SUITE FILE_PATH="coverage/droneSegmentation$positional_encoding.coverage" NAME="positional_encoding Coverage Results" MODIFIED="1715100521712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lowAltitude_segmentation/Dinov2_mask2former/dinov2/dinov2/eval/segmentation_m2f/models/utils" />
   </component>
 </project>
