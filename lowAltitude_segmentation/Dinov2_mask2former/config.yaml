@@ -1,0 +1,291 @@
+
+'num_things_classes': 100,
+'num_stuff_classes': 50,
+'num_classes': 150,
+'norm_cfg': {'type': 'SyncBN', 'requires_grad': True},
+'model': {
+'type': 'EncoderDecoderMask2Former',
+'pretrained': None,
+'backbone': {
+    'type': 'ViTAdapter',
+    'patch_size': 12,  # Adjusted patch size for 384x384 input
+    'embed_dim': 1536,
+    'depth': 40,
+    'num_heads': 24,
+    'mlp_ratio': 4,
+    'drop_path_rate': 0.4,
+    'conv_inplane': 64,
+    'n_points': 4,
+    'deform_num_heads': 24,
+    'cffn_ratio': 0.25,
+    'deform_ratio': 0.5,
+    'with_cp': True,
+    'interaction_indexes': [
+        [0, 7],
+        [8, 15],
+        [16, 23],
+        [24, 31]
+    ],
+    'window_attn': [
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False,
+        False, False, False, False, False, False, False, False
+    ],
+    'window_size': [
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None,
+        None, None, None, None, None, None, None, None
+    ],
+    'freeze_vit': True,
+    'use_cls': True,
+    'pretrain_size': 518,
+    'img_size': 518,
+    'ffn_type': 'swiglu'
+},
+'decode_head': {
+    'type': 'Mask2FormerHead',
+    'in_channels': [1536, 1536, 1536, 1536],
+    'feat_channels': 1536,
+    'out_channels': 1536,
+    'in_index': [0, 1, 2, 3],
+    'num_things_classes': 100,
+    'num_stuff_classes': 50,
+    'num_queries': 100,
+    'num_transformer_feat_level': 3,
+    'pixel_decoder': {
+        'type': 'MSDeformAttnPixelDecoder',
+        'num_outs': 3,
+        'norm_cfg': {'type': 'GN', 'num_groups': 32},
+        'act_cfg': {'type': 'ReLU'},
+        'encoder': {
+            'type': 'DetrTransformerEncoder',
+            'num_layers': 6,
+            'transformerlayers': {
+                'type': 'BaseTransformerLayer',
+                'attn_cfgs': {
+                    'type': 'MultiScaleDeformableAttention',
+                    'embed_dims': 1536,
+                    'num_heads': 32,
+                    'num_levels': 3,
+                    'num_points': 4,
+                    'im2col_step': 64,
+                    'dropout': 0.0,
+                    'batch_first': False,
+                    'norm_cfg': None,
+                    'init_cfg': None
+                },
+                'ffn_cfgs': {
+                    'type': 'FFN',
+                    'embed_dims': 1536,
+                    'feedforward_channels': 6144,
+                    'num_fcs': 2,
+                    'ffn_drop': 0.0,
+                    'act_cfg': {'type': 'ReLU', 'inplace': True},
+                    'with_cp': True
+                },
+                'operation_order': ('self_attn', 'norm', 'ffn', 'norm')
+            },
+            'init_cfg': None
+        },
+        'positional_encoding': {'type': 'SinePositionalEncoding', 'num_feats': 768, 'normalize': True},
+        'init_cfg': None
+    }
+},
+'enforce_decoder_input_project': False,
+'positional_encoding': {'type': 'SinePositionalEncoding', 'num_feats': 768, 'normalize': True},
+'transformer_decoder': {
+    'type': 'DetrTransformerDecoder',
+    'return_intermediate': True,
+    'num_layers': 9,
+    'transformerlayers': {
+        'type': 'DetrTransformerDecoderLayer',
+        'attn_cfgs': {
+            'type': 'MultiheadAttention',
+            'embed_dims': 1536,
+            'num_heads': 32,
+            'attn_drop': 0.0,
+            'proj_drop': 0.0,
+            'dropout_layer': None,
+            'batch_first': False
+        },
+        'ffn_cfgs': {
+            'embed_dims': 1536,
+            'feedforward_channels': 6144,
+            'num_fcs': 2,
+            'act_cfg': {'type': 'ReLU', 'inplace': True},
+            'ffn_drop': 0.0,
+            'dropout_layer': None,
+            'add_identity': True,
+            'with_cp': True
+        },
+        'feedforward_channels': 6144,
+        'operation_order': ('cross_attn', 'norm', 'self_attn', 'norm', 'ffn', 'norm')
+    },
+    'init_cfg': None
+},
+'loss_cls': {
+    'type': 'CrossEntropyLoss',
+    'use_sigmoid': False,
+    'loss_weight': 2.0,
+    'reduction': 'mean',
+    'class_weight': [1.0] * 150 + [0.1]  # Adjusted for 150 classes
+},
+'loss_mask': {'type': 'CrossEntropyLoss', 'use_sigmoid': True, 'reduction': 'mean', 'loss_weight': 5.0},
+'loss_dice': {'type': 'DiceLoss', 'use_sigmoid': True, 'activate': True, 'reduction': 'mean', 'naive_dice': True, 'eps': 1.0, 'loss_weight': 5.0},
+'train_cfg': None,
+'test_cfg': {
+    'panoptic_on': True,
+    'semantic_on': False,
+    'instance_on': True,
+    'max_per_image': 100,
+    'iou_thr': 0.8,
+    'filter_low_score': True,
+    'mode': 'slide',
+    'crop_size': (384, 384),  # Adjusted crop size
+    'stride': (256, 256)  # Adjusted stride
+}
+},
+'train_cfg': None,
+'test_cfg': {
+'panoptic_on': True,
+'semantic_on': False,
+'instance_on': True,
+'max_per_image': 100,
+'iou_thr': 0.8,
+'filter_low_score': True,
+'mode': 'slide',
+'crop_size': (384, 384),  # Adjusted crop size
+'stride': (256, 256)  # Adjusted stride
+},
+'dataset_type': 'ADE20KDataset',
+'data_root': '/datasets01/ADE20kChallengeData2016/011719',
+'img_norm_cfg': {'mean': [123.675, 116.28, 103.53], 'std': [58.395, 57.12, 57.375], 'to_rgb': True},
+'crop_size': (384, 384),  # Adjusted crop size
+'train_pipeline': [
+{'type': 'LoadImageFromFile'},
+{'type': 'LoadAnnotations', 'reduce_zero_label': True},
+{'type': 'Resize', 'img_scale': (1536, 384), 'ratio_range': (0.5, 2.0)},  # Adjusted img_scale
+{'type': 'RandomCrop', 'crop_size': (384, 384), 'cat_max_ratio': 0.75},
+{'type': 'RandomFlip', 'prob': 0.5},
+{'type': 'PhotoMetricDistortion'},
+{'type': 'Normalize', 'mean': [123.675, 116.28, 103.53], 'std': [58.395, 57.12, 57.375], 'to_rgb': True},
+{'type': 'Pad', 'size': (384, 384), 'pad_val': 0, 'seg_pad_val': 255},
+{'type': 'ToMask'},
+{'type': 'DefaultFormatBundle'},
+{'type': 'Collect', 'keys': ['img', 'gt_semantic_seg', 'gt_masks', 'gt_labels']}
+],
+'test_pipeline': [
+{'type': 'LoadImageFromFile'},
+{'type': 'MultiScaleFlipAug', 'img_scale': (1536, 384), 'flip': False, 'transforms': [
+    {'type': 'Resize', 'keep_ratio': True},
+    {'type': 'ResizeToMultiple', 'size_divisor': 32},
+    {'type': 'RandomFlip'},
+    {'type': 'Normalize', 'mean': [123.675, 116.28, 103.53], 'std': [58.395, 57.12, 57.375], 'to_rgb': True},
+    {'type': 'ImageToTensor', 'keys': ['img']},
+    {'type': 'Collect', 'keys': ['img']}
+]}
+],
+'data': {
+'samples_per_gpu': 1,
+'workers_per_gpu': 4,
+'train': {
+    'type': 'ADE20KDataset',
+    'data_root': '/datasets01/ADE20kChallengeData2016/011719',
+    'img_dir': 'images/training',
+    'ann_dir': 'annotations/training',
+    'pipeline': [
+        {'type': 'LoadImageFromFile'},
+        {'type': 'LoadAnnotations', 'reduce_zero_label': True},
+        {'type': 'Resize', 'img_scale': (1536, 384), 'ratio_range': (0.5, 2.0)},  # Adjusted img_scale
+        {'type': 'RandomCrop', 'crop_size': (384, 384), 'cat_max_ratio': 0.75},
+        {'type': 'RandomFlip', 'prob': 0.5},
+        {'type': 'PhotoMetricDistortion'},
+        {'type': 'Normalize', 'mean': [123.675, 116.28, 103.53], 'std': [58.395, 57.12, 57.375], 'to_rgb': True},
+        {'type': 'Pad', 'size': (384, 384), 'pad_val': 0, 'seg_pad_val': 255},
+        {'type': 'ToMask'},
+        {'type': 'DefaultFormatBundle'},
+        {'type': 'Collect', 'keys': ['img', 'gt_semantic_seg', 'gt_masks', 'gt_labels']}
+    ]
+},
+'val': {
+    'type': 'ADE20KDataset',
+    'data_root': '/datasets01/ADE20kChallengeData2016/011719',
+    'img_dir': 'images/validation',
+    'ann_dir': 'annotations/validation',
+    'pipeline': [
+        {'type': 'LoadImageFromFile'},
+        {'type': 'MultiScaleFlipAug', 'img_scale': (1536, 384), 'flip': False, 'transforms': [
+            {'type': 'Resize', 'keep_ratio': True},
+            {'type': 'ResizeToMultiple', 'size_divisor': 32},
+            {'type': 'RandomFlip'},
+            {'type': 'Normalize', 'mean': [123.675, 116.28, 103.53], 'std': [58.395, 57.12, 57.375], 'to_rgb': True},
+            {'type': 'ImageToTensor', 'keys': ['img']},
+            {'type': 'Collect', 'keys': ['img']}
+        ]}
+    ]
+},
+'test': {
+    'type': 'ADE20KDataset',
+    'data_root': '/datasets01/ADE20kChallengeData2016/011719',
+    'img_dir': 'images/validation',
+    'ann_dir': 'annotations/validation',
+    'pipeline': [
+        {'type': 'LoadImageFromFile'},
+        {'type': 'MultiScaleFlipAug', 'img_scale': (1536, 384), 'flip': False, 'transforms': [
+            {'type': 'Resize', 'keep_ratio': True},
+            {'type': 'ResizeToMultiple', 'size_divisor': 32},
+            {'type': 'RandomFlip'},
+            {'type': 'Normalize', 'mean': [123.675, 116.28, 103.53], 'std': [58.395, 57.12, 57.375], 'to_rgb': True},
+            {'type': 'ImageToTensor', 'keys': ['img']},
+            {'type': 'Collect', 'keys': ['img']}
+        ]}
+    ]
+}
+},
+'log_config': {'interval': 50, 'hooks': [{'type': 'TextLoggerHook', 'by_epoch': False}]},
+'dist_params': {'backend': 'nccl'},
+'log_level': 'INFO',
+'load_from': None,
+'resume_from': None,
+'workflow': [('train', 1)],
+'cudnn_benchmark': True,
+'optimizer': {
+'type': 'AdamW',
+'lr': 1.8e-05,
+'betas': (0.9, 0.999),
+'weight_decay': 0.0032,
+'constructor': 'LayerDecayOptimizerConstructor',
+'paramwise_cfg': {'num_layers': 40, 'layer_decay_rate': 1.0}
+},
+'optimizer_config': {},
+'lr_config': {
+'policy': 'poly',
+'warmup': 'linear',
+'warmup_iters': 1500,
+'warmup_ratio': 1e-06,
+'power': 1.0,
+'min_lr': 0.0,
+'by_epoch': False
+},
+'runner': {'type': 'IterBasedRunner', 'max_iters': 40000},
+'checkpoint_config': {'by_epoch': False, 'interval': 1000, 'max_keep_ckpts': 1},
+'evaluation': {'interval': 4000, 'metric': 'mIoU', 'pre_eval': True, 'save_best': 'mIoU'},
+'res': 384,  # Adjusted resolution
+'pretrained': 'https://dl.fbaipublicfiles.com/dinov2/dinov2_vitg14/dinov2_vitg14_ade20k_m2f.pth',
+'fp16': False,
+'work_dir': './dinov2_mask2former_workspace',
+'gpu_ids': [0],
+'auto_resume': True,
+'seed': 42,
+'device': 'cuda'
+
