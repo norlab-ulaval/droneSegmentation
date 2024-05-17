@@ -1,0 +1,9 @@
+/.idea/
+/.venv/
+*.pth
+*.png
+/output/
+/outputs/
+/outputs_1/
+/outputs_with_dataAugmentation/
+/lowAltitude_segmentation/output/
