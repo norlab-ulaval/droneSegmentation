@@ -33,7 +33,7 @@ conda install pytorch==1.9.0 torchvision==0.10.0 cudatoolkit=11.1 -c pytorch -c 
 pip install -U opencv-python
 
 # under your working directory
-git clone git@github.com:facebookresearch/detectron2.git
+git clone https://github.com/facebookresearch/detectron2
 cd detectron2
 pip install -e .
 pip install git+https://github.com/cocodataset/panopticapi.git
