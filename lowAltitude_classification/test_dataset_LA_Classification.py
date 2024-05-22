@@ -24,7 +24,7 @@ model = model.to(device)
 num_classes = 25
 model.classifier = nn.Linear(2048, num_classes).to(device)
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
 model.eval()
 
 transform = transforms.Compose([
