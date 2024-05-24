@@ -2,11 +2,12 @@ import subprocess
 import pexpect
 import time
 
-vpn_servers = range(1445, 1489)
+vpn_servers = range(1450, 1490)
+
 
 def run_program():
     try:
-        subprocess.run(['python3.10', 'main.py'], check=True)
+        subprocess.run(['python3.10', 'iNaturalist/iNaturalist_download_csv.py'], check=True)
     except subprocess.CalledProcessError:
         return False
     return True

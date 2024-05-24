@@ -35,8 +35,8 @@ def download_images(url, im_name, folder):
     time.sleep(wait_time)
 
 # Occurence
-file_root = "/home/kamyar/Documents/iNaturalist_data/Common Haircap Moss/"
-file_name = "observations-415262.csv"
+file_root = "/home/kamyar/Documents/iNaturalist_data/Red Maple/"
+file_name = "observations-440071.csv"
 file_path = file_root + file_name
 df = pd.read_csv(file_path, delimiter=',')
 # Print the header (column names) of the DataFrame
@@ -44,24 +44,27 @@ print('Header:', df.columns.tolist())
 # Print the number of rows in the DataFrame
 print(f'Number of rows: {len(df)}')
 
-image_folder = "/home/kamyar/Documents/iNaturalist_data/Common Haircap Moss/images/"
+image_folder = "/home/kamyar/Documents/iNaturalist_data/Red Maple/images/"
 
-
-#for the first iteration, before disconnecting, comment these lines
-####################################################################################################################
+#
+# #for the first iteration, before disconnecting, comment these lines
+# ####################################################################################################################
 img_downloaded = [name for name in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, name))]
-print(f'Number of images already downloaded: {len(img_downloaded)}')
+if len(img_downloaded) == 0:
+    last_obs_index = 0
+else:
+    print(f'Number of images already downloaded: {len(img_downloaded)}')
 
-def get_prefix(string):
-    return int(string.split('_')[0])
+    def get_prefix(string):
+        return int(string.split('_')[0])
 
-sorted_list = sorted(img_downloaded, key=get_prefix)
-last_obs_id = int(sorted_list[-1].split('_')[0])
-print(f'Last observation id: {last_obs_id}')
+    sorted_list = sorted(img_downloaded, key=get_prefix)
+    last_obs_id = int(sorted_list[-1].split('_')[0])
+    print(f'Last observation id: {last_obs_id}')
 
-last_obs_index = df[df['id'] == last_obs_id].index[0]
-print(f'Last observation index: {last_obs_index}')
-####################################################################################################################
+    last_obs_index = df[df['id'] == last_obs_id].index[0]
+    print(f'Last observation index: {last_obs_index}')
+# ####################################################################################################################
 
 
 urls = []
@@ -97,7 +100,7 @@ for i in tqdm(range(last_obs_index, len(df[:]))):
     num_total_images = len(urls)
     # Download in batch
     if num_total_images >= 14:
-        download_images(urls, im_name, '/home/kamyar/Documents/iNaturalist_data/Common Haircap Moss/images/')
+        download_images(urls, im_name, '/home/kamyar/Documents/iNaturalist_data/Red Maple/images/')
         # Reset
         urls = []
         im_name = []
