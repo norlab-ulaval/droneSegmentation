@@ -6,26 +6,27 @@ Bog Labrador Tea: 4
 Boulders: 5
 Canada Yew (Taxus canadensis): 6
 Common Haircap Moss: 7
-Feather Mosses: 8
-Ferns (Fougères): 9
-Fir: 10
-Fire Cherry (Cerisier de pensylvanie): 11
-Jack pine: 12
-Larch: 13
-Leatherleaf (Cassandre): 14
-Mountain Maple (Érable à épis): 15
-Paper birch: 16
-Pixie Cup Lichens (Cladonia): 17
-Red Maple: 18
-Red raspberry (Framboisier): 19
-Sedges (Carex): 20
-Serviceberries (amélanchier): 21
-Sheep Laurel (Kalmia): 22
-Sphagnum Mosses: 23
-Trembling aspen: 24
-Viburnums: 25
-Willowherbs (Épilobe): 26
-Willows: 27
-blueberry: 28
-wood: 29
-yellow birch: 30
+Dead_trees: 8
+Feather Mosses: 9
+Ferns (Fougères): 10
+Fir: 11
+Fire Cherry (Cerisier de pensylvanie): 12
+Jack pine: 13
+Larch: 14
+Leatherleaf (Cassandre): 15
+Mountain Maple (Érable à épis): 16
+Paper birch: 17
+Pixie Cup Lichens (Cladonia): 18
+Red Maple: 19
+Red raspberry (Framboisier): 20
+Sedges (Carex): 21
+Serviceberries (amélanchier): 22
+Sheep Laurel (Kalmia): 23
+Sphagnum Mosses: 24
+Trembling aspen: 25
+Viburnums: 26
+Willowherbs (Épilobe): 27
+Willows: 28
+blueberry: 29
+wood: 30
+yellow birch: 31

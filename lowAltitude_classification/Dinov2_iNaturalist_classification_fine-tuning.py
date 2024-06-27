@@ -53,7 +53,11 @@ batch_size = 16
 train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset), batch_size=batch_size, num_workers=2)
 from collections import defaultdict
 class_counts = defaultdict(int)
+c = 0
 for data in train_loader:
+    c += 1
+    print(c)
+    print(len(train_loader))
     images, labels = data
     for label in labels:
         class_counts[int(label)] += 1
