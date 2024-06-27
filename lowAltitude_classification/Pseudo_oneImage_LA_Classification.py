@@ -20,12 +20,12 @@ model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 25
+num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/bestModel_otherclasses/best_classification_weights.pth'))
 model.eval()
 
 transform = transforms.Compose([
@@ -33,11 +33,11 @@ transform = transforms.Compose([
     transforms.Normalize(mean=mean, std=std),
 ])
 
-image_path = '/home/kamyar/Documents/Dataset_lowAltitude_patchified/2023-07-04_09:04:27_5_Lac-Saint-Jean_4000x4000_DJI_FC7303_Ministry_patch_5.JPG'
+image_path = '/home/kamyar/Documents/Dataset_lowAltitude_patchified/2023-06-29_13:08:41_5_Lac-Saint-Jean_4000x4000_DJI_FC7303_Ministry_patch_4.JPG'
 image = Image.open(image_path)
 image_tensor = transform(image).to(device)
 
-patch_sizes = [128]
+patch_sizes = [196]
 overlaps = [0.85]
 
 for patch_size in patch_sizes:
@@ -83,7 +83,7 @@ for patch_size in patch_sizes:
 
         class_labels = {}
         class_labels[0] = 'background'
-        with open("label_to_id.txt", 'r') as file:
+        with open("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt", 'r') as file:
             for line in file:
                 label, idx = line.strip().split(": ")
                 class_labels[int(idx)+1] = label
@@ -114,7 +114,13 @@ for patch_size in patch_sizes:
             22: (128, 0, 128),  # Purple
             23: (0, 255, 255),  # Cyan
             24: (189, 252, 201),  # Mint
-            25: (124, 255, 78)  # Light green
+            25: (124, 255, 78),  # Light Green
+            26: (255, 99, 71),  # Tomato
+            27: (47, 79, 79),  # Dark Slate Gray
+            28: (255, 20, 147),  # Deep Pink
+            29: (100, 149, 237),  # Cornflower Blue
+            30: (184, 134, 11),  # Dark Goldenrod
+            31: (139, 69, 19)  # Saddle Brown
         }
 
         colors = list(colors_dict.values())

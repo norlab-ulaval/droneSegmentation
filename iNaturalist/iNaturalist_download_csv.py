@@ -35,8 +35,8 @@ def download_images(url, im_name, folder):
     time.sleep(wait_time)
 
 # Occurence
-file_root = "/home/kamyar/Documents/iNaturalist_data/Red Maple/"
-file_name = "observations-440071.csv"
+file_root = "/home/kamyar/Documents/iNaturalist_data + Other classes/blueberry/"
+file_name = "observations-451196.csv"
 file_path = file_root + file_name
 df = pd.read_csv(file_path, delimiter=',')
 # Print the header (column names) of the DataFrame
@@ -44,7 +44,7 @@ print('Header:', df.columns.tolist())
 # Print the number of rows in the DataFrame
 print(f'Number of rows: {len(df)}')
 
-image_folder = "/home/kamyar/Documents/iNaturalist_data/Red Maple/images/"
+image_folder = "/home/kamyar/Documents/iNaturalist_data + Other classes/blueberry/images/"
 
 #
 # #for the first iteration, before disconnecting, comment these lines
@@ -100,7 +100,7 @@ for i in tqdm(range(last_obs_index, len(df[:]))):
     num_total_images = len(urls)
     # Download in batch
     if num_total_images >= 14:
-        download_images(urls, im_name, '/home/kamyar/Documents/iNaturalist_data/Red Maple/images/')
+        download_images(urls, im_name, '/home/kamyar/Documents/iNaturalist_data + Other classes/blueberry/images/')
         # Reset
         urls = []
         im_name = []
