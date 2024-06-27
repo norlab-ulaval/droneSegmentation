@@ -31,7 +31,7 @@ def haversine(lat1_d, lat1_m, lat1_s, lat1_dir, lon1_d, lon1_m, lon1_s, lon1_dir
     distance = R * c
     return distance
 
-def extract_metadata(image_path, attributes, reference_locations):
+def extract_metadata(image_path, attributes):
     exif_dict = piexif.load(image_path)
 
     if 'GPS' in exif_dict.keys():
@@ -48,17 +48,17 @@ def extract_metadata(image_path, attributes, reference_locations):
 
             # print(lat, lon)
 
-            min_distance = float('inf')
-            closest_location_label = None
-            for ref_lat, ref_lon, label in reference_locations:
-                distance = haversine(lat[0], lat[1], lat[2], lat_dir, lon[0], lon[1], lon[2], lon_dir,
-                                                ref_lat[0], ref_lat[1], ref_lat[2], ref_lat[3], ref_lon[0], ref_lon[1], ref_lon[2], ref_lon[3])
-                # print("Distance:", distance, "km")
-                if distance < min_distance:
-                    min_distance = distance
-                    closest_location_label = label
-
-            attributes['Location'] = closest_location_label
+            # min_distance = float('inf')
+            # closest_location_label = None
+            # for ref_lat, ref_lon, label in reference_locations:
+            #     distance = haversine(lat[0], lat[1], lat[2], lat_dir, lon[0], lon[1], lon[2], lon_dir,
+            #                                     ref_lat[0], ref_lat[1], ref_lat[2], ref_lat[3], ref_lon[0], ref_lon[1], ref_lon[2], ref_lon[3])
+            #     # print("Distance:", distance, "km")
+            #     if distance < min_distance:
+            #         min_distance = distance
+            #         closest_location_label = label
+            #
+            # attributes['Location'] = closest_location_label
             # print("Closest reference location:", closest_location_label)
 
 
@@ -134,7 +134,7 @@ def get_relative_altitude(file_path, attributes):
     #
     # return None
 
-def process_images(root_dir, temp_dir, attributes, reference_locations):
+def process_images(root_dir, temp_dir, attributes):
     for root, dirs, files in os.walk(root_dir):
         for file in files:
             if file.endswith(('.jpg', '.jpeg', '.png', '.JPG')):
@@ -147,11 +147,11 @@ def process_images(root_dir, temp_dir, attributes, reference_locations):
                     continue
 
                 print(image_path)
-                extract_metadata(image_path, attributes, reference_locations)
+                extract_metadata(image_path, attributes)
                 get_relative_altitude(image_path, attributes)
                 # get_GSD(image_path, attributes)
                 # exit()
-                attributes['Reference'] = 'Ministry'
+                # attributes['Reference'] = 'Ministry'
                 index = '_'.join([f"{value}".replace(' ', '_') for key, value in attributes.items()])
                 print(index)
 
@@ -164,17 +164,13 @@ def process_images(root_dir, temp_dir, attributes, reference_locations):
                 shutil.copyfile(image_path, new_path)
 
         for dir in dirs:
-            process_images(os.path.join(root, dir), temp_dir, attributes, reference_locations)
+            process_images(os.path.join(root, dir), temp_dir, attributes)
 
 
-root_directory = '/home/kamyar/Documents/Drone'
-out_directory = '/home/kamyar/Documents/Dataset_indexed'
+root_directory = '/home/kamyar/Documents/Dataset_LowAltitude/IleAuxCoudres_June11'
+out_directory = '/home/kamyar/Documents/Dataset_LowAltitude/IleAuxCoudres_June11_indexed'
 
-attributes = {'Date Original': None, 'Time': None, 'Relative Altitude': None, 'Location': None, 'Image Size': None, 'Make': None, 'Camera Model': None, 'Reference': None}
+attributes = {'Date Original': None, 'Time': None, 'Relative Altitude': None, 'Location': None, 'Image Size': None, 'Make': None, 'Camera Model': None}
 
-reference_locations = [
-    ((48, 47, 39.1, 'N'), (71, 59, 30.9, 'W'), "Lac-Saint-Jean"),
-    ((49, 52, 14.0, 'N'), (70, 53, 18.1, 'W'), "Lac-Guy"),
-]
-
-process_images(root_directory, out_directory, attributes, reference_locations)
+attributes['Location'] = 'IleAuxCoudres'
+process_images(root_directory, out_directory, attributes)
