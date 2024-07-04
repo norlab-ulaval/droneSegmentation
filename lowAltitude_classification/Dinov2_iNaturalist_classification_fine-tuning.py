@@ -3,8 +3,11 @@ Fine-tuning Dinov2 with classification head on iNaturalist dataset
 """
 
 import torch
+import torch.nn as nn
+import torch.optim as optim
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
+from torch.optim.lr_scheduler import StepLR
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from torchvision.transforms import Compose, RandomResizedCrop, RandomHorizontalFlip, ColorJitter, ToTensor, Normalize, CenterCrop
 from torchsampler import ImbalancedDatasetSampler
@@ -40,7 +43,7 @@ train_transform = Compose([
     Normalize(mean=mean, std=std),
 ])
 test_transform = Compose([
-    CenterCrop(size=(256)),
+    CenterCrop(size=(256, 256)),
     ToTensor(),
     Normalize(mean=mean, std=std),
 ])
@@ -50,20 +53,13 @@ valid_dataset.transform = test_transform
 test_dataset.transform = test_transform
 
 batch_size = 16
-train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset), batch_size=batch_size, num_workers=2)
-from collections import defaultdict
-class_counts = defaultdict(int)
-c = 0
-for data in train_loader:
-    c += 1
-    print(c)
-    print(len(train_loader))
-    images, labels = data
-    for label in labels:
-        class_counts[int(label)] += 1
-for class_label, count in class_counts.items():
-    print(f"Class {class_label}: {count} samples")
-exit()
+train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset, num_samples=200000), batch_size=batch_size, num_workers=2)
+# class_counts = {i: 0 for i in range(len(train_dataset.classes))}
+# for _, labels in train_loader:
+#     for label in labels:
+#         class_counts[label.item()] += 1
+# print(class_counts)
+# exit()
 valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
 
@@ -146,7 +142,7 @@ for epoch in range(num_epochs):
         best_accuracy = accuracy_hist_valid[epoch]
         best_epoch = epoch
         best_model_weights = model.state_dict()
-        torch.save(best_model_weights, '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/bestModel_classification/best_classification_weights.pth')
+        torch.save(best_model_weights, '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/bestModel_otherclasses/best_classification_weights.pth')
         print(f"Best model weights saved at epoch {best_epoch + 1} with validation accuracy {best_accuracy:.4f}")
 
 
