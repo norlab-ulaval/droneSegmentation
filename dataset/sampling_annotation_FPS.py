@@ -1,7 +1,6 @@
 import os
 import numpy as np
 import random
-from PIL import Image
 import exifread
 import shutil
 
@@ -22,11 +21,6 @@ def get_coordinates_from_metadata(image_path):
 
             latitude = lat[0] + lat[1] / 60 + lat[2] / 3600
             longitude = lon[0] + lon[1] / 60 + lon[2] / 3600
-
-            # if lat_ref != 'N':
-            #     latitude = -latitude
-            # if lon_ref != 'E':
-            #     longitude = -longitude
 
             return latitude, longitude
 
@@ -69,20 +63,40 @@ def save_images(image_paths, dest_dir):
     for image_path in image_paths:
         shutil.copy(image_path, dest_dir)
 
-image_dir = '/home/kamyar/Documents/Dataset_LowAltitude/ZecBatiscan_June5_indexed'
-dest_dir = '/home/kamyar/Documents/Dataset_LowAltitude/ZecBatiscan_June5_indexed_annotation'
-n_samples = 20
+def get_existing_images(dest_dir):
+    existing_images = set()
+    for root, _, files in os.walk(dest_dir):
+        for file in files:
+            if file.lower().endswith(('jpg', 'jpeg', 'png')):
+                existing_images.add(file)
+    return existing_images
 
+image_dir = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed'
+dest_dir_1 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation'
+dest_dir_2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation_2'
+n_samples = 120
+
+existing_images = get_existing_images(dest_dir_1)
 coords, image_paths = read_image_coordinates(image_dir)
 
-# for idx, coord in enumerate(coords):
-#     print(f"Image: {image_paths[idx]}, Coordinates: {coord}")
+filtered_coords = []
+filtered_image_paths = []
 
-sampled_indices = farthest_point_sampling(coords, n_samples)
-selected_images = [image_paths[idx] for idx in sampled_indices]
-selected_coords = [coords[idx] for idx in sampled_indices]
+for coord, image_path in zip(coords, image_paths):
+    if os.path.basename(image_path) not in existing_images:
+        filtered_coords.append(coord)
+        filtered_image_paths.append(image_path)
 
-save_images(selected_images, dest_dir)
+filtered_coords = np.array(filtered_coords)
 
-for idx, coord in zip(sampled_indices, selected_coords):
-    print(f"Image: {image_paths[idx]}, Coordinates: {coord}")
+if len(filtered_coords) < n_samples:
+    print(f"Not enough images to sample {n_samples} images. Available images: {len(filtered_coords)}")
+else:
+    sampled_indices = farthest_point_sampling(filtered_coords, n_samples)
+    selected_images = [filtered_image_paths[idx] for idx in sampled_indices]
+    selected_coords = [filtered_coords[idx] for idx in sampled_indices]
+
+    save_images(selected_images, dest_dir_2)
+
+    for idx, coord in zip(sampled_indices, selected_coords):
+        print(f"Image: {filtered_image_paths[idx]}, Coordinates: {coord}")

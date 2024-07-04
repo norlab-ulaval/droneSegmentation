@@ -21,10 +21,10 @@ model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 25
+num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/bestModel_otherclasses/best_classification_weights.pth'))
 model.eval()
 
 transform = transforms.Compose([
@@ -32,13 +32,13 @@ transform = transforms.Compose([
     transforms.Normalize(mean=processor.image_mean, std=processor.image_std),
 ])
 
-input_folder = '/home/kamyar/Documents/Dataset_lowAltitude_patchified'
-output_folder = '/home/kamyar/Documents/Dataset_lowAltitude_patchified_labels_parallel'
+input_folder = '/home/kamyar/Documents/Test_data'
+output_folder = '/home/kamyar/Documents/Test_data_pred'
 
 class CustomDataset(Dataset):
     def __init__(self, folder_path, transform=None, patch_sizes=[256], overlaps=[0.8]):
         self.folder_path = folder_path
-        self.image_files = [f for f in os.listdir(folder_path) if f.endswith('.JPG')]
+        self.image_files = [f for f in os.listdir(folder_path) if f.endswith('.jpg')]
         self.transform = transform
         self.patch_sizes = patch_sizes
         self.overlaps = overlaps
@@ -72,7 +72,7 @@ class CustomDataset(Dataset):
 
         return patches, positions, (width, height), image_path
 
-patch_sizes = [196]
+patch_sizes = [256]
 overlaps = [0.85]
 
 dataset = CustomDataset(input_folder, transform=transform, patch_sizes=patch_sizes, overlaps=overlaps)
@@ -86,9 +86,8 @@ def process_batch(patches):
 
 
 batch_size = 512
-image_counter = 1
+image_counter = 0
 for batch_patches, batch_positions, (width, height), image_path in dataloader:
-    image_counter += 1
     pixel_predictions = {}
     num_patches = len(batch_patches)
 
@@ -135,7 +134,7 @@ for batch_patches, batch_positions, (width, height), image_path in dataloader:
 
     for pixel, class_value in final_predictions_vote.items():
         # print(pixel[1].item(), pixel[0].item(), class_value)
-        segmentation_map[pixel[1], pixel[0]] = class_value + 1
+        segmentation_map[pixel[1], pixel[0]] = class_value
 
     # plt.imshow(segmentation_map)
     # plt.axis('off')
@@ -148,6 +147,7 @@ for batch_patches, batch_positions, (width, height), image_path in dataloader:
 
     import cv2
     cv2.imwrite(output_path, segmentation_map)
+    image_counter += 1
     print(image_counter)
     # img = Image.open(output_path).convert('L')
     # print(np.unique(img))

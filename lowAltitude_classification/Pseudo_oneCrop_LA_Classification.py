@@ -27,7 +27,7 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-image = Image.open('/home/kamyar/Desktop/photo_2024-05-23_10-23-34.jpg')
+image = Image.open('/home/kamyar/Desktop/2024-06-05_14:11:02_5_ZecBatiscan_5280x5280_DJI_M3E.JPG')
 image = transform(image).to(device)
 image = image.unsqueeze(0)
 

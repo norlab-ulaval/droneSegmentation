@@ -33,11 +33,11 @@ transform = transforms.Compose([
     transforms.Normalize(mean=mean, std=std),
 ])
 
-image_path = '/home/kamyar/Documents/Dataset_lowAltitude_patchified/2023-06-29_13:08:41_5_Lac-Saint-Jean_4000x4000_DJI_FC7303_Ministry_patch_4.JPG'
+image_path = '/home/kamyar/Desktop/2024-06-05_14:00:27_5_ZecBatiscan_5280x5280_DJI_M3E.JPG'
 image = Image.open(image_path)
 image_tensor = transform(image).to(device)
 
-patch_sizes = [196]
+patch_sizes = [256]
 overlaps = [0.85]
 
 for patch_size in patch_sizes:
@@ -75,18 +75,17 @@ for patch_size in patch_sizes:
         segmentation_map = np.zeros((width, height), dtype=np.uint8)
 
         for pixel, class_value in final_predictions.items():
-            segmentation_map[pixel[1], pixel[0]] = class_value + 1
+            segmentation_map[pixel[1], pixel[0]] = class_value
 
         #     np.save(segmap_path, segmentation_map)
         # else:
         #     segmentation_map = np.load(segmap_path)
 
         class_labels = {}
-        class_labels[0] = 'background'
         with open("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt", 'r') as file:
             for line in file:
                 label, idx = line.strip().split(": ")
-                class_labels[int(idx)+1] = label
+                class_labels[int(idx)] = label
 
         colors_dict = {
             0: (255, 0, 0),  # Red
@@ -131,7 +130,7 @@ for patch_size in patch_sizes:
         ax[0].text(0.5, 1.05, f'Patch Size: {patch_size}, Overlap: {overlap}', transform=ax[0].transAxes,
                    horizontalalignment='center', verticalalignment='bottom', fontsize=12)
 
-        segmentation_image = ax[0].imshow(segmentation_map, cmap=cmap, vmin=0, vmax=num_classes+1)
+        segmentation_image = ax[0].imshow(segmentation_map, cmap=cmap, vmin=0, vmax=num_classes)
 
         # from matplotlib.patches import Patch
         # legend_labels = [Patch(facecolor=colors_dict[i], edgecolor=colors_dict[i], label=label)
