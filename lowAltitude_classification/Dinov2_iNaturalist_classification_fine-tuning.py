@@ -1,7 +1,3 @@
-"""
-Fine-tuning Dinov2 with classification head on iNaturalist dataset
-"""
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -11,6 +7,8 @@ from torch.optim.lr_scheduler import StepLR
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from torchvision.transforms import Compose, RandomResizedCrop, RandomHorizontalFlip, ColorJitter, ToTensor, Normalize, CenterCrop
 from torchsampler import ImbalancedDatasetSampler
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -36,7 +34,7 @@ mean = processor.image_mean
 std = processor.image_std
 interpolation = processor.resample
 train_transform = Compose([
-    RandomResizedCrop(size=(256, 256), scale=(0.08, 1.0), ratio=(0.75, 1.3333), interpolation=interpolation),
+    RandomResizedCrop(size=(256, 256), scale=(0.4, 1.0), ratio=(0.75, 1.3333), interpolation=interpolation),
     RandomHorizontalFlip(p=0.5),
     ColorJitter(brightness=(0.6, 1.4), contrast=(0.6, 1.4), saturation=(0.6, 1.4)),
     ToTensor(),
@@ -53,22 +51,15 @@ valid_dataset.transform = test_transform
 test_dataset.transform = test_transform
 
 batch_size = 16
-train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset, num_samples=200000), batch_size=batch_size, num_workers=2)
-# class_counts = {i: 0 for i in range(len(train_dataset.classes))}
-# for _, labels in train_loader:
-#     for label in labels:
-#         class_counts[label.item()] += 1
-# print(class_counts)
-# exit()
-valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
-test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
-
+train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset, num_samples=400000), batch_size=batch_size, num_workers=16)
+valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False, num_workers=16)
+test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=16)
 
 model = model.to(device)
 num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
 torch.manual_seed(1)
-num_epochs = 10
+num_epochs = 7
 loss_fn = nn.CrossEntropyLoss()
 lr = 0.00001
 weight_decay = 1e-3
@@ -93,12 +84,6 @@ for epoch in range(num_epochs):
 
     for x_batch, y_batch in train_loader:
         x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-        # print(x_batch[0].size())
-        # image_array = x_batch[0].cpu().permute(1, 2, 0).numpy()
-        # plt.imshow(image_array)
-        # plt.axis('off')
-        # plt.show()
-        # exit()
         optimizer.zero_grad()
         output = model(x_batch)
         logits = output.logits
@@ -142,30 +127,40 @@ for epoch in range(num_epochs):
         best_accuracy = accuracy_hist_valid[epoch]
         best_epoch = epoch
         best_model_weights = model.state_dict()
-        torch.save(best_model_weights, '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/bestModel_otherclasses/best_classification_weights.pth')
+        torch.save(best_model_weights, '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth')
         print(f"Best model weights saved at epoch {best_epoch + 1} with validation accuracy {best_accuracy:.4f}")
-
-
 
 if best_model_weights is not None:
     model.load_state_dict(best_model_weights)
 
+# Collect predictions and true labels for the test set
 model.eval()
+all_preds = []
+all_labels = []
 with torch.no_grad():
     correct_predictions_test = 0
     total_samples_test = 0
 
     for x_batch, y_batch in test_loader:
         x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-        # image_array = x_batch[0].cpu().permute(1, 2, 0).numpy()
-        # plt.imshow(image_array)
-        # plt.axis('off')
-        # plt.show()
-        # exit()
         output = model(x_batch)
         logits = output.logits
-        correct_predictions_test += (torch.argmax(logits, dim=1) == y_batch).sum().item()
+        preds = torch.argmax(logits, dim=1)
+
+        all_preds.extend(preds.cpu().numpy())
+        all_labels.extend(y_batch.cpu().numpy())
+
+        correct_predictions_test += (preds == y_batch).sum().item()
         total_samples_test += y_batch.size(0)
 
     test_accuracy = correct_predictions_test / total_samples_test
     print(f'Test accuracy: {test_accuracy:.4f}')
+
+
+# cm = confusion_matrix(all_labels, all_preds)
+# disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=list(label_to_id.keys()))
+#
+# # Plot confusion matrix
+# plt.figure(figsize=(12, 12))
+# disp.plot(cmap=plt.cm.Blues, xticks_rotation='vertical')
+# plt.show()

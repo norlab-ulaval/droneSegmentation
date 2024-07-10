@@ -58,33 +58,42 @@ import os
 # rename_images(folder_path)
 
 
-import os
-import shutil
+# import os
+# import shutil
+#
+#
+# def move_images_to_parent_folder(parent_folder):
+#     # List all subdirectories in the parent folder
+#     subfolders = [f.path for f in os.scandir(parent_folder) if f.is_dir()]
+#
+#     # Iterate over each subfolder
+#     for subfolder in subfolders:
+#         # List all files in the subfolder
+#         for file_name in os.listdir(subfolder):
+#             file_path = os.path.join(subfolder, file_name)
+#             # Check if it is a file (and not a directory)
+#             if os.path.isfile(file_path):
+#                 # Construct the destination path in the parent folder
+#                 dest_path = os.path.join(parent_folder, file_name)
+#                 # Move the file to the parent folder
+#                 shutil.move(file_path, dest_path)
+#                 print(f"Moved {file_path} to {dest_path}")
+#
+#     # Remove empty subfolders
+#     for subfolder in subfolders:
+#         os.rmdir(subfolder)
+#         print(f"Removed empty subfolder {subfolder}")
+#
+#
+# # Example usage
+# parent_folder_path = '/home/kamyar/Documents/iNaturalist_data + Other classes/wood/images'
+# move_images_to_parent_folder(parent_folder_path)
 
 
-def move_images_to_parent_folder(parent_folder):
-    # List all subdirectories in the parent folder
-    subfolders = [f.path for f in os.scandir(parent_folder) if f.is_dir()]
-
-    # Iterate over each subfolder
-    for subfolder in subfolders:
-        # List all files in the subfolder
-        for file_name in os.listdir(subfolder):
-            file_path = os.path.join(subfolder, file_name)
-            # Check if it is a file (and not a directory)
-            if os.path.isfile(file_path):
-                # Construct the destination path in the parent folder
-                dest_path = os.path.join(parent_folder, file_name)
-                # Move the file to the parent folder
-                shutil.move(file_path, dest_path)
-                print(f"Moved {file_path} to {dest_path}")
-
-    # Remove empty subfolders
-    for subfolder in subfolders:
-        os.rmdir(subfolder)
-        print(f"Removed empty subfolder {subfolder}")
 
 
-# Example usage
-parent_folder_path = '/home/kamyar/Documents/iNaturalist_data + Other classes/wood/images'
-move_images_to_parent_folder(parent_folder_path)
+
+
+
+
+
