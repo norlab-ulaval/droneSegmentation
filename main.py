@@ -13,7 +13,7 @@
 
 
 #
-#
+
 # import os
 #
 # def remove_non_jpg_files(directory):
@@ -28,34 +28,34 @@
 #                     print(f"Error removing {file_path}: {e}")
 #
 # if __name__ == "__main__":
-#     directory = '/home/kamyar/Documents/ZecBatiscan_June5'
+#     directory = '/home/kamyar/Documents/ForetMontmorency_June28'
 #     remove_non_jpg_files(directory)
 
 
 import os
 
 
-# def rename_images(folder_path):
-#     for filename in os.listdir(folder_path):
-#         # Skip non-image files
-#         if not any(filename.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff']):
-#             continue
-#
-#         # Replace underscores with dashes and remove colons
-#         new_filename = filename.replace('_', '-').replace(':', '')
-#
-#         # Construct full file paths
-#         old_file = os.path.join(folder_path, filename)
-#         new_file = os.path.join(folder_path, new_filename)
-#
-#         # Rename the file
-#         os.rename(old_file, new_file)
-#         print(f'Renamed: {filename} -> {new_filename}')
-#
-#
-# # Example usage
-# folder_path = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation_patch_2'
-# rename_images(folder_path)
+def rename_images(folder_path):
+    for filename in os.listdir(folder_path):
+        # Skip non-image files
+        if not any(filename.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff']):
+            continue
+
+        # Replace underscores with dashes and remove colons
+        new_filename = filename.replace('_', '-').replace(':', '')
+
+        # Construct full file paths
+        old_file = os.path.join(folder_path, filename)
+        new_file = os.path.join(folder_path, new_filename)
+
+        # Rename the file
+        os.rename(old_file, new_file)
+        print(f'Renamed: {filename} -> {new_filename}')
+
+
+# Example usage
+folder_path = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation_patch'
+rename_images(folder_path)
 
 
 # import os

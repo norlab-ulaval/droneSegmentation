@@ -40,7 +40,7 @@ test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False, num_workers
 
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 30
+num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
 model.load_state_dict(torch.load('lowAltitude_classification/best_classification_weights.pth'))
 model.eval()
@@ -70,14 +70,21 @@ with torch.no_grad():
 all_preds = np.array(all_preds)
 all_labels = np.array(all_labels)
 
-cm = confusion_matrix(all_labels, all_preds)
-disp = ConfusionMatrixDisplay.from_predictions(all_preds, all_labels, display_labels=class_names, normalize='true', cmap="Blues", xticks_rotation='vertical')
-disp.ax_.set_xticks(rotation="vertical")
-plt.show()
+# Filter the confusion matrix for the specified classes
+specific_class_indices = [2, 5, 30]
+filtered_preds = []
+filtered_labels = []
 
-# disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
-# plt.xticks(rotation='vertical')
-# plt.xticks(range(len(class_names)), [label[:10] + '...' if len(label) > 10 else label for label in class_names])
-# disp.plot(cmap=plt.cm.Blues)
-# disp.plot(cmap=plt.cm.Blues, xticks_rotation='vertical')
-# plt.show()
+for pred, label in zip(all_preds, all_labels):
+    if label in specific_class_indices:
+        filtered_preds.append(pred)
+        filtered_labels.append(label)
+
+filtered_preds = np.array(filtered_preds)
+filtered_labels = np.array(filtered_labels)
+
+cm = confusion_matrix(filtered_labels, filtered_preds, labels=specific_class_indices, normalize='true')
+cm = np.round(cm, decimals=2)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=[class_names[i] for i in specific_class_indices])
+disp.plot(cmap=plt.cm.Blues, xticks_rotation='vertical')
+plt.show()
