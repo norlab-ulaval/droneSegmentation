@@ -71,32 +71,32 @@ def get_existing_images(dest_dir):
                 existing_images.add(file)
     return existing_images
 
-image_dir = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed'
-dest_dir_1 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation'
-dest_dir_2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation_2'
-n_samples = 120
+image_dir = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed'
+dest_dir_1 = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation'
+# dest_dir_2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation_2'
+n_samples = 50
 
-existing_images = get_existing_images(dest_dir_1)
+# existing_images = get_existing_images(dest_dir_1)
 coords, image_paths = read_image_coordinates(image_dir)
 
-filtered_coords = []
-filtered_image_paths = []
+# filtered_coords = []
+# filtered_image_paths = []
 
-for coord, image_path in zip(coords, image_paths):
-    if os.path.basename(image_path) not in existing_images:
-        filtered_coords.append(coord)
-        filtered_image_paths.append(image_path)
+# for coord, image_path in zip(coords, image_paths):
+#     if os.path.basename(image_path) not in existing_images:
+#         filtered_coords.append(coord)
+#         filtered_image_paths.append(image_path)
 
-filtered_coords = np.array(filtered_coords)
+# filtered_coords = np.array(filtered_coords)
 
-if len(filtered_coords) < n_samples:
-    print(f"Not enough images to sample {n_samples} images. Available images: {len(filtered_coords)}")
-else:
-    sampled_indices = farthest_point_sampling(filtered_coords, n_samples)
-    selected_images = [filtered_image_paths[idx] for idx in sampled_indices]
-    selected_coords = [filtered_coords[idx] for idx in sampled_indices]
+# if len(filtered_coords) < n_samples:
+#     print(f"Not enough images to sample {n_samples} images. Available images: {len(filtered_coords)}")
+# else:
+sampled_indices = farthest_point_sampling(coords, n_samples)
+selected_images = [image_paths[idx] for idx in sampled_indices]
+selected_coords = [coords[idx] for idx in sampled_indices]
 
-    save_images(selected_images, dest_dir_2)
+save_images(selected_images, dest_dir_1)
 
-    for idx, coord in zip(sampled_indices, selected_coords):
-        print(f"Image: {filtered_image_paths[idx]}, Coordinates: {coord}")
+for idx, coord in zip(sampled_indices, selected_coords):
+    print(f"Image: {image_paths[idx]}, Coordinates: {coord}")
