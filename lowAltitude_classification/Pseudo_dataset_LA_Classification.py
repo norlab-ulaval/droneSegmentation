@@ -8,6 +8,11 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 import numpy as np
 from collections import Counter
 import os
+from albumentations import (
+    Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
+)
+from albumentations.pytorch import ToTensorV2
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -20,18 +25,18 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('lowAltitude_classification/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
 model.eval()
 
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(mean=mean, std=std),
+transform = Compose([
+    Normalize(mean=mean, std=std),
+    ToTensorV2()
 ])
 
 image_folder = '/home/kamyar/Documents/Test_data'
 
-patch_sizes = [256]
-overlaps = [0.95]
+patch_sizes = [128]
+overlaps = [0.85]
 
 for patch_size in patch_sizes:
     for overlap in overlaps:
@@ -39,14 +44,16 @@ for patch_size in patch_sizes:
         step_size = int(patch_size * (1 - overlap))
         batch_size = 32
 
-        output_folder = f'/home/kamyar/Documents/Test_data_pred_with_background/patch_{patch_size}_overlap_{int(overlap*100)}'
+        output_folder = f'/home/kamyar/Documents/Test_data_pred/patch_{patch_size}_overlap_{int(overlap*100)}'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):
             if image_file.endswith(('.jpg', '.JPG', '.png')):
                 image_path = os.path.join(image_folder, image_file)
                 image = Image.open(image_path)
-                image_tensor = transform(image).to(device)
+                image_np = np.array(image)
+                transformed = transform(image=image_np)
+                image_tensor = transformed['image'].to(device)
 
                 image_tensor_padded = torch.nn.functional.pad(image_tensor, (padding, padding, padding, padding), 'constant', 0)
 

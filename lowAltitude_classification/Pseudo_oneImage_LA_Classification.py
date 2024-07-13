@@ -9,6 +9,11 @@ import numpy as np
 from collections import Counter
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
+from albumentations import (
+    Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
+)
+from albumentations.pytorch import ToTensorV2
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -16,7 +21,7 @@ model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 30
+num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
@@ -24,17 +29,19 @@ std = processor.image_std
 model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
 model.eval()
 
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(mean=mean, std=std),
+transform = Compose([
+    Normalize(mean=mean, std=std),
+    ToTensorV2()
 ])
 
-image_path = '/home/kamyar/Documents/test_2/2024-06-05-132224-5-ZecBatiscan-5280x5280-DJI-M3E-patch-11.jpg'
+image_path = '/home/kamyar/Documents/Test_data/2024-06-05-132224-5-ZecBatiscan-5280x5280-DJI-M3E-patch-11.jpg'
 image = Image.open(image_path)
-image_tensor = transform(image).to(device)
+image_np = np.array(image)
+transformed = transform(image=image_np)
+image_tensor = transformed['image'].to(device)
 
-patch_size = 256
-overlap = 0.95
+patch_size = 196
+overlap = 0.85
 padding = patch_size // 8
 image_tensor_padded = torch.nn.functional.pad(image_tensor, (padding, padding, padding, padding), 'constant', 0)
 

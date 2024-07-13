@@ -6,7 +6,10 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-from torchvision.transforms import Compose, ToTensor, Normalize, CenterCrop
+from albumentations import (
+    Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
+)
+from albumentations.pytorch import ToTensorV2
 
 def load_class_names(filepath):
     class_names = []
@@ -30,19 +33,24 @@ std = processor.image_std
 interpolation = processor.resample
 
 test_transform = Compose([
-    CenterCrop(size=(256, 256)),
-    ToTensor(),
+    SmallestMaxSize(max_size=256),
+    CenterCrop(height=256, width=256),
     Normalize(mean=mean, std=std),
+    ToTensorV2()
 ])
 
-test_dataset.transform = test_transform
+def albumentations_transform(dataset, transform):
+    dataset.transform = lambda img: transform(image=np.array(img))['image']
+    return dataset
+
+test_dataset = albumentations_transform(test_dataset, test_transform)
 test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False, num_workers=16)
 
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
 num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
-model.load_state_dict(torch.load('lowAltitude_classification/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
 model.eval()
 
 all_preds = []
@@ -71,7 +79,7 @@ all_preds = np.array(all_preds)
 all_labels = np.array(all_labels)
 
 # Filter the confusion matrix for the specified classes
-specific_class_indices = [2, 5, 30]
+specific_class_indices = list(range(32))
 filtered_preds = []
 filtered_labels = []
 

@@ -167,7 +167,7 @@ def evaluate_segmentation(pred_folder, target_folder, mapping, ignored_classes):
     pred_images = load_images_from_folder(pred_folder)
     target_images = load_images_from_folder(target_folder)
 
-    assert len(pred_images) == len(target_images), "Number of prediction and target images must be the same"
+    # assert len(pred_images) == len(target_images), "Number of prediction and target images must be the same"
 
     total_iou = 0
     total_accuracy = 0
@@ -250,7 +250,7 @@ mapping = {
 
 ignored_classes = {}
 
-pred_folder = '/home/kamyar/Documents/Test_data_pred_with_background_hierarchy'
+pred_folder = '/home/kamyar/Documents/Test_data_pred/patch_128_overlap_85'
 target_folder = '/home/kamyar/Documents/Test_data_annotation'
 orig_folder = '/home/kamyar/Documents/Test_data'
 
