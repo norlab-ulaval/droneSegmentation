@@ -2,7 +2,7 @@ import os
 import random
 import shutil
 
-def split_data(source, out_directory, split_ratio=(0.85, 0.1, 0.05), max_per_class=10000):
+def split_data(source, out_directory, split_ratio=(0.8, 0.1, 0.1), max_per_class=10000):
     if not os.path.exists(out_directory):
         os.makedirs(out_directory)
 

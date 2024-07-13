@@ -5,10 +5,15 @@ from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import StepLR
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-from torchvision.transforms import Compose, RandomResizedCrop, RandomHorizontalFlip, ColorJitter, ToTensor, Normalize, CenterCrop
+from albumentations import (
+    RandomResizedCrop, HorizontalFlip, ShiftScaleRotate, ColorJitter,
+    RandomBrightnessContrast, Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
+)
+from albumentations.pytorch import ToTensorV2
 from torchsampler import ImbalancedDatasetSampler
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
+import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -32,23 +37,32 @@ model = AutoModelForImageClassification.from_pretrained(model_name, ignore_misma
 
 mean = processor.image_mean
 std = processor.image_std
-interpolation = processor.resample
+
 train_transform = Compose([
-    RandomResizedCrop(size=(256, 256), scale=(0.4, 1.0), ratio=(0.75, 1.3333), interpolation=interpolation),
-    RandomHorizontalFlip(p=0.5),
-    ColorJitter(brightness=(0.6, 1.4), contrast=(0.6, 1.4), saturation=(0.6, 1.4)),
-    ToTensor(),
+    SmallestMaxSize(max_size=256),
+    RandomResizedCrop(height=256, width=256, scale=(0.4, 1.0), ratio=(0.75, 1.3333)),
+    HorizontalFlip(p=0.5),
+    ShiftScaleRotate(shift_limit=0.1, scale_limit=0.1, rotate_limit=15, p=0.5),
+    ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1, p=0.5),
+    RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=0.5),
     Normalize(mean=mean, std=std),
-])
-test_transform = Compose([
-    CenterCrop(size=(256, 256)),
-    ToTensor(),
-    Normalize(mean=mean, std=std),
+    ToTensorV2()
 ])
 
-train_dataset.transform = train_transform
-valid_dataset.transform = test_transform
-test_dataset.transform = test_transform
+test_transform = Compose([
+    SmallestMaxSize(max_size=256),
+    CenterCrop(height=256, width=256),
+    Normalize(mean=mean, std=std),
+    ToTensorV2()
+])
+
+def albumentations_transform(dataset, transform):
+    dataset.transform = lambda img: transform(image=np.array(img))['image']
+    return dataset
+
+train_dataset = albumentations_transform(train_dataset, train_transform)
+valid_dataset = albumentations_transform(valid_dataset, test_transform)
+test_dataset = albumentations_transform(test_dataset, test_transform)
 
 batch_size = 16
 train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset, num_samples=400000), batch_size=batch_size, num_workers=16)
@@ -155,12 +169,3 @@ with torch.no_grad():
 
     test_accuracy = correct_predictions_test / total_samples_test
     print(f'Test accuracy: {test_accuracy:.4f}')
-
-
-# cm = confusion_matrix(all_labels, all_preds)
-# disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=list(label_to_id.keys()))
-#
-# # Plot confusion matrix
-# plt.figure(figsize=(12, 12))
-# disp.plot(cmap=plt.cm.Blues, xticks_rotation='vertical')
-# plt.show()
