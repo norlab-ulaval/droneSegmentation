@@ -2,3 +2,5 @@ torch
 torchvision
 transformers
 torchsampler
+opencv-python
+albumentations
