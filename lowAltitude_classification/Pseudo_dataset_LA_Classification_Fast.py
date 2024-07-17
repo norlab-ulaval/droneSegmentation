@@ -86,7 +86,7 @@ for patch_size in patch_sizes:
                             for patch_idx, (x, y) in enumerate(coordinates):
                                 predicted_class = predicted_classes[patch_idx]
 
-                                pixel_coords = offsets + np.array([x, y])
+                                pixel_coords = offsets + np.array([x, y]) - padding
                                 valid_mask = ((pixel_coords[:, 0] < width)
                                               & (pixel_coords[:, 1] < height)
                                               & (pixel_coords[:, 0] > 0)
@@ -107,7 +107,7 @@ for patch_size in patch_sizes:
                     for patch_idx, (x, y) in enumerate(coordinates):
                         predicted_class = predicted_classes[patch_idx]
 
-                        pixel_coords = offsets + np.array([x, y])
+                        pixel_coords = offsets + np.array([x, y]) - padding
                         valid_mask = ((pixel_coords[:, 0] < width)
                                       & (pixel_coords[:, 1] < height)
                                       & (pixel_coords[:, 0] > 0)
