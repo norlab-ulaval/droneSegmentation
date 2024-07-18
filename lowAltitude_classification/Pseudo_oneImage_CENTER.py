@@ -14,19 +14,18 @@ from albumentations import (
 )
 from albumentations.pytorch import ToTensorV2
 
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 31
+num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat_without_background.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat.pth'))
 model.eval()
 
 transform = Compose([
@@ -61,10 +60,13 @@ for x in range(0, padded_width - patch_size + 1, step_size):
 
         predicted_class = torch.argmax(output.logits, dim=1).item()
 
-        for j in range(patch_size):
-            for i in range(patch_size):
-                pixel_x = x + i - padding
-                pixel_y = y + j - padding
+        center_x = x + patch_size // 2 - padding
+        center_y = y + patch_size // 2 - padding
+
+        for j in range(-40, 40):  # 60x60 window
+            for i in range(-30, 30):
+                pixel_x = center_x + i
+                pixel_y = center_y + j
 
                 if 0 <= pixel_x < width and 0 <= pixel_y < height:
                     if (pixel_x, pixel_y) not in pixel_predictions:

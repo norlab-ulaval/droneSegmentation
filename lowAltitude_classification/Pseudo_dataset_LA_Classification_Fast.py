@@ -23,7 +23,7 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('data/filtered_inat.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat.pth'))
 model.eval()
 
 transform = Compose([
@@ -31,12 +31,12 @@ transform = Compose([
     ToTensorV2()
 ])
 
-image_folder = 'data/'
+image_folder = '/home/kamyar/Documents/data_lowaltitude_patches'
 
-patch_sizes = [128]
+patch_sizes = [256]
 overlaps = [0.85]
 
-begin_time = time.perf_counter()
+
 
 for patch_size in patch_sizes:
     x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))
@@ -45,13 +45,14 @@ for patch_size in patch_sizes:
     for overlap in overlaps:
         padding = patch_size // 8
         step_size = int(patch_size * (1 - overlap))
-        batch_size = 32
+        batch_size = 1024
 
-        output_folder = f'data/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
+        output_folder = f'/home/kamyar/Documents/dataset_pred/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):
             if image_file.endswith(('.jpg', '.JPG', '.png')):
+                begin_time = time.perf_counter()
                 image_path = os.path.join(image_folder, image_file)
                 image = Image.open(image_path)
                 image_np = np.array(image)
@@ -120,6 +121,7 @@ for patch_size in patch_sizes:
                 output_filename = os.path.splitext(os.path.basename(image_path))[0] + '.png'
                 output_path = os.path.join(output_folder, output_filename)
                 cv2.imwrite(output_path, segmentation_map)
+                print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
 
 print("Processing complete.")
-print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
+

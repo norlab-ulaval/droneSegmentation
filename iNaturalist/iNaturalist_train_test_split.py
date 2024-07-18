@@ -39,8 +39,8 @@ def split_data(source, out_directory, split_ratio=(0.8, 0.1, 0.1), max_per_class
             for img in val_images:
                 shutil.copy(os.path.join(class_path, img), test_out)
 
-source_directory = "/home/kamyar/Documents/iNaturalist_data + Other classes"
-out_directory = "/home/kamyar/Documents/iNaturalist_split"
+source_directory = "/home/kamyar/Documents/filtered_inat"
+out_directory = "/home/kamyar/Documents/filtered_inat_split"
 
 split_data(source_directory, out_directory, max_per_class=20000)
 

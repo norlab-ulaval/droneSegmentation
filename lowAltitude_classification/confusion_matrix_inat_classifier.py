@@ -24,7 +24,7 @@ class_names = load_class_names('lowAltitude_classification/label_to_id.txt')
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
-test_dataset_path = "/home/kamyar/Documents/iNaturalist_split/test"
+test_dataset_path = "/home/kamyar/Documents/filtered_inat_split/test"
 test_dataset = ImageFolder(root=test_dataset_path)
 
 processor = AutoImageProcessor.from_pretrained(model_name)
@@ -50,7 +50,7 @@ model = AutoModelForImageClassification.from_pretrained(model_name, ignore_misma
 model = model.to(device)
 num_classes = 32
 model.classifier = nn.Linear(2048, num_classes).to(device)
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat.pth'))
 model.eval()
 
 all_preds = []

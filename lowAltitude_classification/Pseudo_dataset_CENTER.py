@@ -9,10 +9,10 @@ import numpy as np
 from collections import Counter
 import os
 from albumentations import (
-    Normalize, Compose
+    Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
 )
 from albumentations.pytorch import ToTensorV2
-import time
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -25,8 +25,7 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(
-    torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
 model.eval()
 
 transform = Compose([
@@ -35,29 +34,28 @@ transform = Compose([
 ])
 
 image_folder = '/home/kamyar/Documents/Test_data'
-patch_sizes = [256]
+
+patch_sizes = [128]
 overlaps = [0.85]
 
 for patch_size in patch_sizes:
     for overlap in overlaps:
         padding = patch_size // 8
         step_size = int(patch_size * (1 - overlap))
-        batch_size = 256
+        batch_size = 32
 
-        output_folder = f'/home/kamyar/Documents/Test_pred/patch_{patch_size}_overlap_{int(overlap * 100)}'
+        output_folder = f'/home/kamyar/Documents/Test_data_pred/patch_{patch_size}_overlap_{int(overlap*100)}'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):
             if image_file.endswith(('.jpg', '.JPG', '.png')):
-                # start_time = time.time()
                 image_path = os.path.join(image_folder, image_file)
                 image = Image.open(image_path)
                 image_np = np.array(image)
                 transformed = transform(image=image_np)
                 image_tensor = transformed['image'].to(device)
 
-                image_tensor_padded = torch.nn.functional.pad(image_tensor, (padding, padding, padding, padding),
-                                                              'constant', 0)
+                image_tensor_padded = torch.nn.functional.pad(image_tensor, (padding, padding, padding, padding), 'constant', 0)
 
                 width, height = image.size
                 padded_width = width + 2 * padding
@@ -82,14 +80,20 @@ for patch_size in patch_sizes:
                             predicted_classes = torch.argmax(outputs.logits, dim=1).cpu().numpy()
 
                             for patch_idx, (x, y) in enumerate(coordinates):
+                                predicted_class = predicted_classes[patch_idx]
+
                                 center_x = x + patch_size // 2
                                 center_y = y + patch_size // 2
 
-                                predicted_class = predicted_classes[patch_idx]
+                                for j in range(center_y - 40, center_y + 40):
+                                    for i in range(center_x - 40, center_x + 40):
+                                        pixel_x = i - padding
+                                        pixel_y = j - padding
 
-                                if (center_x, center_y) not in pixel_predictions:
-                                    pixel_predictions[(center_x, center_y)] = []
-                                pixel_predictions[(center_x, center_y)].append(predicted_class)
+                                        if 0 <= pixel_x < width and 0 <= pixel_y < height:
+                                            if (pixel_x, pixel_y) not in pixel_predictions:
+                                                pixel_predictions[(pixel_x, pixel_y)] = []
+                                            pixel_predictions[(pixel_x, pixel_y)].append(predicted_class)
 
                             patches = []
                             coordinates = []
@@ -103,44 +107,31 @@ for patch_size in patch_sizes:
                     predicted_classes = torch.argmax(outputs.logits, dim=1).cpu().numpy()
 
                     for patch_idx, (x, y) in enumerate(coordinates):
+                        predicted_class = predicted_classes[patch_idx]
+
                         center_x = x + patch_size // 2
                         center_y = y + patch_size // 2
 
-                        predicted_class = predicted_classes[patch_idx]
+                        for j in range(center_y - 2, center_y + 3):
+                            for i in range(center_x - 2, center_x + 3):
+                                pixel_x = i - padding
+                                pixel_y = j - padding
 
-                        if (center_x, center_y) not in pixel_predictions:
-                            pixel_predictions[(center_x, center_y)] = []
-                        pixel_predictions[(center_x, center_y)].append(predicted_class)
+                                if 0 <= pixel_x < width and 0 <= pixel_y < height:
+                                    if (pixel_x, pixel_y) not in pixel_predictions:
+                                        pixel_predictions[(pixel_x, pixel_y)] = []
+                                    pixel_predictions[(pixel_x, pixel_y)].append(predicted_class)
 
-                # end_time = time.time()
-                # print(end_time - start_time)
-                start_time = time.time()
-                segmentation_map = np.empty((height, width), dtype=object)
-                for i in range(height):
-                    for j in range(width):
-                        segmentation_map[i, j] = []
+                final_predictions = {}
+                for pixel, predictions in pixel_predictions.items():
+                    final_predictions[pixel] = Counter(predictions).most_common(1)[0][0]
 
-                for (center_x, center_y), class_value in pixel_predictions.items():
-                    x_start = max(center_x - patch_size // 2, 0)
-                    y_start = max(center_y - patch_size // 2, 0)
-                    x_end = min(center_x + patch_size // 2, width)
-                    y_end = min(center_y + patch_size // 2, height)
-
-                    for x in range(x_start, x_end):
-                        for y in range(y_start, y_end):
-                            segmentation_map[y, x].append(class_value[0])
-
-                for y in range(height):
-                    for x in range(width):
-                        if segmentation_map[y, x]:
-                            most_common_class = Counter(segmentation_map[y, x]).most_common(1)[0][0]
-                            segmentation_map[y, x] = most_common_class
+                segmentation_map = np.zeros((height, width), dtype=np.uint8)
+                for pixel, class_value in final_predictions.items():
+                    segmentation_map[pixel[1], pixel[0]] = class_value
 
                 output_filename = os.path.splitext(os.path.basename(image_path))[0] + '.png'
                 output_path = os.path.join(output_folder, output_filename)
                 cv2.imwrite(output_path, segmentation_map)
 
-                end_time = time.time()
-                print(end_time - start_time)
-                # exit()
 print("Processing complete.")

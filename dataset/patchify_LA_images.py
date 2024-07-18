@@ -35,6 +35,6 @@ def process_images(input_folder, output_folder):
             cv2.imwrite(output_filename, patch)
 
 
-input_folder = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation'
-output_folder = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation_patch'
+input_folder = '/home/kamyar/Documents/data_lowaltitude_merged'
+output_folder = '/home/kamyar/Documents/data_lowaltitude_patches'
 process_images(input_folder, output_folder)

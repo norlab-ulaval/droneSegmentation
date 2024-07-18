@@ -15,12 +15,12 @@ model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 32
+num_classes = 31
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat_without_background.pth'))
 model.eval()
 
 test_transform = Compose([
@@ -28,7 +28,7 @@ test_transform = Compose([
     ToTensorV2()
 ])
 
-image = Image.open('/home/kamyar/Desktop/2024-06-05_14:11:18_5_ZecBatiscan_5280x5280_DJI_M3E.JPG')
+image = Image.open('/home/kamyar/Desktop/2024-06-05-132500-19.374-ZecBatiscan-5280x5280-DJI-M3E-patch-6.jpg')
 image_np = np.array(image)
 transformed = test_transform(image=image_np)
 image_tensor = transformed['image'].to(device)

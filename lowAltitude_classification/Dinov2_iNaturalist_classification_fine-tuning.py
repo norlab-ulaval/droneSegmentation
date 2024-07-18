@@ -7,19 +7,17 @@ from torch.optim.lr_scheduler import StepLR
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from albumentations import (
     RandomResizedCrop, HorizontalFlip, ShiftScaleRotate, ColorJitter,
-    RandomBrightnessContrast, Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
+    RandomBrightnessContrast, Normalize, CenterCrop, Compose, Blur, SmallestMaxSize, RandomScale, Perspective
 )
 from albumentations.pytorch import ToTensorV2
 from torchsampler import ImbalancedDatasetSampler
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
 import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-train_dataset_path = "/home/kamyar/Documents/iNaturalist_split/train"
-valid_dataset_path = "/home/kamyar/Documents/iNaturalist_split/val"
-test_dataset_path = "/home/kamyar/Documents/iNaturalist_split/test"
+train_dataset_path = "/home/kamyar/Documents/filtered_inat_split/train"
+valid_dataset_path = "/home/kamyar/Documents/filtered_inat_split/val"
+test_dataset_path = "/home/kamyar/Documents/filtered_inat_split/test"
 
 train_dataset = ImageFolder(root=train_dataset_path)
 valid_dataset = ImageFolder(root=valid_dataset_path)
@@ -40,11 +38,14 @@ std = processor.image_std
 
 train_transform = Compose([
     SmallestMaxSize(max_size=256),
+    RandomScale(scale_limit=0.2, p=0.7),
     RandomResizedCrop(height=256, width=256, scale=(0.4, 1.0), ratio=(0.75, 1.3333)),
     HorizontalFlip(p=0.5),
-    ShiftScaleRotate(shift_limit=0.1, scale_limit=0.1, rotate_limit=15, p=0.5),
+    ShiftScaleRotate(shift_limit=0.1, scale_limit=0.1, rotate_limit=45, p=0.5),
+    Perspective(scale=(0.05, 0.1), p=0.7),
     ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1, p=0.5),
     RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=0.5),
+    Blur(blur_limit=7, p=0.5),
     Normalize(mean=mean, std=std),
     ToTensorV2()
 ])
@@ -65,7 +66,7 @@ valid_dataset = albumentations_transform(valid_dataset, test_transform)
 test_dataset = albumentations_transform(test_dataset, test_transform)
 
 batch_size = 16
-train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset, num_samples=400000), batch_size=batch_size, num_workers=16)
+train_loader = DataLoader(train_dataset, sampler=ImbalancedDatasetSampler(train_dataset, num_samples=200000), batch_size=batch_size, num_workers=16)
 valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False, num_workers=16)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=16)
 
@@ -141,13 +142,12 @@ for epoch in range(num_epochs):
         best_accuracy = accuracy_hist_valid[epoch]
         best_epoch = epoch
         best_model_weights = model.state_dict()
-        torch.save(best_model_weights, '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/best_classification_weights.pth')
+        torch.save(best_model_weights, '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat.pth')
         print(f"Best model weights saved at epoch {best_epoch + 1} with validation accuracy {best_accuracy:.4f}")
 
 if best_model_weights is not None:
     model.load_state_dict(best_model_weights)
 
-# Collect predictions and true labels for the test set
 model.eval()
 all_preds = []
 all_labels = []
