@@ -131,6 +131,8 @@ def compare_segmentation(pred_folders, target_folder, mapping, ignored_classes):
     plt.tight_layout()
     plt.show()
 
+identical_mapping = {i: i for i in range(32)}
+
 mapping = {
     0: 0,  # Alders
     1: 1,  # American Mountain-ash
@@ -164,21 +166,21 @@ mapping = {
     29: 31,  # yellow birch
 }
 
-ignored_classes = {2, 5}
+ignored_classes = {2}
 
 pred_folders = [
-    '/home/kamyar/Documents/Test_data_pred/patch_128_overlap_50',
-    '/home/kamyar/Documents/Test_data_pred/patch_128_overlap_75',
-    '/home/kamyar/Documents/Test_data_pred/patch_128_overlap_95',
-    '/home/kamyar/Documents/Test_data_pred/patch_196_overlap_50',
+    '/home/kamyar/Documents/Test_data_pred/patch_144_overlap_75',
+    '/home/kamyar/Documents/Test_data_pred/patch_144_overlap_85',
+    '/home/kamyar/Documents/Test_data_pred/patch_144_overlap_95',
     '/home/kamyar/Documents/Test_data_pred/patch_196_overlap_75',
+    '/home/kamyar/Documents/Test_data_pred/patch_196_overlap_85',
     '/home/kamyar/Documents/Test_data_pred/patch_196_overlap_95',
-    '/home/kamyar/Documents/Test_data_pred/patch_256_overlap_50',
     '/home/kamyar/Documents/Test_data_pred/patch_256_overlap_75',
+    '/home/kamyar/Documents/Test_data_pred/patch_256_overlap_85',
     '/home/kamyar/Documents/Test_data_pred/patch_256_overlap_95'
 ]
 
 target_folder = '/home/kamyar/Documents/Test_data_annotation'
 orig_folder = '/home/kamyar/Documents/Test_data'
 
-compare_segmentation(pred_folders, target_folder, mapping, ignored_classes)
+compare_segmentation(pred_folders, target_folder, identical_mapping, ignored_classes)

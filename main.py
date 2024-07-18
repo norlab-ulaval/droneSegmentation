@@ -32,30 +32,30 @@
 #     remove_non_jpg_files(directory)
 
 
-import os
-
-
-def rename_images(folder_path):
-    for filename in os.listdir(folder_path):
-        # Skip non-image files
-        if not any(filename.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff']):
-            continue
-
-        # Replace underscores with dashes and remove colons
-        new_filename = filename.replace('_', '-').replace(':', '')
-
-        # Construct full file paths
-        old_file = os.path.join(folder_path, filename)
-        new_file = os.path.join(folder_path, new_filename)
-
-        # Rename the file
-        os.rename(old_file, new_file)
-        print(f'Renamed: {filename} -> {new_filename}')
-
-
-# Example usage
-folder_path = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation_patch'
-rename_images(folder_path)
+# import os
+#
+#
+# def rename_images(folder_path):
+#     for filename in os.listdir(folder_path):
+#         # Skip non-image files
+#         if not any(filename.lower().endswith(ext) for ext in ['.png', '.jpg', '.jpeg', '.bmp', '.gif', '.tiff']):
+#             continue
+#
+#         # Replace underscores with dashes and remove colons
+#         new_filename = filename.replace('_', '-').replace(':', '')
+#
+#         # Construct full file paths
+#         old_file = os.path.join(folder_path, filename)
+#         new_file = os.path.join(folder_path, new_filename)
+#
+#         # Rename the file
+#         os.rename(old_file, new_file)
+#         print(f'Renamed: {filename} -> {new_filename}')
+#
+#
+# # Example usage
+# folder_path = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation_patch'
+# rename_images(folder_path)
 
 
 # import os
@@ -90,6 +90,28 @@ rename_images(folder_path)
 # move_images_to_parent_folder(parent_folder_path)
 
 
+
+
+import os
+
+folder1 = '/home/kamyar/Documents/data_lowaltitude_merged'
+folder2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecBatiscan_June5_indexed_annotation'
+
+# Get the list of files in each folder
+files_in_folder1 = set(os.listdir(folder1))
+files_in_folder2 = set(os.listdir(folder2))
+
+# Find the common files
+common_files = files_in_folder1.intersection(files_in_folder2)
+
+# Remove common files from the first folder
+for file in common_files:
+    file_path = os.path.join(folder1, file)
+    if os.path.isfile(file_path):
+        os.remove(file_path)
+        print(f'Removed: {file_path}')
+
+print('Exclusion complete.')
 
 
 
