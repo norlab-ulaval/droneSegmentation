@@ -162,6 +162,7 @@ tb_logs/
 scratches/
 
 # Dataset and output
+/data/
 *.pth
 *.png
 output/
@@ -169,3 +170,7 @@ outputs/
 outputs_1/
 outputs_with_dataAugmentation/
 lowAltitude_segmentation/output/
+
+# Profiling
+**/profile.html
+**/profile.json

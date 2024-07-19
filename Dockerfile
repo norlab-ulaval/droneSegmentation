@@ -12,7 +12,7 @@ RUN apt-get update \
 RUN python -m pip install --upgrade pip
 
 WORKDIR /app
-COPY requirements.txt /app/requirements.txt
+COPY lowAltitude_classification/requirements.txt /app/requirements.txt
 RUN python -m pip install -r /app/requirements.txt
 ENV PYTHONPATH=/app:$PYTHONPATH
 
