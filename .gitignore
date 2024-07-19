@@ -164,8 +164,10 @@ scratches/
 # Dataset and output
 *.pth
 *.png
+*.jpg
+*.JPG
 output/
 outputs/
-outputs_1/
+output_1/
 outputs_with_dataAugmentation/
 lowAltitude_segmentation/output/
