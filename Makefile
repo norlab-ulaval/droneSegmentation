@@ -1,4 +1,4 @@
-.PHONY: cls-build cls-run cls-train seg-build seg-run seg-train
+.PHONY: cls-build cls-run cls-train cls-server seg-build seg-run seg-train
 
 cls-build:
 	buildah build -t droneseg_cls --layers -f DockerfileClassif .
@@ -15,6 +15,16 @@ cls-run: cls-build
 
 cls-train:
 	python lowAltitude_classification/Dinov2_iNaturalist_classification_fine-tuning.py
+
+# Server
+cls-server: cls-build
+	podman run --gpus all --rm --ipc host -it \
+	-e CUDA_VISIBLE_DEVICES=$(CUDA_VISIBLE_DEVICES) \
+	-v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+	-v .:/app/ \
+	-v /dev/shm/:/dev/shm/ \
+	droneseg_cls bash
+
 
 seg-build:
 	buildah build -t droneseg_seg --layers -f DockerfileSeg .
