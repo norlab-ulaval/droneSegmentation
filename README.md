@@ -35,6 +35,7 @@ ln -s ~/Datasets/iNaturalist_split/ data/iNaturalist_split
 
 # iNat
 python lowAltitude_classification/Dinov2_iNaturalist_classification_fine-tuning.py
+
 # Mask2Former
 # Need to compile pixel_decoder in the container
 cd lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops/ && sh make.sh && cd -
