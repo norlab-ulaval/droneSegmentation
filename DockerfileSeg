@@ -12,6 +12,8 @@ RUN apt-get update \
 RUN python -m pip install --upgrade pip
 
 WORKDIR /app
+COPY lowAltitude_classification/requirements.txt /app/requirements.txt
+RUN python -m pip install -r /app/requirements.txt
 COPY lowAltitude_segmentation/Mask2Former/requirements.txt /app/requirements.txt
 RUN python -m pip install -r /app/requirements.txt
 
