@@ -12,15 +12,15 @@ RUN apt-get update \
 RUN python -m pip install --upgrade pip
 
 WORKDIR /app
-COPY lowAltitude_classification/requirements.txt /app/requirements.txt
+COPY lowAltitude_segmentation/Mask2Former/requirements.txt /app/requirements.txt
 RUN python -m pip install -r /app/requirements.txt
 
 RUN pip install torch torchvision
 RUN pip install opencv-python
-RUN git clone https://github.com/facebookresearch/detectron2
-RUN cd detectron2 && pip install -e .
 RUN pip install git+https://github.com/cocodataset/panopticapi.git
 RUN pip install git+https://github.com/mcordts/cityscapesScripts.git
-RUN cd mask2former/modeling/pixel_decoder/ops && sh make.sh
+# Maybe in container?
+RUN git clone https://github.com/facebookresearch/detectron2 /detectron2
+RUN cd /detectron2 && pip install -e .
 
 ENV PYTHONPATH=/app:$PYTHONPATH
