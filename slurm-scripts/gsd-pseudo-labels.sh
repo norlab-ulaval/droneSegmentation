@@ -10,14 +10,13 @@ buildah build -t droneseg_cls --layers -f DockerfileClassif .
 
 echo "Training on GPU $CUDA_VISIBLE_DEVICES"
 
-ls .
-
 container_id=$(
     podman --log-level=debug run --gpus all --rm --ipc host \
+        -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         -v .:/app/ \
         -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
         -v /dev/shm/:/dev/shm/ \
-	-d droneseg_cls bash -c "python lowAltitude_classification/server-pseudo-labels-la-classification.py"
+        -d droneseg_cls bash -c "python lowAltitude_classification/server-pseudo-labels-la-classification.py"
 )
 
 stop_container() {
@@ -28,20 +27,3 @@ stop_container() {
 trap stop_container EXIT
 echo "Container ID: $container_id"
 podman wait $container_id
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
