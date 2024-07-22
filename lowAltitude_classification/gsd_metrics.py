@@ -11,7 +11,7 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-from test_pseudo_masks import evaluate_segmentation, IDENTICAL_MAPPING
+from pseudo_masks_funcs import evaluate_segmentation, IDENTICAL_MAPPING
 
 # Paths
 data_path = Path("data") / "drone-seg"
@@ -166,6 +166,7 @@ def main():
                     image = np.array(Image.open(image_path))
 
                     scaled_image = cv2.resize(image, None, fx=scale, fy=scale)
+                    gsd_metrics.setdefault("SIZE", []).append(scaled_image.shape[0])
 
                     # Pseudo labels
                     pslab_start = time.perf_counter()
@@ -185,6 +186,7 @@ def main():
                     # pslab_filename = image_path.with_suffix(".png").name
                     # pseudolabel_path = pslabout_folder / pslab_filename
                     # cv2.imwrite(pseudolabel_path, segmentation_map)
+            print(gsd_metrics)
 
     print("[PL] Processing complete.")
 
