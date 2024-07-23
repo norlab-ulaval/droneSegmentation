@@ -11,17 +11,13 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-from pseudo_masks_funcs import evaluate_segmentation, IDENTICAL_MAPPING
+from gsd_utils import evaluate_segmentation, IDENTICAL_MAPPING
 
 # Paths
 data_path = Path("data") / "drone-seg"
 image_folder = data_path / "test-data"
-pslab_folder = data_path / "test-data-pseudolabels"
-gsd_folder = data_path / "gsds"
-
-# Create directories for GSDs
-for subdir in ("test-data", "test-pseudolabels", "test-annotations"):
-    (gsd_folder / subdir).mkdir(parents=True, exist_ok=True)
+annot_folder = data_path / "test-data-annotation"
+gsddat_folder = data_path / "gsds"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -148,15 +144,22 @@ def main():
         for overlap in overlaps:
             step_size = int(patch_size * (1 - overlap))
 
-            pslab_patch_overlap = (
-                f"fast_patch_{patch_size}_overlap_{int(overlap * 100)}"
-            )
-            pslabout_folder = pslab_folder / pslab_patch_overlap
-            pslabout_folder.mkdir(parents=True, exist_ok=True)
+            patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
+            gsd_po_dir = gsddat_folder / patch_overlap
 
             # For each GSD:
             for gsd_idx, scale in enumerate(SCALES):
                 gsd_metrics = {}
+
+                gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
+
+                # Create directories for GSD
+                gsd_plab_dir = gsd_dir / "pseudolabels"
+                gsd_plab_dir.mkdir(parents=True, exist_ok=True)
+                gsd_data_dir = gsd_dir / "data"
+                gsd_data_dir.mkdir(parents=True, exist_ok=True)
+                gsd_annot_dir = gsd_dir / "annotations"
+                gsd_annot_dir.mkdir(parents=True, exist_ok=True)
 
                 for image_path in image_folder.glob("*"):
                     if image_path.suffix not in (".jpg", ".JPG", ".png"):
@@ -181,14 +184,49 @@ def main():
 
                     gsd_metrics.setdefault("PSLAB_TIME", []).append(pslab_time)
 
-                    # Save pseudo label
+                    # Open annotation
+                    annot_paths = annot_folder.glob(f"{image_path.stem}*")
+                    annot_path = next(annot_paths)
+                    annot_img = np.array(Image.open(annot_path))
+                    scaled_annot = cv2.resize(annot_img, None, fx=scale, fy=scale)
 
-                    # pslab_filename = image_path.with_suffix(".png").name
-                    # pseudolabel_path = pslabout_folder / pslab_filename
-                    # cv2.imwrite(pseudolabel_path, segmentation_map)
-            print(gsd_metrics)
+                    # Save images
+                    out_fname = image_path.with_suffix(".png").name
+                    gsd_dat_path = gsd_data_dir / out_fname
+                    gsd_plab_path = gsd_plab_dir / out_fname
+                    gsd_annot_path = gsd_annot_dir / out_fname
+
+                    cv2.imwrite(gsd_dat_path, scaled_image)
+                    cv2.imwrite(gsd_plab_path, segmentation_map)
+                    cv2.imwrite(gsd_annot_path, scaled_annot)
 
     print("[PL] Processing complete.")
+
+    for patch_size in patch_sizes:
+        for overlap in overlaps:
+            patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
+            gsd_po_dir = gsddat_folder / patch_overlap
+
+            # For each GSD:
+            for gsd_idx, scale in enumerate(SCALES):
+                gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
+
+                gsd_plab_dir = gsd_dir / "pseudolabels"
+                gsd_annot_dir = gsd_dir / "annotations"
+
+                avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = (
+                    evaluate_segmentation(
+                        gsd_plab_dir,
+                        gsd_annot_dir,
+                        IDENTICAL_MAPPING,
+                        {},
+                    )
+                )
+                print(f"Average IoU: {avg_iou:.4f}")
+                print(f"Average Pixel Accuracy: {avg_accuracy:.4f}")
+                print(f"Average F1 Score: {avg_f1_score:.4f}")
+
+    print("[Evaluation] Processing complete.")
 
 
 if __name__ == "__main__":
