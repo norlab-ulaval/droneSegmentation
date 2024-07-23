@@ -1,5 +1,6 @@
 import numpy as np
 from pathlib import Path
+import pandas as pd
 
 from gsd_utils import evaluate_segmentation, IDENTICAL_MAPPING
 
@@ -21,6 +22,8 @@ SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
 
 
 def main():
+    all_values = []
+
     for patch_size in patch_sizes:
         for overlap in overlaps:
             patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
@@ -33,17 +36,28 @@ def main():
                 gsd_plab_dir = gsd_dir / "pseudolabels"
                 gsd_annot_dir = gsd_dir / "annotations"
 
-                avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = (
-                    evaluate_segmentation(
-                        gsd_plab_dir,
-                        gsd_annot_dir,
-                        IDENTICAL_MAPPING,
-                        {},
-                    )
+                ious, accs, f1s, all_predictions, all_targets = evaluate_segmentation(
+                    gsd_plab_dir,
+                    gsd_annot_dir,
+                    IDENTICAL_MAPPING,
+                    {},
                 )
-                print(f"Average IoU: {avg_iou:.4f}")
-                print(f"Average Pixel Accuracy: {avg_accuracy:.4f}")
-                print(f"Average F1 Score: {avg_f1_score:.4f}")
+
+                gsd_values = [
+                    {
+                        "GSD": f"GSD{gsd_idx}",
+                        "scale": scale,
+                        "iou": iou,
+                        "acc": acc,
+                        "f1": f1,
+                    }
+                    for iou, acc, f1 in zip(ious, accs, f1s)
+                ]
+
+                all_values.extend(gsd_values)
+
+        df = pd.DataFrame(all_values)
+        df.to_csv(gsddat_folder / "gds-metrics.csv", index=False)
 
     print("[Evaluation] Processing complete.")
 
