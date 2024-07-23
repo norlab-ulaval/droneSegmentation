@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 from sklearn.metrics import confusion_matrix
+from tqdm import tqdm
 
 
 def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
@@ -65,39 +66,51 @@ def evaluate_segmentation(pred_folder, target_folder, mapping, ignored_classes):
     pred_images = load_images_from_folder(pred_folder)
     target_images = load_images_from_folder(target_folder)
 
-    total_iou = 0
-    total_accuracy = 0
-    total_f1_score = 0
+    all_ious = []
+    all_accs = []
+    all_f1s = []
     all_predictions = []
     all_targets = []
 
-    for pred, target in zip(pred_images, target_images):
+    for pred, target in tqdm(
+        zip(pred_images, target_images),
+        total=len(pred_images),
+    ):
         mapped_pred = map_class_values(pred, mapping)
-        iou = compute_iou(
-            mapped_pred, target, num_classes=32, ignored_classes=ignored_classes
+        all_ious.append(
+            compute_iou(
+                mapped_pred,
+                target,
+                num_classes=32,
+                ignored_classes=ignored_classes,
+            )
         )
-        accuracy = compute_pixel_accuracy(
-            mapped_pred, target, ignored_classes=ignored_classes
+        all_accs.append(
+            compute_pixel_accuracy(
+                mapped_pred,
+                target,
+                ignored_classes=ignored_classes,
+            )
         )
-        f1_score = compute_f1_score(
-            mapped_pred, target, num_classes=32, ignored_classes=ignored_classes
+        all_f1s.append(
+            compute_f1_score(
+                mapped_pred,
+                target,
+                num_classes=32,
+                ignored_classes=ignored_classes,
+            )
         )
-
-        total_iou += iou
-        total_accuracy += accuracy
-        total_f1_score += f1_score
 
         all_predictions.append(mapped_pred.flatten())
         all_targets.append(target.flatten())
 
-    avg_iou = total_iou / len(pred_images)
-    avg_accuracy = total_accuracy / len(pred_images)
-    avg_f1_score = total_f1_score / len(pred_images)
-
+    all_ious = np.array(all_ious)
+    all_accs = np.array(all_accs)
+    all_f1s = np.array(all_f1s)
     all_predictions = np.concatenate(all_predictions)
     all_targets = np.concatenate(all_targets)
 
-    return avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets
+    return all_ious, all_accs, all_f1s, all_predictions, all_targets
 
 
 def plot_confusion_matrix(predictions, targets, num_classes, class_mapping):
