@@ -166,7 +166,13 @@ def main():
                     # Read Image
                     image = np.array(Image.open(image_path))
 
-                    scaled_image = cv2.resize(image, None, fx=scale, fy=scale)
+                    scaled_image = cv2.resize(
+                        image,
+                        None,
+                        fx=scale,
+                        fy=scale,
+                        interpolation=cv2.INTER_NEAREST_EXACT,
+                    )
                     gsd_metrics.setdefault("SIZE", []).append(scaled_image.shape[0])
 
                     # Pseudo labels
@@ -186,7 +192,13 @@ def main():
                     annot_paths = annot_folder.glob(f"{image_path.stem}*")
                     annot_path = next(annot_paths)
                     annot_img = np.array(Image.open(annot_path))
-                    scaled_annot = cv2.resize(annot_img, None, fx=scale, fy=scale)
+                    scaled_annot = cv2.resize(
+                        annot_img,
+                        None,
+                        fx=scale,
+                        fy=scale,
+                        interpolation=cv2.INTER_NEAREST_EXACT,
+                    )
 
                     # Save images
                     out_fname = image_path.with_suffix(".png").name
