@@ -4,3 +4,4 @@ transformers
 torchsampler
 opencv-python
 albumentations
+scikit-learn

@@ -2,7 +2,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=16
 #SBATCH --time=4-00:00
-#SBATCH --job-name=GSD-pseudo-labels
+#SBATCH --job-name=base-inat
 #SBATCH --output=%x-%j.out
 
 cd ~/droneSegmentation || exit
@@ -17,7 +17,7 @@ container_id=$(
         -v /data/iNat_Classifier_Non_filtered:/home/kamyar/Documents/iNat_Classifier_Non_filtered \
         -v ./lowAltitude_classification:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
         -v /dev/shm/:/dev/shm/ \
-        -d droneseg_cls bash -c "echo $CUDA_VISIBLE_DEVICES"
+        -d droneseg_cls bash -c 'python lowAltitude_classification/Base_iNat_classifier/iNat_Classifier_Base.py'
         #-d droneseg_cls bash -c "python lowAltitude_classification/server-pseudo-labels-la-classification.py"
 )
 
