@@ -23,7 +23,7 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat_2_2.pth'))
 model.eval()
 
 transform = Compose([
@@ -31,7 +31,7 @@ transform = Compose([
     ToTensorV2()
 ])
 
-image_folder = '/home/kamyar/Documents/data_lowaltitude_patches'
+image_folder = '/home/kamyar/Documents/Test_data'
 
 patch_sizes = [256]
 overlaps = [0.85]
@@ -47,7 +47,7 @@ for patch_size in patch_sizes:
         step_size = int(patch_size * (1 - overlap))
         batch_size = 1024
 
-        output_folder = f'/home/kamyar/Documents/dataset_pred/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
+        output_folder = f'/home/kamyar/Documents/test_pred/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):

@@ -12,8 +12,8 @@
 #         os.remove(os.path.join(folder_path, filename))
 
 
-#
 
+#
 # import os
 #
 # def remove_non_jpg_files(directory):
@@ -28,7 +28,7 @@
 #                     print(f"Error removing {file_path}: {e}")
 #
 # if __name__ == "__main__":
-#     directory = '/home/kamyar/Documents/ForetMontmorency_June28'
+#     directory = '/home/kamyar/Documents/Drone'
 #     remove_non_jpg_files(directory)
 
 
@@ -54,7 +54,7 @@
 #
 #
 # # Example usage
-# folder_path = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation_patch'
+# folder_path = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/ANNOTATION_patch'
 # rename_images(folder_path)
 
 
@@ -92,30 +92,77 @@
 
 
 
+# import os
+#
+# folder1 = '/home/kamyar/Documents/data_lowaltitude_merged'
+# folder2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecBatiscan_June5_indexed_annotation'
+#
+# # Get the list of files in each folder
+# files_in_folder1 = set(os.listdir(folder1))
+# files_in_folder2 = set(os.listdir(folder2))
+#
+# # Find the common files
+# common_files = files_in_folder1.intersection(files_in_folder2)
+#
+# # Remove common files from the first folder
+# for file in common_files:
+#     file_path = os.path.join(folder1, file)
+#     if os.path.isfile(file_path):
+#         os.remove(file_path)
+#         print(f'Removed: {file_path}')
+#
+# print('Exclusion complete.')
+#
+
+
 import os
+import shutil
 
-folder1 = '/home/kamyar/Documents/data_lowaltitude_merged'
-folder2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecBatiscan_June5_indexed_annotation'
+in_folder = '/home/kamyar/Documents/iNaturalist_data + Other classes'
+out_folder = '/home/kamyar/Documents/iNat_Classifier_Non_filtered'
 
-# Get the list of files in each folder
-files_in_folder1 = set(os.listdir(folder1))
-files_in_folder2 = set(os.listdir(folder2))
+for subfolder_name in os.listdir(in_folder):
+    subfolder_path = os.path.join(in_folder, subfolder_name)
+    subout = os.path.join(out_folder, subfolder_name)
 
-# Find the common files
-common_files = files_in_folder1.intersection(files_in_folder2)
+    if os.path.isdir(subfolder_path):
+        images_folder = os.path.join(subfolder_path, 'images')
 
-# Remove common files from the first folder
-for file in common_files:
-    file_path = os.path.join(folder1, file)
-    if os.path.isfile(file_path):
-        os.remove(file_path)
-        print(f'Removed: {file_path}')
+        if os.path.isdir(images_folder):
+            if not os.path.exists(subout):
+                os.makedirs(subout)
 
-print('Exclusion complete.')
+            for item in os.listdir(images_folder):
+                s = os.path.join(images_folder, item)
+                d = os.path.join(subout, item)
+                if os.path.isdir(s):
+                    shutil.move(s, d)
+                else:
+                    shutil.move(s, d)
 
-
-
-
-
-
-
+# import os
+# import shutil
+#
+# def move_images(source_folder, destination_folder, image_extensions=None):
+#     if image_extensions is None:
+#         image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff']
+#
+#     # Ensure the destination folder exists
+#     os.makedirs(destination_folder, exist_ok=True)
+#
+#     # Iterate over files in the source folder
+#     for filename in os.listdir(source_folder):
+#         # Check if the file has an image extension
+#         if any(filename.lower().endswith(ext) for ext in image_extensions):
+#             # Construct full file path
+#             src_file = os.path.join(source_folder, filename)
+#             dst_file = os.path.join(destination_folder, filename)
+#             # Move the file
+#             shutil.move(src_file, dst_file)
+#             print(f"Moved: {filename}")
+#
+# # Example usage
+# source_folder = '/home/kamyar/Documents/removed_classes/Feather Mosses/images'
+# destination_folder = '/home/kamyar/Documents/iNaturalist_data + Other classes/Moss/images'
+#
+# move_images(source_folder, destination_folder)
