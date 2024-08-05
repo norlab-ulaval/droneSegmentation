@@ -1,9 +1,8 @@
 import os
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
-import seaborn as sns
+from tqdm import tqdm
 
 
 def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
@@ -13,15 +12,6 @@ def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
         if img is not None:
             images.append(img)
     return images
-
-
-def read_class_mapping(file_path):
-    class_mapping = {}
-    with open(file_path, "r") as file:
-        for line in file:
-            name, idx = line.strip().split(": ")
-            class_mapping[int(idx)] = name
-    return class_mapping
 
 
 def map_class_values(image, mapping):
@@ -76,39 +66,51 @@ def evaluate_segmentation(pred_folder, target_folder, mapping, ignored_classes):
     pred_images = load_images_from_folder(pred_folder)
     target_images = load_images_from_folder(target_folder)
 
-    total_iou = 0
-    total_accuracy = 0
-    total_f1_score = 0
+    all_ious = []
+    all_accs = []
+    all_f1s = []
     all_predictions = []
     all_targets = []
 
-    for pred, target in zip(pred_images, target_images):
+    for pred, target in tqdm(
+        zip(pred_images, target_images),
+        total=len(pred_images),
+    ):
         mapped_pred = map_class_values(pred, mapping)
-        iou = compute_iou(
-            mapped_pred, target, num_classes=32, ignored_classes=ignored_classes
+        all_ious.append(
+            compute_iou(
+                mapped_pred,
+                target,
+                num_classes=32,
+                ignored_classes=ignored_classes,
+            )
         )
-        accuracy = compute_pixel_accuracy(
-            mapped_pred, target, ignored_classes=ignored_classes
+        all_accs.append(
+            compute_pixel_accuracy(
+                mapped_pred,
+                target,
+                ignored_classes=ignored_classes,
+            )
         )
-        f1_score = compute_f1_score(
-            mapped_pred, target, num_classes=32, ignored_classes=ignored_classes
+        all_f1s.append(
+            compute_f1_score(
+                mapped_pred,
+                target,
+                num_classes=32,
+                ignored_classes=ignored_classes,
+            )
         )
-
-        total_iou += iou
-        total_accuracy += accuracy
-        total_f1_score += f1_score
 
         all_predictions.append(mapped_pred.flatten())
         all_targets.append(target.flatten())
 
-    avg_iou = total_iou / len(pred_images)
-    avg_accuracy = total_accuracy / len(pred_images)
-    avg_f1_score = total_f1_score / len(pred_images)
-
+    all_ious = np.array(all_ious)
+    all_accs = np.array(all_accs)
+    all_f1s = np.array(all_f1s)
     all_predictions = np.concatenate(all_predictions)
     all_targets = np.concatenate(all_targets)
 
-    return avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets
+    return all_ious, all_accs, all_f1s, all_predictions, all_targets
 
 
 def plot_confusion_matrix(predictions, targets, num_classes, class_mapping):
@@ -118,45 +120,6 @@ def plot_confusion_matrix(predictions, targets, num_classes, class_mapping):
     class_names = [class_mapping[i] for i in range(num_classes)]
     # print(class_names)
     # exit()
-
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(
-        cm,
-        annot=True,
-        fmt=".2f",
-        cmap="Blues",
-        xticklabels=class_names,
-        yticklabels=class_names,
-    )
-    plt.xlabel("Predicted")
-    plt.ylabel("True")
-    plt.title("Confusion Matrix")
-    plt.show()
-
-
-def visualize_segmentation(orig_folder, pred_folder, target_folder, mapping):
-    orig_images = load_images_from_folder(orig_folder, cv2.IMREAD_COLOR)
-    pred_images = load_images_from_folder(pred_folder, cv2.IMREAD_GRAYSCALE)
-    target_images = load_images_from_folder(target_folder, cv2.IMREAD_GRAYSCALE)
-
-    for orig, pred, target in zip(orig_images, pred_images, target_images):
-        mapped_pred = map_class_values(pred, mapping)
-
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-
-        axes[0].imshow(cv2.cvtColor(orig, cv2.COLOR_BGR2RGB))
-        axes[0].set_title("Original Image")
-        axes[0].axis("off")
-
-        axes[1].imshow(mapped_pred, cmap="gray")
-        axes[1].set_title("Prediction")
-        axes[1].axis("off")
-
-        axes[2].imshow(target, cmap="gray")
-        axes[2].set_title("Annotation")
-        axes[2].axis("off")
-
-        plt.show()
 
 
 IDENTICAL_MAPPING = {i: i for i in range(32)}
@@ -196,6 +159,11 @@ MAPPING = {
 }
 
 if __name__ == "__main__":
+    import json
+
+    # mapping_path = "lowAltitude_classification/label_to_id.txt"
+    # class_mapping = read_class_mapping(mapping_path)
+
     ignored_classes = {}
 
     pred_folder = "/home/kamyar/Documents/Test_data_mask2former"
@@ -204,7 +172,10 @@ if __name__ == "__main__":
 
     avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = (
         evaluate_segmentation(
-            pred_folder, target_folder, IDENTICAL_MAPPING, ignored_classes
+            pred_folder,
+            target_folder,
+            IDENTICAL_MAPPING,
+            ignored_classes,
         )
     )
 
@@ -216,5 +187,3 @@ if __name__ == "__main__":
     # file_path = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt'
     # class_mapping = read_class_mapping(file_path)
     # plot_confusion_matrix(all_predictions, all_targets, num_classes=32, class_mapping=class_mapping)
-
-    visualize_segmentation(orig_folder, pred_folder, target_folder, IDENTICAL_MAPPING)
