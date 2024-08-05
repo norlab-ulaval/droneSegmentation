@@ -71,8 +71,8 @@ def get_existing_images(dest_dir):
                 existing_images.add(file)
     return existing_images
 
-image_dir = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed'
-dest_dir_1 = '/home/kamyar/Documents/Dataset_LowAltitude/ForetMontmorency_June28_indexed_annotation'
+image_dir = '/home/kamyar/Documents/Dataset_LowAltitude/Domtar_July9_indexed'
+dest_dir_1 = '/home/kamyar/Documents/Dataset_LowAltitude/Domtar_July9_indexed_annotation'
 # dest_dir_2 = '/home/kamyar/Documents/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation_2'
 n_samples = 50
 

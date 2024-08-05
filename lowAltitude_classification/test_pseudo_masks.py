@@ -39,7 +39,7 @@ def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
         iou_scores.append(iou)
     return np.mean(iou_scores) if iou_scores else 0
 
-def compute_pixel_accuracy(prediction, target, ignored_classes):
+def compute_pixel_accuracy(prediction, target, num_classes, ignored_classes):
     mask = np.isin(target, ignored_classes, invert=True)
     correct = np.sum((prediction == target) & mask)
     total = np.sum(mask)
@@ -49,7 +49,7 @@ def compute_pixel_accuracy(prediction, target, ignored_classes):
 def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
     f1_scores = []
     for cls in range(num_classes):
-        if cls in ignored_classes or cls not in target:
+        if cls not in target:
             continue
         tp = np.sum((prediction == cls) & (target == cls))
         fp = np.sum((prediction == cls) & (target != cls))
@@ -75,18 +75,22 @@ def evaluate_segmentation(pred_folder, target_folder, mapping, ignored_classes):
     for pred, target in zip(pred_images, target_images):
         mapped_pred = map_class_values(pred, mapping)
         iou = compute_iou(mapped_pred, target, num_classes=32, ignored_classes=ignored_classes)
-        accuracy = compute_pixel_accuracy(mapped_pred, target, ignored_classes=ignored_classes)
+        accuracy = compute_pixel_accuracy(mapped_pred, target, num_classes=32, ignored_classes=ignored_classes)
         f1_score = compute_f1_score(mapped_pred, target, num_classes=32, ignored_classes=ignored_classes)
 
         total_iou += iou
         total_accuracy += accuracy
+        # print(accuracy)
+        # exit()
         total_f1_score += f1_score
+        # print(f1_score)
 
         all_predictions.append(mapped_pred.flatten())
         all_targets.append(target.flatten())
 
     avg_iou = total_iou / len(pred_images)
     avg_accuracy = total_accuracy / len(pred_images)
+    # print(avg_accuracy)
     avg_f1_score = total_f1_score / len(pred_images)
 
     all_predictions = np.concatenate(all_predictions)
@@ -170,7 +174,7 @@ mapping = {
 
 ignored_classes = {}
 
-pred_folder = '/home/kamyar/Documents/Test_data_mask2former'
+pred_folder = '/home/kamyar/Documents/test_pred/fast_patch_256_overlap_85'
 target_folder = '/home/kamyar/Documents/Test_data_annotation'
 orig_folder = '/home/kamyar/Documents/Test_data'
 
@@ -179,10 +183,4 @@ avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = evaluate_seg
 print(f'Average IoU: {avg_iou:.4f}')
 print(f'Average Pixel Accuracy: {avg_accuracy:.4f}')
 print(f'Average F1 Score: {avg_f1_score:.4f}')
-
-#
-# file_path = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt'
-# class_mapping = read_class_mapping(file_path)
-# plot_confusion_matrix(all_predictions, all_targets, num_classes=32, class_mapping=class_mapping)
-
 visualize_segmentation(orig_folder, pred_folder, target_folder, identical_mapping)

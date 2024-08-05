@@ -167,7 +167,7 @@ scratches/
 *.png
 *.jpg
 *.JPG
-output/
+Mask2former_best_pretrain_output/
 outputs/
 output_1/
 outputs_with_dataAugmentation/

@@ -1,32 +1,26 @@
-Alders: 0
-American Mountain-ash: 1
-Background: 2
-Black spruce: 3
+American Mountain-Ash: 0
+Background: 1
+Black Spruce: 2
+Blueberry: 3
 Bog Labrador Tea: 4
 Boulders: 5
-Canada Yew (Taxus canadensis): 6
-Common Haircap Moss: 7
-Dead_trees: 8
-Feather Mosses: 9
-Ferns (Fougères): 10
-Fir: 11
-Fire Cherry (Cerisier de pensylvanie): 12
-Jack pine: 13
-Larch: 14
-Leatherleaf (Cassandre): 15
-Mountain Maple (Érable à épis): 16
-Paper birch: 17
-Pixie Cup Lichens (Cladonia): 18
-Red Maple: 19
-Red raspberry (Framboisier): 20
-Sedges (Carex): 21
-Serviceberries (amélanchier): 22
-Sheep Laurel (Kalmia): 23
-Sphagnum Mosses: 24
-Trembling aspen: 25
-Viburnums: 26
-Willowherbs (Épilobe): 27
-Willows: 28
-blueberry: 29
-wood: 30
-yellow birch: 31
+Canada Yew: 6
+Dead Trees: 7
+Fern: 8
+Fir: 9
+Fire Cherry: 10
+Jack Pine: 11
+Leatherleaf: 12
+Moss: 13
+Mountain Maple: 14
+Paper Birch: 15
+Red Maple: 16
+Red Raspberry: 17
+Sedges: 18
+Serviceberries: 19
+Sheep Laurel: 20
+Trembling Aspen: 21
+Viburnum: 22
+Willowherbs: 23
+Wood: 24
+Yellow Birch: 25

@@ -24,8 +24,7 @@ def patchify_image(image, patch_size=(1024, 1024)):
 
 def process_images(input_folder, output_folder):
     os.makedirs(output_folder, exist_ok=True)
-    image_files = [f for f in os.listdir(input_folder) if f.endswith('.JPG')]
-
+    image_files = [f for f in os.listdir(input_folder) if f.lower().endswith('.jpg')]
     for filename in tqdm(image_files, desc="Processing images"):
         image = cv2.imread(os.path.join(input_folder, filename))
         patches = patchify_image(image)
@@ -35,6 +34,6 @@ def process_images(input_folder, output_folder):
             cv2.imwrite(output_filename, patch)
 
 
-input_folder = '/home/kamyar/Documents/data_lowaltitude_merged'
-output_folder = '/home/kamyar/Documents/data_lowaltitude_patches'
+input_folder = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/ANNOTATION'
+output_folder = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/ANNOTATION_patch_2'
 process_images(input_folder, output_folder)
