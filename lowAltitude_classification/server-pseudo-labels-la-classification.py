@@ -24,12 +24,14 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load("filtered_inat.pth", map_location="cpu"))
+model.load_state_dict(
+    torch.load("lowAltitude_classification/filtered_inat.pth", map_location="cpu")
+)
 model.eval()
 
 transform = Compose([Normalize(mean=mean, std=std), ToTensorV2()])
 
-data_path = Path.cwd().parent / "data"
+data_path = Path("data") / "drone-seg"
 image_folder = data_path / "test-data"
 
 patch_sizes = [256]
@@ -47,14 +49,14 @@ for patch_size in patch_sizes:
 
         output_folder = (
             data_path
-            / f"pred-data/fast_patch_{patch_size}_overlap_{int(overlap * 100)}"
+            / "test-data-pseudolabels"
+            / f"fast_patch_{patch_size}_overlap_{int(overlap * 100)}"
         )
         output_folder.mkdir(parents=True, exist_ok=True)
 
-        for image_file in os.listdir(image_folder):
-            if image_file.endswith((".jpg", ".JPG", ".png")):
+        for image_path in image_folder.glob("*"):
+            if image_path.suffix in (".jpg", ".JPG", ".png"):
                 begin_time = time.perf_counter()
-                image_path = os.path.join(image_folder, image_file)
                 image = Image.open(image_path)
                 image_np = np.array(image)
                 transformed = transform(image=image_np)
@@ -134,9 +136,7 @@ for patch_size in patch_sizes:
 
                 segmentation_map = np.argmax(pixel_predictions, axis=2)
 
-                output_filename = (
-                    os.path.splitext(os.path.basename(image_path))[0] + ".png"
-                )
+                output_filename = image_path.with_suffix(".png").name
                 output_path = os.path.join(output_folder, output_filename)
                 cv2.imwrite(output_path, segmentation_map)
                 print(f"Time taken: {time.perf_counter() - begin_time:.2f}s")
