@@ -105,7 +105,7 @@ fold_accuracies = []
 
 # For each fold
 for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
-    logger.debug(f"Fold {fold + 1}/{kf.get_n_splits()}\n")
+    logger.debug(f"Fold {fold + 1}/{kf.get_n_splits()}")
 
     train_subset = Subset(dataset, train_idx)
     val_subset = Subset(dataset, val_idx)
@@ -154,7 +154,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
                 )
 
         logger.debug(
-            f"Epoch {epoch + 1} - Training Loss: {loss_accumulated_train / total_samples_train:.4f} Accuracy: {correct_predictions_train / total_samples_train:.4f}\n"
+            f"Epoch {epoch + 1} - Training Loss: {loss_accumulated_train / total_samples_train:.4f} Accuracy: {correct_predictions_train / total_samples_train:.4f}"
         )
         scheduler.step()
 
@@ -183,7 +183,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
 
             accuracy_valid = correct_predictions_valid / total_samples_valid
             logger.debug(
-                f"Validation Loss: {loss_accumulated_valid / total_samples_valid:.4f} Accuracy: {accuracy_valid:.4f}\n"
+                f"Validation Loss: {loss_accumulated_valid / total_samples_valid:.4f} Accuracy: {accuracy_valid:.4f}"
             )
 
             accuracy = accuracy_valid
@@ -207,11 +207,11 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
                     checkpoint_dir / pth_name,
                 )
                 logger.debug(
-                    f"Best model weights saved for fold {fold + 1} at epoch {epoch + 1} with accuracy {accuracy:.4f}\n"
+                    f"Best model weights saved for fold {fold + 1} at epoch {epoch + 1} with accuracy {accuracy:.4f}"
                 )
 
     fold_accuracies.append(accuracy)
 
 logger.debug(
-    f"Average validation accuracy across folds: {np.mean(fold_accuracies):.4f}\n"
+    f"Average validation accuracy across folds: {np.mean(fold_accuracies):.4f}"
 )
