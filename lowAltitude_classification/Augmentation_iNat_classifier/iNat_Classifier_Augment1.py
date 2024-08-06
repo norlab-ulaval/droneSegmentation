@@ -1,10 +1,12 @@
+import datetime
+
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from albumentations import (
     RandomResizedCrop, HorizontalFlip, Normalize, SmallestMaxSize,
-    Compose, CenterCrop
+    Compose, CenterCrop, ColorJitter, Blur
 )
 from albumentations.pytorch import ToTensorV2
 from sklearn.model_selection import StratifiedKFold
@@ -12,13 +14,12 @@ from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader, Subset
 from torchvision.datasets import ImageFolder
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-import datetime
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_folder = "/home/kamyar/Documents/iNat_Classifier_filtered"
 output_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt"
-log_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_iNat_classifier/log.txt"
+log_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Augmentation_iNat_classifier/log_aug20.txt"
 
 dataset = ImageFolder(root=data_folder)
 label_to_id = dataset.class_to_idx
@@ -38,6 +39,8 @@ train_transform = Compose([
     SmallestMaxSize(max_size=256),
     RandomResizedCrop(height=256, width=256, scale=(0.4, 1.0), ratio=(0.75, 1.3333)),
     HorizontalFlip(p=0.5),
+    ColorJitter(brightness=(0.3, 0.5), contrast=(0.3, 0.5), saturation=(0.3, 0.5), hue=0.2, p=0.5),
+    Blur(blur_limit=(3, 7), p=0.5),
     Normalize(mean=mean, std=std),
     ToTensorV2()
 ])
@@ -130,12 +133,12 @@ with open(log_file_path, 'w') as log_file:
                 accuracy = accuracy_valid
                 model_weights = model.state_dict()
                 t = datetime.date.today()
-                pth_name = f"1{fold + 1}_filtered_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                pth_name = f"20{fold + 1}_aug0_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
                 torch.save(model_weights,
                            f'/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/checkpoints/{pth_name}')
 
                 if accuracy_valid > accuracy:
-                    pth_name = f"1{fold + 1}_filtered_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                    pth_name = f"20{fold + 1}_aug0_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
                     torch.save(model_weights,
                                f'/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/checkpoints/{pth_name}')
                     log_file.write(
