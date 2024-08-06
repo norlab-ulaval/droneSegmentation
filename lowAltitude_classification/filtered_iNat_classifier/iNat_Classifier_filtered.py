@@ -15,9 +15,9 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = "/home/kamyar/Documents/iNat_Classifier_Non_filtered"
+data_folder = "/home/kamyar/Documents/iNat_Classifier_filtered"
 output_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt"
-log_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Base_iNat_classifier/log.txt"
+log_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_iNat_classifier/log.txt"
 
 dataset = ImageFolder(root=data_folder)
 label_to_id = dataset.class_to_idx
