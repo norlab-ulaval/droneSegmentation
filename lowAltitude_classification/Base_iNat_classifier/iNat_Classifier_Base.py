@@ -21,6 +21,8 @@ from sklearn.model_selection import StratifiedKFold
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader, Subset
 from torchvision.datasets import ImageFolder
+from tqdm import tqdm
+from tqdm.contrib.logging import logging_redirect_tqdm
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 import utils as u
@@ -123,20 +125,24 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
         total_samples_train = 0
         correct_predictions_train = 0
 
-        for x_batch, y_batch in train_loader:
-            x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-            optimizer.zero_grad()
-            output = model(x_batch)
-            logits = output.logits
-            loss = loss_fn(logits, y_batch)
-            loss.backward()
-            optimizer.step()
+        with logging_redirect_tqdm():
+            for x_batch, y_batch in tqdm(
+                train_loader,
+                desc=f"Epoch {epoch} - Train",
+            ):
+                x_batch, y_batch = x_batch.to(device), y_batch.to(device)
+                optimizer.zero_grad()
+                output = model(x_batch)
+                logits = output.logits
+                loss = loss_fn(logits, y_batch)
+                loss.backward()
+                optimizer.step()
 
-            loss_accumulated_train += loss.item() * y_batch.size(0)
-            total_samples_train += y_batch.size(0)
-            correct_predictions_train += (
-                (torch.argmax(logits, dim=1) == y_batch).sum().item()
-            )
+                loss_accumulated_train += loss.item() * y_batch.size(0)
+                total_samples_train += y_batch.size(0)
+                correct_predictions_train += (
+                    (torch.argmax(logits, dim=1) == y_batch).sum().item()
+                )
 
         logger.debug(
             f"Epoch {epoch + 1} - Training Loss: {loss_accumulated_train / total_samples_train:.4f} Accuracy: {correct_predictions_train / total_samples_train:.4f}\n"
@@ -150,17 +156,21 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             total_samples_valid = 0
             correct_predictions_valid = 0
 
-            for x_batch, y_batch in val_loader:
-                x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-                output = model(x_batch)
-                logits = output.logits
-                loss = loss_fn(logits, y_batch)
+            with logging_redirect_tqdm():
+                for x_batch, y_batch in tqdm(
+                    val_loader,
+                    desc=f"Epoch {epoch} - Val",
+                ):
+                    x_batch, y_batch = x_batch.to(device), y_batch.to(device)
+                    output = model(x_batch)
+                    logits = output.logits
+                    loss = loss_fn(logits, y_batch)
 
-                loss_accumulated_valid += loss.item() * y_batch.size(0)
-                total_samples_valid += y_batch.size(0)
-                correct_predictions_valid += (
-                    (torch.argmax(logits, dim=1) == y_batch).sum().item()
-                )
+                    loss_accumulated_valid += loss.item() * y_batch.size(0)
+                    total_samples_valid += y_batch.size(0)
+                    correct_predictions_valid += (
+                        (torch.argmax(logits, dim=1) == y_batch).sum().item()
+                    )
 
             accuracy_valid = correct_predictions_valid / total_samples_valid
             logger.debug(
