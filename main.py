@@ -114,31 +114,31 @@
 # print('Exclusion complete.')
 #
 
-
-import os
-import shutil
-
-in_folder = '/home/kamyar/Documents/iNaturalist_data + Other classes'
-out_folder = '/home/kamyar/Documents/iNat_Classifier_Non_filtered'
-
-for subfolder_name in os.listdir(in_folder):
-    subfolder_path = os.path.join(in_folder, subfolder_name)
-    subout = os.path.join(out_folder, subfolder_name)
-
-    if os.path.isdir(subfolder_path):
-        images_folder = os.path.join(subfolder_path, 'images')
-
-        if os.path.isdir(images_folder):
-            if not os.path.exists(subout):
-                os.makedirs(subout)
-
-            for item in os.listdir(images_folder):
-                s = os.path.join(images_folder, item)
-                d = os.path.join(subout, item)
-                if os.path.isdir(s):
-                    shutil.move(s, d)
-                else:
-                    shutil.move(s, d)
+#
+# import os
+# import shutil
+#
+# in_folder = '/home/kamyar/Documents/iNaturalist_data + Other classes'
+# out_folder = '/home/kamyar/Documents/iNat_Classifier_Non_filtered'
+#
+# for subfolder_name in os.listdir(in_folder):
+#     subfolder_path = os.path.join(in_folder, subfolder_name)
+#     subout = os.path.join(out_folder, subfolder_name)
+#
+#     if os.path.isdir(subfolder_path):
+#         images_folder = os.path.join(subfolder_path, 'images')
+#
+#         if os.path.isdir(images_folder):
+#             if not os.path.exists(subout):
+#                 os.makedirs(subout)
+#
+#             for item in os.listdir(images_folder):
+#                 s = os.path.join(images_folder, item)
+#                 d = os.path.join(subout, item)
+#                 if os.path.isdir(s):
+#                     shutil.move(s, d)
+#                 else:
+#                     shutil.move(s, d)
 
 # import os
 # import shutil
@@ -166,3 +166,55 @@ for subfolder_name in os.listdir(in_folder):
 # destination_folder = '/home/kamyar/Documents/iNaturalist_data + Other classes/Moss/images'
 #
 # move_images(source_folder, destination_folder)
+
+
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+
+def count_images_in_folder(folder_path, image_extensions=None):
+    if image_extensions is None:
+        image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'}
+
+    count = 0
+    for filename in os.listdir(folder_path):
+        if any(filename.lower().endswith(ext) for ext in image_extensions):
+            count += 1
+    return count
+
+def plot_image_counts(root_folder):
+    subfolders = [f.path for f in os.scandir(root_folder) if f.is_dir()]
+    folder_names = []
+    image_counts = []
+
+    for folder in subfolders:
+        folder_name = os.path.basename(folder)
+        num_images = count_images_in_folder(folder)
+        folder_names.append(folder_name)
+        image_counts.append(num_images)
+
+    # Sort based on the number of images
+    sorted_indices = sorted(range(len(image_counts)), key=lambda i: image_counts[i], reverse=True)
+    sorted_folder_names = [folder_names[i] for i in sorted_indices]
+    sorted_image_counts = [image_counts[i] for i in sorted_indices]
+
+    img_count_arr = np.array(image_counts)
+    print(np.median(img_count_arr), np.average(img_count_arr))
+
+    # Plotting
+    plt.figure(figsize=(12, 6))
+    bars = plt.bar(sorted_folder_names, sorted_image_counts, color='skyblue')
+
+    # Add labels above bars
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom', ha='center')
+
+    plt.ylabel('Number of Images')
+    plt.title('Histogram of Number of Images in Each Category')
+    plt.xticks(rotation=45, ha='right')
+    # plt.yscale('log')
+    plt.tight_layout()
+    plt.show()
+
+plot_image_counts('/home/kamyar/Documents/iNat_Classifier_filtered')
