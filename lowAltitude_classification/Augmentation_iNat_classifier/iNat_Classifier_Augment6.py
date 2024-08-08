@@ -25,7 +25,8 @@ from albumentations import (
     MedianBlur,
     OpticalDistortion,
     GridDistortion,
-    Defocus
+    Defocus,
+    RandomFog
 )
 from albumentations.pytorch import ToTensorV2
 from sklearn.model_selection import StratifiedKFold
@@ -97,6 +98,7 @@ train_transform = Compose(
             alias_blur=(0.1, 0.2),
             p=0.5,
         ),
+        RandomFog(),
         ColorJitter(
             brightness=(0.3, 0.5),
             contrast=(0.3, 0.5),
