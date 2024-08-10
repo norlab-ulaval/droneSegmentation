@@ -28,9 +28,9 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = Path("data/iNat_Classifier_filtered")
-output_file_path = Path("lowAltitude_classification/label_to_id.txt")
-log_file_path = Path("lowAltitude_classification/Background_clean/log_background.txt")
+data_folder = '/home/kamyar/Documents/iNat_Classifier_filtered'
+output_file_path = 'lowAltitude_classification/label_to_id.txt'
+log_file_path = 'lowAltitude_classification/Background_clean/log_background.txt'
 
 u.setup_logging("background", log_file_path)
 logger = logging.getLogger("background")
