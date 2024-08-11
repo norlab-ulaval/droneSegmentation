@@ -110,9 +110,13 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_subset = Subset(dataset, train_idx)
     val_subset = Subset(dataset, val_idx)
 
+    ##### special for ImbalancedDatasetSampler
+    train_labels = [dataset.targets[i] for i in train_idx]
+    ######
 
     #average of number of classes: 11360 -> * 26 = 295,360
-    train_loader = DataLoader(train_subset, sampler=ImbalancedDatasetSampler(train_subset, num_samples=295360), batch_size=16, num_workers=16)
+    train_loader = DataLoader(train_subset, sampler=ImbalancedDatasetSampler(train_subset, labels=train_labels, num_samples=295360
+                                                                             ), batch_size=16, num_workers=16)
     val_loader = DataLoader(val_subset, batch_size=16, shuffle=False, num_workers=16)
 
     model = AutoModelForImageClassification.from_pretrained(
