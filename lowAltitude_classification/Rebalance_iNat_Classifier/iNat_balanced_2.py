@@ -110,8 +110,12 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_subset = Subset(dataset, train_idx)
     val_subset = Subset(dataset, val_idx)
 
+    ##### special for ImbalancedDatasetSampler
+    train_labels = [dataset.targets[i] for i in train_idx]
+    ######
+
     # number of background images: 25650 -> * 26 = 666,900
-    train_loader = DataLoader(train_subset, sampler=ImbalancedDatasetSampler(train_subset, num_samples=666900),
+    train_loader = DataLoader(train_subset, sampler=ImbalancedDatasetSampler(train_subset, labels=train_labels, num_samples=666900),
                               batch_size=16, num_workers=16)
     val_loader = DataLoader(val_subset, batch_size=16, shuffle=False, num_workers=16)
 

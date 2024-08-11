@@ -18,12 +18,12 @@ model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 32
+num_classes = 26
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat_2_2.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/checkpoints/01_base_time2024-08-07_5e_acc96.pth'))
 model.eval()
 
 transform = Compose([
@@ -31,7 +31,7 @@ transform = Compose([
     ToTensorV2()
 ])
 
-image_folder = '/home/kamyar/Documents/Test_data'
+image_folder = '/home/kamyar/Documents/Annotated_images'
 
 patch_sizes = [256]
 overlaps = [0.85]
@@ -47,7 +47,7 @@ for patch_size in patch_sizes:
         step_size = int(patch_size * (1 - overlap))
         batch_size = 1024
 
-        output_folder = f'/home/kamyar/Documents/test_pred/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
+        output_folder = f'/home/kamyar/Documents/Annoteted_predict/base/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):
