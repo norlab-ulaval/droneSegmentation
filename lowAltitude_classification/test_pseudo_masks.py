@@ -134,29 +134,30 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 #     plt.show()
 
 
-# def visualize_segmentation(orig_folder, pred_folder, target_folder, mapping):
-#     orig_images = load_images_from_folder(orig_folder, cv2.IMREAD_COLOR)
-#     pred_images = load_images_from_folder(pred_folder, cv2.IMREAD_GRAYSCALE)
-#     target_images = load_images_from_folder(target_folder, cv2.IMREAD_GRAYSCALE)
-#
-#     for orig, pred, target in zip(orig_images, pred_images, target_images):
-#         mapped_pred = map_class_values(pred, mapping)
-#
-#         fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-#
-#         axes[0].imshow(cv2.cvtColor(orig, cv2.COLOR_BGR2RGB))
-#         axes[0].set_title("Original Image")
-#         axes[0].axis("off")
-#
-#         axes[1].imshow(mapped_pred, cmap="gray")
-#         axes[1].set_title("Prediction")
-#         axes[1].axis("off")
-#
-#         axes[2].imshow(target, cmap="gray")
-#         axes[2].set_title("Annotation")
-#         axes[2].axis("off")
-#
-#         plt.show()
+def visualize_segmentation(orig_folder, pred_folder, target_folder):
+    orig_images = load_images_from_folder(orig_folder, cv2.IMREAD_COLOR)
+    pred_images = load_images_from_folder(pred_folder, cv2.IMREAD_GRAYSCALE)
+    target_images = load_images_from_folder(target_folder, cv2.IMREAD_GRAYSCALE)
+
+    for orig, pred, target in zip(orig_images, pred_images, target_images):
+        # mapped_pred = map_class_values(pred, mapping)
+        pred = np.copy(pred)
+
+        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+        axes[0].imshow(cv2.cvtColor(orig, cv2.COLOR_BGR2RGB))
+        axes[0].set_title("Original Image")
+        axes[0].axis("off")
+
+        axes[1].imshow(pred, cmap="gray")
+        axes[1].set_title("Prediction")
+        axes[1].axis("off")
+
+        axes[2].imshow(target, cmap="gray")
+        axes[2].set_title("Annotation")
+        axes[2].axis("off")
+
+        plt.show()
 
 
 # IDENTICAL_MAPPING = {i: i for i in range(32)}
@@ -198,9 +199,9 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 if __name__ == "__main__":
     ignored_classes = {1}
 
-    pred_folder = "/home/kamyar/Documents/Test_data_mask2former"
-    target_folder = "/home/kamyar/Documents/Test_data_annotation"
-    orig_folder = "/home/kamyar/Documents/Test_data"
+    pred_folder = "/home/kamyar/Documents/Test_Annotated_Predictions/02_base_5e"
+    target_folder = "/home/kamyar/Documents/Test_Annotated_masks"
+    orig_folder = "/home/kamyar/Documents/Test_Annotated"
 
     avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = (
         evaluate_segmentation(
@@ -217,4 +218,4 @@ if __name__ == "__main__":
     # class_mapping = read_class_mapping(file_path)
     # plot_confusion_matrix(all_predictions, all_targets, num_classes=32, class_mapping=class_mapping)
 
-    # visualize_segmentation(orig_folder, pred_folder, target_folder, IDENTICAL_MAPPING)
+    # visualize_segmentation(orig_folder, pred_folder, target_folder)
