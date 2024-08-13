@@ -23,7 +23,7 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/checkpoints/01_base_time2024-08-07_5e_acc96.pth'))
+model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/0_base/checkpoints/02_base_time2024-08-07_5e_acc96.pth'))
 model.eval()
 
 transform = Compose([
@@ -31,7 +31,7 @@ transform = Compose([
     ToTensorV2()
 ])
 
-image_folder = '/home/kamyar/Documents/Annotated_images'
+image_folder = '/home/kamyar/Documents/Test_Annotated'
 
 patch_sizes = [256]
 overlaps = [0.85]
@@ -47,7 +47,7 @@ for patch_size in patch_sizes:
         step_size = int(patch_size * (1 - overlap))
         batch_size = 1024
 
-        output_folder = f'/home/kamyar/Documents/Annoteted_predict/base/fast_patch_{patch_size}_overlap_{int(overlap * 100)}'
+        output_folder = f'/home/kamyar/Documents/Test_Annotated_Predictions/02_base_5e'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):
@@ -124,4 +124,3 @@ for patch_size in patch_sizes:
                 print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
 
 print("Processing complete.")
-

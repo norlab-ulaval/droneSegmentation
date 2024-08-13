@@ -167,11 +167,11 @@ def process_images(root_dir, temp_dir, attributes):
             process_images(os.path.join(root, dir), temp_dir, attributes)
 
 
-root_directory = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/230719'
-out_directory = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/230719_indexed'
+root_directory = '/home/kamyar/Downloads/new_1'
+out_directory = '/home/kamyar/Downloads/new_folder_2'
 os.makedirs(out_directory, exist_ok=True)
 
 attributes = {'Date Original': None, 'Time': None, 'Relative Altitude': None, 'Location': None, 'Image Size': None, 'Make': None, 'Camera Model': None}
 
-attributes['Location'] = 'Lac_Saint_Jean'
+attributes['Location'] = 'Zec-Batiscan'
 process_images(root_directory, out_directory, attributes)

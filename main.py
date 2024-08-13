@@ -54,7 +54,7 @@ def rename_images(folder_path):
 
 
 # Example usage
-folder_path = '/home/kamyar/Documents/Annotated_masks'
+folder_path = '/home/kamyar/Documents/Train-val_Annotated'
 rename_images(folder_path)
 
 
@@ -256,3 +256,40 @@ rename_images(folder_path)
 # axes[1].axis('off')
 #
 # plt.show()
+
+# import os
+# import shutil
+#
+# # Paths to the folders
+# folder1_path = "/home/kamyar/Documents/Annotated_images"
+# folder2_path = "/home/kamyar/Documents/Dataset_LowAltitude"
+#
+# # Destination folder to store the matched images
+# matched_folder_path = "/home/kamyar/Documents/Annotated_original"
+# os.makedirs(matched_folder_path, exist_ok=True)
+#
+#
+# # Function to match the images
+# def match_images(folder1_path, folder2_path, matched_folder_path):
+#     folder2_images = {}
+#
+#     # Iterate over subfolders in folder2
+#     for subdir, _, files in os.walk(folder2_path):
+#         for file in files:
+#             folder2_images[file] = os.path.join(subdir, file)
+#
+#     # Iterate over images in folder1
+#     for image in os.listdir(folder1_path):
+#         if "-patch-" in image:
+#             base_image_name = image.split("-patch-")[0] + ".JPG"
+#             if base_image_name in folder2_images:
+#                 # If match found, copy the image from both folders to the matched folder
+#                 shutil.copy(os.path.join(folder1_path, image), matched_folder_path)
+#                 shutil.copy(folder2_images[base_image_name], matched_folder_path)
+#
+#
+# # Run the function
+# match_images(folder1_path, folder2_path, matched_folder_path)
+#
+# print("Matching completed. Check the matched images in the specified folder.")
+
