@@ -21,19 +21,23 @@ from albumentations.pytorch import ToTensorV2
 from sklearn.model_selection import StratifiedKFold
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader, Subset
+from torchsampler import ImbalancedDatasetSampler
 from torchvision.datasets import ImageFolder
 from tqdm import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-from torchsampler import ImbalancedDatasetSampler
+
 import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_folder = Path("data/iNat_Classifier_filtered")
-output_file_path = Path("lowAltitude_classification/label_to_id.txt")
-log_file_path = Path("lowAltitude_classification/Rebalance_iNat_Classifier/log_rebalance0.txt")
+lac_dir = Path("lowAltitude_classification")
+output_file_path = lac_dir / "label_to_id.txt"
+checkpoint_dir = lac_dir / "checkpoints"
+checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
+log_file_path = lac_dir / "Rebalance_iNat_Classifier/log_rebalance0.txt"
 u.setup_logging("rebalance0", log_file_path)
 logger = logging.getLogger("rebalance0")
 
@@ -44,12 +48,9 @@ with open(output_file_path, "w") as file:
     for label, idx in label_to_id.items():
         file.write(f"{label}: {idx}\n")
 
-json_path = Path(output_file_path).with_suffix(".json")
-with open(json_path, "w") as f:
+json_path = output_file_path.with_suffix(".json")
+with json_path.open(mode="w") as f:
     json.dump(label_to_id, f, indent=2, sort_keys=True)
-
-checkpoint_dir = json_path.parent / "checkpoints"
-checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
 model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
@@ -114,9 +115,17 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_labels = [dataset.targets[i] for i in train_idx]
     ######
 
-    #average of number of classes: 11360 -> * 26 = 295,360
-    train_loader = DataLoader(train_subset, sampler=ImbalancedDatasetSampler(train_subset, labels=train_labels, num_samples=295360
-                                                                             ), batch_size=16, num_workers=16)
+    # average of number of classes: 11360 -> * 26 = 295,360
+    train_loader = DataLoader(
+        train_subset,
+        sampler=ImbalancedDatasetSampler(
+            train_subset,
+            labels=train_labels,
+            num_samples=295360,
+        ),
+        batch_size=16,
+        num_workers=16,
+    )
     val_loader = DataLoader(val_subset, batch_size=16, shuffle=False, num_workers=16)
 
     model = AutoModelForImageClassification.from_pretrained(
@@ -195,9 +204,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             accuracy = accuracy_valid
             model_weights = model.state_dict()
             t = datetime.date.today()
-            pth_name = (
-                f"30{fold + 1}_balanced0_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
-            )
+            pth_name = f"30{fold + 1}_balanced0_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
             torch.save(
                 model_weights,
                 checkpoint_dir / pth_name,
