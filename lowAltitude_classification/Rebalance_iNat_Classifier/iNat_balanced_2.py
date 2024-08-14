@@ -31,6 +31,9 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+previous_checkpoint_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/rebalance2/checkpoints/314_balanced1_time2024-08-14_1e_acc96.pth"
+
+
 data_folder = Path("data/iNat_Classifier_filtered")
 lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
@@ -106,6 +109,12 @@ fold_accuracies = []
 
 # For each fold
 for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
+    if fold < 3:
+        continue
+
+    if previous_checkpoint_path:
+        model.load_state_dict(torch.load(previous_checkpoint_path))
+
     logger.debug(f"Fold {fold + 1}/{kf.get_n_splits()}")
 
     train_subset = Subset(dataset, train_idx)
@@ -144,6 +153,8 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     best_model_weights = None
 
     for epoch in range(num_epochs):
+        if epoch == 0 and fold == 3:
+            continue
         model.train()
         loss_accumulated_train = 0.0
         total_samples_train = 0

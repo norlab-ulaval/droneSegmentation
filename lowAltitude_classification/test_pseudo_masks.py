@@ -199,7 +199,7 @@ def visualize_segmentation(orig_folder, pred_folder, target_folder):
 if __name__ == "__main__":
     ignored_classes = {1}
 
-    pred_folder = "/home/kamyar/Documents/Test_Annotated_Predictions/02_base_5e"
+    pred_folder = "/home/kamyar/Documents/Test_Annotated_Predictions/45_background_4e"
     target_folder = "/home/kamyar/Documents/Test_Annotated_masks"
     orig_folder = "/home/kamyar/Documents/Test_Annotated"
 
