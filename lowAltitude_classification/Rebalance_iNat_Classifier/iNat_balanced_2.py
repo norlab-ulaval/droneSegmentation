@@ -34,7 +34,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 previous_checkpoint_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/rebalance2/checkpoints/314_balanced1_time2024-08-14_1e_acc96.pth"
 
 
-data_folder = Path("data/iNat_Classifier_filtered")
+data_folder = '/home/kamyar/Documents/iNat_Classifier_filtered'
 lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
@@ -112,9 +112,6 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     if fold < 3:
         continue
 
-    if previous_checkpoint_path:
-        model.load_state_dict(torch.load(previous_checkpoint_path))
-
     logger.debug(f"Fold {fold + 1}/{kf.get_n_splits()}")
 
     train_subset = Subset(dataset, train_idx)
@@ -142,6 +139,9 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     )
     model.classifier = nn.Linear(2048, len(label_to_id)).to(device)
     model = model.to(device)
+
+    if previous_checkpoint_path:
+        model.load_state_dict(torch.load(previous_checkpoint_path))
 
     optimizer = optim.AdamW(model.parameters(), lr=0.00001, weight_decay=1e-3)
     scheduler = StepLR(optimizer, step_size=3, gamma=0.0001)
