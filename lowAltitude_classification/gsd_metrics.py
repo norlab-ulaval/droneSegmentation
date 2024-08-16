@@ -10,11 +10,11 @@ image_folder = data_path / "test-data"
 annot_folder = data_path / "test-data-annotation"
 gsddat_folder = data_path / "gsds"
 
-patch_sizes = [256]
+patch_sizes = [128]
 overlaps = [0.85]
 
 # GSD metrics
-GSD_FACTOR = 2
+GSD_FACTOR = 1.5
 N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
@@ -43,6 +43,9 @@ def main():
                     {},
                 )
 
+                correct = all_predictions == all_targets
+                print(correct.sum(), all_predictions.shape, correct.shape)
+
                 gsd_values = [
                     {
                         "GSD": f"GSD{gsd_idx}",
@@ -57,7 +60,7 @@ def main():
                 all_values.extend(gsd_values)
 
         df = pd.DataFrame(all_values)
-        df.to_csv(gsddat_folder / "gds-metrics.csv", index=False)
+        df.to_csv(gsddat_folder / "gsd-metrics.csv", index=False)
 
     print("[Evaluation] Processing complete.")
 
