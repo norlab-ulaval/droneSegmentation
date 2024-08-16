@@ -27,22 +27,26 @@ model = AutoModelForImageClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True
 )
 model = model.to(device)
-num_classes = 32
+num_classes = 26
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
+results_dir = Path("/data/droneSegResults")
 model.load_state_dict(
-    torch.load("lowAltitude_classification/filtered_inat.pth", map_location="cpu")
+    torch.load(
+        results_dir / "5_best/checkpoints/52_Final_time2024-08-15_best_5e_acc94.pth",
+        map_location="cpu",
+    )
 )
 model.eval()
 transform = Compose([Normalize(mean=mean, std=std), ToTensorV2()])
 
-patch_sizes = [256]
+patch_sizes = [128]
 overlaps = [0.85]
 batch_size = 1024
 
 # GSD metrics
-GSD_FACTOR = 2
+GSD_FACTOR = 1.5
 N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
