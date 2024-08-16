@@ -1,11 +1,13 @@
+from __future__ import annotations
 import os
 import cv2
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from tqdm import tqdm
+from pathlib import Path
 
 
-def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
+def load_images_from_folder(folder: str | Path, color_mode=cv2.IMREAD_GRAYSCALE):
     images = []
     for filename in sorted(os.listdir(folder)):
         img = cv2.imread(os.path.join(folder, filename), color_mode)
@@ -62,7 +64,12 @@ def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1
     return np.mean(f1_scores) if f1_scores else 0
 
 
-def evaluate_segmentation(pred_folder, target_folder, mapping, ignored_classes):
+def evaluate_segmentation(
+    pred_folder,
+    target_folder,
+    ignored_classes,
+    num_classes: int = 26,
+):
     pred_images = load_images_from_folder(pred_folder)
     target_images = load_images_from_folder(target_folder)
 
@@ -76,32 +83,31 @@ def evaluate_segmentation(pred_folder, target_folder, mapping, ignored_classes):
         zip(pred_images, target_images),
         total=len(pred_images),
     ):
-        mapped_pred = map_class_values(pred, mapping)
         all_ious.append(
             compute_iou(
-                mapped_pred,
+                pred,
                 target,
-                num_classes=32,
+                num_classes=num_classes,
                 ignored_classes=ignored_classes,
             )
         )
         all_accs.append(
             compute_pixel_accuracy(
-                mapped_pred,
+                pred,
                 target,
                 ignored_classes=ignored_classes,
             )
         )
         all_f1s.append(
             compute_f1_score(
-                mapped_pred,
+                pred,
                 target,
-                num_classes=32,
+                num_classes=num_classes,
                 ignored_classes=ignored_classes,
             )
         )
 
-        all_predictions.append(mapped_pred.flatten())
+        all_predictions.append(pred.flatten())
         all_targets.append(target.flatten())
 
     all_ious = np.array(all_ious)
@@ -121,42 +127,6 @@ def plot_confusion_matrix(predictions, targets, num_classes, class_mapping):
     # print(class_names)
     # exit()
 
-
-IDENTICAL_MAPPING = {i: i for i in range(32)}
-
-MAPPING = {
-    0: 0,
-    1: 1,
-    2: 3,
-    3: 4,
-    4: 5,
-    5: 6,
-    6: 7,
-    7: 8,
-    8: 9,
-    9: 10,
-    10: 11,
-    11: 12,
-    12: 13,
-    13: 14,
-    14: 15,
-    15: 16,
-    16: 17,
-    17: 18,
-    18: 19,
-    19: 20,
-    20: 21,
-    21: 22,
-    22: 23,
-    23: 24,
-    24: 25,
-    25: 26,
-    26: 27,
-    27: 28,
-    28: 29,
-    29: 30,
-    30: 31,
-}
 
 if __name__ == "__main__":
     import json
