@@ -46,7 +46,7 @@ output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
 checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-log_file_path = lac_dir / "Final_iNat_Classifier/log_final.txt"
+log_file_path = lac_dir / "Final_iNat_Classifier/log_final_fold5.txt"
 u.setup_logging("final", log_file_path)
 logger = logging.getLogger("final")
 
