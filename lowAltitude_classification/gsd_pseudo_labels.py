@@ -12,10 +12,10 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
 # Paths
-data_path = Path("data") / "drone-seg"
-image_folder = data_path / "test-data"
-annot_folder = data_path / "test-data-annotation"
-gsddat_folder = data_path / "gsds"
+data_path = Path("/data/Annotated_drone_split")
+image_folder = data_path / "Train-val_Annotated"
+annot_folder = data_path / "Train-val_Annotated_masks"
+gsddat_folder = Path("data") / "gsds" / "val"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -24,7 +24,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(
-    model_name, ignore_mismatched_sizes=True
+    model_name,
+    ignore_mismatched_sizes=True,
 )
 model = model.to(device)
 num_classes = 26
