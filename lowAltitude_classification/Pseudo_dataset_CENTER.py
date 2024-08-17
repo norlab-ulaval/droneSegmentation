@@ -28,7 +28,7 @@ transform = Compose([
 ])
 
 patch_sizes = [184]
-overlaps = [0.75, 0.85, 0.95]
+overlaps = [0.85, 0.95]
 
 
 root_folder = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best'
@@ -43,11 +43,10 @@ for dirpath, dirnames, filenames in os.walk(root_folder):
             model.eval()
 
             output_folder_name = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
-            output_folder = Path(f'/home/kamyar/Documents/Train-val_Annotated_Predictions/DifferentPatchSize/{output_folder_name}')
+            output_folder = Path(f'/home/kamyar/Documents/Train-val_Annotated_Predictions/CENTER/{output_folder_name}')
             output_folder.mkdir(exist_ok=True, parents=True)
 
             for patch_size in patch_sizes:
-                # Define the 64x64 central window within each patch
                 central_window_size = 64
                 central_offset = (patch_size - central_window_size) // 2
                 x_offsets, y_offsets = np.meshgrid(
@@ -131,7 +130,7 @@ for dirpath, dirnames, filenames in os.walk(root_folder):
                             segmentation_map = np.argmax(pixel_predictions, axis=2)
 
                             output_filename = Path(image_path).with_suffix('.png').name
-                            overlap_folder = Path(output_folder) / f'{patch_size}_{int(overlap * 100)}'
+                            overlap_folder = Path(output_folder) / f'{central_window_size}_{patch_size}_{int(overlap * 100)}'
                             overlap_folder.mkdir(exist_ok=True, parents=True)
                             cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
                             print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
