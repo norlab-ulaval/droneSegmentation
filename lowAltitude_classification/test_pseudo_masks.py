@@ -1,10 +1,8 @@
 import os
 import cv2
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
-import seaborn as sns
-
 
 def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
     images = []
@@ -14,7 +12,6 @@ def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
             images.append(img)
     return images
 
-
 def read_class_mapping(file_path):
     class_mapping = {}
     with open(file_path, "r") as file:
@@ -23,13 +20,11 @@ def read_class_mapping(file_path):
             class_mapping[int(idx)] = name
     return class_mapping
 
-
 def map_class_values(image, mapping):
     new_image = np.copy(image)
     for old_value, new_value in mapping.items():
         new_image[image == old_value] = new_value
     return new_image
-
 
 def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
     iou_scores = []
@@ -42,14 +37,12 @@ def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
         iou_scores.append(iou)
     return np.mean(iou_scores) if iou_scores else 0
 
-
 def compute_pixel_accuracy(prediction, target, ignored_classes):
     mask = np.isin(target, ignored_classes, invert=True)
     correct = np.sum((prediction == target) & mask)
     total = np.sum(mask)
     accuracy = correct / total if total != 0 else 0
     return accuracy
-
 
 def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
     f1_scores = []
@@ -69,8 +62,7 @@ def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1
             else 0
         )
         f1_scores.append(f1)
-    return np.mean(f1_scores) if f1_scores else 0
-
+    return np.mean(f1_scores) if f1_scores else 0, precision, recall
 
 def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
     pred_images = load_images_from_folder(pred_folder)
@@ -79,143 +71,61 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
     total_iou = 0
     total_accuracy = 0
     total_f1_score = 0
-    all_predictions = []
-    all_targets = []
+    total_precision = 0
+    total_recall = 0
 
     for pred, target in zip(pred_images, target_images):
-        # mapped_pred = map_class_values(pred, mapping)
         iou = compute_iou(
             pred, target, num_classes=26, ignored_classes=ignored_classes
         )
         accuracy = compute_pixel_accuracy(
             pred, target, ignored_classes=ignored_classes
         )
-        f1_score = compute_f1_score(
+        f1_score, precision, recall = compute_f1_score(
             pred, target, num_classes=26, ignored_classes=ignored_classes
         )
 
         total_iou += iou
         total_accuracy += accuracy
         total_f1_score += f1_score
-
-        all_predictions.append(pred.flatten())
-        all_targets.append(target.flatten())
+        total_precision += precision
+        total_recall += recall
 
     avg_iou = total_iou / len(pred_images)
     avg_accuracy = total_accuracy / len(pred_images)
     avg_f1_score = total_f1_score / len(pred_images)
+    avg_precision = total_precision / len(pred_images)
+    avg_recall = total_recall / len(pred_images)
 
-    all_predictions = np.concatenate(all_predictions)
-    all_targets = np.concatenate(all_targets)
-
-    return avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets
-
-
-# def plot_confusion_matrix(predictions, targets, num_classes, class_mapping):
-#     cm = confusion_matrix(
-#         targets, predictions, labels=range(num_classes), normalize="true"
-#     )
-#     class_names = [class_mapping[i] for i in range(num_classes)]
-#     # print(class_names)
-#     # exit()
-#
-#     plt.figure(figsize=(10, 8))
-#     sns.heatmap(
-#         cm,
-#         annot=True,
-#         fmt=".2f",
-#         cmap="Blues",
-#         xticklabels=class_names,
-#         yticklabels=class_names,
-#     )
-#     plt.xlabel("Predicted")
-#     plt.ylabel("True")
-#     plt.title("Confusion Matrix")
-#     plt.show()
-
-
-def visualize_segmentation(orig_folder, pred_folder, target_folder):
-    orig_images = load_images_from_folder(orig_folder, cv2.IMREAD_COLOR)
-    pred_images = load_images_from_folder(pred_folder, cv2.IMREAD_GRAYSCALE)
-    target_images = load_images_from_folder(target_folder, cv2.IMREAD_GRAYSCALE)
-
-    for orig, pred, target in zip(orig_images, pred_images, target_images):
-        # mapped_pred = map_class_values(pred, mapping)
-        pred = np.copy(pred)
-
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-
-        axes[0].imshow(cv2.cvtColor(orig, cv2.COLOR_BGR2RGB))
-        axes[0].set_title("Original Image")
-        axes[0].axis("off")
-
-        axes[1].imshow(pred, cmap="gray")
-        axes[1].set_title("Prediction")
-        axes[1].axis("off")
-
-        axes[2].imshow(target, cmap="gray")
-        axes[2].set_title("Annotation")
-        axes[2].axis("off")
-
-        plt.show()
-
-
-# IDENTICAL_MAPPING = {i: i for i in range(32)}
-
-# MAPPING = {
-#     0: 0,
-#     1: 1,
-#     2: 3,
-#     3: 4,
-#     4: 5,
-#     5: 6,
-#     6: 7,
-#     7: 8,
-#     8: 9,
-#     9: 10,
-#     10: 11,
-#     11: 12,
-#     12: 13,
-#     13: 14,
-#     14: 15,
-#     15: 16,
-#     16: 17,
-#     17: 18,
-#     18: 19,
-#     19: 20,
-#     20: 21,
-#     21: 22,
-#     22: 23,
-#     23: 24,
-#     24: 25,
-#     25: 26,
-#     26: 27,
-#     27: 28,
-#     28: 29,
-#     29: 30,
-#     30: 31,
-# }
+    return avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall
 
 if __name__ == "__main__":
     ignored_classes = {1}
 
-    pred_folder = "/home/kamyar/Documents/Test_Annotated_Predictions/45_background_4e"
-    target_folder = "/home/kamyar/Documents/Test_Annotated_masks"
-    orig_folder = "/home/kamyar/Documents/Test_Annotated"
+    parent_preds_folder = "/home/kamyar/Documents/Train-val_Annotated_Predictions/DifferentPatchSize/52_Final_5e"
+    target_folder = "/home/kamyar/Documents/Train-val_Annotated_masks"
 
-    avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = (
-        evaluate_segmentation(
-            pred_folder, target_folder, ignored_classes
-        )
-    )
+    results = []
 
-    print(f"Average IoU: {avg_iou:.4f}")
-    print(f"Average Pixel Accuracy: {avg_accuracy:.4f}")
-    print(f"Average F1 Score: {avg_f1_score:.4f}")
+    for idx, pred_folder_name in enumerate(os.listdir(parent_preds_folder)):
+        pred_folder_path = os.path.join(parent_preds_folder, pred_folder_name)
+        if os.path.isdir(pred_folder_path):
+            avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = evaluate_segmentation(
+                pred_folder_path, target_folder, ignored_classes
+            )
+            results.append({
+                "Experiment": f"experiment {idx}",
+                "Patch Size": pred_folder_name.split('_')[0],
+                "Overlap": pred_folder_name.split('_')[1],
+                "precision": f'{avg_precision:.4f}',
+                "recall": f'{avg_recall:.4f}',
+                "mIoU": f'{avg_iou:.4f}',
+                "pAcc": f'{avg_accuracy:.4f}',
+                "F1": f'{avg_f1_score:.4f}',
+            })
 
-    #
-    # file_path = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt'
-    # class_mapping = read_class_mapping(file_path)
-    # plot_confusion_matrix(all_predictions, all_targets, num_classes=32, class_mapping=class_mapping)
+    df = pd.DataFrame(results)
+    df = df.sort_values(by=["Patch Size", "Overlap"])
 
-    # visualize_segmentation(orig_folder, pred_folder, target_folder)
+    df.to_csv("lowAltitude_classification/Result_Val_DifferentPatcheSize/Result_Val_DifferentPatcheSize.csv",
+              index=False)
