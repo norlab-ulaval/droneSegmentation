@@ -102,7 +102,7 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 if __name__ == "__main__":
     ignored_classes = {1}
 
-    parent_preds_folder = "/home/kamyar/Documents/Train-val_Annotated_Predictions/DifferentPatchSize/52_Final_5e"
+    parent_preds_folder = "/home/kamyar/Documents/Train-val_Annotated_Predictions/CENTER/52_Final_5e"
     target_folder = "/home/kamyar/Documents/Train-val_Annotated_masks"
 
     results = []
@@ -113,19 +113,21 @@ if __name__ == "__main__":
             avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = evaluate_segmentation(
                 pred_folder_path, target_folder, ignored_classes
             )
-            results.append({
-                "Experiment": f"experiment {idx}",
-                "Patch Size": pred_folder_name.split('_')[0],
-                "Overlap": pred_folder_name.split('_')[1],
-                "precision": f'{avg_precision:.4f}',
-                "recall": f'{avg_recall:.4f}',
-                "mIoU": f'{avg_iou:.4f}',
-                "pAcc": f'{avg_accuracy:.4f}',
-                "F1": f'{avg_f1_score:.4f}',
-            })
+            print(f'mIoU: {avg_iou}, pAccuracy: {avg_accuracy}, f1_score: {avg_f1_score}')
 
-    df = pd.DataFrame(results)
-    df = df.sort_values(by=["Patch Size", "Overlap"])
-
-    df.to_csv("lowAltitude_classification/Result_Val_DifferentPatcheSize/Result_Val_DifferentPatcheSize.csv",
-              index=False)
+    #         results.append({
+    #             "Experiment": f"experiment {idx}",
+    #             "Patch Size": pred_folder_name.split('_')[0],
+    #             "Overlap": pred_folder_name.split('_')[1],
+    #             "precision": f'{avg_precision:.4f}',
+    #             "recall": f'{avg_recall:.4f}',
+    #             "mIoU": f'{avg_iou:.4f}',
+    #             "pAcc": f'{avg_accuracy:.4f}',
+    #             "F1": f'{avg_f1_score:.4f}',
+    #         })
+    #
+    # df = pd.DataFrame(results)
+    # df = df.sort_values(by=["Patch Size", "Overlap"])
+    #
+    # df.to_csv("lowAltitude_classification/Result_Val_DifferentPatcheSize/Result_Val_DifferentPatcheSize.csv",
+    #           index=False)
