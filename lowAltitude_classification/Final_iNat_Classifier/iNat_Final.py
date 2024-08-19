@@ -38,9 +38,9 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-previous_checkpoint_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/rebalance2/checkpoints/314_balanced1_time2024-08-14_1e_acc96.pth"
+previous_checkpoint_path = "/app/lowAltitude_classification/checkpoints/55_Final_time2024-08-16_best_3e_acc94.pth"
 
-data_folder = '/home/kamyar/Documents/iNat_Classifier_filtered'
+data_folder = 'data/iNat_Classifier_filtered'
 lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
