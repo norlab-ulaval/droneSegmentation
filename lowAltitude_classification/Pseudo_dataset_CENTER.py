@@ -32,7 +32,7 @@ overlaps = [0.85, 0.95]
 
 
 root_folder = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best'
-image_folder = '/home/kamyar/Documents/Train-val_Annotated'
+image_folder = '/home/kamyar/Documents/Test_Annotated'
 
 for dirpath, dirnames, filenames in os.walk(root_folder):
     for filename in filenames:
@@ -43,7 +43,7 @@ for dirpath, dirnames, filenames in os.walk(root_folder):
             model.eval()
 
             output_folder_name = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
-            output_folder = Path(f'/home/kamyar/Documents/Train-val_Annotated_Predictions/CENTER/{output_folder_name}')
+            output_folder = Path(f'/home/kamyar/Documents/Test_Annotated_Predictions/CENTER/{output_folder_name}')
             output_folder.mkdir(exist_ok=True, parents=True)
 
             for patch_size in patch_sizes:

@@ -22,18 +22,24 @@ def patchify_image(image, patch_size=(1024, 1024)):
     return patches
 
 
-def process_images(input_folder, output_folder):
+def process_images(parent_folder, output_folder):
     os.makedirs(output_folder, exist_ok=True)
-    image_files = [f for f in os.listdir(input_folder) if f.lower().endswith('.jpg')]
-    for filename in tqdm(image_files, desc="Processing images"):
-        image = cv2.imread(os.path.join(input_folder, filename))
-        patches = patchify_image(image)
 
-        for i, patch in enumerate(patches):
-            output_filename = os.path.join(output_folder, f'{os.path.splitext(filename)[0]}_patch_{i}.JPG')
-            cv2.imwrite(output_filename, patch)
+    for subdir, _, files in os.walk(parent_folder):
+        for filename in tqdm([f for f in files if f.lower().endswith('.jpg')], desc=f"Processing images in {subdir}"):
+            image_path = os.path.join(subdir, filename)
+            image = cv2.imread(image_path)
+            patches = patchify_image(image)
+
+            for i, patch in enumerate(patches):
+                relative_path = os.path.relpath(subdir, parent_folder)
+                sub_output_folder = os.path.join(output_folder, relative_path)
+                os.makedirs(sub_output_folder, exist_ok=True)
+
+                output_filename = os.path.join(sub_output_folder, f'{os.path.splitext(filename)[0]}_patch_{i}.JPG')
+                cv2.imwrite(output_filename, patch)
 
 
-input_folder = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/ANNOTATION'
-output_folder = '/home/kamyar/Documents/Dataset_LowAltitude/Lac-Saint-Jean/ANNOTATION_patch_2'
+input_folder = '/home/kamyar/Documents/Drone_Unlabeled_Dataset/new'
+output_folder = '/home/kamyar/Documents/Drone_Unlabeled_Dataset/new_patch'
 process_images(input_folder, output_folder)
