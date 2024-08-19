@@ -114,20 +114,34 @@ if __name__ == "__main__":
                 pred_folder_path, target_folder, ignored_classes
             )
             print(f'mIoU: {avg_iou}, pAccuracy: {avg_accuracy}, f1_score: {avg_f1_score}')
+            ####################### Different Patch sizes and overlaps
+            # results.append({
+            #     "Experiment": f"experiment {idx}",
+            #     "Patch Size": pred_folder_name.split('_')[0],
+            #     "Overlap": pred_folder_name.split('_')[1],
+            #     "precision": f'{avg_precision:.4f}',
+            #     "recall": f'{avg_recall:.4f}',
+            #     "mIoU": f'{avg_iou:.4f}',
+            #     "pAcc": f'{avg_accuracy:.4f}',
+            #     "F1": f'{avg_f1_score:.4f}',
+            # })
 
-    #         results.append({
-    #             "Experiment": f"experiment {idx}",
-    #             "Patch Size": pred_folder_name.split('_')[0],
-    #             "Overlap": pred_folder_name.split('_')[1],
-    #             "precision": f'{avg_precision:.4f}',
-    #             "recall": f'{avg_recall:.4f}',
-    #             "mIoU": f'{avg_iou:.4f}',
-    #             "pAcc": f'{avg_accuracy:.4f}',
-    #             "F1": f'{avg_f1_score:.4f}',
-    #         })
-    #
-    # df = pd.DataFrame(results)
-    # df = df.sort_values(by=["Patch Size", "Overlap"])
-    #
-    # df.to_csv("lowAltitude_classification/Result_Val_DifferentPatcheSize/Result_Val_DifferentPatcheSize.csv",
-    #           index=False)
+            ######################## Different center assignment sizes
+            results.append({
+                # "Experiment": f"experiment {idx}",
+                "Central Size": pred_folder_name.split('_')[0],
+                "Patch Size": pred_folder_name.split('_')[1],
+                "Overlap": pred_folder_name.split('_')[2],
+
+                # "precision": f'{avg_precision:.4f}',
+                # "recall": f'{avg_recall:.4f}',
+                "mIoU": f'{avg_iou:.4f}',
+                "pAcc": f'{avg_accuracy:.4f}',
+                "F1": f'{avg_f1_score:.4f}',
+            })
+
+    df = pd.DataFrame(results)
+    df = df.sort_values(by=["Central Size"])
+
+    df.to_csv("lowAltitude_classification/Result_Val_CENTER/Result_Val_CENTER.csv",
+              index=False)
