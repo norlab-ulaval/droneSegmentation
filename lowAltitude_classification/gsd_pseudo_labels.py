@@ -12,10 +12,10 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
 # Paths
-data_path = Path("data") / "drone-seg"
-image_folder = data_path / "test-data"
-annot_folder = data_path / "test-data-annotation"
-gsddat_folder = data_path / "gsds"
+data_path = Path("/data/Annotated_drone_split")
+image_folder = data_path / "Train-val_Annotated"
+annot_folder = data_path / "Train-val_Annotated_masks"
+gsddat_folder = Path("data") / "gsds" / "val"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -24,25 +24,30 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(
-    model_name, ignore_mismatched_sizes=True
+    model_name,
+    ignore_mismatched_sizes=True,
 )
 model = model.to(device)
-num_classes = 32
+num_classes = 26
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
+results_dir = Path("/data/droneSegResults")
 model.load_state_dict(
-    torch.load("lowAltitude_classification/filtered_inat.pth", map_location="cpu")
+    torch.load(
+        results_dir / "5_best/checkpoints/52_Final_time2024-08-15_best_5e_acc94.pth",
+        map_location="cpu",
+    )
 )
 model.eval()
 transform = Compose([Normalize(mean=mean, std=std), ToTensorV2()])
 
-patch_sizes = [256]
+patch_sizes = [128]
 overlaps = [0.85]
 batch_size = 1024
 
 # GSD metrics
-GSD_FACTOR = 2
+GSD_FACTOR = 1.5
 N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
