@@ -11,10 +11,14 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
+SPLIT = os.environ.get("SPLIT", None)
+if SPLIT is None:
+    raise ValueError("SPLIT environment variable must be set: 'Fifth batch'  'First batch'  'Fourth batch'  'Second batch'  'Third batch'")
+
 # Paths
 results_dir = Path("/data/droneSegResults")
 weight_file_path = Path("/data/Best_classifier_Weight")
-image_folder = Path("/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/First batch/")
+image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT}/")
 output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL' / image_folder.name
 ############
 
