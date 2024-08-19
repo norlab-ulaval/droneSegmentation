@@ -2,19 +2,19 @@ import numpy as np
 from pathlib import Path
 import pandas as pd
 
-from gsd_utils import evaluate_segmentation, IDENTICAL_MAPPING
+from gsd_utils import evaluate_segmentation
 
 # Paths
-data_path = Path("data") / "drone-seg"
-image_folder = data_path / "test-data"
-annot_folder = data_path / "test-data-annotation"
-gsddat_folder = data_path / "gsds"
+data_path = Path("/data/Annotated_drone_split")
+image_folder = data_path / "Train-val_Annotated"
+annot_folder = data_path / "Train-val_Annotated_masks"
+gsddat_folder = Path("data") / "gsds" / "val"
 
-patch_sizes = [256]
+patch_sizes = [128]
 overlaps = [0.85]
 
 # GSD metrics
-GSD_FACTOR = 2
+GSD_FACTOR = 1.5
 N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
@@ -39,9 +39,12 @@ def main():
                 ious, accs, f1s, all_predictions, all_targets = evaluate_segmentation(
                     gsd_plab_dir,
                     gsd_annot_dir,
-                    IDENTICAL_MAPPING,
-                    {},
+                    (-1,),
+                    num_classes=26,
                 )
+
+                correct = all_predictions == all_targets
+                print(correct.sum(), all_predictions.shape, correct.shape)
 
                 gsd_values = [
                     {
@@ -57,7 +60,7 @@ def main():
                 all_values.extend(gsd_values)
 
         df = pd.DataFrame(all_values)
-        df.to_csv(gsddat_folder / "gds-metrics.csv", index=False)
+        df.to_csv(gsddat_folder / "gsd-metrics.csv", index=False)
 
     print("[Evaluation] Processing complete.")
 

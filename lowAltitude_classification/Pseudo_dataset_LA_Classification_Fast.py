@@ -139,6 +139,7 @@ from PIL import Image
 from albumentations import Normalize, Compose
 from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
+from pathlib import Path
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -156,26 +157,26 @@ transform = Compose([
     ToTensorV2()
 ])
 
-patch_sizes = [256]
-overlaps = [0.85]
+patch_sizes = [184]
+overlaps = [0.75, 0.85, 0.95]
 
 
-root_folder = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/4_background'
-image_folder = '/home/kamyar/Documents/Test_Annotated'
+root_folder = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best'
+image_folder = '/home/kamyar/Documents/Train-val_Annotated'
 
 for dirpath, dirnames, filenames in os.walk(root_folder):
     for filename in filenames:
-        if filename.endswith('.pth'):
+        if filename == '52_Final_time2024-08-15_best_5e_acc94.pth':
             pth_file_path = os.path.join(dirpath, filename)
 
             model.load_state_dict(torch.load(pth_file_path))
             model.eval()
 
-            output_folder_name = result = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
+            output_folder_name = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
             # print(output_folder_name)
             # exit()
-            output_folder = f'/home/kamyar/Documents/Test_Annotated_Predictions/{output_folder_name}'
-            os.makedirs(output_folder, exist_ok=True)
+            output_folder = Path(f'/home/kamyar/Documents/Train-val_Annotated_Predictions/DifferentPatchSize/{output_folder_name}')
+            output_folder.mkdir(exist_ok=True, parents=True)
 
             for patch_size in patch_sizes:
                 x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))
@@ -184,7 +185,7 @@ for dirpath, dirnames, filenames in os.walk(root_folder):
                 for overlap in overlaps:
                     padding = patch_size // 8
                     step_size = int(patch_size * (1 - overlap))
-                    batch_size = 1024
+                    batch_size = 256
 
                     for image_file in os.listdir(image_folder):
                         if image_file.endswith(('.jpg', '.JPG', '.png')):
@@ -255,9 +256,10 @@ for dirpath, dirnames, filenames in os.walk(root_folder):
 
                             segmentation_map = np.argmax(pixel_predictions, axis=2)
 
-                            output_filename = os.path.splitext(os.path.basename(image_path))[0] + '.png'
-                            output_path = os.path.join(output_folder, output_filename)
-                            cv2.imwrite(output_path, segmentation_map)
+                            output_filename = Path(image_path).with_suffix('.png').name
+                            overlap_folder = Path(output_folder) / f'{patch_size}_{int(overlap * 100)}'
+                            overlap_folder.mkdir(exist_ok=True, parents=True)
+                            cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
                             print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
 
 print("Processing complete.")
