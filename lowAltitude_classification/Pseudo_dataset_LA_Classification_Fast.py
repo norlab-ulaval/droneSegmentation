@@ -17,7 +17,7 @@ if SPLIT is None:
 
 # Paths
 results_dir = Path("/data/droneSegResults")
-weight_file_path = Path("/data/Best_classifier_Weight")
+weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
 image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT}/")
 output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL' / image_folder.name
 ############
