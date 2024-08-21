@@ -78,12 +78,7 @@ class MaskFormerSemanticDatasetMapper:
                 )
             )
         if cfg.INPUT.COLOR_AUG_SSD:
-            augs.append(ColorAugSSDTransform(img_format=cfg.INPUT.FORMAT, brightness_delta = 8,
-                                                                            contrast_low = 0.8,
-                                                                            contrast_high = 1.2,
-                                                                            saturation_low = 0.8,
-                                                                            saturation_high = 1.2,
-                                                                            hue_delta = 5))
+            augs.append(ColorAugSSDTransform(img_format=cfg.INPUT.FORMAT))
 
         augs.append(T.RandomFlip())
 
