@@ -1,0 +1,4373 @@
+{
+    "name": "final",
+    "description": "final version",
+    "created_at": "2024-08-08 21:18:34.274388+00:00",
+    "dataset": {
+        "name": "Drone_dataset",
+        "description": "",
+        "category": "Garden & vegetation",
+        "created_at": "2024-05-23 17:45:20.175787+00:00",
+        "owner": "Kamyar_Nasiri",
+        "task_type": "segmentation-bitmap",
+        "task_attributes": {
+            "format_version": "0.1",
+            "categories": [
+                {
+                    "id": 0,
+                    "name": "Alders",
+                    "color": [
+                        216,
+                        82,
+                        24
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 1,
+                    "name": "American Mountain-ash",
+                    "color": [
+                        216,
+                        82,
+                        24
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 2,
+                    "name": "Background",
+                    "color": [
+                        236,
+                        176,
+                        31
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 3,
+                    "name": "Black spruce",
+                    "color": [
+                        125,
+                        46,
+                        141
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 4,
+                    "name": "Bog Labrador Tea",
+                    "color": [
+                        118,
+                        171,
+                        47
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 5,
+                    "name": "Boulders",
+                    "color": [
+                        161,
+                        19,
+                        46
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 6,
+                    "name": "Canada Yew (Taxus canadensis)",
+                    "color": [
+                        255,
+                        0,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 7,
+                    "name": "Common Haircap Moss",
+                    "color": [
+                        255,
+                        127,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 8,
+                    "name": "Dead_trees",
+                    "color": [
+                        190,
+                        190,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 9,
+                    "name": "Feather Mosses",
+                    "color": [
+                        0,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 10,
+                    "name": "Ferns (Foug\u00e8res)",
+                    "color": [
+                        0,
+                        0,
+                        255
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 11,
+                    "name": "Fir",
+                    "color": [
+                        170,
+                        0,
+                        255
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 12,
+                    "name": "Fire Cherry (Cerisier de pensylvanie)",
+                    "color": [
+                        84,
+                        84,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 13,
+                    "name": "Jack pine",
+                    "color": [
+                        84,
+                        170,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 14,
+                    "name": "Larch",
+                    "color": [
+                        84,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 15,
+                    "name": "Leatherleaf (Cassandre)",
+                    "color": [
+                        170,
+                        84,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 16,
+                    "name": "Mountain Maple (\u00c9rable \u00e0 \u00e9pis)",
+                    "color": [
+                        170,
+                        170,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 17,
+                    "name": "Paper birch",
+                    "color": [
+                        170,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 18,
+                    "name": "Pixie Cup Lichens (Cladonia)",
+                    "color": [
+                        255,
+                        84,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 19,
+                    "name": "Red Maple",
+                    "color": [
+                        255,
+                        170,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 20,
+                    "name": "Red raspberry (Framboisier)",
+                    "color": [
+                        255,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 21,
+                    "name": "Sedges (Carex)",
+                    "color": [
+                        0,
+                        84,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 22,
+                    "name": "Serviceberries (am\u00e9lanchier)",
+                    "color": [
+                        0,
+                        170,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 23,
+                    "name": "Sheep Laurel (Kalmia)",
+                    "color": [
+                        0,
+                        255,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 24,
+                    "name": "Sphagnum Mosses",
+                    "color": [
+                        84,
+                        0,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 25,
+                    "name": "Trembling aspen",
+                    "color": [
+                        84,
+                        84,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 26,
+                    "name": "Viburnums",
+                    "color": [
+                        84,
+                        170,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 27,
+                    "name": "Willowherbs (\u00c9pilobe)",
+                    "color": [
+                        84,
+                        255,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 28,
+                    "name": "Willows",
+                    "color": [
+                        170,
+                        0,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 29,
+                    "name": "blueberry",
+                    "color": [
+                        170,
+                        84,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 30,
+                    "name": "wood",
+                    "color": [
+                        170,
+                        170,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 31,
+                    "name": "yellow birch",
+                    "color": [
+                        170,
+                        255,
+                        127
+                    ],
+                    "attributes": []
+                }
+            ]
+        },
+        "tasks": {
+            "ground-truth": {
+                "description": "",
+                "task_type": "",
+                "attributes": {}
+            }
+        },
+        "labelsets": [
+            {
+                "name": "ground-truth",
+                "description": "",
+                "is_groundtruth": true,
+                "created_at": "2024-05-23 17:45:20.183837+00:00"
+            }
+        ],
+        "samples": [
+            {
+                "uuid": "0d5bf4e9-339c-48bf-90d6-740a62dbacb5",
+                "name": "2024-07-09-123604-5-Domtar-5280x5280-DJI-M3E-patch-1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/36187d78-1210-4028-8004-dcd0dd21a3e5.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/0256795a-32d4-4cfa-90d2-ca98619ca648.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "a93c707d-dfa3-40c9-93d0-b4270b21dd21",
+                "name": "2024-07-09_15:39:35_5_Domtar_5280x5280_DJI_M3E_patch_7.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/9ffdac1a-2d78-4134-9af7-827923c17d73.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/47e4abdc-61ff-483c-8234-2cc11887de0d.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "e387b3bf-f6de-4cfa-b83c-b04a8cfa74a7",
+                "name": "2024-07-09-153706-10.393-Domtar-5280x5280-DJI-M3E-patch-6.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/71b0fad8-12d3-4c6a-b6b7-f226ab68a023.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/da6c0a98-7b6e-4567-a1a9-a5d443093cf7.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "e035e38e-f224-41a7-8a9e-6bc8215d1b48",
+                "name": "2024-07-09-150417-5-Domtar-5280x5280-DJI-M3E-patch-13.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/24b5567b-a0b3-4776-8c35-534150c65f7e.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2a79d963-417b-450a-97eb-aa8a2b9afd60.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "612875df-394a-4dfe-9bc0-c733432cc8c5",
+                "name": "2024-07-09-153909-5-Domtar-5280x5280-DJI-M3E-patch-11.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/dce44335-3e5c-4b84-9ede-32ae476eaebf.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 17,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 18,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 19,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 20,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 21,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 22,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/b780d1c3-13ed-4cdb-94f0-70fde33b5fd1.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "d329749b-8196-4462-b518-4869309c3811",
+                "name": "2024-07-09-153706-10.393-Domtar-5280x5280-DJI-M3E-patch-13.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/a19db2e7-1f47-4f0c-b122-cbbf4094bc56.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 17,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 18,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 19,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 20,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 21,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 22,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c161c1ba-992a-437d-9c84-f771baa77264.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "16e3b59c-263f-401a-8cac-5d2906d7c6c7",
+                "name": "2024-07-24_02:01:29_5_Mauricie_4000x4000_DJI_FC7303_patch_5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d276c65b-3ee7-4e11-ad7a-7a0cef01bf05.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 13,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 13,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/43c09268-b454-4d2a-acd0-758c9a60cee0.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "25a8a019-fd94-4eee-b64f-6961c47b9646",
+                "name": "2024-07-24_03:16:37_5_Mauricie_4000x4000_DJI_FC7303_patch_5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/1d5c362f-297e-4ef4-aac0-4f41277970ff.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/26551a10-ab97-49aa-b72e-df57e7466cfd.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "a87d677b-db8f-4034-9e4f-989ec620dc31",
+                "name": "2024-07-24_22:55:47_5_Mauricie_4000x4000_DJI_FC7303_patch_1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/b20c5162-79af-412d-8d35-59ad41401599.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/42aefb1e-4e07-4ff0-a9a7-34c8f2f73c9a.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "98c3dc64-52d6-468d-b168-77bedd6401b3",
+                "name": "2024-07-24_22:55:47_5_Mauricie_4000x4000_DJI_FC7303_patch_2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/60d053a7-b4ac-4a98-ac46-339d941220de.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/31f91d9e-908e-44dc-888f-fb086c30eb07.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "758d46b6-fda3-41e5-ad73-02de3e6e94bf",
+                "name": "2024-07-25_00:14:59_5_Mauricie_4000x4000_DJI_FC7303_patch_0.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c42edbb6-1902-4717-8915-bc944f75039b.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d8883a44-80a3-40b1-b20b-a87f4fe7bf1c.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "c955aace-295b-4742-8828-9a1fe6ad9b80",
+                "name": "2024-07-25_01:32:32_5_Mauricie_4000x4000_DJI_FC7303_patch_2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/5953723a-c9a7-4b76-a292-6e90817ac863.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/e0afbb01-d040-415e-9657-c08ca9534f8b.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "d85841d2-d137-432d-84ee-482d07ad8b65",
+                "name": "2024-07-25_01:32:32_5_Mauricie_4000x4000_DJI_FC7303_patch_4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/9eaa9d9c-2444-40d6-9ec4-7c2df1be4f51.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/9749e2f6-2bd1-44df-8f0c-0bc7085dce36.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "00203e23-8ba4-47e0-92ad-e0efacd4e36b",
+                "name": "2024-07-25_01:32:32_5_Mauricie_4000x4000_DJI_FC7303_patch_5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c810d2a7-58cf-480d-8c3b-f526ebfb7d87.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/28da5a2d-7292-4681-a385-c58c322d5d42.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "1fe4c50f-5a0d-4d0c-a17a-f316f9204261",
+                "name": "2024-07-09-153909-5-Domtar-5280x5280-DJI-M3E-patch-8.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/1716c5ea-e51a-479a-aaf4-c653372b0d3e.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 19,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 20,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 21,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 22,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 23,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 24,
+                                    "category_id": 15,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 25,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 26,
+                                    "category_id": 15,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 27,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 28,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 29,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 30,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 31,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 32,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/fff17875-bb31-4b8e-b403-0d4ece35c0c4.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "eeda52cd-f656-4fc7-8771-9f6d5e3f1a2b",
+                "name": "2024-07-09-153909-5-Domtar-5280x5280-DJI-M3E-patch-13.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/e5ca7e8c-3c51-4614-92c0-ea35ed842bcd.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/6d7a9a53-42fb-467a-8138-17ad5cbce835.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "247a36b0-f25a-400d-ae17-a79ff3c15c54",
+                "name": "2024-07-09-153706-10.393-Domtar-5280x5280-DJI-M3E-patch-12.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/ba1a499b-0224-4430-83e0-83ed2af2e220.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 17,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 18,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 19,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 20,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 21,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 22,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 23,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 24,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 25,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/3c96c2c0-ffa8-440d-b47f-d0f8442a25fd.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "69e6c4e0-299d-4edf-ad6a-ae644245ad7a",
+                "name": "2024-07-09-151346-5-Domtar-5280x5280-DJI-M3E-patch-12.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2bc55f50-e351-4c00-bf50-0d87d2f86507.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 17,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 18,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 19,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/723e925b-5f0b-4188-b6e8-acc9cf164fd1.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "1e96f78f-9fac-43e9-bd70-308cc8a416a6",
+                "name": "2024-07-09-150417-5-Domtar-5280x5280-DJI-M3E-patch-2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/aa329dcc-bdd5-4b6c-8068-79f263b93ebf.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 17,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d905be8b-9748-45cd-b107-27293930f84e.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "f441025e-91a1-4f4a-9192-46d521271acf",
+                "name": "2024-07-20_01:09:12_5_Gaspesie_4000x4000_DJI_FC7303_patch_1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/0ae2caad-73d2-45ed-ac00-917d24d0a61e.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d2b3e4db-12ce-474e-b8b4-6990d407b46f.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "e1bf7bb0-1d10-412d-b826-7e08bf4206b4",
+                "name": "2024-07-20_01:09:12_5_Gaspesie_4000x4000_DJI_FC7303_patch_4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/a1b0ecb2-c1ce-477a-966b-7c13a442aef1.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/843db731-91fb-4fcf-b032-70e1c136dafd.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "aefea2bd-4442-4e66-823f-a3fd7d553b40",
+                "name": "2024-07-20_01:09:12_5_Gaspesie_4000x4000_DJI_FC7303_patch_5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/5a1b1ea6-c8fe-4832-bbed-e67ccf5564e1.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2dea671c-21f4-4051-98b2-e2950173a55e.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "5615f755-2608-4f3b-9e0f-2854dad36aef",
+                "name": "2024-07-09-145336-5-Domtar-5280x5280-DJI-M3E-patch-11.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/a559fd79-49bc-44e8-9f58-ca2636b0dec9.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d9cec13d-d98c-4132-80f7-e3c51f942b03.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "85c1d775-8cab-4591-ab47-9dc16d7d5e1b",
+                "name": "2024-07-09_15:35:20_5_Domtar_5280x5280_DJI_M3E_patch_8.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/12312be5-06b7-4652-b474-06852c841028.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 21,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/52e4759d-5237-4cf6-b679-07c548652abe.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "fbc36505-227c-42e3-a35f-a2e88dda19f9",
+                "name": "2024-07-09_15:37:06_10.393_Domtar_5280x5280_DJI_M3E_patch_3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/f2bb9c67-2a9d-42ca-bfa7-ef91f045c481.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/4dcd6b66-6d2c-4f1e-8457-e9026cf703de.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "c23d1282-0a39-40ec-a05a-526148305d26",
+                "name": "2024-07-09_15:38:39_5_Domtar_5280x5280_DJI_M3E_patch_12.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d5525976-ab6c-4df0-9abd-92e2573e8cef.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/e128c3f4-2010-4725-b1b2-9b297b646fb0.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "bf2f8bbc-2748-4c5f-9336-293eee7855d1",
+                "name": "2024-07-24_02:01:29_5_Mauricie_4000x4000_DJI_FC7303_patch_2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c804998c-922a-4772-a8d6-44fce46ac083.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 13,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/670c2ab6-12b8-4c07-a382-3d9877ac9004.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "7867fb86-2a35-42cb-b08b-e4d6e9d1c942",
+                "name": "2024-07-24_02:01:29_5_Mauricie_4000x4000_DJI_FC7303_patch_3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2e1fb01e-c29e-45c0-911c-86212dafe3fe.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/81989613-161e-4c9c-813a-e774a3d1b1b3.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "51c24818-4dad-4a14-841c-a87f7e04aef7",
+                "name": "2024-07-24_02:01:29_5_Mauricie_4000x4000_DJI_FC7303_patch_4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2b8bf4bd-874d-467b-8dc5-56f3f7f7777a.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 13,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 13,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c2360388-1f03-458d-8c22-59995a20a24c.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "371c0012-0eef-4eb3-b230-a192f99d26e7",
+                "name": "2024-07-24_02:06:20_5_Mauricie_4000x4000_DJI_FC7303_patch_2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/794eb67a-e380-424e-8d2d-7dcad67068fc.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 13,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/43037790-2c9e-4352-904f-a624d1c44804.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "64e89ce8-c243-4ec6-a648-c429219fcac0",
+                "name": "2024-07-24_23:00:25_5_Mauricie_4000x4000_DJI_FC7303_patch_4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/85046cab-a12f-40a4-adba-eaf8be415b88.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/6ca493dd-aab0-4b02-82ed-270313d18a65.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "84b60163-20a6-454a-9a70-bc5dd1b1bc61",
+                "name": "2024-07-25_00:14:59_5_Mauricie_4000x4000_DJI_FC7303_patch_5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/74d648f7-80df-4ebe-b0ec-6257b11a6e90.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 19,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c4e36988-83a3-45eb-9e96-2f362dc1f9b7.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "7bd7106d-1155-477b-a493-be08e3d3f323",
+                "name": "2024-07-25_01:32:32_5_Mauricie_4000x4000_DJI_FC7303_patch_0.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/b60b03f7-0424-4736-9c9a-6286ae0124ee.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/08103b5b-0fbf-47ff-8c0f-dda8ef7e828f.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "cff581ed-be7c-40b2-b344-fe112b91f50c",
+                "name": "2024-07-25_01:32:32_5_Mauricie_4000x4000_DJI_FC7303_patch_1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/5797acc4-0bb5-44ff-b709-1026c3d1a505.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/b0d23dc1-9c1b-48ed-8526-02332fe5ad4a.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "93e228d8-f381-47bb-afbd-5ecba57a3561",
+                "name": "2024-07-20_01:10:21_5_Gaspesie_4000x4000_DJI_FC7303_patch_2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/9c62364b-1d82-4558-8e97-b1a347994a77.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/daed95ab-5746-42f3-8ee3-d3bf23c880d2.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "06fa658d-6fec-4379-836f-01b137368dc3",
+                "name": "2024-07-19_15:18:19_5_Gaspesie_5280x5280_DJI_M3E_patch_13.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/f1f2778b-0db5-4232-936c-6fa7a42f6af2.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/12532f9d-271e-43d8-a3ea-d856de2b0ab9.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "ab5294c7-4cc6-40e9-94fd-05a6e59be197",
+                "name": "2024-07-19_15:18:19_5_Gaspesie_5280x5280_DJI_M3E_patch_2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/13d1da20-1d41-4033-96e5-12215ba86560.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/bfdce788-bc1a-46fe-b393-ea1729d78f52.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "951287e3-dea8-417a-9e20-c80909f284ea",
+                "name": "2024-07-19_15:18:19_5_Gaspesie_5280x5280_DJI_M3E_patch_7.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/32f34cbf-f038-464a-b63e-57469401cbac.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 22,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 27,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/5c758994-9695-4812-a236-d9b66b801307.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "40ed7b26-6a59-4535-84e2-b096fa9fc20b",
+                "name": "2023-06-29-110105-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/6249e91d-5f57-4300-9adb-80eb65c8e067.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 8,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/9b729e35-ef00-42c2-a38d-3510345310a5.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "d237583f-dda2-45fe-bcbf-059304e40016",
+                "name": "2023-07-13-095307-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-0.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/1f5133a7-8091-4e3e-bc1a-31bbfe202cd8.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d6212dca-f89f-4a2c-9dc9-c73ef5b6eb1b.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "620ac6ec-73b1-4c16-9e81-a29c30f2b956",
+                "name": "2023-07-13-095307-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2ca01e84-abdc-4dc1-bfcb-0cf013637fac.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/887b467a-cdf9-4037-899a-850ff17e5aa8.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "f4a7bc15-46cf-4e9e-9d67-06fb659f34ac",
+                "name": "2023-07-13-095307-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/67ffd9b3-d6df-438f-86e0-ffef9ad5fd33.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/5aab1735-109b-4049-87e8-4d4155b8c35b.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "46b63aa4-b4bd-4d00-9819-8b1cceae3189",
+                "name": "2023-06-29-131242-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c5c8794f-c411-472c-b23c-7ba76693c02a.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 8,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 8,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/108329ee-8253-4917-8522-7956f10e3bcb.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "a7ae1f11-3314-4659-b4bf-2082fe287177",
+                "name": "2023-07-13-095307-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d3a870d0-b122-4fa0-968b-8aa45b0cf27e.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/be26cd98-a960-44a2-bd1b-17fea644496c.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "3b7bbc1e-8bfa-4a66-8c7e-f9bf9351772a",
+                "name": "2023-06-29-105617-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/723e1c4d-1a58-4d08-84a8-d01c6bc9a78b.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 16,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/dbd7bd20-a29b-448a-8ce9-a9db020c6d58.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "997b66cf-68e8-46cc-9ff0-7983a57e263f",
+                "name": "2023-07-06-135203-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/135b9b4b-35d8-4018-b147-387023cd3fc2.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/0a15662d-ee0b-428a-bf17-80e5a37fd1d2.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "8ac8792d-94f5-4d78-a754-3292368f6d9e",
+                "name": "2023-06-29-123755-37.9-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/89cf0c57-ee88-4740-8212-47dacbad61b4.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 31,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/7e9ad10f-fd00-4f6b-9d1d-756677f0521b.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "461c19b3-01e3-4369-9e37-533a42b93dc4",
+                "name": "2023-06-29-131242-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/dcfa465a-a200-486b-a59d-60a97565eba6.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 16,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 8,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/0aeb8cb6-c1d6-484b-a96c-7534bede971b.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "f0295a73-249e-4704-80de-193d74020bc4",
+                "name": "2023-07-19-090208-20.9-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/05f73f93-0d2a-4d2e-add6-5fe0417d4834.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 6,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 6,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 10,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 11,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 12,
+                                    "category_id": 6,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 13,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 14,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 15,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/8da020a1-088e-4f4b-ac7d-c52be2aa627c.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "04850013-9055-46ad-a8c8-a8657306c704",
+                "name": "2023-07-19-090208-20.9-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-4.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/86d1610d-9fcd-4c27-bf48-4e70320a1460.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 6,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/e99ab369-8832-4274-bc7c-8b3023089fd1.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "1b734c23-dff4-4be8-9f1d-7d7ba66dbad9",
+                "name": "2023-07-13-113751-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/97f74c43-2114-47e6-90f7-2605421f71da.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/fba21834-b92d-4d06-ac25-c7722fe55926.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "b6ddc7fa-b7d7-48f4-a49c-b9b759a77b9b",
+                "name": "2023-07-13-113751-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-0.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/793831af-81b3-431a-9f64-e5002726f8ef.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/898fc192-fed1-4740-8c65-b03ea6d3beca.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "8937e991-f363-4ebe-a1fb-4957e7870fda",
+                "name": "2023-07-13-095307-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/6bffea1c-e4b7-44de-841a-6e1b5aa21886.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/15e61e80-8ba9-4cc2-a406-dd019db9fd31.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "beddd638-4378-4d0a-a1c6-6002e568780c",
+                "name": "2023-07-06-135203-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/171a6a5b-403b-41e8-bc21-f21834f017ea.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/f7dbb14b-2fde-42c3-b466-4f8f187b6525.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "0c83e007-f203-4501-84af-997957cbf7e0",
+                "name": "2023-07-06-135203-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/242ef89a-319c-48d8-a2ce-7f9cc04f8e9b.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/2591436e-f01b-499e-a6c4-41ac9bdfda6a.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "17262eb2-e6bd-41f1-b882-6c9948b7729d",
+                "name": "2023-07-06-135203-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/320dddb5-d1c5-4c03-af1b-acea83714d6f.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 11,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/fd610965-80f5-4077-a7a3-296d9b486ae5.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "55bea330-34fa-42ec-84ff-dbba67932412",
+                "name": "2023-07-06-135203-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/c22bb6d2-293a-4270-827f-c9e6d14cfc63.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 5,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 8,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 24,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/749e3294-9926-4cc8-a892-90c33696d4af.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "c30125cc-623a-4fae-a75e-6b3f5ca151c6",
+                "name": "2023-07-13-113751-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/fd38089f-13c4-49e4-97a4-65549bf373d0.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/4b01a428-1c29-435a-a147-f4fbc8112f6d.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "0c0d1143-3139-4d57-831c-4ebe35f86381",
+                "name": "2023-07-13-113751-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/d70262fb-0713-47d3-9c82-4a4c5487a036.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 29,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 9,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/ffc818ec-ef07-43d8-b5a7-e6691513772e.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "0392551b-f3ba-46cc-a975-ee8e6135a3a3",
+                "name": "2023-07-06-123456-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-5.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/49f86b1c-3ec1-4003-b194-1db475cffa02.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 1,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 23,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 4,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 7,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 8,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/3b56c6a6-a252-47e4-b382-b637f0ebeb8d.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "70c0cc36-cb2f-4254-9bff-f8a6a850c3a1",
+                "name": "2023-06-29-102125-5-Lac-Saint-Jean-4000x4000-DJI-FC7303-patch-2.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/08672a73-96cc-4fb6-bf72-9e1a12ee75dc.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 25,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 17,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 5,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 6,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Kamyar_Nasiri/87d5f61c-4d96-4eca-848b-8cdf35bb6c00.png"
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
