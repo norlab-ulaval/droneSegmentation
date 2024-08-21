@@ -10,6 +10,8 @@ image_folder = data_path / "Train-val_Annotated"
 annot_folder = data_path / "Train-val_Annotated_masks"
 gsddat_folder = Path("data") / "gsds" / "val"
 
+results_dir = Path("lowAltitude_classification/results")
+
 patch_sizes = [128]
 overlaps = [0.85]
 
@@ -39,7 +41,7 @@ def main():
                 ious, accs, f1s, all_predictions, all_targets = evaluate_segmentation(
                     gsd_plab_dir,
                     gsd_annot_dir,
-                    (-1,),
+                    [1],
                     num_classes=26,
                 )
 
@@ -60,7 +62,9 @@ def main():
                 all_values.extend(gsd_values)
 
         df = pd.DataFrame(all_values)
-        df.to_csv(gsddat_folder / "gsd-metrics.csv", index=False)
+        output_dir = results_dir / "gsd" / "resize"
+        output_dir.mkdir(exist_ok=True, parents=True)
+        df.to_csv(output_dir / "gsd-metrics.csv", index=False)
 
     print("[Evaluation] Processing complete.")
 

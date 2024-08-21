@@ -67,7 +67,7 @@ def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1
 def evaluate_segmentation(
     pred_folder,
     target_folder,
-    ignored_classes,
+    ignored_classes: list[int] = [-1],
     num_classes: int = 26,
 ):
     pred_images = load_images_from_folder(pred_folder)
