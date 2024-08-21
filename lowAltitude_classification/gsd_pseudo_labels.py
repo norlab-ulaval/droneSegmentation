@@ -10,6 +10,7 @@ from albumentations import Normalize, Compose
 from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
+import argparse
 
 # Paths
 data_path = Path("/data/Annotated_drone_split")
@@ -52,6 +53,17 @@ N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
 SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--mode",
+        help="Resizing mode",
+        default="resize",
+        choices=["resize", "gaussian"],
+    )
+    return parser.parse_args()
 
 
 def generate_pseudo_labels(
@@ -140,6 +152,7 @@ def generate_pseudo_labels(
 
 
 def main():
+    args = parse_arguments()
     for patch_size in patch_sizes:
         x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))
         offsets = np.stack([x_offsets, y_offsets], axis=-1).reshape(-1, 2)
@@ -171,12 +184,16 @@ def main():
                     # Read Image
                     image = np.array(Image.open(image_path))
 
-                    scaled_image = cv2.resize(
-                        image,
-                        None,
-                        fx=scale,
-                        fy=scale,
-                        interpolation=cv2.INTER_NEAREST_EXACT,
+                    scaled_image = (
+                        cv2.resize(
+                            image,
+                            None,
+                            fx=scale,
+                            fy=scale,
+                            interpolation=cv2.INTER_NEAREST_EXACT,
+                        )
+                        if args.mode.lower() == "resize"
+                        else image
                     )
                     gsd_metrics.setdefault("SIZE", []).append(scaled_image.shape[0])
 
