@@ -31,6 +31,7 @@ cd "$SLURM_TMPDIR"/detectron2 || exit 1
 pip install -e . --no-index
 
 cd "$SLURM_TMPDIR"/droneSegmentation/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops || exit 1
+export MAX_JOBS=16
 sh make.sh
 
 cd "$SLURM_TMPDIR" || exit 1
@@ -71,3 +72,10 @@ python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_d
 # Start training
 PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
   --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
+
+get_results() {
+  echo "Getting results"
+  cp -r "$SLURM_TMPDIR/droneSegmentation/" "~/results/results$(date +%s)"
+}
+
+trap get_results EXIT
