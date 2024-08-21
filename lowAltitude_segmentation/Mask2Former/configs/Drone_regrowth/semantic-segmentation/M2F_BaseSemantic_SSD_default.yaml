@@ -48,7 +48,7 @@ INPUT:
   COLOR_AUG_SSD: True
   SIZE_DIVISIBILITY: 128
   FORMAT: "RGB"
-  DATASET_MAPPER_NAME: "mask_former_semantic"
+  DATASET_MAPPER_NAME: "mask_former_semantic_SSD_default"
 TEST:
   EVAL_PERIOD: 5000
   AUG:
@@ -60,6 +60,7 @@ DATALOADER:
   FILTER_EMPTY_ANNOTATIONS: True
   NUM_WORKERS: 32
 VERSION: 2
+
 
 
 

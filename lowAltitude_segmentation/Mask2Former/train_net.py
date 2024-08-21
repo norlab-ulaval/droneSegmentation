@@ -54,6 +54,8 @@ from mask2former import (
     MaskFormerInstanceDatasetMapper,
     MaskFormerPanopticDatasetMapper,
     MaskFormerSemanticDatasetMapper,
+    MaskFormerSemanticDatasetMapperColorAugmentations,
+    MaskFormerSemanticDatasetMapperSSDdefault,
     SemanticSegmentorWithTTA,
     add_maskformer2_config,
 )
@@ -168,6 +170,16 @@ class Trainer(DefaultTrainer):
         elif cfg.INPUT.DATASET_MAPPER_NAME == "coco_panoptic_lsj":
             mapper = COCOPanopticNewBaselineDatasetMapper(cfg, True)
             return build_detection_train_loader(cfg, mapper=mapper)
+
+        ############################ NEW MAPPERS
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic_color_Augs":
+            mapper = MaskFormerSemanticDatasetMapperColorAugmentations(cfg, True)
+            return build_detection_train_loader(cfg, mapper=mapper)
+
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic_SSD_default":
+            mapper = MaskFormerSemanticDatasetMapperSSDdefault(cfg, True)
+            return build_detection_train_loader(cfg, mapper=mapper)
+
         else:
             mapper = None
             return build_detection_train_loader(cfg, mapper=mapper)

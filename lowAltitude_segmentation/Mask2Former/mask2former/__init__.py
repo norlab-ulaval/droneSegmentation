@@ -18,6 +18,15 @@ from .data.dataset_mappers.mask_former_semantic_dataset_mapper import (
     MaskFormerSemanticDatasetMapper,
 )
 
+from .data.dataset_mappers.mask_former_semantic_dataset_mapper_colorAugmentations import (
+    MaskFormerSemanticDatasetMapperColorAugmentations,
+)
+
+from .data.dataset_mappers.mask_former_semantic_dataset_mapper_SSD_default import (
+    MaskFormerSemanticDatasetMapperSSDdefault,
+)
+
+
 # models
 from .maskformer_model import MaskFormer
 from .test_time_augmentation import SemanticSegmentorWithTTA
