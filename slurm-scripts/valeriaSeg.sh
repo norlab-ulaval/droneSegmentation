@@ -10,7 +10,7 @@
 #SBATCH --output=%x-%j.out
 #SBATCH --reservation=wigum_9
 
-cd $SLURM_TMPDIR || exit 1
+cd "$SLURM_TMPDIR" || exit 1
 cp -r ~/detectron2 ./
 cp -r ~/droneSegmentation ./
 
@@ -18,21 +18,56 @@ module load python/3.11.5
 module load cuda/11.7
 module load opencv
 
-s3cmd sync s3://annotated $SLURM_TMPDIR
+#s3cmd sync s3://annotated $SLURM_TMPDIR
 
 virtualenv --no-download venv
 source venv/bin/activate
 pip install --no-index --upgrade pip
 
-cd $SLURM_TMPDIR/droneSegmentation/lowAltitude_segmentation/Mask2Former || exit 1
+cd "$SLURM_TMPDIR"/droneSegmentation/lowAltitude_segmentation/Mask2Former || exit 1
 pip install -r requirements.txt --no-index
 
-cd $SLURM_TMPDIR/detectron2 || exit 1
+cd "$SLURM_TMPDIR"/detectron2 || exit 1
 pip install -e . --no-index
 
-cd $SLURM_TMPDIR/droneSegmentation/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops || exit 1
+cd "$SLURM_TMPDIR"/droneSegmentation/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops || exit 1
 sh make.sh
 
-cd $SLURM_TMPDIR/droneSegmentation/ || exit 1
-python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
-  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml
+cd "$SLURM_TMPDIR" || exit 1
+mkdir drone_dataset/
+cd drone_dataset || exit 1
+mkdir train val
+
+# Train
+cd train || exit 1
+mkdir images masks
+cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/images/*.tar.gz images/
+cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/masks/*.tar.gz masks/
+cd images || exit 1
+find -- *.tar.gz | parallel --progress tar -xvzf {}
+find . -type f -name '*.JPG' -exec mv -t ./ {} +
+
+cd ../masks || exit 1
+find -- *.tar.gz | parallel --progress tar -xvzf {}
+find . -type f -name '*.png' -exec mv -t ./ {} +
+
+# Validation
+cd ../../val || exit 1
+mkdir images masks
+cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/m2f_train_val_split/*.tar.gz ./
+find -- *.tar.gz | parallel --progress tar -xvzf {}
+mv M2F_Train_Val_split/val/* ./
+rm -r M2F_Train_Val_split/
+
+# Weights
+cd "$SLURM_TMPDIR"/droneSegmentation/lowAltitude_segmentation/Mask2Former/ || exit 1
+cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/weights/M2F_IN21k_weight/* ./
+
+cd "$SLURM_TMPDIR"/droneSegmentation/ || exit 1
+
+# Register dataset
+python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
+
+# Start training
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
