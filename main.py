@@ -427,31 +427,89 @@
 #     move_images_to_parent(parent_folder)
 
 
+# import os
+# import random
+# import shutil
+#
+#
+# def split_images(folder_path, destination_folder):
+#     # Create the destination folder if it doesn't exist
+#     if not os.path.exists(destination_folder):
+#         os.makedirs(destination_folder)
+#
+#     # List all the files in the folder
+#     files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+#
+#
+#     # Determine the split point (half of the images)
+#     split_point = len(files) // 2
+#
+#     # Move half of the images to the destination folder
+#     for file in files[:split_point]:
+#         shutil.move(os.path.join(folder_path, file), os.path.join(destination_folder, file))
+#
+#     print(f"Moved {split_point} files to {destination_folder}")
+#
+#
+# # Example usage
+# folder_path = '/home/kamyar/Documents/Drone_Unlabeled_Dataset_Patch_split/Third batch'
+# destination_folder = '/home/kamyar/Documents/Drone_Unlabeled_Dataset_Patch_split/Fifth batch'
+# split_images(folder_path, destination_folder)
+
+
 import os
-import random
 import shutil
+import random
+from pathlib import Path
 
 
-def split_images(folder_path, destination_folder):
-    # Create the destination folder if it doesn't exist
-    if not os.path.exists(destination_folder):
-        os.makedirs(destination_folder)
+def split_dataset(images_folder, masks_folder, output_folder, val_split=0.2):
+    # Create output directories
+    train_images_dir = Path(output_folder) / 'train' / 'images'
+    train_masks_dir = Path(output_folder) / 'train' / 'masks'
+    val_images_dir = Path(output_folder) / 'val' / 'images'
+    val_masks_dir = Path(output_folder) / 'val' / 'masks'
 
-    # List all the files in the folder
-    files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+    # Ensure output directories exist
+    for directory in [train_images_dir, train_masks_dir, val_images_dir, val_masks_dir]:
+        directory.mkdir(parents=True, exist_ok=True)
+
+    # Get a list of all image files
+    images = sorted(Path(images_folder).glob('*'))
+    masks = sorted(Path(masks_folder).glob('*'))
+
+    # Ensure that there is a corresponding mask for every image
+    assert len(images) == len(masks), "The number of images and masks must be the same"
+
+    # Combine images and masks
+    combined = list(zip(images, masks))
+
+    # Shuffle combined list to randomize the split
+    random.shuffle(combined)
+
+    # Determine the split point
+    split_point = int(len(combined) * val_split)
+
+    # Split into training and validation sets
+    val_set = combined[:split_point]
+    train_set = combined[split_point:]
+
+    # Move files to respective folders
+    for img_path, mask_path in train_set:
+        shutil.copy(img_path, train_images_dir / img_path.name)
+        shutil.copy(mask_path, train_masks_dir / mask_path.name)
+
+    for img_path, mask_path in val_set:
+        shutil.copy(img_path, val_images_dir / img_path.name)
+        shutil.copy(mask_path, val_masks_dir / mask_path.name)
+
+    print(f"Dataset split completed. Train: {len(train_set)} samples, Validation: {len(val_set)} samples.")
 
 
-    # Determine the split point (half of the images)
-    split_point = len(files) // 2
+# Usage example
+images_folder = '/home/kamyar/Documents/Train-val_Annotated'
+masks_folder = '/home/kamyar/Documents/Train-val_Annotated_masks'
+output_folder = '/home/kamyar/Documents/M2F_Train_Val_split'
 
-    # Move half of the images to the destination folder
-    for file in files[:split_point]:
-        shutil.move(os.path.join(folder_path, file), os.path.join(destination_folder, file))
+split_dataset(images_folder, masks_folder, output_folder, val_split=0.4)
 
-    print(f"Moved {split_point} files to {destination_folder}")
-
-
-# Example usage
-folder_path = '/home/kamyar/Documents/Drone_Unlabeled_Dataset_Patch_split/Third batch'
-destination_folder = '/home/kamyar/Documents/Drone_Unlabeled_Dataset_Patch_split/Fifth batch'
-split_images(folder_path, destination_folder)
