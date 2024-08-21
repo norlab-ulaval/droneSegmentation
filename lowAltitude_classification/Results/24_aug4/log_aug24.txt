@@ -1,0 +1,72 @@
+2024-08-09 17:07:09,879 [DEBUG] - iNat_Classifier_Augment5.py: Fold 1/5
+2024-08-09 17:10:55,984 [DEBUG] - iNat_Classifier_Augment5.py: Fold 1/5
+2024-08-09 18:36:31,300 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 1 - Training Loss: 0.2098 Accuracy: 0.9371
+2024-08-09 18:44:07,744 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1569 Accuracy: 0.9521
+2024-08-09 18:44:09,013 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 1 at epoch 1 with accuracy 0.9521
+2024-08-09 20:09:41,813 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 2 - Training Loss: 0.1456 Accuracy: 0.9554
+2024-08-09 20:17:18,190 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1551 Accuracy: 0.9529
+2024-08-09 20:17:19,474 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 1 at epoch 2 with accuracy 0.9529
+2024-08-09 21:42:53,768 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 3 - Training Loss: 0.1272 Accuracy: 0.9609
+2024-08-09 21:50:31,237 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1334 Accuracy: 0.9598
+2024-08-09 21:50:32,490 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 1 at epoch 3 with accuracy 0.9598
+2024-08-09 23:16:05,987 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 4 - Training Loss: 0.1174 Accuracy: 0.9640
+2024-08-09 23:23:42,682 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1321 Accuracy: 0.9595
+2024-08-10 00:49:14,700 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 5 - Training Loss: 0.1134 Accuracy: 0.9650
+2024-08-10 00:56:51,321 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1292 Accuracy: 0.9606
+2024-08-10 00:56:52,551 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 1 at epoch 5 with accuracy 0.9606
+2024-08-10 00:56:52,566 [DEBUG] - iNat_Classifier_Augment5.py: Fold 2/5
+2024-08-10 02:22:24,994 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 1 - Training Loss: 0.2090 Accuracy: 0.9370
+2024-08-10 02:30:02,826 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1562 Accuracy: 0.9515
+2024-08-10 02:30:04,075 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 2 at epoch 1 with accuracy 0.9515
+2024-08-10 03:55:35,086 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 2 - Training Loss: 0.1462 Accuracy: 0.9550
+2024-08-10 04:03:13,299 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1498 Accuracy: 0.9542
+2024-08-10 04:03:14,529 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 2 at epoch 2 with accuracy 0.9542
+2024-08-10 05:28:45,173 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 3 - Training Loss: 0.1291 Accuracy: 0.9606
+2024-08-10 05:36:22,444 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1741 Accuracy: 0.9458
+2024-08-10 07:01:53,187 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 4 - Training Loss: 0.1502 Accuracy: 0.9525
+2024-08-10 07:09:31,040 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1631 Accuracy: 0.9490
+2024-08-10 08:35:01,395 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 5 - Training Loss: 0.1412 Accuracy: 0.9556
+2024-08-10 08:42:39,360 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1615 Accuracy: 0.9502
+2024-08-10 08:42:40,028 [DEBUG] - iNat_Classifier_Augment5.py: Fold 3/5
+2024-08-10 10:08:10,934 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 1 - Training Loss: 0.2119 Accuracy: 0.9363
+2024-08-10 10:15:47,973 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1510 Accuracy: 0.9545
+2024-08-10 10:15:49,272 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 3 at epoch 1 with accuracy 0.9545
+2024-08-10 11:41:20,232 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 2 - Training Loss: 0.1476 Accuracy: 0.9548
+2024-08-10 11:48:57,217 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1419 Accuracy: 0.9572
+2024-08-10 11:48:58,457 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 3 at epoch 2 with accuracy 0.9572
+2024-08-10 13:14:29,231 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 3 - Training Loss: 0.1273 Accuracy: 0.9608
+2024-08-10 13:22:05,678 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1223 Accuracy: 0.9633
+2024-08-10 13:22:06,913 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 3 at epoch 3 with accuracy 0.9633
+2024-08-10 14:47:36,879 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 4 - Training Loss: 0.1022 Accuracy: 0.9688
+2024-08-10 14:55:14,409 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1223 Accuracy: 0.9628
+2024-08-10 16:20:45,501 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 5 - Training Loss: 0.0992 Accuracy: 0.9695
+2024-08-10 16:28:22,322 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1227 Accuracy: 0.9631
+2024-08-10 16:28:22,953 [DEBUG] - iNat_Classifier_Augment5.py: Fold 4/5
+2024-08-10 17:53:54,827 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 1 - Training Loss: 0.2077 Accuracy: 0.9376
+2024-08-10 18:01:32,043 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1748 Accuracy: 0.9477
+2024-08-10 18:01:33,324 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 4 at epoch 1 with accuracy 0.9477
+2024-08-10 19:27:04,480 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 2 - Training Loss: 0.1471 Accuracy: 0.9551
+2024-08-10 19:34:41,858 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1375 Accuracy: 0.9593
+2024-08-10 19:34:43,111 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 4 at epoch 2 with accuracy 0.9593
+2024-08-10 21:00:13,907 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 3 - Training Loss: 0.1259 Accuracy: 0.9615
+2024-08-10 21:07:50,222 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1577 Accuracy: 0.9532
+2024-08-10 22:33:20,982 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 4 - Training Loss: 0.1309 Accuracy: 0.9596
+2024-08-10 22:40:57,397 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1553 Accuracy: 0.9533
+2024-08-11 00:06:28,244 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 5 - Training Loss: 0.1252 Accuracy: 0.9612
+2024-08-11 00:14:04,215 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1440 Accuracy: 0.9567
+2024-08-11 00:14:04,847 [DEBUG] - iNat_Classifier_Augment5.py: Fold 5/5
+2024-08-11 01:39:39,486 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 1 - Training Loss: 0.2102 Accuracy: 0.9373
+2024-08-11 01:47:16,046 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1433 Accuracy: 0.9573
+2024-08-11 01:47:17,290 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 5 at epoch 1 with accuracy 0.9573
+2024-08-11 03:12:48,586 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 2 - Training Loss: 0.1460 Accuracy: 0.9554
+2024-08-11 03:20:25,527 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1516 Accuracy: 0.9541
+2024-08-11 04:45:58,089 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 3 - Training Loss: 0.1269 Accuracy: 0.9613
+2024-08-11 04:53:35,223 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1196 Accuracy: 0.9634
+2024-08-11 04:53:36,462 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 5 at epoch 3 with accuracy 0.9634
+2024-08-11 06:19:08,189 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 4 - Training Loss: 0.0995 Accuracy: 0.9691
+2024-08-11 06:26:44,797 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1204 Accuracy: 0.9643
+2024-08-11 06:26:46,028 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 5 at epoch 4 with accuracy 0.9643
+2024-08-11 07:52:18,127 [DEBUG] - iNat_Classifier_Augment5.py: Epoch 5 - Training Loss: 0.0981 Accuracy: 0.9693
+2024-08-11 07:59:54,588 [DEBUG] - iNat_Classifier_Augment5.py: Validation Loss: 0.1187 Accuracy: 0.9646
+2024-08-11 07:59:55,815 [DEBUG] - iNat_Classifier_Augment5.py: Best model weights saved for fold 5 at epoch 5 with accuracy 0.9646
+2024-08-11 07:59:55,816 [DEBUG] - iNat_Classifier_Augment5.py: Average validation accuracy across folds: 0.9590

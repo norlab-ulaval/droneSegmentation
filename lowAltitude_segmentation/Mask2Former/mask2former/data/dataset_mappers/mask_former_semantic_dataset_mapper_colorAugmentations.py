@@ -86,6 +86,13 @@ class MaskFormerSemanticDatasetMapper:
                                                                             hue_delta = 5))
 
         augs.append(T.RandomFlip())
+        augs.append(T.RandomSaturation(intensity_min=0.5, intensity_max=1.5))
+        augs.append(T.RandomBrightness(intensity_min=0.7, intensity_max=1.3))
+        augs.append(T.RandomContrast(intensity_min=0.8, intensity_max=1.2))
+        augs.append(T.RandomLighting(scale=0.1))
+
+
+
 
         # Assume always applies to the training set.
         dataset_names = cfg.DATASETS.TRAIN
