@@ -69,13 +69,14 @@ cd "$SLURM_TMPDIR"/droneSegmentation/ || exit 1
 # Register dataset
 python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
 
-# Start training
-PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
-  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
-
+# Get results
 get_results() {
   echo "Getting results"
   cp -r "$SLURM_TMPDIR/droneSegmentation/" "~/results/results$(date +%s)"
 }
 
 trap get_results EXIT
+
+# Start training
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
