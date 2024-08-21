@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --time=4:00:00
+#SBATCH --time=100:00:00
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=12G
 #SBATCH --partition=gpu
@@ -73,8 +73,8 @@ python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_d
 # Get results
 get_results() {
   echo "Getting results"
-  mkdir ~/results
-  cp -r "$SLURM_TMPDIR/droneSegmentation/" "~/results/results$(date +%s)"
+  mkdir ~/scratch/results
+  cp -r "$SLURM_TMPDIR/droneSegmentation/" /scratch/results/"results$(date +%s)"
 }
 
 trap get_results EXIT
