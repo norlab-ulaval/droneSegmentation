@@ -13,10 +13,10 @@ from detectron2.data import transforms as T
 from detectron2.projects.point_rend import ColorAugSSDTransform
 from detectron2.structures import BitMasks, Instances
 
-__all__ = ["MaskFormerSemanticDatasetMapper"]
+__all__ = ["MaskFormerSemanticDatasetMapperSSDdefault"]
 
 
-class MaskFormerSemanticDatasetMapper:
+class MaskFormerSemanticDatasetMapperSSDdefault:
     """
     A callable which takes a dataset dict in Detectron2 Dataset format,
     and map it into a format used by MaskFormer for semantic segmentation.
