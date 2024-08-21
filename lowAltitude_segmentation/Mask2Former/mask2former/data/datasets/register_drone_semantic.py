@@ -1,4 +1,3 @@
-
 # Copyright (c) Facebook, Inc. and its affiliates.
 import os
 
@@ -191,8 +190,6 @@ DRONE_SEM_SEG_CATEGORIES = [
 ]
 
 
-
-
 def _get_mapillary_vistas_meta():
     stuff_classes = [k["readable"] for k in DRONE_SEM_SEG_CATEGORIES if k["evaluate"]]
     assert len(stuff_classes) == 25
@@ -225,5 +222,6 @@ def register_all_mapillary_vistas(root):
         )
 
 
-_root = "/home/kamyar/Documents/Dataset_mask2former"
+tmp_dir = os.environ['SLURM_TMPDIR']
+_root = f"{tmp_dir}/drone_dataset"
 register_all_mapillary_vistas(_root)
