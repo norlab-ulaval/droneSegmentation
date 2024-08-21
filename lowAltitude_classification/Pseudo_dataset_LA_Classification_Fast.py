@@ -12,10 +12,11 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
 # Paths
-results_dir = Path("/data/droneSegResults")
-weight_file_path = Path("/data/Best_classifier_Weight")
-image_folder = Path("/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/First batch/")
-output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL' / image_folder.name
+results_dir = Path("/home/kamyar/Documents")
+weight_file_path = Path("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best/checkpoints/55_Final_time2024-08-16_best_5e_acc95.pth")
+image_folder = Path("/home/kamyar/Documents/Test_Annotated")
+name_folder = weight_file_path.name.split('_')[0] + '_' + weight_file_path.name.split('_')[1] + '_' + weight_file_path.name.split('_')[4]
+output_dir = results_dir / 'Test_Annotated_Predictions' / name_folder
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -34,7 +35,7 @@ transform = Compose([
     ToTensorV2()
 ])
 
-patch_sizes = [184]
+patch_sizes = [256]
 overlaps = [0.85]
 
 model.load_state_dict(torch.load(weight_file_path))
