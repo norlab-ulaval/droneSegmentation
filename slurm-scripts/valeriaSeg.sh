@@ -59,19 +59,21 @@ cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/m2f_train_val_split/*.tar.gz ./
 find -- *.tar.gz | parallel --progress tar -xvzf {}
 mv M2F_Train_Val_split/val/* ./
 rm -r M2F_Train_Val_split/
+cd images || exit 1
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
 
 # Weights
 cd "$SLURM_TMPDIR"/droneSegmentation/lowAltitude_segmentation/Mask2Former/ || exit 1
 cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/weights/M2F_IN21k_weight/* ./
 
-cd "$SLURM_TMPDIR"/droneSegmentation/ || exit 1
-
 # Register dataset
+cd "$SLURM_TMPDIR"/droneSegmentation/ || exit 1
 python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
 
 # Get results
 get_results() {
   echo "Getting results"
+  mkdir ~/results
   cp -r "$SLURM_TMPDIR/droneSegmentation/" "~/results/results$(date +%s)"
 }
 
