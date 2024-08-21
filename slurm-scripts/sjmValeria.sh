@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --time=3:00:00
+#SBATCH --time=4:00:00
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=12G
 #SBATCH --partition=gpu
