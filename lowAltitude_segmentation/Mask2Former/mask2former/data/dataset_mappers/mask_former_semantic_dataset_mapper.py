@@ -78,12 +78,12 @@ class MaskFormerSemanticDatasetMapper:
                 )
             )
         if cfg.INPUT.COLOR_AUG_SSD:
-            augs.append(ColorAugSSDTransform(img_format=cfg.INPUT.FORMAT, brightness_delta = 16,
+            augs.append(ColorAugSSDTransform(img_format=cfg.INPUT.FORMAT, brightness_delta = 8,
                                                                             contrast_low = 0.8,
                                                                             contrast_high = 1.2,
                                                                             saturation_low = 0.8,
                                                                             saturation_high = 1.2,
-                                                                            hue_delta = 10))
+                                                                            hue_delta = 5))
 
         augs.append(T.RandomFlip())
 
@@ -176,11 +176,11 @@ class MaskFormerSemanticDatasetMapper:
             # remove ignored region
             classes = classes[classes != self.ignore_label]
             instances.gt_classes = torch.tensor(classes, dtype=torch.int64)
-            import matplotlib.pyplot as plt
-            plt.imshow(np.transpose(image, axes=(1, 2, 0)))
-            plt.show()
-            plt.imshow(sem_seg_gt)
-            plt.show()
+            # import matplotlib.pyplot as plt
+            # plt.imshow(np.transpose(image, axes=(1, 2, 0)))
+            # plt.show()
+            # plt.imshow(sem_seg_gt)
+            # plt.show()
             # exit()
 
 

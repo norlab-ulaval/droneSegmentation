@@ -1,0 +1,750 @@
+{
+    "name": "8th export",
+    "description": "",
+    "created_at": "2024-07-17 16:55:49.957942+00:00",
+    "dataset": {
+        "name": "Data_Labeling_species",
+        "description": "",
+        "category": "Other / mixed",
+        "created_at": "2024-06-20 13:09:36.983176+00:00",
+        "owner": "Thomas_Careau",
+        "task_type": "segmentation-bitmap",
+        "task_attributes": {
+            "format_version": "0.1",
+            "categories": [
+                {
+                    "id": 0,
+                    "name": "Alders",
+                    "color": [
+                        216,
+                        82,
+                        24
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 1,
+                    "name": "American Mountain-ash",
+                    "color": [
+                        216,
+                        82,
+                        24
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 2,
+                    "name": "Background",
+                    "color": [
+                        236,
+                        176,
+                        31
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 3,
+                    "name": "Black spruce",
+                    "color": [
+                        125,
+                        46,
+                        141
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 4,
+                    "name": "Bog Labrador",
+                    "color": [
+                        118,
+                        171,
+                        47
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 5,
+                    "name": "Boulders",
+                    "color": [
+                        161,
+                        19,
+                        46
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 6,
+                    "name": "Canada Yew (Taxus canadensis)",
+                    "color": [
+                        255,
+                        0,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 7,
+                    "name": "Common Haircap Moss",
+                    "color": [
+                        255,
+                        127,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 8,
+                    "name": "Dead_trees",
+                    "color": [
+                        190,
+                        190,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 9,
+                    "name": "Feather Mosses",
+                    "color": [
+                        0,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 10,
+                    "name": "Ferns (Foug\u00e8res)",
+                    "color": [
+                        0,
+                        0,
+                        255
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 11,
+                    "name": "Fir",
+                    "color": [
+                        170,
+                        0,
+                        255
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 12,
+                    "name": "Fire Cherry (Cerisier de pensylvanie)",
+                    "color": [
+                        84,
+                        84,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 13,
+                    "name": "Jack pine",
+                    "color": [
+                        84,
+                        170,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 14,
+                    "name": "Larch",
+                    "color": [
+                        84,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 15,
+                    "name": "Leatherleaf (Cassandre)",
+                    "color": [
+                        170,
+                        84,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 16,
+                    "name": "Mountain Maple (\u00c9rable \u00e0 \u00e9pis)",
+                    "color": [
+                        170,
+                        170,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 17,
+                    "name": "Paper birch",
+                    "color": [
+                        170,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 18,
+                    "name": "Pixie Cup Lichens (Cladionia)",
+                    "color": [
+                        255,
+                        84,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 19,
+                    "name": "Red Maple",
+                    "color": [
+                        255,
+                        170,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 20,
+                    "name": "Red raspberry (Framboisier)",
+                    "color": [
+                        255,
+                        255,
+                        0
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 21,
+                    "name": "Sedges (Carex)",
+                    "color": [
+                        0,
+                        84,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 22,
+                    "name": "Serviceberries (am\u00e9lanchier)",
+                    "color": [
+                        0,
+                        170,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 23,
+                    "name": "Sheep Laurel (Kalmia)",
+                    "color": [
+                        0,
+                        255,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 24,
+                    "name": "Sphagnum Mosses",
+                    "color": [
+                        84,
+                        0,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 25,
+                    "name": "Trembling aspen",
+                    "color": [
+                        84,
+                        84,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 26,
+                    "name": "Viburnums",
+                    "color": [
+                        84,
+                        170,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 27,
+                    "name": "Willowherbs (\u00c9pilobe)",
+                    "color": [
+                        84,
+                        255,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 28,
+                    "name": "Willows",
+                    "color": [
+                        170,
+                        0,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 29,
+                    "name": "blueberry",
+                    "color": [
+                        170,
+                        84,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 30,
+                    "name": "wood",
+                    "color": [
+                        170,
+                        170,
+                        127
+                    ],
+                    "attributes": []
+                },
+                {
+                    "id": 31,
+                    "name": "yellow birch",
+                    "color": [
+                        170,
+                        255,
+                        127
+                    ],
+                    "attributes": []
+                }
+            ]
+        },
+        "tasks": {
+            "ground-truth": {
+                "description": "",
+                "task_type": "",
+                "attributes": {}
+            }
+        },
+        "labelsets": [
+            {
+                "name": "ground-truth",
+                "description": "",
+                "is_groundtruth": true,
+                "created_at": "2024-06-20 13:09:36.995406+00:00"
+            }
+        ],
+        "samples": [
+            {
+                "uuid": "d5690876-fa91-4805-8397-6646c646fd57",
+                "name": "2024-06-28-140733-5-ForetMontmorency-5280x5280-DJI-M3E-patch-14.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/841a12fa-95bb-46ff-8b1c-14398f85bbf7.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/446cf7e6-00d3-45da-8293-6a8a180b26c4.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "329220a0-b41a-4ae2-8cbf-96e89302a5da",
+                "name": "2024-06-28-140733-5-ForetMontmorency-5280x5280-DJI-M3E-patch-3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/2c61dd38-8f3d-4cb0-af5b-e47d917293ad.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/e7be8125-cd21-4591-bbf9-6c8f510f2bc7.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "c662f9b7-4406-4410-8e24-17d6a25a59fc",
+                "name": "2024-06-28-140733-5-ForetMontmorency-5280x5280-DJI-M3E-patch-9.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/18488d6a-fc08-49a8-b662-ac646bab892f.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/9cf15e07-c805-4c92-a4fa-5c1e132f0915.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "a513c330-8007-4584-973c-9ca854c9b819",
+                "name": "2024-06-28-140820-5-ForetMontmorency-5280x5280-DJI-M3E-patch-8.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/c13964af-6fb4-4bd6-96c6-cd36563b8093.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/5a222066-7fbe-48a6-9ecb-fb7b205b75fc.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "4ec5032c-b60c-422a-b111-113944c654a8",
+                "name": "2024-06-28-140859-5-ForetMontmorency-5280x5280-DJI-M3E-patch-12.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/661e083d-98b6-4bde-85c6-169179f1fabc.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/92540c83-3f82-4a3d-a989-45ca6a6c2a32.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "3c23e47f-e8c3-44d1-97f9-f30a1fd79cc1",
+                "name": "2024-06-28-140859-5-ForetMontmorency-5280x5280-DJI-M3E-patch-13.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/c3ecb4f6-d2a2-40d8-b5a3-4cfd25612fca.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 30,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/c96afe9a-2874-4c38-a836-d18577a7fde6.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "10ab0411-af85-47e9-b2d2-e11ffe7e4f1d",
+                "name": "2024-06-28-140859-5-ForetMontmorency-5280x5280-DJI-M3E-patch-3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/0e9e221d-6e5e-408d-a34f-b9eec5bb4225.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/0481229a-3ace-4814-a5d1-1786470e30f2.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "6f586e1a-c14f-4b28-bfa5-2f0ec5c4dab7",
+                "name": "2024-06-28-140859-5-ForetMontmorency-5280x5280-DJI-M3E-patch-8.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/ca6e3fe2-4b49-49b8-94b8-b879ee98efcf.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 12,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/f8cce4c8-756a-4b5e-9b4e-49e14775eed9.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "63e3839c-df51-4e17-8d36-d49340cd7978",
+                "name": "2024-06-28-140915-5-ForetMontmorency-5280x5280-DJI-M3E-patch-1.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/04437fa7-963e-405b-9335-c62571071b61.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/cbdafe83-0e8d-4c70-b7f8-42d61e3a6f75.png"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "uuid": "015aefbf-f568-42de-99e2-35cb0146b1a2",
+                "name": "2024-06-28-140915-5-ForetMontmorency-5280x5280-DJI-M3E-patch-3.JPG",
+                "attributes": {
+                    "image": {
+                        "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/713b3b5f-79cd-4b57-9365-85bc68e255b8.jpg"
+                    }
+                },
+                "metadata": {},
+                "labels": {
+                    "ground-truth": {
+                        "label_status": "LABELED",
+                        "attributes": {
+                            "format_version": "0.1",
+                            "annotations": [
+                                {
+                                    "id": 1,
+                                    "category_id": 3,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 2,
+                                    "category_id": 10,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 3,
+                                    "category_id": 20,
+                                    "attributes": {}
+                                },
+                                {
+                                    "id": 4,
+                                    "category_id": 2,
+                                    "attributes": {}
+                                }
+                            ],
+                            "segmentation_bitmap": {
+                                "url": "https://segmentsai-prod.s3.eu-west-2.amazonaws.com/assets/Thomas_Careau/ceeb951e-5a25-4974-a33b-3099ec3027bd.png"
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
