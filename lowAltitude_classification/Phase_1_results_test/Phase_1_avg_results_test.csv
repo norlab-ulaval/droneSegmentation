@@ -1,0 +1,13 @@
+Experiment,mIoU,pAcc,F1
+experiment 0,0.1702,0.3504,0.2283
+experiment 1,0.1725,0.3306,0.2303
+experiment 20,0.2196,0.4217,0.2937
+experiment 21,0.2111,0.4104,0.2826
+experiment 22,0.2153,0.4228,0.2869
+experiment 23,0.2036,0.4081,0.2708
+experiment 24,0.1983,0.3829,0.2648
+experiment 25,0.2182,0.434,0.2908
+experiment 30,0.2223,0.43,0.2942
+experiment 31,0.2097,0.4201,0.2804
+experiment 4,0.2107,0.4365,0.2858
+experiment 5,0.243,0.4991,0.3242
