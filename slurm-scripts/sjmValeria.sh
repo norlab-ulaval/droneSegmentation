@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #SBATCH --time=24:00:00
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=12G
+#SBATCH --mem=64G
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:a100:1
-#SBATCH --mail-user=william.guimont-martin.1@ulaval.ca
+#SBATCH --mail-user=william.guimont-martin@norlab.ulaval.ca
 #SBATCH --mail-type=FAIL,TIME_LIMIT
 #SBATCH --job-name=$NAME
 #SBATCH --output=%x-%j.out
@@ -74,7 +74,7 @@ python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_d
 get_results() {
   echo "Getting results"
   mkdir ~/scratch/results
-  cp -r "$SLURM_TMPDIR/droneSegmentation/" /scratch/results/"results$(date +%s)"
+  cp -r "$SLURM_TMPDIR/droneSegmentation/" ~/scratch/results/"results$(date +%s)"
 }
 
 trap get_results EXIT
