@@ -6,16 +6,14 @@ df_val = pd.read_csv('lowAltitude_classification/Result_Val_DifferentPatcheSize/
 df_test = pd.read_csv('lowAltitude_classification/Result_Test_DifferentPatcheSize/Result_Test_DifferentPatcheSize.csv')
 
 # Columns to exclude0
-exclude_columns = ['precision', 'recall', 'mIoU']
-
-# Generate the combined column labels
-combined_columns = [f'{row[df_val.columns[1]]}_{row[df_val.columns[2]]}' for _, row in df_val.iterrows()]
+exclude_columns = ['mIoU']
+combined_columns = [f'{row[df_val.columns[0]]}_{row[df_val.columns[1]]}' for _, row in df_val.iterrows()]
 
 fig, ax = plt.subplots(figsize=(10, 6))
 width = 0.2
 
 x = np.arange(len(df_val.index))
-filtered_columns_val = [col for col in df_val.columns[3:] if col not in exclude_columns]
+filtered_columns_val = [col for col in df_val.columns[2:] if col not in exclude_columns]
 for i, column in enumerate(filtered_columns_val):
     ax.bar(x + i * width, df_val[column], width, label=f'Val - {column}')
 
@@ -27,10 +25,11 @@ ax.legend()
 ax.grid(True)
 # plt.tight_layout()
 plt.title('(A) Validation Data')
-plt.savefig(fname='lowAltitude_classification/Result_Val_DifferentPatcheSize/Validation_DifferentPatchSizes.png')
+plt.show()
+# plt.savefig(fname='lowAltitude_classification/Result_Val_DifferentPatcheSize/Validation_DifferentPatchSizes.png')
 
 fig, ax = plt.subplots(figsize=(10, 6))
-filtered_columns_test = [col for col in df_test.columns[3:] if col not in exclude_columns]
+filtered_columns_test = [col for col in df_test.columns[2:] if col not in exclude_columns]
 for i, column in enumerate(filtered_columns_test):
     ax.bar(x + i * width, df_test[column], width, label=f'Test - {column}')
 
@@ -42,4 +41,5 @@ ax.legend()
 ax.grid(True)
 # plt.tight_layout()
 plt.title('(B) Test Data')
-plt.savefig(fname='lowAltitude_classification/Result_Test_DifferentPatcheSize/Test_DifferentPatchSizes.png')
+plt.show()
+# plt.savefig(fname='lowAltitude_classification/Result_Test_DifferentPatcheSize/Test_DifferentPatchSizes.png')

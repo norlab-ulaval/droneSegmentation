@@ -458,58 +458,99 @@
 
 
 import os
-import shutil
-import random
-from pathlib import Path
+# import shutil
+# import random
+# from pathlib import Path
+#
+#
+# def split_dataset(images_folder, masks_folder, output_folder, val_split=0.2):
+#     # Create output directories
+#     train_images_dir = Path(output_folder) / 'train' / 'images'
+#     train_masks_dir = Path(output_folder) / 'train' / 'masks'
+#     val_images_dir = Path(output_folder) / 'val' / 'images'
+#     val_masks_dir = Path(output_folder) / 'val' / 'masks'
+#
+#     # Ensure output directories exist
+#     for directory in [train_images_dir, train_masks_dir, val_images_dir, val_masks_dir]:
+#         directory.mkdir(parents=True, exist_ok=True)
+#
+#     # Get a list of all image files
+#     images = sorted(Path(images_folder).glob('*'))
+#     masks = sorted(Path(masks_folder).glob('*'))
+#
+#     # Ensure that there is a corresponding mask for every image
+#     assert len(images) == len(masks), "The number of images and masks must be the same"
+#
+#     # Combine images and masks
+#     combined = list(zip(images, masks))
+#
+#     # Shuffle combined list to randomize the split
+#     random.shuffle(combined)
+#
+#     # Determine the split point
+#     split_point = int(len(combined) * val_split)
+#
+#     # Split into training and validation sets
+#     val_set = combined[:split_point]
+#     train_set = combined[split_point:]
+#
+#     # Move files to respective folders
+#     for img_path, mask_path in train_set:
+#         shutil.copy(img_path, train_images_dir / img_path.name)
+#         shutil.copy(mask_path, train_masks_dir / mask_path.name)
+#
+#     for img_path, mask_path in val_set:
+#         shutil.copy(img_path, val_images_dir / img_path.name)
+#         shutil.copy(mask_path, val_masks_dir / mask_path.name)
+#
+#     print(f"Dataset split completed. Train: {len(train_set)} samples, Validation: {len(val_set)} samples.")
+#
+#
+# # Usage example
+# images_folder = '/home/kamyar/Documents/Train-val_Annotated'
+# masks_folder = '/home/kamyar/Documents/Train-val_Annotated_masks'
+# output_folder = '/home/kamyar/Documents/M2F_Train_Val_split'
+#
+# split_dataset(images_folder, masks_folder, output_folder, val_split=0.4)
+#
 
 
-def split_dataset(images_folder, masks_folder, output_folder, val_split=0.2):
-    # Create output directories
-    train_images_dir = Path(output_folder) / 'train' / 'images'
-    train_masks_dir = Path(output_folder) / 'train' / 'masks'
-    val_images_dir = Path(output_folder) / 'val' / 'images'
-    val_masks_dir = Path(output_folder) / 'val' / 'masks'
-
-    # Ensure output directories exist
-    for directory in [train_images_dir, train_masks_dir, val_images_dir, val_masks_dir]:
-        directory.mkdir(parents=True, exist_ok=True)
-
-    # Get a list of all image files
-    images = sorted(Path(images_folder).glob('*'))
-    masks = sorted(Path(masks_folder).glob('*'))
-
-    # Ensure that there is a corresponding mask for every image
-    assert len(images) == len(masks), "The number of images and masks must be the same"
-
-    # Combine images and masks
-    combined = list(zip(images, masks))
-
-    # Shuffle combined list to randomize the split
-    random.shuffle(combined)
-
-    # Determine the split point
-    split_point = int(len(combined) * val_split)
-
-    # Split into training and validation sets
-    val_set = combined[:split_point]
-    train_set = combined[split_point:]
-
-    # Move files to respective folders
-    for img_path, mask_path in train_set:
-        shutil.copy(img_path, train_images_dir / img_path.name)
-        shutil.copy(mask_path, train_masks_dir / mask_path.name)
-
-    for img_path, mask_path in val_set:
-        shutil.copy(img_path, val_images_dir / img_path.name)
-        shutil.copy(mask_path, val_masks_dir / mask_path.name)
-
-    print(f"Dataset split completed. Train: {len(train_set)} samples, Validation: {len(val_set)} samples.")
 
 
-# Usage example
-images_folder = '/home/kamyar/Documents/Train-val_Annotated'
-masks_folder = '/home/kamyar/Documents/Train-val_Annotated_masks'
-output_folder = '/home/kamyar/Documents/M2F_Train_Val_split'
+import os
+from PIL import Image
+import numpy as np
 
-split_dataset(images_folder, masks_folder, output_folder, val_split=0.4)
+# Define the folder containing the PNG annotations
+folder_path = '/home/kamyar/Documents/Train-val_Annotated_masks'
 
+# Define the index mappings for specific files
+index_mappings = {
+    '2024-07-25-013232-5-Mauricie-4000x4000-DJI-FC7303-patch-5-label-ground-truth-semantic.png': {19: 22},
+    '2024-06-05-132546-14.677-ZecBatiscan-5280x5280-DJI-M3E-patch-2-label-ground-truth-semantic.png': {15: 25},
+    '2024-06-05-131617-19.249-ZecBatiscan-5280x5280-DJI-M3E-patch-7-label-ground-truth-semantic.png': {9: 2},
+    '2024-06-06-023928-5-Zec-Batiscan-4000x4000-DJI-FC7303-patch-1-label-ground-truth-semantic.png': {22: 10}
+}
+
+# Function to update the indices in the images
+def update_indices(image_path, mapping):
+    # Load the image
+    img = Image.open(image_path)
+    img_array = np.array(img)
+
+    # Update the indices based on the mapping
+    for old_index, new_index in mapping.items():
+        img_array[img_array == old_index] = new_index
+
+    # Save the modified image
+    updated_img = Image.fromarray(img_array)
+    updated_img.save(image_path)
+
+# Iterate over files in the folder
+for filename in os.listdir(folder_path):
+    if filename in index_mappings:
+        file_path = os.path.join(folder_path, filename)
+        update_indices(file_path, index_mappings[filename])
+        print(f'Updated indices in {filename}')
+
+print('All applicable files have been processed.')
