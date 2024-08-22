@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --mail-user=william.guimont-martin.1@ulaval.ca
 #SBATCH --mail-type=FAIL,TIME_LIMIT
-#SBATCH --job-name=droneSeg
+#SBATCH --job-name=$NAME
 #SBATCH --output=%x-%j.out
 #SBATCH --reservation=wigum_9
 
@@ -81,4 +81,4 @@ trap get_results EXIT
 
 # Start training
 PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
-  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/$CONFIG

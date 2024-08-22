@@ -7,6 +7,17 @@ from tqdm import tqdm
 from pathlib import Path
 
 
+def papermode(plt, size: int | None = None):
+    plt.rc("font", family="serif", serif="Times")
+    plt.rc("text", usetex=True)
+    if size is not None:
+        plt.rc("figure", titlesize=size)
+        plt.rc("xtick", labelsize=size)
+        plt.rc("ytick", labelsize=size)
+        plt.rc("axes", labelsize=size, titlesize=size)
+        plt.rc("legend", fontsize=size, title_fontsize=size)
+
+
 def load_images_from_folder(folder: str | Path, color_mode=cv2.IMREAD_GRAYSCALE):
     images = []
     for filename in sorted(os.listdir(folder)):
@@ -67,7 +78,7 @@ def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1
 def evaluate_segmentation(
     pred_folder,
     target_folder,
-    ignored_classes,
+    ignored_classes: list[int] = [-1],
     num_classes: int = 26,
 ):
     pred_images = load_images_from_folder(pred_folder)
