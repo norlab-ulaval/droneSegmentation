@@ -1,22 +1,21 @@
+import argparse
 import os
 import time
+from pathlib import Path
 
 import cv2
 import numpy as np
 import torch
 import torch.nn as nn
-from PIL import Image
-from albumentations import Normalize, Compose
+from albumentations import Compose, Normalize
 from albumentations.pytorch import ToTensorV2
+from PIL import Image
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-from pathlib import Path
-import argparse
 
 # Paths
 data_path = Path("/data/Annotated_drone_split")
 image_folder = data_path / "Train-val_Annotated"
 annot_folder = data_path / "Train-val_Annotated_masks"
-gsddat_folder = Path("data") / "gsds" / "val"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -82,7 +81,12 @@ def generate_pseudo_labels(
 
     image_tensor_padded = torch.nn.functional.pad(
         image_tensor,
-        (padding, padding, padding, padding),
+        (
+            padding,
+            padding,
+            padding,
+            padding,
+        ),
         "constant",
         0,
     )
@@ -153,6 +157,7 @@ def generate_pseudo_labels(
 
 def main():
     args = parse_arguments()
+    gsddat_folder = Path("data") / "gsds" / args.mode / "val"
     for patch_size in patch_sizes:
         x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))
         offsets = np.stack([x_offsets, y_offsets], axis=-1).reshape(-1, 2)
@@ -184,17 +189,18 @@ def main():
                     # Read Image
                     image = np.array(Image.open(image_path))
 
-                    scaled_image = (
-                        cv2.resize(
+                    if args.mode.lower() == "resize":
+                        scaled_image = cv2.resize(
                             image,
                             None,
                             fx=scale,
                             fy=scale,
                             interpolation=cv2.INTER_NEAREST_EXACT,
                         )
-                        if args.mode.lower() == "resize"
-                        else image
-                    )
+                    else:
+                        raise NotImplementedError(
+                            f"Not implemented for mode {args.mode}"
+                        )
                     gsd_metrics.setdefault("SIZE", []).append(scaled_image.shape[0])
 
                     # Pseudo labels
@@ -214,13 +220,19 @@ def main():
                     annot_paths = annot_folder.glob(f"{image_path.stem}*")
                     annot_path = next(annot_paths)
                     annot_img = np.array(Image.open(annot_path))
-                    scaled_annot = cv2.resize(
-                        annot_img,
-                        None,
-                        fx=scale,
-                        fy=scale,
-                        interpolation=cv2.INTER_NEAREST_EXACT,
-                    )
+
+                    if args.mode.lower() == "resize":
+                        scaled_annot = cv2.resize(
+                            annot_img,
+                            None,
+                            fx=scale,
+                            fy=scale,
+                            interpolation=cv2.INTER_NEAREST_EXACT,
+                        )
+                    else:
+                        raise NotImplementedError(
+                            f"Not implemented for mode {args.mode}"
+                        )
 
                     # Save images
                     out_fname = image_path.with_suffix(".png").name

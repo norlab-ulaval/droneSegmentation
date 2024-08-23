@@ -517,40 +517,40 @@ import os
 
 
 
-import os
-from PIL import Image
-import numpy as np
-
-# Define the folder containing the PNG annotations
-folder_path = '/home/kamyar/Documents/Train-val_Annotated_masks'
-
-# Define the index mappings for specific files
-index_mappings = {
-    '2024-07-25-013232-5-Mauricie-4000x4000-DJI-FC7303-patch-5-label-ground-truth-semantic.png': {19: 22},
-    '2024-06-05-132546-14.677-ZecBatiscan-5280x5280-DJI-M3E-patch-2-label-ground-truth-semantic.png': {15: 25},
-    '2024-06-05-131617-19.249-ZecBatiscan-5280x5280-DJI-M3E-patch-7-label-ground-truth-semantic.png': {9: 2},
-    '2024-06-06-023928-5-Zec-Batiscan-4000x4000-DJI-FC7303-patch-1-label-ground-truth-semantic.png': {22: 10}
-}
-
-# Function to update the indices in the images
-def update_indices(image_path, mapping):
-    # Load the image
-    img = Image.open(image_path)
-    img_array = np.array(img)
-
-    # Update the indices based on the mapping
-    for old_index, new_index in mapping.items():
-        img_array[img_array == old_index] = new_index
-
-    # Save the modified image
-    updated_img = Image.fromarray(img_array)
-    updated_img.save(image_path)
-
-# Iterate over files in the folder
-for filename in os.listdir(folder_path):
-    if filename in index_mappings:
-        file_path = os.path.join(folder_path, filename)
-        update_indices(file_path, index_mappings[filename])
-        print(f'Updated indices in {filename}')
-
-print('All applicable files have been processed.')
+# import os
+# from PIL import Image
+# import numpy as np
+#
+# # Define the folder containing the PNG annotations
+# folder_path = '/home/kamyar/Documents/Train-val_Annotated_masks'
+#
+# # Define the index mappings for specific files
+# index_mappings = {
+#     '2024-07-25-013232-5-Mauricie-4000x4000-DJI-FC7303-patch-5-label-ground-truth-semantic.png': {19: 22},
+#     '2024-06-05-132546-14.677-ZecBatiscan-5280x5280-DJI-M3E-patch-2-label-ground-truth-semantic.png': {15: 25},
+#     '2024-06-05-131617-19.249-ZecBatiscan-5280x5280-DJI-M3E-patch-7-label-ground-truth-semantic.png': {9: 2},
+#     '2024-06-06-023928-5-Zec-Batiscan-4000x4000-DJI-FC7303-patch-1-label-ground-truth-semantic.png': {22: 10}
+# }
+#
+# # Function to update the indices in the images
+# def update_indices(image_path, mapping):
+#     # Load the image
+#     img = Image.open(image_path)
+#     img_array = np.array(img)
+#
+#     # Update the indices based on the mapping
+#     for old_index, new_index in mapping.items():
+#         img_array[img_array == old_index] = new_index
+#
+#     # Save the modified image
+#     updated_img = Image.fromarray(img_array)
+#     updated_img.save(image_path)
+#
+# # Iterate over files in the folder
+# for filename in os.listdir(folder_path):
+#     if filename in index_mappings:
+#         file_path = os.path.join(folder_path, filename)
+#         update_indices(file_path, index_mappings[filename])
+#         print(f'Updated indices in {filename}')
+#
+# print('All applicable files have been processed.')
