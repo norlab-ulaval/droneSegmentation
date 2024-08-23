@@ -70,15 +70,11 @@ cp ~/projects/ul-val-prj-def-phgig4/DroneSeg/weights/M2F_IN21k_weight/* ./
 cd "$SLURM_TMPDIR"/droneSegmentation/ || exit 1
 python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
 
-# Get results
-get_results() {
-  echo "Getting results"
-  mkdir ~/scratch/results
-  cp -r "$SLURM_TMPDIR/droneSegmentation/" ~/scratch/results/"results$(date +%s)"
-}
-
-trap get_results EXIT
+# Output directory
+mkdir -p ~/scratch/results/"$NAME"
+cd "$SLURM_TMPDIR/droneSegmentation/" || exit 1
+ln -s ~/scratch/results/"$NAME" output
 
 # Start training
 PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
-  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/$CONFIG
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/"$CONFIG"
