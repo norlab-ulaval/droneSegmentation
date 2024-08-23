@@ -8,6 +8,22 @@ docker run --gpus=all --rm --ipc host -it \
   -v /dev/shm/:/dev/shm/ \
   droneseg bash
   
+docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=0 \
+  -v .:/app \
+  -v /data/drone_dataset:/data/drone_dataset \
+  -v ./output_res_ssd:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
+docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=1 \
+  -v .:/app \
+  -v /data/drone_dataset:/data/drone_dataset \
+  -v ./output_swin_ssd:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
 pip install -U pip
 pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
 cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
