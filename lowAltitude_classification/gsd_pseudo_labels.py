@@ -68,9 +68,13 @@ def parse_arguments():
 def generate_pseudo_labels(
     image: np.ndarray,
     patch_size: int,
-    step_size: int,
-    offsets: np.ndarray,
+    overlap: float,
 ) -> np.ndarray:
+    # Step size and offsets
+    x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))
+    offsets = np.stack([x_offsets, y_offsets], axis=-1).reshape(-1, 2)
+    step_size = int(patch_size * (1 - overlap))
+
     height, width = image.shape[:2]
     padding = patch_size // 8
     padded_width = width + 2 * padding
@@ -81,12 +85,7 @@ def generate_pseudo_labels(
 
     image_tensor_padded = torch.nn.functional.pad(
         image_tensor,
-        (
-            padding,
-            padding,
-            padding,
-            padding,
-        ),
+        (padding, padding, padding, padding),
         "constant",
         0,
     )
@@ -157,14 +156,9 @@ def generate_pseudo_labels(
 
 def main():
     args = parse_arguments()
-    gsddat_folder = Path("data") / "gsds" / args.mode / "val"
+    gsddat_folder = Path("data") / "coucou" / args.mode / "val"
     for patch_size in patch_sizes:
-        x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))
-        offsets = np.stack([x_offsets, y_offsets], axis=-1).reshape(-1, 2)
-
         for overlap in overlaps:
-            step_size = int(patch_size * (1 - overlap))
-
             patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
             gsd_po_dir = gsddat_folder / patch_overlap
 
@@ -208,8 +202,7 @@ def main():
                     segmentation_map = generate_pseudo_labels(
                         image=scaled_image,
                         patch_size=patch_size,
-                        step_size=step_size,
-                        offsets=offsets,
+                        overlap=overlap,
                     )
                     pslab_time = time.perf_counter() - pslab_start
                     print(f"[PL] Time taken: {pslab_time:.2f}s")
