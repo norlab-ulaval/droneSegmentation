@@ -1,5 +1,27 @@
 # lowAltitude_segmentation
 
+```shell
+docker build -t droneseg -f DockerfileSeg .
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/drone_dataset:/data/drone_dataset \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
+pip install -U pip
+pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
+cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
+export MAX_JOBS=16
+sh make.sh
+
+cd /app
+export SLURM_TMPDIR=/data/
+python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
+
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/"$CONFIG"
+````
+
 ## Valeria
 Get the data
 ```shell
