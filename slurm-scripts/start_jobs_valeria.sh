@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-sjm run valeria sjmValeria.sh NAME=swin_large CONFIG=swin/M2F_Swin_Large_base.yaml
-sjm run valeria sjmValeria.sh NAME=swin_dice CONFIG=swin/M2F_Swin_Large_ClassMaskDice_Weight.yaml
-sjm run valeria sjmValeria.sh NAME=swin_colaug CONFIG=swin/M2F_Swin_Large_colorAugs.yaml
-sjm run valeria sjmValeria.sh NAME=swin_crop CONFIG=swin/M2F_Swin_Large_Crop_512.yaml
+sjm run valeria sjmValeria.sh NAME=swin_large2 CONFIG=swin/M2F_Swin_Large_base.yaml
+sjm run valeria sjmValeria.sh NAME=swin_dice2 CONFIG=swin/M2F_Swin_Large_ClassMaskDice_Weight.yaml
+sjm run valeria sjmValeria.sh NAME=swin_colaug2 CONFIG=swin/M2F_Swin_Large_colorAugs.yaml
+sjm run valeria sjmValeria.sh NAME=swin_crop2 CONFIG=swin/M2F_Swin_Large_Crop_512.yaml
 
-sjm run valeria sjmValeria.sh NAME=resnet50_base CONFIG=M2F_ResNet50_base.yaml
-sjm run valeria sjmValeria.sh NAME=resnet50_dice CONFIG=M2F_ResNet50_ClassMaskDice_Weight.yaml
-sjm run valeria sjmValeria.sh NAME=resnet50_colaug CONFIG=M2F_ResNet50_colorAugs.yaml
-sjm run valeria sjmValeria.sh NAME=resnet50_crop CONFIG=M2F_ResNet50_Crop_512.yaml
+sjm run valeria sjmValeria.sh NAME=resnet50_base2 CONFIG=M2F_ResNet50_base.yaml
+sjm run valeria sjmValeria.sh NAME=resnet50_dice2 CONFIG=M2F_ResNet50_ClassMaskDice_Weight.yaml
+sjm run valeria sjmValeria.sh NAME=resnet50_colaug2 CONFIG=M2F_ResNet50_colorAugs.yaml
+sjm run valeria sjmValeria.sh NAME=resnet50_crop2 CONFIG=M2F_ResNet50_Crop_512.yaml
 
 
 # WGM

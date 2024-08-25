@@ -1,6 +1,7 @@
 _BASE_: M2F_BaseSemantic_colorAugs.yaml
 MODEL:
   META_ARCHITECTURE: "MaskFormer"
+  WEIGHTS: "/home/ulaval.ca/wigum/scratch/results/resnet50_colaug/model_0279999.pth"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"
     IGNORE_VALUE: 255
