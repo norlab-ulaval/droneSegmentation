@@ -13,9 +13,14 @@ sjm run valeria sjmValeria.sh NAME=resnet50_crop2 CONFIG=M2F_ResNet50_Crop_512.y
 
 # WGM
 #sjm run valeria sjmValeria.sh NAME=swin_train CONFIG=swin/M2F_Swin_Large_MaxTrainSize_1024.yaml
-# TODO
+# Mamba
 #sjm run valeria sjmValeria.sh NAME=swin_ssd CONFIG=swin/M2F_Swin_Large_SSD_default.yaml
-# DAD
+# DAD (done)
 #sjm run valeria sjmValeria.sh NAME=resnet50_train CONFIG=M2F_ResNet50_MaxTrainSize_1024.yaml
-# TODO
+# Mamba
 #sjm run valeria sjmValeria.sh NAME=resnet50_ssd CONFIG=M2F_ResNet50_SSD_default.yaml
+
+# DAD (in parallel to valeria)
+# M2F_ResNet50_base.yaml
+# WGM (in parallel to valeria)
+# M2F_Swin_Large_base.yaml
