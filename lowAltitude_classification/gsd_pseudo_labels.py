@@ -5,17 +5,22 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 from albumentations import Compose, Normalize
 from albumentations.pytorch import ToTensorV2
 from PIL import Image
+from tqdm import tqdm
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 # Paths
 data_path = Path("/data/Annotated_drone_split")
 image_folder = data_path / "Train-val_Annotated"
 annot_folder = data_path / "Train-val_Annotated_masks"
+gsddata_dir = Path("data") / "gsds"
+results_dir = Path("lowAltitude_classification") / "results" / "gsd"
+csv_path = results_dir / "gsd-pseudolabelgen-metrics.csv"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -48,7 +53,7 @@ batch_size = 1024
 
 # GSD metrics
 GSD_FACTOR = 1.5
-N_GSD = 4
+N_GSD = 6
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
 SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
@@ -156,7 +161,10 @@ def generate_pseudo_labels(
 
 def main():
     args = parse_arguments()
-    gsddat_folder = Path("data") / "coucou" / args.mode / "val"
+    gsddat_folder = gsddata_dir / args.mode / "val"
+
+    gsd_metrics = []
+
     for patch_size in patch_sizes:
         for overlap in overlaps:
             patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
@@ -164,7 +172,7 @@ def main():
 
             # For each GSD:
             for gsd_idx, scale in enumerate(SCALES):
-                gsd_metrics = {}
+                scaled_patchsize = int(scale * patch_size)
 
                 gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
 
@@ -176,7 +184,8 @@ def main():
                 gsd_annot_dir = gsd_dir / "annotations"
                 gsd_annot_dir.mkdir(parents=True, exist_ok=True)
 
-                for image_path in image_folder.glob("*"):
+                image_paths = list(image_folder.glob("*"))
+                for image_path in tqdm(image_paths, desc=f"[PL-{gsd_idx}]"):
                     if image_path.suffix not in (".jpg", ".JPG", ".png"):
                         continue
 
@@ -195,19 +204,26 @@ def main():
                         raise NotImplementedError(
                             f"Not implemented for mode {args.mode}"
                         )
-                    gsd_metrics.setdefault("SIZE", []).append(scaled_image.shape[0])
 
                     # Pseudo labels
                     pslab_start = time.perf_counter()
                     segmentation_map = generate_pseudo_labels(
                         image=scaled_image,
-                        patch_size=patch_size,
+                        patch_size=scaled_patchsize,
                         overlap=overlap,
                     )
                     pslab_time = time.perf_counter() - pslab_start
-                    print(f"[PL] Time taken: {pslab_time:.2f}s")
+                    tqdm.write(f"[PL-{gsd_idx}] Time taken: {pslab_time:.2f}s")
 
-                    gsd_metrics.setdefault("PSLAB_TIME", []).append(pslab_time)
+                    gsd_metrics.append(
+                        {
+                            "TAG": f"GSD{gsd_idx}",
+                            "FNAME": image_path.stem,
+                            "SIZE": scaled_image.shape[0],
+                            "PATCHSIZE": scaled_patchsize,
+                            "PSLAB_TIME": pslab_time,
+                        }
+                    )
 
                     # Open annotation
                     annot_paths = annot_folder.glob(f"{image_path.stem}*")
@@ -236,6 +252,11 @@ def main():
                     cv2.imwrite(gsd_dat_path, scaled_image)
                     cv2.imwrite(gsd_plab_path, segmentation_map)
                     cv2.imwrite(gsd_annot_path, scaled_annot)
+
+    gsd_df = pd.DataFrame(gsd_metrics)
+    print(gsd_df.head())
+    gsd_df.to_csv(csv_path, index=False)
+    print(f"Exported to {csv_path}")
 
     print("[PL] Processing complete.")
 
