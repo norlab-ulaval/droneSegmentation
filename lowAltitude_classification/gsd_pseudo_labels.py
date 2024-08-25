@@ -172,7 +172,7 @@ def main():
 
             # For each GSD:
             for gsd_idx, scale in enumerate(SCALES):
-                scaled_patchsize = int(patch_size)
+                scaled_patchsize = int(scale * patch_size)
 
                 gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
 
