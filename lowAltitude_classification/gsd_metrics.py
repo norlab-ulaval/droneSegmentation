@@ -14,7 +14,7 @@ overlaps = [0.85]
 
 # GSD metrics
 GSD_FACTOR = 1.5
-N_GSD = 6
+N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
 SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
