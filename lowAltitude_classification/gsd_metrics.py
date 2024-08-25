@@ -6,18 +6,15 @@ import pandas as pd
 from gsd_utils import evaluate_segmentation
 
 # Paths
-data_path = Path("/data/Annotated_drone_split")
-image_folder = data_path / "Train-val_Annotated"
-annot_folder = data_path / "Train-val_Annotated_masks"
-
-results_dir = Path("lowAltitude_classification/results")
+gsddata_dir = Path("data") / "gsds"
+results_dir = Path("lowAltitude_classification") / "results" / "gsd"
 
 patch_sizes = [128]
 overlaps = [0.85]
 
 # GSD metrics
 GSD_FACTOR = 1.5
-N_GSD = 4
+N_GSD = 6
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
 SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
@@ -36,7 +33,7 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    gsddat_folder = Path("data") / "gsds" / args.mode / "val"
+    gsddat_folder = gsddata_dir / args.mode / "val"
     all_values = []
 
     for patch_size in patch_sizes:
@@ -75,7 +72,7 @@ def main():
                 all_values.extend(gsd_values)
 
         df = pd.DataFrame(all_values)
-        output_dir = results_dir / "gsd" / args.mode
+        output_dir = results_dir / args.mode
         output_dir.mkdir(exist_ok=True, parents=True)
         df.to_csv(output_dir / "gsd-metrics.csv", index=False)
 

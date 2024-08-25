@@ -11,6 +11,7 @@ import torch.nn as nn
 from albumentations import Compose, Normalize
 from albumentations.pytorch import ToTensorV2
 from PIL import Image
+from tqdm import tqdm
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 # Paths
@@ -19,6 +20,7 @@ image_folder = data_path / "Train-val_Annotated"
 annot_folder = data_path / "Train-val_Annotated_masks"
 gsddata_dir = Path("data") / "gsds"
 results_dir = Path("lowAltitude_classification") / "results" / "gsd"
+csv_path = results_dir / "gsd-pseudolabelgen-metrics.csv"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -51,7 +53,7 @@ batch_size = 1024
 
 # GSD metrics
 GSD_FACTOR = 1.5
-N_GSD = 4
+N_GSD = 6
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
 SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
@@ -182,7 +184,8 @@ def main():
                 gsd_annot_dir = gsd_dir / "annotations"
                 gsd_annot_dir.mkdir(parents=True, exist_ok=True)
 
-                for image_path in image_folder.glob("*"):
+                image_paths = list(image_folder.glob("*"))
+                for image_path in tqdm(image_paths, desc=f"[PL-{gsd_idx}]"):
                     if image_path.suffix not in (".jpg", ".JPG", ".png"):
                         continue
 
@@ -210,7 +213,7 @@ def main():
                         overlap=overlap,
                     )
                     pslab_time = time.perf_counter() - pslab_start
-                    print(f"[PL] Time taken: {pslab_time:.2f}s")
+                    tqdm.write(f"[PL-{gsd_idx}] Time taken: {pslab_time:.2f}s")
 
                     gsd_metrics.append(
                         {
@@ -251,7 +254,9 @@ def main():
                     cv2.imwrite(gsd_annot_path, scaled_annot)
 
     gsd_df = pd.DataFrame(gsd_metrics)
-    gsd_df.to_csv(results_dir / "gsd-pseudolabelgen-metrics.csv", index=False)
+    print(gsd_df.head())
+    gsd_df.to_csv(csv_path, index=False)
+    print(f"Exported to {csv_path}")
 
     print("[PL] Processing complete.")
 
