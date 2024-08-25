@@ -5,6 +5,7 @@ from pathlib import Path
 
 import cv2
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 from albumentations import Compose, Normalize
@@ -16,6 +17,8 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 data_path = Path("/data/Annotated_drone_split")
 image_folder = data_path / "Train-val_Annotated"
 annot_folder = data_path / "Train-val_Annotated_masks"
+gsddata_dir = Path("data") / "gsds"
+results_dir = Path("lowAltitude_classification") / "results" / "gsd"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -156,7 +159,10 @@ def generate_pseudo_labels(
 
 def main():
     args = parse_arguments()
-    gsddat_folder = Path("data") / "coucou" / args.mode / "val"
+    gsddat_folder = gsddata_dir / args.mode / "val"
+
+    gsd_metrics = []
+
     for patch_size in patch_sizes:
         for overlap in overlaps:
             patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
@@ -164,7 +170,7 @@ def main():
 
             # For each GSD:
             for gsd_idx, scale in enumerate(SCALES):
-                gsd_metrics = {}
+                scaled_patchsize = int(patch_size)
 
                 gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
 
@@ -195,19 +201,26 @@ def main():
                         raise NotImplementedError(
                             f"Not implemented for mode {args.mode}"
                         )
-                    gsd_metrics.setdefault("SIZE", []).append(scaled_image.shape[0])
 
                     # Pseudo labels
                     pslab_start = time.perf_counter()
                     segmentation_map = generate_pseudo_labels(
                         image=scaled_image,
-                        patch_size=patch_size,
+                        patch_size=scaled_patchsize,
                         overlap=overlap,
                     )
                     pslab_time = time.perf_counter() - pslab_start
                     print(f"[PL] Time taken: {pslab_time:.2f}s")
 
-                    gsd_metrics.setdefault("PSLAB_TIME", []).append(pslab_time)
+                    gsd_metrics.append(
+                        {
+                            "TAG": f"GSD{gsd_idx}",
+                            "FNAME": image_path.stem,
+                            "SIZE": scaled_image.shape[0],
+                            "PATCHSIZE": scaled_patchsize,
+                            "PSLAB_TIME": pslab_time,
+                        }
+                    )
 
                     # Open annotation
                     annot_paths = annot_folder.glob(f"{image_path.stem}*")
@@ -236,6 +249,9 @@ def main():
                     cv2.imwrite(gsd_dat_path, scaled_image)
                     cv2.imwrite(gsd_plab_path, segmentation_map)
                     cv2.imwrite(gsd_annot_path, scaled_annot)
+
+    gsd_df = pd.DataFrame(gsd_metrics)
+    gsd_df.to_csv(results_dir / "gsd-pseudolabelgen-metrics.csv", index=False)
 
     print("[PL] Processing complete.")
 
