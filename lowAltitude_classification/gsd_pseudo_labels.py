@@ -20,7 +20,6 @@ image_folder = data_path / "Train-val_Annotated"
 annot_folder = data_path / "Train-val_Annotated_masks"
 gsddata_dir = Path("data") / "gsds"
 results_dir = Path("lowAltitude_classification") / "results" / "gsd"
-csv_path = results_dir / "gsd-pseudolabelgen-metrics.csv"
 
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -47,7 +46,6 @@ model.load_state_dict(
 model.eval()
 transform = Compose([Normalize(mean=mean, std=std), ToTensorV2()])
 
-patch_sizes = [128]
 overlaps = [0.85]
 batch_size = 1024
 
@@ -66,6 +64,12 @@ def parse_arguments():
         help="Resizing mode",
         default="resize",
         choices=["resize", "gaussian"],
+    )
+    parser.add_argument(
+        "--psize",
+        help="Patch size",
+        type=int,
+        default=128,
     )
     return parser.parse_args()
 
@@ -162,10 +166,14 @@ def generate_pseudo_labels(
 def main():
     args = parse_arguments()
     gsddat_folder = gsddata_dir / args.mode / "val"
+    csv_path = results_dir / f"gsd-pseudolabelgen-metrics-p{args.psize}.csv"
+
+    patch_sizes = [args.psize]
 
     gsd_metrics = []
 
     for patch_size in patch_sizes:
+        print(f"Pseudo labels with patch size {args.psize}")
         for overlap in overlaps:
             patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
             gsd_po_dir = gsddat_folder / patch_overlap

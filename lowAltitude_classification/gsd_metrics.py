@@ -9,7 +9,6 @@ from gsd_utils import evaluate_segmentation
 gsddata_dir = Path("data") / "gsds"
 results_dir = Path("lowAltitude_classification") / "results" / "gsd"
 
-patch_sizes = [128]
 overlaps = [0.85]
 
 # GSD metrics
@@ -28,12 +27,21 @@ def parse_arguments():
         default="resize",
         choices=["resize", "gaussian"],
     )
+    parser.add_argument(
+        "--psize",
+        help="Patch size",
+        type=int,
+        default=128,
+    )
     return parser.parse_args()
 
 
 def main():
     args = parse_arguments()
     gsddat_folder = gsddata_dir / args.mode / "val"
+
+    patch_sizes = [args.psize]
+
     all_values = []
 
     for patch_size in patch_sizes:
@@ -74,7 +82,10 @@ def main():
         df = pd.DataFrame(all_values)
         output_dir = results_dir / args.mode
         output_dir.mkdir(exist_ok=True, parents=True)
-        df.to_csv(output_dir / "gsd-metrics.csv", index=False)
+        df.to_csv(
+            output_dir / f"gsd-metrics-p{args.psize}.csv",
+            index=False,
+        )
 
     print("[Evaluation] Processing complete.")
 
