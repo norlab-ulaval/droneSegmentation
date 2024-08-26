@@ -89,8 +89,8 @@ class Predictor():
         cfg = get_cfg()
         add_deeplab_config(cfg)
         add_maskformer2_config(cfg)
-        cfg.merge_from_file("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml")
-        cfg.MODEL.WEIGHTS = '/home/kamyar/PycharmProjects/droneSegmentation/output/model_0006999.pth'
+        cfg.merge_from_file("lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_MaxTrainSize_1024.yaml")
+        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/model_final.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -101,7 +101,7 @@ class Predictor():
         im = cv2.imread(str(image_path))
         outputs = self.predictor(im)
         v = Visualizer(im[:, :, ::-1], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE_BW)
-        semantic_result = v.draw_sem_seg(outputs["sem_seg"].argmax(0).to("cpu")).get_image()
+        # semantic_result = v.draw_sem_seg(outputs["sem_seg"].argmax(0).to("cpu")).get_image()
         cv2.imwrite(output_path, outputs["sem_seg"].argmax(0).to("cpu").numpy())
         # cv2.imwrite(output_path, semantic_result)
 def process_images(input_dir, output_dir):
@@ -118,8 +118,8 @@ def process_images(input_dir, output_dir):
         predictor.predict(input_path, output_path)
         print(f"Processed and saved: {output_path}")
 
-input_directory = '/home/kamyar/Documents/Dataset_mask2former/val/images'
-output_directory = '/home/kamyar/Documents/Dataset_mask2former/val/WITHOUT_PRETRAIN'
+input_directory = '/home/kamyar/Documents/Train-val_Annotated'
+output_directory = '/home/kamyar/Documents/Train-val_Annotated_Predictions/M2F/Swin_MaxTrainSize'
 
 process_images(input_directory, output_directory)
 print("done")
