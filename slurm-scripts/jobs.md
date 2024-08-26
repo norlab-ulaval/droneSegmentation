@@ -32,12 +32,14 @@
 
 # Fixed the bug
 
-| **Model**   | **Computer** | **Status** | **ETA** | **Config**                          |
-|-------------|--------------|------------|---------|-------------------------------------|
-| Swin base   | DAD          | TODO       | 1d 4h   | M2F_Swin_Large_base                 |
-| Swin dice   | WGM          | TODO       | 1d 15h  | M2F_Swin_Large_ClassMaskDice_Weight |
-| Swin colaug | Mamba        | TODO       | 1d 15h  | M2F_Swin_Large_colorAugs            |
-| Swin SSD    | Mamba        | TODO       | 21h     | M2F_Swin_Large_SSD_default          |
-| Swin crop   | Mamba        | TODO       | 1d 15h  | M2F_Swin_Large_Crop_512             |
-| Swin train  | Mamba        | TODO       | ---     | M2F_Swin_Large_MaxTrainSize_1024    |
-| Swin lr     | Valeria      | TODO       | 1d 16h  | M2F_Swin_Large_LR                   |
+| **Model**   | **Computer** | **Status** | **Config**                          |
+|-------------|--------------|------------|-------------------------------------|
+| Swin base   | DAD          | Running    | M2F_Swin_Large_base                 |
+| Swin dice   | WGM          | Running    | M2F_Swin_Large_ClassMaskDice_Weight |
+| Swin colaug | Mamba        | Running    | M2F_Swin_Large_colorAugs            |
+| Swin SSD    | Mamba        | Running    | M2F_Swin_Large_SSD_default          |
+| Swin crop   | Mamba        | Running    | M2F_Swin_Large_Crop_512             |
+| Swin train  | Mamba        | Running    | M2F_Swin_Large_MaxTrainSize_1024    |
+| Swin lr     | Valeria      | TODO       | M2F_Swin_Large_LR                   |
+
+All of them will also be run on Valeria except base and dice.
