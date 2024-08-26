@@ -223,5 +223,5 @@ def register_all_mapillary_vistas(root):
 
 
 tmp_dir = os.environ['SLURM_TMPDIR']
-_root = f"{tmp_dir}/drone_dataset"
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)
