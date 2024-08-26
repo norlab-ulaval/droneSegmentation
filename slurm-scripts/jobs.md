@@ -27,5 +27,17 @@
 | Resnet crop   | Valeria      | Running    | 1d 15h  | M2F_ResNet50_Crop_512               |
 | Resnet train  | DAD          | Done       | ---     | M2F_ResNet50_MaxTrainSize_1024      |
 | Resnet SSD    | Mamba        | Done       | ---     | M2F_ResNet50_SSD_default            |
-| Swin LR       | WGM          | To be run  | ---     | M2F_Swin_Large_LR                   |
-| Swin small    | DAD          | To be run  | ---     | M2F_Swin_Small_base                 |
+| Swin LR       | WGM          | Running    | 1d 20h  | M2F_Swin_Large_LR                   |
+| Swin small    | DAD          | Running    | 1d 16h  | M2F_Swin_Large_smallSize            |
+
+# Fixed the bug
+
+| **Model**   | **Computer** | **Status** | **ETA** | **Config**                          |
+|-------------|--------------|------------|---------|-------------------------------------|
+| Swin base   | DAD          | TODO       | 1d 4h   | M2F_Swin_Large_base                 |
+| Swin dice   | WGM          | TODO       | 1d 15h  | M2F_Swin_Large_ClassMaskDice_Weight |
+| Swin colaug | Mamba        | TODO       | 1d 15h  | M2F_Swin_Large_colorAugs            |
+| Swin SSD    | Mamba        | TODO       | 21h     | M2F_Swin_Large_SSD_default          |
+| Swin crop   | Mamba        | TODO       | 1d 15h  | M2F_Swin_Large_Crop_512             |
+| Swin train  | Mamba        | TODO       | ---     | M2F_Swin_Large_MaxTrainSize_1024    |
+| Swin lr     | Valeria      | TODO       | 1d 16h  | M2F_Swin_Large_LR                   |
