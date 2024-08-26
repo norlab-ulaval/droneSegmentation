@@ -40,6 +40,6 @@
 | Swin SSD    | Mamba        | Running    | M2F_Swin_Large_SSD_default          |
 | Swin crop   | Mamba        | Running    | M2F_Swin_Large_Crop_512             |
 | Swin train  | Mamba        | Running    | M2F_Swin_Large_MaxTrainSize_1024    |
-| Swin lr     | Valeria      | TODO       | M2F_Swin_Large_LR                   |
+| Swin lr     | Valeria      | Running    | M2F_Swin_Large_LR                   |
 
 All of them will also be run on Valeria except base and dice.
