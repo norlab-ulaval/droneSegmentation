@@ -11,19 +11,19 @@ MODEL:
     DROP_PATH_RATE: 0.2
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
-  WEIGHTS: "/home/ulaval.ca/wigum/scratch/results/swin_crop2/model_0089999.pth"
+  WEIGHTS: "lowAltitude_segmentation/Mask2Former/ADE20K_Swin-L (IN21k).pkl"
   PIXEL_MEAN: [123.675, 116.280, 103.530]
   PIXEL_STD: [58.395, 57.120, 57.375]
 INPUT:
-  MIN_SIZE_TRAIN: !!python/object/apply:eval [ "[int(x * 0.1 * 1024) for x in range(5, 10)]" ]
+  MIN_SIZE_TRAIN: !!python/object/apply:eval [ "[int(x * 0.05 * 1024) for x in range(6, 10)]" ]
   MIN_SIZE_TRAIN_SAMPLING: "choice"
-  MIN_SIZE_TEST: 1024
-  MAX_SIZE_TRAIN: 2048
+  MIN_SIZE_TEST: 256
+  MAX_SIZE_TRAIN: 512
   MAX_SIZE_TEST: 1024
   CROP:
     ENABLED: True
     TYPE: "absolute"
-    SIZE: (512, 512)
+    SIZE: (128, 128)
     SINGLE_CATEGORY_MAX_AREA: 1.0
   COLOR_AUG_SSD: True
   SIZE_DIVISIBILITY: 128
