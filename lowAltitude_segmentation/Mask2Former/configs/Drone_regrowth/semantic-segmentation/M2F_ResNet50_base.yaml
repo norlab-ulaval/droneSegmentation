@@ -1,7 +1,7 @@
 _BASE_: M2F_BaseSemantic.yaml
 MODEL:
   META_ARCHITECTURE: "MaskFormer"
-  WEIGHTS: "/home/ulaval.ca/wigum/scratch/results/resnet50_base/model_0299999.pth"
+  WEIGHTS: "/home/ulaval.ca/wigum/scratch/results/resnet50_base2/model_0119999.pth"
   SEM_SEG_HEAD:
     NAME: "MaskFormerHead"
     IGNORE_VALUE: 255
