@@ -4,10 +4,13 @@ MaskFormer Training Script.
 
 This script is a simplified version of the training script in detectron2/tools.
 """
+from fvcore.nn import get_bn_modules
+
 try:
     # ignore ShapelyDeprecationWarning from fvcore
     from shapely.errors import ShapelyDeprecationWarning
     import warnings
+
     warnings.filterwarnings('ignore', category=ShapelyDeprecationWarning)
 except:
     pass
@@ -16,21 +19,19 @@ import copy
 import itertools
 import logging
 import os
-
 from collections import OrderedDict
 from typing import Any, Dict, List, Set
 
-import torch
-
 import detectron2.utils.comm as comm
+import torch
 from detectron2.checkpoint import DetectionCheckpointer
-from detectron2.config import get_cfg
+from detectron2.config import (get_cfg, CfgNode)
 from detectron2.data import MetadataCatalog, build_detection_train_loader
 from detectron2.engine import (
     DefaultTrainer,
     default_argument_parser,
     default_setup,
-    launch,
+    launch, hooks,
 )
 from detectron2.evaluation import (
     CityscapesInstanceEvaluator,
@@ -61,10 +62,73 @@ from mask2former import (
 )
 
 
+def add_custom_configs(cfg: CfgNode):
+    _C = cfg
+    _C.SOLVER.BEST_CHECKPOINTER = CfgNode({"ENABLED": True})
+    _C.SOLVER.BEST_CHECKPOINTER.METRIC = "bbox/AP50"
+    _C.SOLVER.BEST_CHECKPOINTER.MODE = "max"
+
+
 class Trainer(DefaultTrainer):
     """
     Extension of the Trainer class adapted to MaskFormer.
     """
+
+    def build_hooks(self):
+        """
+        Build a list of default hooks, including timing, evaluation,
+        checkpointing, lr scheduling, precise BN, writing events.
+
+        Returns:
+            list[HookBase]:
+        """
+        cfg = self.cfg.clone()
+        cfg.defrost()
+        cfg.DATALOADER.NUM_WORKERS = 0  # save some memory and time for PreciseBN
+
+        ret = [
+            hooks.IterationTimer(),
+            hooks.LRScheduler(),
+            (
+                hooks.PreciseBN(
+                    # Run at the same freq as (but before) evaluation.
+                    cfg.TEST.EVAL_PERIOD,
+                    self.model,
+                    # Build a new data loader to not affect training
+                    self.build_train_loader(cfg),
+                    cfg.TEST.PRECISE_BN.NUM_ITER,
+                )
+                if cfg.TEST.PRECISE_BN.ENABLED and get_bn_modules(self.model)
+                else None
+            ),
+        ]
+
+        # Do PreciseBN before checkpointer, because it updates the model and need to
+        # be saved by checkpointer.
+        # This is not always the best: if checkpointing has a different frequency,
+        # some checkpoints may have more precise statistics than others.
+        if comm.is_main_process():
+            ret.append(hooks.PeriodicCheckpointer(self.checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD))
+
+        def test_and_save_results():
+            self._last_eval_results = self.test(self.cfg, self.model)
+            return self._last_eval_results
+
+        # Do evaluation after checkpointer, because then if it fails,
+        # we can use the saved checkpoint to debug.
+        ret.append(hooks.EvalHook(cfg.TEST.EVAL_PERIOD, test_and_save_results))
+
+        # Best checkpoint
+        if cfg.SOLVER.BEST_CHECKPOINTER and comm.is_main_process():
+            ret.append(
+                hooks.BestCheckpointer(cfg.TEST.EVAL_PERIOD, self.checkpointer, cfg.SOLVER.BEST_CHECKPOINTER.METRIC,
+                                       mode=cfg.SOLVER.BEST_CHECKPOINTER.MODE))
+
+        if comm.is_main_process():
+            # Here the default print/log frequency of each writer is used.
+            # run writers in the end, so that evaluation metrics are written
+            ret.append(hooks.PeriodicWriter(self.build_writers(), period=20))
+        return ret
 
     @classmethod
     def build_evaluator(cls, cfg, dataset_name, output_folder=None):
@@ -113,23 +177,23 @@ class Trainer(DefaultTrainer):
         # Cityscapes
         if evaluator_type == "cityscapes_instance":
             assert (
-                torch.cuda.device_count() > comm.get_rank()
+                    torch.cuda.device_count() > comm.get_rank()
             ), "CityscapesEvaluator currently do not work with multiple machines."
             return CityscapesInstanceEvaluator(dataset_name)
         if evaluator_type == "cityscapes_sem_seg":
             assert (
-                torch.cuda.device_count() > comm.get_rank()
+                    torch.cuda.device_count() > comm.get_rank()
             ), "CityscapesEvaluator currently do not work with multiple machines."
             return CityscapesSemSegEvaluator(dataset_name)
         if evaluator_type == "cityscapes_panoptic_seg":
             if cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON:
                 assert (
-                    torch.cuda.device_count() > comm.get_rank()
+                        torch.cuda.device_count() > comm.get_rank()
                 ), "CityscapesEvaluator currently do not work with multiple machines."
                 evaluator_list.append(CityscapesSemSegEvaluator(dataset_name))
             if cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON:
                 assert (
-                    torch.cuda.device_count() > comm.get_rank()
+                        torch.cuda.device_count() > comm.get_rank()
                 ), "CityscapesEvaluator currently do not work with multiple machines."
                 evaluator_list.append(CityscapesInstanceEvaluator(dataset_name))
         # ADE20K
@@ -230,8 +294,8 @@ class Trainer(DefaultTrainer):
                 if "backbone" in module_name:
                     hyperparams["lr"] = hyperparams["lr"] * cfg.SOLVER.BACKBONE_MULTIPLIER
                 if (
-                    "relative_position_bias_table" in module_param_name
-                    or "absolute_pos_embed" in module_param_name
+                        "relative_position_bias_table" in module_param_name
+                        or "absolute_pos_embed" in module_param_name
                 ):
                     print(module_param_name)
                     hyperparams["weight_decay"] = 0.0
@@ -245,9 +309,9 @@ class Trainer(DefaultTrainer):
             # detectron2 doesn't have full model gradient clipping now
             clip_norm_val = cfg.SOLVER.CLIP_GRADIENTS.CLIP_VALUE
             enable = (
-                cfg.SOLVER.CLIP_GRADIENTS.ENABLED
-                and cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE == "full_model"
-                and clip_norm_val > 0.0
+                    cfg.SOLVER.CLIP_GRADIENTS.ENABLED
+                    and cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE == "full_model"
+                    and clip_norm_val > 0.0
             )
 
             class FullModelGradientClippingOptimizer(optim):
@@ -295,6 +359,7 @@ def setup(args):
     Create configs and perform basic setups.
     """
     cfg = get_cfg()
+    add_custom_configs(cfg)
     # for poly lr schedule
     add_deeplab_config(cfg)
     add_maskformer2_config(cfg)
