@@ -11,7 +11,7 @@ MODEL:
     DROP_PATH_RATE: 0.2
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
-  WEIGHTS: "/home/ulaval.ca/wigum/scratch/results/swin_large2/model_0094999.pth"
+  WEIGHTS: "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_segmentation/Mask2Former/ADE20K_Swin-L (IN21k).pkl"
   PIXEL_MEAN: [123.675, 116.280, 103.530]
   PIXEL_STD: [58.395, 57.120, 57.375]
 INPUT:
