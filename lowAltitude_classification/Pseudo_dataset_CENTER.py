@@ -34,7 +34,7 @@ overlaps = [0.85]
 root_folder = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best'
 image_folder = '/home/kamyar/Documents/Train-val_Annotated'
 
-csv_filename = 'lowAltitude_classification/results/avg_voters/val/multipleVOTE.csv'
+csv_filename = 'lowAltitude_classification/results/avg_voters/val/one_vote.csv'
 file_exists = os.path.isfile(csv_filename)
 
 with open(csv_filename, mode='a', newline='') as file:
@@ -55,7 +55,7 @@ with open(csv_filename, mode='a', newline='') as file:
                 output_folder.mkdir(exist_ok=True, parents=True)
 
                 for patch_size in patch_sizes:
-                    central_window_size = 184
+                    central_window_size = 96
                     central_offset = (patch_size - central_window_size) // 2
                     x_offsets, y_offsets = np.meshgrid(
                         np.arange(central_offset, central_offset + central_window_size),
@@ -65,12 +65,12 @@ with open(csv_filename, mode='a', newline='') as file:
 
                     for overlap in overlaps:
                         padding = patch_size // 8
-                        step_size = int(patch_size * (1 - overlap))
+                        # step_size = int(patch_size * (1 - overlap))
 
                         ###################################################################
                         # STEP SIZE DEFINED FOR 1 VOTE HERE, OTHER THAN THIS, USE THE ABOVE LINE
 
-                        # step_size = 96                  ### = (patch size - central_window_size) / 2 + central_window_size - (patch size - central_window_size) / 2 = central_window_size
+                        step_size = 96                  ### = (patch size - central_window_size) / 2 + central_window_size - (patch size - central_window_size) / 2 = central_window_size
                         ###################################################################
 
                         batch_size = 256
@@ -146,9 +146,18 @@ with open(csv_filename, mode='a', newline='') as file:
                                         pixel_coords = pixel_coords[valid_mask]
                                         pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
 
+
                                 # Calculate the average number of votings for the image
                                 votings_per_pixel = pixel_predictions.sum(axis=2)
                                 avg_votings_image = votings_per_pixel.mean()
+
+                                sum_across_classes_image = pixel_predictions.sum(axis=2)
+                                unique_sums = np.unique(sum_across_classes_image)
+                                print(f"Unique sum values across all pixels: {unique_sums}")
+                                # zero_sum_pixels = np.sum(sum_across_classes_image == 0)
+                                #
+                                # print(f"Number of pixels with a sum of 0 across all classes: {zero_sum_pixels}")
+
 
                                 # Update dataset-level statistics
                                 total_votings += votings_per_pixel.sum()
