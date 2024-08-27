@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 metrics_df = pd.read_csv('lowAltitude_classification/results/phase2/center/val/phase2-val-center.csv')
-votes_df = pd.read_csv('lowAltitude_classification/results/avg_voters/val/multipleVOTE.csv')
+votes_df = pd.read_csv('lowAltitude_classification/results/avg_voters/val/multipleVote.csv')
 oneVote_df = pd.read_csv('lowAltitude_classification/results/avg_voters/val/one_vote.csv')
 
 merged_df = pd.merge(metrics_df, votes_df, how='outer', on=['Central Size', 'Patch Size', 'Step Size'])

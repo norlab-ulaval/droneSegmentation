@@ -10,7 +10,7 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 import csv
-
+import matplotlib.pyplot as plt
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -34,7 +34,7 @@ overlaps = [0.85]
 root_folder = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best'
 image_folder = '/home/kamyar/Documents/Train-val_Annotated'
 
-csv_filename = 'lowAltitude_classification/results/avg_voters/val/one_vote.csv'
+csv_filename = 'lowAltitude_classification/results/avg_voters/val/multipleVote.csv'
 file_exists = os.path.isfile(csv_filename)
 
 with open(csv_filename, mode='a', newline='') as file:
@@ -55,7 +55,7 @@ with open(csv_filename, mode='a', newline='') as file:
                 output_folder.mkdir(exist_ok=True, parents=True)
 
                 for patch_size in patch_sizes:
-                    central_window_size = 96
+                    central_window_size = 184
                     central_offset = (patch_size - central_window_size) // 2
                     x_offsets, y_offsets = np.meshgrid(
                         np.arange(central_offset, central_offset + central_window_size),
@@ -65,12 +65,12 @@ with open(csv_filename, mode='a', newline='') as file:
 
                     for overlap in overlaps:
                         padding = patch_size // 8
-                        # step_size = int(patch_size * (1 - overlap))
+                        step_size = int(patch_size * (1 - overlap))
 
                         ###################################################################
                         # STEP SIZE DEFINED FOR 1 VOTE HERE, OTHER THAN THIS, USE THE ABOVE LINE
 
-                        step_size = 96                  ### = (patch size - central_window_size) / 2 + central_window_size - (patch size - central_window_size) / 2 = central_window_size
+                        # step_size = 24                  ### = (patch size - central_window_size) / 2 + central_window_size - (patch size - central_window_size) / 2 = central_window_size
                         ###################################################################
 
                         batch_size = 256
@@ -84,6 +84,7 @@ with open(csv_filename, mode='a', newline='') as file:
                                 begin_time = time.perf_counter()
                                 image_path = os.path.join(image_folder, image_file)
                                 image = Image.open(image_path)
+                                # image = image.transform() # tx=0, ty=padding
                                 image_np = np.array(image)
                                 transformed = transform(image=image_np)
                                 image_tensor = transformed['image'].to(device)
@@ -100,8 +101,8 @@ with open(csv_filename, mode='a', newline='') as file:
                                 patches = []
                                 coordinates = []
 
-                                for x in range(0, padded_width - patch_size + 1, step_size):
-                                    for y in range(0, padded_height - patch_size + 1, step_size):
+                                for x in range(0, padded_width - patch_size, step_size):
+                                    for y in range(0, padded_height - patch_size, step_size):
                                         patch = image_tensor_padded[:, y:y + patch_size, x:x + patch_size]
                                         patches.append(patch)
                                         coordinates.append((x, y))
@@ -120,8 +121,8 @@ with open(csv_filename, mode='a', newline='') as file:
                                                 pixel_coords = offsets + np.array([x, y]) - padding
                                                 valid_mask = ((pixel_coords[:, 0] < width)
                                                               & (pixel_coords[:, 1] < height)
-                                                              & (pixel_coords[:, 0] > 0)
-                                                              & (pixel_coords[:, 1] > 0))
+                                                              & (pixel_coords[:, 0] >=0)
+                                                              & (pixel_coords[:, 1] >= 0))
                                                 pixel_coords = pixel_coords[valid_mask]
                                                 pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
 
@@ -141,25 +142,15 @@ with open(csv_filename, mode='a', newline='') as file:
                                         pixel_coords = offsets + np.array([x, y]) - padding
                                         valid_mask = ((pixel_coords[:, 0] < width)
                                                       & (pixel_coords[:, 1] < height)
-                                                      & (pixel_coords[:, 0] > 0)
-                                                      & (pixel_coords[:, 1] > 0))
+                                                      & (pixel_coords[:, 0] >= 0)
+                                                      & (pixel_coords[:, 1] >= 0))
                                         pixel_coords = pixel_coords[valid_mask]
                                         pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
 
-
-                                # Calculate the average number of votings for the image
                                 votings_per_pixel = pixel_predictions.sum(axis=2)
+                                # print(np.unique(votings_per_pixel))
                                 avg_votings_image = votings_per_pixel.mean()
 
-                                sum_across_classes_image = pixel_predictions.sum(axis=2)
-                                unique_sums = np.unique(sum_across_classes_image)
-                                print(f"Unique sum values across all pixels: {unique_sums}")
-                                # zero_sum_pixels = np.sum(sum_across_classes_image == 0)
-                                #
-                                # print(f"Number of pixels with a sum of 0 across all classes: {zero_sum_pixels}")
-
-
-                                # Update dataset-level statistics
                                 total_votings += votings_per_pixel.sum()
                                 total_pixels += width * height
                                 image_count += 1
@@ -177,11 +168,9 @@ with open(csv_filename, mode='a', newline='') as file:
                                 cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
                                 print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
 
-                        # Calculate the average number of votings for the entire dataset
                         avg_votings_dataset = total_votings / total_pixels if total_pixels else 0
                         print(f'Average votings for the entire dataset: {avg_votings_dataset:.2f}')
 
-                        # Save the results in the CSV file
                         writer.writerow([central_window_size, patch_size, step_size, avg_votings_dataset])
 
 print("Processing complete. Results saved to", csv_filename)

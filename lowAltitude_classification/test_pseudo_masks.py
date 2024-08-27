@@ -109,24 +109,24 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 if __name__ == "__main__":
     ignored_classes = [1]
 
-    parent_preds_folder = '/home/kamyar/Documents/Train-val_Annotated_Predictions/M2F/Swin_MaxTrainSize'
+    parent_preds_folder = '/home/kamyar/Documents/Train-val_Annotated_Predictions/CENTER/52_Final_5e'
     target_folder = '/home/kamyar/Documents/Train-val_Annotated_masks'
 
     results = []
 
-    # for subdir in os.listdir(parent_preds_folder):
-        # if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
-        #     continue
-        #
+    for subdir in os.listdir(parent_preds_folder):
+        if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
+            continue
+
         # print(subdir)
 
-    subdir_path = os.path.join(parent_preds_folder, parent_preds_folder)
+        subdir_path = os.path.join(parent_preds_folder, subdir)
 
-    if os.path.isdir(subdir_path):
-        avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = evaluate_segmentation(
-            subdir_path, target_folder, ignored_classes
-        )
-        print(f'mIoU: {avg_iou}, pAccuracy: {avg_accuracy}, F1 Score: {avg_f1_score}, Precision: {avg_precision}, Recall: {avg_recall}')
+        if os.path.isdir(subdir_path):
+            avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = evaluate_segmentation(
+                subdir_path, target_folder, ignored_classes
+            )
+            print(f'mIoU: {avg_iou}, pAccuracy: {avg_accuracy}, F1 Score: {avg_f1_score}, Precision: {avg_precision}, Recall: {avg_recall}')
             # results.append({
             #     "Experiment": f"experiment {subdir}",
             #     "mIoU": f'{avg_iou:.4f}',
@@ -147,21 +147,21 @@ if __name__ == "__main__":
             # })
 
             ######################## Different center assignment sizes
-    #         results.append({
-    #             # "Experiment": f"experiment {idx}",
-    #             "Central Size": subdir.split('_')[0],
-    #             "Patch Size": subdir.split('_')[1],
-    #             "Step Size": subdir.split('_')[2],
-    #
-    #             # "precision": f'{avg_precision:.4f}',
-    #             # "recall": f'{avg_recall:.4f}',
-    #             "mIoU": f'{avg_iou:.4f}',
-    #             "pAcc": f'{avg_accuracy:.4f}',
-    #             "F1": f'{avg_f1_score:.4f}',
-    #         })
-    #
-    # df = pd.DataFrame(results)
-    # df = df.sort_values(by=["Patch Size"])
-    #
-    # df.to_csv("lowAltitude_classification/results/phase2/center/val/phase2-val-center.csv",
-    #           index=False)
+            results.append({
+                # "Experiment": f"experiment {idx}",
+                "Central Size": subdir.split('_')[0],
+                "Patch Size": subdir.split('_')[1],
+                "Step Size": subdir.split('_')[2],
+
+                # "precision": f'{avg_precision:.4f}',
+                # "recall": f'{avg_recall:.4f}',
+                "mIoU": f'{avg_iou:.4f}',
+                "pAcc": f'{avg_accuracy:.4f}',
+                "F1": f'{avg_f1_score:.4f}',
+            })
+
+    df = pd.DataFrame(results)
+    df = df.sort_values(by=["Patch Size"])
+
+    df.to_csv("lowAltitude_classification/results/phase2/center/val/phase2-val-center.csv",
+              index=False)
