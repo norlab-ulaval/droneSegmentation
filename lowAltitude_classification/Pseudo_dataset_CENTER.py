@@ -66,7 +66,7 @@ with open(csv_filename, mode='a', newline='') as file:
             ###################################################################
             # STEP SIZE DEFINITION OTHER THAN overlap=0.85
 
-            step_size = 20                  ###
+            step_size = 16                  ###
             ###################################################################
 
             batch_size = 256
@@ -144,11 +144,11 @@ with open(csv_filename, mode='a', newline='') as file:
                             pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
 
                     votings_per_pixel = pixel_predictions.sum(axis=2)
-                    # print(np.unique(votings_per_pixel))
-                    avg_votings_image = votings_per_pixel[votings_per_pixel > 0].mean()
+                    non_zero_votings = votings_per_pixel[votings_per_pixel > 0]
+                    avg_votings_image = non_zero_votings.mean() if len(non_zero_votings) > 0 else 0
 
-                    total_votings += votings_per_pixel.sum()
-                    total_pixels += width * height
+                    total_votings += non_zero_votings.sum()
+                    total_pixels += len(non_zero_votings)
                     image_count += 1
 
                     segmentation_map = np.argmax(pixel_predictions, axis=2)
