@@ -60,50 +60,71 @@ with open(csv_filename, mode='a', newline='') as file:
         offsets = np.stack([x_offsets, y_offsets], axis=-1).reshape(-1, 2)
 
         for overlap in overlaps:
-            padding = patch_size
+            for padding in [patch_size]:
+            # padding = 0
             # step_size = int(patch_size * (1 - overlap))
 
-            ###################################################################
-            # STEP SIZE DEFINITION OTHER THAN overlap=0.85
+                ###################################################################
+                # STEP SIZE DEFINITION OTHER THAN overlap=0.85
+                # for step_size in [16, 24, 27, 48, 96]:
+                for step_size in [16]:
+                # step_size = 24                  ###
+                    batch_size = 256
 
-            step_size = 16                  ###
-            ###################################################################
+                    total_votings = 0
+                    total_pixels = 0
+                    image_count = 0
 
-            batch_size = 256
+                    for image_file in os.listdir(image_folder):
+                        if image_file.endswith(('.jpg', '.JPG', '.png')):
+                            begin_time = time.perf_counter()
+                            image_path = os.path.join(image_folder, image_file)
+                            image = Image.open(image_path)
+                            # image = image.transform() # tx=0, ty=padding
+                            image_np = np.array(image)
+                            transformed = transform(image=image_np)
+                            image_tensor = transformed['image'].to(device)
 
-            total_votings = 0
-            total_pixels = 0
-            image_count = 0
+                            image_tensor_padded = torch.nn.functional.pad(
+                                image_tensor, (padding, padding, padding, padding), 'constant', value=0
+                            )
 
-            for image_file in os.listdir(image_folder):
-                if image_file.endswith(('.jpg', '.JPG', '.png')):
-                    begin_time = time.perf_counter()
-                    image_path = os.path.join(image_folder, image_file)
-                    image = Image.open(image_path)
-                    # image = image.transform() # tx=0, ty=padding
-                    image_np = np.array(image)
-                    transformed = transform(image=image_np)
-                    image_tensor = transformed['image'].to(device)
+                            width, height = image.size
+                            padded_width = width + 2 * padding
+                            padded_height = height + 2 * padding
 
-                    image_tensor_padded = torch.nn.functional.pad(
-                        image_tensor, (padding, padding, padding, padding), 'constant', value=float('nan')
-                    )
+                            pixel_predictions = np.zeros((height, width, num_classes), dtype=np.longlong)
+                            patches = []
+                            coordinates = []
 
-                    width, height = image.size
-                    padded_width = width + 2 * padding
-                    padded_height = height + 2 * padding
+                            for x in range(0, padded_width - patch_size, step_size):
+                                for y in range(0, padded_height - patch_size, step_size):
+                                    patch = image_tensor_padded[:, y:y + patch_size, x:x + patch_size]
+                                    patches.append(patch)
+                                    coordinates.append((x, y))
 
-                    pixel_predictions = np.full((height, width, num_classes), dtype=np.longlong, fill_value=float('nan'))
-                    patches = []
-                    coordinates = []
+                                    if len(patches) == batch_size:
+                                        patches_tensor = torch.stack(patches).to(device)
 
-                    for x in range(0, padded_width - patch_size, step_size):
-                        for y in range(0, padded_height - patch_size, step_size):
-                            patch = image_tensor_padded[:, y:y + patch_size, x:x + patch_size]
-                            patches.append(patch)
-                            coordinates.append((x, y))
+                                        with torch.no_grad(), torch.cuda.amp.autocast():
+                                            outputs = model(patches_tensor)
 
-                            if len(patches) == batch_size:
+                                        predicted_classes = torch.argmax(outputs.logits, dim=1)
+
+                                        for patch_idx, (x, y) in enumerate(coordinates):
+                                            predicted_class = predicted_classes[patch_idx]
+
+                                            pixel_coords = offsets + np.array([x, y]) - padding
+                                            valid_mask = ((pixel_coords[:, 0] < width)
+                                                          & (pixel_coords[:, 1] < height)
+                                                          & (pixel_coords[:, 0] >=0)
+                                                          & (pixel_coords[:, 1] >= 0))
+                                            pixel_coords = pixel_coords[valid_mask]
+                                            pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
+
+                                        patches = []
+                                        coordinates = []
+                            if patches:
                                 patches_tensor = torch.stack(patches).to(device)
 
                                 with torch.no_grad(), torch.cuda.amp.autocast():
@@ -117,56 +138,36 @@ with open(csv_filename, mode='a', newline='') as file:
                                     pixel_coords = offsets + np.array([x, y]) - padding
                                     valid_mask = ((pixel_coords[:, 0] < width)
                                                   & (pixel_coords[:, 1] < height)
-                                                  & (pixel_coords[:, 0] >=0)
+                                                  & (pixel_coords[:, 0] >= 0)
                                                   & (pixel_coords[:, 1] >= 0))
                                     pixel_coords = pixel_coords[valid_mask]
                                     pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
 
-                                patches = []
-                                coordinates = []
-                    if patches:
-                        patches_tensor = torch.stack(patches).to(device)
+                            votings_per_pixel = pixel_predictions.sum(axis=2)
+                            non_zero_votings = votings_per_pixel[votings_per_pixel > 0]
+                            avg_votings_image = non_zero_votings.mean() if len(non_zero_votings) > 0 else 0
 
-                        with torch.no_grad(), torch.cuda.amp.autocast():
-                            outputs = model(patches_tensor)
+                            total_votings += non_zero_votings.sum()
+                            total_pixels += len(non_zero_votings)
+                            image_count += 1
 
-                        predicted_classes = torch.argmax(outputs.logits, dim=1)
+                            segmentation_map = np.argmax(pixel_predictions, axis=2)
+                            segmentation_map[votings_per_pixel == 0] = -1
 
-                        for patch_idx, (x, y) in enumerate(coordinates):
-                            predicted_class = predicted_classes[patch_idx]
+                            output_filename = Path(image_path).with_suffix('.png').name
+                            overlap_folder = Path(output_folder) / f'center-{central_window_size}_patch-{patch_size}_step-{int(step_size)}_pad-{int(padding)}'
+                            ###################################################################
+                            # overlap_folder DEFINED FOR 1 VOTE HERE, OTHER THAN THIS, USE THE ABOVE LINE
 
-                            pixel_coords = offsets + np.array([x, y]) - padding
-                            valid_mask = ((pixel_coords[:, 0] < width)
-                                          & (pixel_coords[:, 1] < height)
-                                          & (pixel_coords[:, 0] >= 0)
-                                          & (pixel_coords[:, 1] >= 0))
-                            pixel_coords = pixel_coords[valid_mask]
-                            pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
+                            # overlap_folder = Path(output_folder) / f'{central_window_size}_{patch_size}_{int(step_size)}_oneVOTE'
+                            ###################################################################
+                            overlap_folder.mkdir(exist_ok=True, parents=True)
+                            cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
+                            print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
 
-                    votings_per_pixel = pixel_predictions.sum(axis=2)
-                    non_zero_votings = votings_per_pixel[votings_per_pixel > 0]
-                    avg_votings_image = non_zero_votings.mean() if len(non_zero_votings) > 0 else 0
+                    avg_votings_dataset = total_votings / total_pixels if total_pixels else 0
+                    print(f'Average votings for the entire dataset: {avg_votings_dataset:.2f}')
 
-                    total_votings += non_zero_votings.sum()
-                    total_pixels += len(non_zero_votings)
-                    image_count += 1
-
-                    segmentation_map = np.argmax(pixel_predictions, axis=2)
-
-                    output_filename = Path(image_path).with_suffix('.png').name
-                    overlap_folder = Path(output_folder) / f'center{central_window_size}_patch{patch_size}_step{int(step_size)}_pad{int(padding)}'
-                    ###################################################################
-                    # overlap_folder DEFINED FOR 1 VOTE HERE, OTHER THAN THIS, USE THE ABOVE LINE
-
-                    # overlap_folder = Path(output_folder) / f'{central_window_size}_{patch_size}_{int(step_size)}_oneVOTE'
-                    ###################################################################
-                    overlap_folder.mkdir(exist_ok=True, parents=True)
-                    cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
-                    print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
-
-            avg_votings_dataset = total_votings / total_pixels if total_pixels else 0
-            print(f'Average votings for the entire dataset: {avg_votings_dataset:.2f}')
-
-            writer.writerow([central_window_size, patch_size, step_size, avg_votings_dataset, padding])
+                    writer.writerow([central_window_size, patch_size, step_size, avg_votings_dataset, padding])
 
 print("Processing complete. Results saved to", csv_filename)

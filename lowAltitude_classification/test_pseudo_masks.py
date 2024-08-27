@@ -14,19 +14,64 @@ def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
             filenames.append(filename)
     return images, filenames
 
+# def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
+#     iou_scores = []
+#     for cls in range(num_classes):
+#         if cls in ignored_classes or cls not in target:
+#             continue
+#         intersection = np.logical_and(prediction == cls, target == cls)
+#         union = np.logical_or(prediction == cls, target == cls)
+#         iou = np.sum(intersection) / (np.sum(union) + epsilon)
+#         iou_scores.append(iou)
+#     return np.mean(iou_scores) if iou_scores else 0
+#
+# def compute_pixel_accuracy(prediction, target, ignored_classes):
+#     mask = np.isin(target, ignored_classes, invert=True)
+#     correct = np.sum((prediction == target) & mask)
+#     total = np.sum(mask)
+#     accuracy = correct / total if total != 0 else 0
+#     return accuracy
+#
+# def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
+#     f1_scores = []
+#     for cls in range(num_classes):
+#         if cls in ignored_classes or cls not in target:
+#             continue
+#         tp = np.sum((prediction == cls) & (target == cls))
+#         fp = np.sum((prediction == cls) & (target != cls))
+#         fn = np.sum((prediction != cls) & (target == cls))
+#
+#         precision = tp / (tp + fp + epsilon) if (tp + fp) != 0 else 0
+#         recall = tp / (tp + fn + epsilon) if (tp + fn) != 0 else 0
+#
+#         f1 = (
+#             2 * precision * recall / (precision + recall + epsilon)
+#             if (precision + recall) != 0
+#             else 0
+#         )
+#         f1_scores.append(f1)
+#     return np.mean(f1_scores) if f1_scores else 0, precision, recall
+
+
 def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
     iou_scores = []
     for cls in range(num_classes):
         if cls in ignored_classes or cls not in target:
             continue
-        intersection = np.logical_and(prediction == cls, target == cls)
-        union = np.logical_or(prediction == cls, target == cls)
+        valid_mask = (prediction != -1) & (target != -1)
+        if not np.any(valid_mask):
+            continue
+        intersection = np.logical_and(prediction == cls, target == cls) & valid_mask
+        union = np.logical_or(prediction == cls, target == cls) & valid_mask
         iou = np.sum(intersection) / (np.sum(union) + epsilon)
         iou_scores.append(iou)
     return np.mean(iou_scores) if iou_scores else 0
 
 def compute_pixel_accuracy(prediction, target, ignored_classes):
-    mask = np.isin(target, ignored_classes, invert=True)
+    valid_mask = (prediction != -1) & (target != -1)
+    if not np.any(valid_mask):
+        return 0
+    mask = np.isin(target, ignored_classes, invert=True) & valid_mask
     correct = np.sum((prediction == target) & mask)
     total = np.sum(mask)
     accuracy = correct / total if total != 0 else 0
@@ -37,9 +82,12 @@ def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1
     for cls in range(num_classes):
         if cls in ignored_classes or cls not in target:
             continue
-        tp = np.sum((prediction == cls) & (target == cls))
-        fp = np.sum((prediction == cls) & (target != cls))
-        fn = np.sum((prediction != cls) & (target == cls))
+        valid_mask = (prediction != -1) & (target != -1)
+        if not np.any(valid_mask):
+            continue
+        tp = np.sum((prediction == cls) & (target == cls) & valid_mask)
+        fp = np.sum((prediction == cls) & (target != cls) & valid_mask)
+        fn = np.sum((prediction != cls) & (target == cls) & valid_mask)
 
         precision = tp / (tp + fp + epsilon) if (tp + fp) != 0 else 0
         recall = tp / (tp + fn + epsilon) if (tp + fn) != 0 else 0
@@ -115,8 +163,8 @@ if __name__ == "__main__":
     results = []
 
     for subdir in os.listdir(parent_preds_folder):
-        if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
-            continue
+        # if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
+        #     continue
 
         # print(subdir)
 
@@ -148,10 +196,10 @@ if __name__ == "__main__":
 
             ######################## Different center assignment sizes
             results.append({
-                # "Experiment": f"experiment {idx}",
-                "Central Size": subdir.split('_')[0],
-                "Patch Size": subdir.split('_')[1],
-                "Step Size": subdir.split('_')[2],
+                "Central Size": subdir.split('_')[0].split('-')[1],
+                "Patch Size": subdir.split('_')[1].split('-')[1],
+                "Step Size": subdir.split('_')[2].split('-')[1],
+                "Pad Size": subdir.split('_')[3].split('-')[1],
 
                 # "precision": f'{avg_precision:.4f}',
                 # "recall": f'{avg_recall:.4f}',
@@ -161,7 +209,7 @@ if __name__ == "__main__":
             })
 
     df = pd.DataFrame(results)
-    df = df.sort_values(by=["Patch Size"])
+    df = df.sort_values(by=["Pad Size"])
 
     df.to_csv("lowAltitude_classification/results/phase2/center/val/phase2-val-center.csv",
               index=False)
