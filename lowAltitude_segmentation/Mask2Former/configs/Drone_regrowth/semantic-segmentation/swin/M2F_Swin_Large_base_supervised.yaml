@@ -13,7 +13,7 @@ MODEL:
     DROP_PATH_RATE: 0.2
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
-  WEIGHTS: "lowAltitude_segmentation/Mask2Former/model_best.pth"
+  WEIGHTS: "lowAltitude_segmentation/Mask2Former/ADE20K_Swin-L (IN21k).pkl"
   PIXEL_MEAN: [ 123.675, 116.280, 103.530 ]
   PIXEL_STD: [ 58.395, 57.120, 57.375 ]
 INPUT:
