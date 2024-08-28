@@ -11,21 +11,21 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-
-# SPLIT = os.environ.get("SPLIT", None)
-# if SPLIT is None:
-#     raise ValueError("SPLIT environment variable must be set: 'Fifth batch'  'First batch'  'Fourth batch'  'Second batch'  'Third batch'")
+SPLIT = os.environ.get("SPLIT", None)
+if SPLIT is None:
+    raise ValueError(
+        "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
 
 # Paths
-# results_dir = Path("/data/droneSegResults")
-# weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-# image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT}/")
-# output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
-
-results_dir = Path("/home/kamyar/Documents")
-weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/Second batch/")
+results_dir = Path("/data/droneSegResults")
+weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split2/{SPLIT} batch/")
 output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
+
+# results_dir = Path("/home/kamyar/Documents")
+# weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+# image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/Second batch/")
+# output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -50,7 +50,6 @@ model.load_state_dict(torch.load(weight_file_path))
 model.eval()
 
 output_dir.mkdir(parents=True, exist_ok=True)
-
 
 for patch_size in patch_sizes:
     central_window_size = 96
@@ -111,7 +110,7 @@ for patch_size in patch_sizes:
                                 pixel_coords = offsets + np.array([x, y]) - padding
                                 valid_mask = ((pixel_coords[:, 0] < width)
                                               & (pixel_coords[:, 1] < height)
-                                              & (pixel_coords[:, 0] >=0)
+                                              & (pixel_coords[:, 0] >= 0)
                                               & (pixel_coords[:, 1] >= 0))
                                 pixel_coords = pixel_coords[valid_mask]
                                 pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
@@ -149,17 +148,10 @@ for patch_size in patch_sizes:
                 segmentation_map[votings_per_pixel == 0] = -1
 
                 output_filename = Path(image_path).with_suffix('.png').name
-                overlap_folder = Path(output_dir) / f'center-{central_window_size}_patch-{patch_size}_step-{int(step_size)}_pad-{int(padding)}'
+                overlap_folder = Path(
+                    output_dir) / f'center-{central_window_size}_patch-{patch_size}_step-{int(step_size)}_pad-{int(padding)}'
                 overlap_folder.mkdir(exist_ok=True, parents=True)
                 cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
                 print(f'Time taken: {time.perf_counter() - begin_time:.2f}s')
 
-
 print("Processing complete.")
-
-
-
-
-
-
-
