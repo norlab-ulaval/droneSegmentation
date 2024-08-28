@@ -52,14 +52,14 @@ TODO:
 
 | **Computer** | **Task**   |
 |--------------|------------|
-| KN           |            |
+| KN           | PL 2       |
 | WGM          | Finetuning |
 | DAD          | Supervised |
 | Titan X      |            |
-| Mamba 1      | New base   |
-| Mamba 2      |            |
-| Mamba 3      |            |
-| Mamba 4      |            |
+| Mamba 0      | New base   |
+| Mamba 1      | PL 1       |
+| Mamba 2      | PL 3       |
+| Mamba 3      | PL 4       |
 | Valeria 1    |            |
 | Valeria 2    |            |
 
@@ -155,13 +155,13 @@ PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.p
 docker build -t droneseg_cls -f DockerfileClassif .
 
 docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=2 \
   -v .:/app \
-  -v /data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
-  -v ~/Datasets/Best_classifier_Weight:/data/Best_classifier_Weight \
-  -v ~/Datasets/droneOut2:/data/droneSegResults/ \
+  -v /data/:/data/ \
   -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
   -v /dev/shm/:/dev/shm/ \
   droneseg_cls bash
   
+export SPLIT=First
 python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184.py
 ```
