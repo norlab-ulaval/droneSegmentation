@@ -93,6 +93,36 @@ PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.p
   --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_finetuning.yaml
 ```
 
+# Scratch for supervised training
+
+```shell
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/drone_dataset:/data/drone_dataset \
+  -v ~/Datasets/M2F_Train_Val_split/:/data/drone_annotated \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
+pip install -U pip
+pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
+cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
+export MAX_JOBS=16
+sh make.sh
+
+cd /data/drone_annotated/train/images
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
+cd /data/drone_annotated/val/images
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
+
+cd /app
+export SLURM_TMPDIR=/data/
+export SPLIT='DL'
+python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
+
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_supervised.yaml
+```
+
 # Scratch pad for PL generation
 
 ```shell
