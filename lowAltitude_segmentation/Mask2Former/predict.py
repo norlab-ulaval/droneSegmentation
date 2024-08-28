@@ -60,23 +60,13 @@
 # print("done")
 
 
-
-
-
-
-
-
-
-
-
-
-
 import sys
 import os
 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
-from detectron2.config import CfgNode as CN
+from detectron2.config import CfgNode as CN, CfgNode
 from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer, ColorMode
@@ -84,13 +74,21 @@ from detectron2.data import MetadataCatalog
 from detectron2.projects.deeplab import add_deeplab_config
 from mask2former import add_maskformer2_config
 
+
 class Predictor():
     def setup(self):
         cfg = get_cfg()
         add_deeplab_config(cfg)
         add_maskformer2_config(cfg)
-        cfg.merge_from_file("lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_MaxTrainSize_1024.yaml")
-        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/model_final.pth'
+
+        cfg['SOLVER']['BEST_CHECKPOINTER'] = CfgNode()
+        cfg['SOLVER']['BEST_CHECKPOINTER']['ENABLED'] = False
+        cfg['SOLVER']['BEST_CHECKPOINTER']['METRIC'] = 'yolo'
+
+        cfg.merge_from_file(
+            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml", allow_unsafe=True)
+
+        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/Swin_base/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -100,10 +98,16 @@ class Predictor():
     def predict(self, image_path, output_path):
         im = cv2.imread(str(image_path))
         outputs = self.predictor(im)
-        v = Visualizer(im[:, :, ::-1], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE_BW)
-        # semantic_result = v.draw_sem_seg(outputs["sem_seg"].argmax(0).to("cpu")).get_image()
-        cv2.imwrite(output_path, outputs["sem_seg"].argmax(0).to("cpu").numpy())
+        cls = outputs["sem_seg"].argmax(0)
+        # plt.imshow(cls.cpu().numpy())
+        # plt.show()
+        # cls[cls > 0] -= 1
+        # v = Visualizer(im[:, :, ::-1], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE)
+        # semantic_result = v.draw_sem_seg(cls.to("cpu")).get_image()
+        cv2.imwrite(output_path, cls.to("cpu").numpy())
         # cv2.imwrite(output_path, semantic_result)
+
+
 def process_images(input_dir, output_dir):
     predictor = Predictor()
     predictor.setup()
@@ -118,18 +122,9 @@ def process_images(input_dir, output_dir):
         predictor.predict(input_path, output_path)
         print(f"Processed and saved: {output_path}")
 
-input_directory = '/home/kamyar/Documents/Train-val_Annotated'
-output_directory = '/home/kamyar/Documents/Train-val_Annotated_Predictions/M2F/Swin_MaxTrainSize'
+
+input_directory = '/home/kamyar/Documents/Test_Annotated'
+output_directory = '/home/kamyar/Documents/M2F_Results/Swin_base/output_test'
 
 process_images(input_directory, output_directory)
 print("done")
-
-
-
-
-
-
-
-
-
-
