@@ -5,10 +5,6 @@ metrics_df = pd.read_csv('lowAltitude_classification/results/phase2/center/val/p
 votes_df = pd.read_csv('lowAltitude_classification/results/avg_voters/val/Votes_val.csv')
 
 merged_df = pd.merge(metrics_df, votes_df, how='outer', on=['Central Size', 'Patch Size', 'Step Size', 'Pad Size'])
-# merged_df['Average Number of Voters'] = merged_df['Average Number of Voters_x'].combine_first(merged_df['Average Number of Voters_y'])
-
-# merged_df = merged_df.drop(columns=['Average Number of Voters_x', 'Average Number of Voters_y'])
-# print(merged_df)
 
 plt.figure(figsize=(8, 6))
 plt.scatter(merged_df['Avg_Voters'], merged_df['F1'], marker='o', linestyle='-', color='r')
