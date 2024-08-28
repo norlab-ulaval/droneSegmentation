@@ -34,13 +34,48 @@
 
 | **Model**    | **Computer** | **Status** | **Config**                          |
 |--------------|--------------|------------|-------------------------------------|
-| Swin base    | DAD          | Running    | M2F_Swin_Large_base                 |
-| Swin dice    | WGM          | Running    | M2F_Swin_Large_ClassMaskDice_Weight |
+| Swin base    | DAD          | Done       | M2F_Swin_Large_base                 |
+| Swin dice    | WGM          | Done       | M2F_Swin_Large_ClassMaskDice_Weight |
 | Swin colaug  | Mamba        | Running    | M2F_Swin_Large_colorAugs            |
 | Swin SSD     | Mamba        | Running    | M2F_Swin_Large_SSD_default          |
 | Swin crop    | Mamba        | Running    | M2F_Swin_Large_Crop_512             |
 | Swin train   | Mamba        | Running    | M2F_Swin_Large_MaxTrainSize_1024    |
 | Swin lr      | Valeria      | Running    | M2F_Swin_Large_LR                   |
-| Swin Crop256 | WGM          | Todo       | M2F_Swin_Large_Crop256              |
+| Swin Crop256 | WGM          | Done       | M2F_Swin_Large_Crop256              |
 
-All of them will also be run on Valeria except base and dice.
+
+TODO:
+- New base config
+- Fine-tune the best model
+- Supervised training
+- Generate pseudolabels
+
+| **Computer** | **Task** |
+|--------------|----------|
+| KN           |          |
+| WGM          |          |
+| DAD          |          |
+| Titan X      |          |
+| Mamba 1      |          |
+| Mamba 2      |          |
+| Mamba 3      |          |
+| Mamba 4      |          |
+| Valeria 1    |          |
+| Valeria 2    |          |
+
+# Scratch pad for PL generation
+
+```shell
+docker build -t droneseg_cls -f DockerfileClassif .
+
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
+  -v ~/Datasets/Best_classifier_Weight:/data/Best_classifier_Weight \
+  -v ~/Datasets/droneOut2:/data/droneSegResults/ \
+  -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg_cls bash
+  
+python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184.py
+```
