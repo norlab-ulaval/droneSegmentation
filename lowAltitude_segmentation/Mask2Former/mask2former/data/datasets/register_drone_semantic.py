@@ -222,6 +222,15 @@ def register_all_mapillary_vistas(root):
         )
 
 
+# Can either be PL or DL (pseudo-labels or drone labels)
+SPLIT = os.environ.get('SPLIT', 'PL')
+
 tmp_dir = os.environ['SLURM_TMPDIR']
-_root = f"{tmp_dir}/drone_dataset"
+if SPLIT == 'PL':
+    _root = f"{tmp_dir}/drone_dataset"
+elif SPLIT == 'DL':
+    _root = f"{tmp_dir}/drone_annotated"
+else:
+    raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
+
 register_all_mapillary_vistas(_root)
