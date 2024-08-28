@@ -12,6 +12,7 @@ docker run --gpus=all --rm --ipc host -it \
   -e CUDA_VISIBLE_DEVICES=0 \
   -v .:/app \
   -v /data/drone_dataset:/data/drone_dataset \
+  -v /data/drone
   -v ./output_res_ssd:/app/output \
   -v /dev/shm/:/dev/shm/ \
   droneseg bash
