@@ -34,13 +34,134 @@
 
 | **Model**    | **Computer** | **Status** | **Config**                          |
 |--------------|--------------|------------|-------------------------------------|
-| Swin base    | DAD          | Running    | M2F_Swin_Large_base                 |
-| Swin dice    | WGM          | Running    | M2F_Swin_Large_ClassMaskDice_Weight |
+| Swin base    | DAD          | Done       | M2F_Swin_Large_base                 |
+| Swin dice    | WGM          | Done       | M2F_Swin_Large_ClassMaskDice_Weight |
 | Swin colaug  | Mamba        | Running    | M2F_Swin_Large_colorAugs            |
 | Swin SSD     | Mamba        | Running    | M2F_Swin_Large_SSD_default          |
 | Swin crop    | Mamba        | Running    | M2F_Swin_Large_Crop_512             |
 | Swin train   | Mamba        | Running    | M2F_Swin_Large_MaxTrainSize_1024    |
 | Swin lr      | Valeria      | Running    | M2F_Swin_Large_LR                   |
-| Swin Crop256 | WGM          | Todo       | M2F_Swin_Large_Crop256              |
+| Swin Crop256 | WGM          | Done       | M2F_Swin_Large_Crop256              |
 
-All of them will also be run on Valeria except base and dice.
+
+TODO:
+- Fine-tune the best model
+- New base config
+- Supervised training
+- Generate pseudolabels
+
+| **Computer** | **Task**   |
+|--------------|------------|
+| KN           |            |
+| WGM          | Finetuning |
+| DAD          | Supervised |
+| Titan X      |            |
+| Mamba 1      | New base   |
+| Mamba 2      |            |
+| Mamba 3      |            |
+| Mamba 4      |            |
+| Valeria 1    |            |
+| Valeria 2    |            |
+
+# Scratch for finetuning
+
+```shell
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/drone_dataset:/data/drone_dataset \
+  -v ~/Datasets/M2F_Train_Val_split/:/data/drone_annotated \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
+pip install -U pip
+pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
+cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
+export MAX_JOBS=16
+sh make.sh
+
+cd /data/drone_annotated/train/images
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
+cd /data/drone_annotated/val/images
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
+
+cd /app
+export SLURM_TMPDIR=/data/
+export SPLIT='DL'
+python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
+
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_finetuning.yaml
+```
+
+# Scratch for supervised training
+
+```shell
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/drone_dataset:/data/drone_dataset \
+  -v ~/Datasets/M2F_Train_Val_split/:/data/drone_annotated \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
+pip install -U pip
+pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
+cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
+export MAX_JOBS=16
+sh make.sh
+
+cd /data/drone_annotated/train/images
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
+cd /data/drone_annotated/val/images
+for f in `find * -type f | grep .jpg`; do mv -- "$f" "${f%.jpg}.JPG"; done
+
+cd /app
+export SLURM_TMPDIR=/data/
+export SPLIT='DL'
+python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
+
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_supervised.yaml
+```
+
+# Scratch new config
+
+```shell
+docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=0 \
+  -v .:/app \
+  -v /data/drone_dataset:/data/drone_dataset \
+  -v /data/M2F_Train_Val_split/:/data/drone_annotated \
+  -v ./output_new_base:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+  
+pip install -U pip
+pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
+cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
+export MAX_JOBS=16
+sh make.sh
+
+cd /app
+export SLURM_TMPDIR=/data/
+python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
+
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
+  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
+```
+
+# Scratch pad for PL generation
+
+```shell
+docker build -t droneseg_cls -f DockerfileClassif .
+
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
+  -v ~/Datasets/Best_classifier_Weight:/data/Best_classifier_Weight \
+  -v ~/Datasets/droneOut2:/data/droneSegResults/ \
+  -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg_cls bash
+  
+python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184.py
+```
