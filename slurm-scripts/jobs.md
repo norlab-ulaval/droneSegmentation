@@ -156,7 +156,7 @@ docker build -t droneseg_cls -f DockerfileClassif .
 
 docker run --gpus=all --rm --ipc host -it \
   -v .:/app \
-  -v ~/Datasets/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
+  -v /data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
   -v ~/Datasets/Best_classifier_Weight:/data/Best_classifier_Weight \
   -v ~/Datasets/droneOut2:/data/droneSegResults/ \
   -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
