@@ -11,15 +11,20 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-SPLIT = os.environ.get("SPLIT", None)
-if SPLIT is None:
-    raise ValueError("SPLIT environment variable must be set: 'Fifth batch'  'First batch'  'Fourth batch'  'Second batch'  'Third batch'")
+# SPLIT = os.environ.get("SPLIT", None)
+# if SPLIT is None:
+#     raise ValueError("SPLIT environment variable must be set: 'Fifth batch'  'First batch'  'Fourth batch'  'Second batch'  'Third batch'")
 
 # Paths
-results_dir = Path("/data/droneSegResults")
-weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT}/")
-output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL' / image_folder.name
+# results_dir = Path("/data/droneSegResults")
+# weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+# image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT}/")
+# output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL' / image_folder.name
+
+results_dir = Path("/home/kamyar/Documents/")
+weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+image_folder = Path(f"/home/kamyar/Documents/M2F_Train_Val_split/val/images")
+output_dir = results_dir / 'M2F_Results/moving-window/val'
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

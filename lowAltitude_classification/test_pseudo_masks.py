@@ -157,7 +157,7 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 if __name__ == "__main__":
     ignored_classes = [1]
 
-    parent_preds_folder = '/home/kamyar/Documents/M2F_Results/Swin_base/output_test'
+    parent_preds_folder =  '/home/kamyar/Documents/Test_Annotated_Predictions/CENTER/center-96_patch-184_step-27_pad-184'
     target_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
     # results = []
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     #     #     continue
     #
     #     # print(subdir)
-    #
+    #/home/kamyar/Documents/M2F_Results/Swin_fineTune/output_test
     #     subdir_path = os.path.join(parent_preds_folder, subdir)
 
     if os.path.isdir(parent_preds_folder):
