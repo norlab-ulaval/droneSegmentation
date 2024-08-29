@@ -11,15 +11,25 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-# SPLIT = os.environ.get("SPLIT", None)
-# if SPLIT is None:
-#     raise ValueError(
-#         "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
+SPLIT = os.environ.get("SPLIT", None)
+if SPLIT is None:
+    raise ValueError(
+        "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
 
 # Paths
+
 # results_dir = Path("/data/droneSegResults")
 # weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
 # image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split2/{SPLIT} batch/")
+
+results_dir = Path("/data/droneSegResults")
+weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT} batch/")
+output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
+
+# results_dir = Path("/home/kamyar/Documents")
+# weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+# image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/Second batch/")
 # output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
 
 results_dir = Path("/home/kamyar/Documents/")
