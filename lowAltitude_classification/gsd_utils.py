@@ -7,13 +7,15 @@ from tqdm import tqdm
 from pathlib import Path
 
 
-def papermode(plt, size: int | None = None):
-    plt.rc("font", family="serif", serif="Times")
-    plt.rc("text", usetex=True)
+def papermode(plt, size: int | None = None, has_latex: bool = True):
+    if has_latex:
+        plt.rc("font", family="serif", serif="Times")
+        plt.rc("text", usetex=True)
     if size is not None:
         plt.rc("xtick", labelsize=size)
         plt.rc("ytick", labelsize=size)
         plt.rc("axes", labelsize=size)
+        plt.rc("figure", labelsize=size)
         plt.rc("legend", fontsize=size)
 
 
@@ -129,15 +131,6 @@ def evaluate_segmentation(
     return all_ious, all_accs, all_f1s, all_predictions, all_targets
 
 
-def plot_confusion_matrix(predictions, targets, num_classes, class_mapping):
-    cm = confusion_matrix(
-        targets, predictions, labels=range(num_classes), normalize="true"
-    )
-    class_names = [class_mapping[i] for i in range(num_classes)]
-    # print(class_names)
-    # exit()
-
-
 if __name__ == "__main__":
     import json
 
@@ -166,4 +159,3 @@ if __name__ == "__main__":
     #
     # file_path = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt'
     # class_mapping = read_class_mapping(file_path)
-    # plot_confusion_matrix(all_predictions, all_targets, num_classes=32, class_mapping=class_mapping)
