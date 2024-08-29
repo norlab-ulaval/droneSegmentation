@@ -17,7 +17,7 @@ DRONE_SEM_SEG_CATEGORIES = [
         "instances": False,
         "readable": "Background",
         "name": "Background",
-        "evaluate": False,
+        "evaluate": True,
     },
     {
         "color": [0, 0, 128],
@@ -192,10 +192,10 @@ DRONE_SEM_SEG_CATEGORIES = [
 
 def _get_mapillary_vistas_meta():
     stuff_classes = [k["readable"] for k in DRONE_SEM_SEG_CATEGORIES if k["evaluate"]]
-    assert len(stuff_classes) == 25
+    assert len(stuff_classes) == 26
 
     stuff_colors = [k["color"] for k in DRONE_SEM_SEG_CATEGORIES if k["evaluate"]]
-    assert len(stuff_colors) == 25
+    assert len(stuff_colors) == 26
 
     ret = {
         "stuff_classes": stuff_classes,
@@ -217,20 +217,21 @@ def register_all_mapillary_vistas(root):
             image_root=image_dir,
             sem_seg_root=gt_dir,
             evaluator_type="sem_seg",
-            ignore_label=255,
+            ignore_label=1,
             **meta
         )
 
 
 # Can either be PL or DL (pseudo-labels or drone labels)
-SPLIT = os.environ.get('SPLIT', 'PL')
+# SPLIT = os.environ.get('SPLIT', 'PL')
+#
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/drone_dataset"
+# elif SPLIT == 'DL':
+#     _root = f"{tmp_dir}/drone_annotated"
+# else:
+#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
-    _root = f"{tmp_dir}/drone_dataset"
-elif SPLIT == 'DL':
-    _root = f"{tmp_dir}/drone_annotated"
-else:
-    raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)

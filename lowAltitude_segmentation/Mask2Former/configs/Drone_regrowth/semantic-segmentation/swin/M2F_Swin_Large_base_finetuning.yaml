@@ -1,7 +1,7 @@
 _BASE_: "../M2F_ResNet50_base.yaml"
 MODEL:
   SEM_SEG_HEAD:
-    IGNORE_VALUE: 1
+    IGNORE_VALUE: 255
   BACKBONE:
     NAME: "D2SwinTransformer"
   SWIN:
