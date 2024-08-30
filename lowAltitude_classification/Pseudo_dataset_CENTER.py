@@ -32,22 +32,22 @@ patch_sizes = [184]
 overlaps = [0.85]
 
 weight_file_path = Path('/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth')
-image_folder = '/home/kamyar/Documents/Train-val_Annotated'
+image_folder = '/home/kamyar/Documents/Test_Annotated'
 
-csv_filename = 'lowAltitude_classification/results/avg_voters/val/Votes_val.csv'
+csv_filename = 'lowAltitude_classification/results/avg_voters/test/Votes_test.csv'
 file_exists = os.path.isfile(csv_filename)
 
 with open(csv_filename, mode='a', newline='') as file:
     writer = csv.writer(file)
     if not file_exists or os.stat(csv_filename).st_size == 0:
-        writer.writerow(["Central Size", "Patch Size", "Step Size", "Avg_Voters", "pad"])
+        writer.writerow(["Central Size", "Patch Size", "Step Size", "Avg_Voters", "Pad Size"])
 
     model.load_state_dict(torch.load(weight_file_path))
     model.eval()
 
     filename = weight_file_path.name
     output_folder_name = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
-    output_folder = Path(f'/home/kamyar/Documents/Train-val_Annotated_Predictions/CENTER/{output_folder_name}')
+    output_folder = Path(f'/home/kamyar/Documents/Test_Annotated_Predictions/CENTER/{output_folder_name}')
     output_folder.mkdir(exist_ok=True, parents=True)
 
     for patch_size in patch_sizes:
@@ -67,7 +67,7 @@ with open(csv_filename, mode='a', newline='') as file:
                 ###################################################################
                 # STEP SIZE DEFINITION OTHER THAN overlap=0.85
                 # for step_size in [16, 24, 27, 48, 96]:
-                for step_size in [16]:
+                for step_size in [16, 24, 27, 48, 96]:
                 # step_size = 24                  ###
                     batch_size = 256
 
