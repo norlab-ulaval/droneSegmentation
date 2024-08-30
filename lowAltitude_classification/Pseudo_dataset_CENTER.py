@@ -51,7 +51,7 @@ with open(csv_filename, mode='a', newline='') as file:
     output_folder.mkdir(exist_ok=True, parents=True)
 
     for patch_size in patch_sizes:
-        central_window_size = 96
+        central_window_size = 184
         central_offset = (patch_size - central_window_size) // 2
         x_offsets, y_offsets = np.meshgrid(
             np.arange(central_offset, central_offset + central_window_size),
@@ -67,7 +67,7 @@ with open(csv_filename, mode='a', newline='') as file:
                 ###################################################################
                 # STEP SIZE DEFINITION OTHER THAN overlap=0.85
                 # for step_size in [16, 24, 27, 48, 96]:
-                for step_size in [16, 24, 27, 48, 96]:
+                for step_size in [27]:
                 # step_size = 24                  ###
                     batch_size = 256
 
