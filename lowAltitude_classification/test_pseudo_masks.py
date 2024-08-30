@@ -157,18 +157,18 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 if __name__ == "__main__":
     ignored_classes = [1]
 
-    parent_preds_folder =  '/home/kamyar/Documents/M2F_Results/Swin_finetune_v2/output_test'
+    parent_preds_folder =  '/home/kamyar/Documents/M2F_Results/supervised_V2/output_test'
     target_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
-    # results = []
-    #
+    results = []
+
     # for subdir in os.listdir(parent_preds_folder):
-    #     # if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
-    #     #     continue
-    #
-    #     # print(subdir)
-    #/home/kamyar/Documents/M2F_Results/Swin_fineTune/output_test
-    #     subdir_path = os.path.join(parent_preds_folder, subdir)
+        # if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
+        #     continue
+        #
+        # print(subdir)
+    # /home/kamyar/Documents/M2F_Results/Swin_fineTune/output_test
+    # subdir_path = os.path.join(parent_preds_folder, subdir)
 
     if os.path.isdir(parent_preds_folder):
         avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = evaluate_segmentation(
@@ -211,5 +211,5 @@ if __name__ == "__main__":
     # df = pd.DataFrame(results)
     # df = df.sort_values(by=["Pad Size"])
     #
-    # df.to_csv("lowAltitude_classification/results/phase2/center/val/phase2-val-center.csv",
+    # df.to_csv("lowAltitude_classification/results/phase2/center/test/phase2-test-center.csv",
     #           index=False)
