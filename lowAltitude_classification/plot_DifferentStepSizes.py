@@ -25,7 +25,7 @@ filtered_df.F1 *= 100
 fig, (ax1, ax2) = plt.subplots(1, 2)
 
 ax1.plot(filtered_df.Avg_Voters, filtered_df.F1, marker='o', linestyle='-', color='forestgreen')
-ax1.set_xlabel('Average Number of Voters ')
+ax1.set_xlabel('Average Number of Voters')
 ax1.set_ylabel('F1 score (\%)')
 ax1.grid(True)
 ax1.xaxis.set_label_coords(0.5, -0.12)
@@ -33,7 +33,7 @@ ax1.yaxis.set_label_coords(-0.20, 0.5)
 ax1.set_title(r'$D_{val}^{drone}$', color='blue')
 
 ax2.plot(merged_test_df.Avg_Voters, merged_test_df.F1, marker='o', linestyle='-', color='forestgreen')
-ax2.set_xlabel('Average Number of Voters ')
+ax2.set_xlabel('Average Number of Voters')
 ax2.grid(True)
 ax2.xaxis.set_label_coords(0.5, -0.12)
 ax2.set_title(r'$D_{test}^{drone}$', color='blue')
@@ -45,6 +45,6 @@ plt.rcParams['text.usetex'] = True
 plt.rcParams['font.serif'] = ['CMU']
 
 fig.set_size_inches(width, height)
-fig.savefig('lowAltitude_classification/figs/phase2/phase2-val-test-center.pdf')
-fig.savefig('lowAltitude_classification/figs/phase2/phase2-val-test-center.png')
+fig.savefig('lowAltitude_classification/figs/phase2/phase2-val-test-DifferentStepSize.pdf')
+fig.savefig('lowAltitude_classification/figs/phase2/phase2-val-test-DifferentStepSize.png')
 
