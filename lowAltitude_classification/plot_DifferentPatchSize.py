@@ -1,45 +1,48 @@
 import pandas as pd
+import matplotlib as mpl
+mpl.use('pdf')
 import matplotlib.pyplot as plt
-import numpy as np
+from gsd_utils import papermode
 
-df_val = pd.read_csv('lowAltitude_classification/Result_Val_DifferentPatcheSize/Result_Val_DifferentPatcheSize.csv')
-df_test = pd.read_csv('lowAltitude_classification/Result_Test_DifferentPatcheSize/Result_Test_DifferentPatcheSize.csv')
+papermode(plt=plt, size=7, has_latex=True)
 
-# Columns to exclude0
-exclude_columns = ['mIoU']
-combined_columns = [f'{row[df_val.columns[0]]}_{row[df_val.columns[1]]}' for _, row in df_val.iterrows()]
+width = 4.281
+height = width / 1.5
 
-fig, ax = plt.subplots(figsize=(10, 6))
-width = 0.2
+df_patchsize = pd.read_csv('lowAltitude_classification/results/phase2/patchsize/metrics-patch-overlap.csv')
+df_val = df_patchsize[(df_patchsize['type'] == 'val')]
+df_test = df_patchsize[(df_patchsize['type'] == 'test')]
 
-x = np.arange(len(df_val.index))
-filtered_columns_val = [col for col in df_val.columns[2:] if col not in exclude_columns]
-for i, column in enumerate(filtered_columns_val):
-    ax.bar(x + i * width, df_val[column], width, label=f'Val - {column}')
+df_val_filtered = df_val[(df_val['overlap'] == 0.85)]
+df_test_filtered = df_test[(df_test['overlap'] == 0.85)]
 
-ax.set_xticks(x + width * (len(filtered_columns_val) / 2 - 0.5))
-ax.set_xticklabels(combined_columns, rotation=45, ha='right')
-ax.set_xlabel('patchSize_overlap')
-ax.set_ylabel('Performance')
-ax.legend()
-ax.grid(True)
-# plt.tight_layout()
-plt.title('(A) Validation Data')
-plt.show()
-# plt.savefig(fname='lowAltitude_classification/Result_Val_DifferentPatcheSize/Validation_DifferentPatchSizes.png')
+df_val_filtered.F1 *= 100
+df_test_filtered.F1 *= 100
 
-fig, ax = plt.subplots(figsize=(10, 6))
-filtered_columns_test = [col for col in df_test.columns[2:] if col not in exclude_columns]
-for i, column in enumerate(filtered_columns_test):
-    ax.bar(x + i * width, df_test[column], width, label=f'Test - {column}')
+fig, (ax1, ax2) = plt.subplots(1, 2)
 
-ax.set_xticks(x + width * (len(filtered_columns_test) / 2 - 0.5))
-ax.set_xticklabels(combined_columns, rotation=45, ha='right')
-ax.set_xlabel('patchSize_overlap')
-ax.set_ylabel('Performance')
-ax.legend()
-ax.grid(True)
-# plt.tight_layout()
-plt.title('(B) Test Data')
-plt.show()
-# plt.savefig(fname='lowAltitude_classification/Result_Test_DifferentPatcheSize/Test_DifferentPatchSizes.png')
+ax1.plot(df_val_filtered.patch_size, df_val_filtered.F1, marker='o', linestyle='-', color='forestgreen')
+ax1.set_xlabel('Average Number of Voters')
+ax1.set_ylabel('F1 score (\%)')
+ax1.grid(True)
+ax1.xaxis.set_label_coords(0.5, -0.12)
+ax1.yaxis.set_label_coords(-0.20, 0.5)
+ax1.set_title(r'$D_{val}^{drone}$', color='blue')
+
+ax2.plot(df_test_filtered.patch_size, df_test_filtered.F1, marker='o', linestyle='-', color='forestgreen')
+ax2.set_xlabel('Average Number of Voters')
+ax2.grid(True)
+ax2.xaxis.set_label_coords(0.5, -0.12)
+ax2.set_title(r'$D_{test}^{drone}$', color='blue')
+
+fig.subplots_adjust(top=0.90, bottom=0.15, left=0.1, right=0.95, wspace=0.25)
+
+plt.rcParams['font.family'] = 'serif'
+plt.rcParams['text.usetex'] = True
+plt.rcParams['font.serif'] = ['CMU']
+
+fig.set_size_inches(width, height)
+
+fig.savefig('lowAltitude_classification/figs/phase2/phase2-val-test-DifferentPatchSize.pdf')
+fig.savefig('lowAltitude_classification/figs/phase2/phase2-val-test-DifferentPatchSize.png')
+
