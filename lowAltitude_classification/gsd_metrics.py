@@ -33,12 +33,17 @@ def parse_arguments():
         type=int,
         default=128,
     )
+    parser.add_argument(
+        "--subset",
+        help="Dataset subset",
+        choices=["val", "test"],
+    )
     return parser.parse_args()
 
 
 def main():
     args = parse_arguments()
-    gsddat_folder = gsddata_dir / args.mode / "val"
+    gsddat_folder = gsddata_dir / args.mode / args.subset
 
     patch_sizes = [args.psize]
 
@@ -80,10 +85,10 @@ def main():
                 all_values.extend(gsd_values)
 
         df = pd.DataFrame(all_values)
-        output_dir = results_dir / args.mode
+        output_dir = results_dir / args.subset / args.mode
         output_dir.mkdir(exist_ok=True, parents=True)
         df.to_csv(
-            output_dir / f"gsd-metrics-p{args.psize}.csv",
+            output_dir / f"gsd-{args.subset}-p{args.psize}.csv",
             index=False,
         )
 

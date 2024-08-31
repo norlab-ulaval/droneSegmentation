@@ -16,8 +16,10 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 # Paths
 data_path = Path("/data/Annotated_drone_split")
-image_folder = data_path / "Train-val_Annotated"
-annot_folder = data_path / "Train-val_Annotated_masks"
+image_folder = data_path / "Test_Annotated"
+annot_folder = data_path / "Test_Annotated_masks"
+# image_folder = data_path / "Train-val_Annotated"
+# annot_folder = data_path / "Train-val_Annotated_masks"
 gsddata_dir = Path("data") / "gsds"
 results_dir = Path("lowAltitude_classification") / "results" / "gsd"
 
@@ -36,10 +38,10 @@ num_classes = 26
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
-results_dir = Path("/data/droneSegResults")
+pth_dir = Path("/data/droneSegResults")
 model.load_state_dict(
     torch.load(
-        results_dir / "5_best/checkpoints/52_Final_time2024-08-15_best_5e_acc94.pth",
+        pth_dir / "5_best/checkpoints/52_Final_time2024-08-15_best_5e_acc94.pth",
         map_location="cpu",
     )
 )
@@ -70,6 +72,11 @@ def parse_arguments():
         help="Patch size",
         type=int,
         default=128,
+    )
+    parser.add_argument(
+        "--subset",
+        help="Dataset subset",
+        choices=["val", "test"],
     )
     return parser.parse_args()
 
@@ -165,8 +172,8 @@ def generate_pseudo_labels(
 
 def main():
     args = parse_arguments()
-    gsddat_folder = gsddata_dir / args.mode / "val"
-    csv_path = results_dir / f"gsd-pseudolabelgen-metrics-p{args.psize}.csv"
+    gsddat_folder = gsddata_dir / args.mode / args.subset
+    csv_path = results_dir / f"gsd-pseudolabelgen-{args.subset}-p{args.psize}.csv"
 
     patch_sizes = [args.psize]
 
