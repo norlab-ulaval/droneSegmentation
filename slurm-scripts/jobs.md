@@ -172,5 +172,9 @@ docker run --gpus=all --rm --ipc host -it \
   droneseg_cls bash
   
 export SPLIT=Fifth
+export SUBSPLIT=1
+export SUBSPLIT=2
+export SUBSPLIT=3
+export SUBSPLIT=4
 python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184.py
 ```
