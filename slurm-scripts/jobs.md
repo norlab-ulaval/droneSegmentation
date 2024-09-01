@@ -164,7 +164,7 @@ docker run --gpus=all --rm --ipc host -it \
 
 docker run --gpus=all --rm --ipc host -it \
   -v .:/app \
-  -v ~/Datasets/droneOut/:/data/DroneSegResults \
+  -v ~/Datasets/droneOut/:/data/droneSegResults \
   -v ~/Datasets/Best_classifier_Weight/:/data/Best_classifier_Weight \
   -v ~/Datasets/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
   -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
