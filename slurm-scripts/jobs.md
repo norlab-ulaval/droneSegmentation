@@ -43,25 +43,25 @@
 | Swin lr      | Valeria      | Running    | M2F_Swin_Large_LR                   |
 | Swin Crop256 | WGM          | Done       | M2F_Swin_Large_Crop256              |
 
-
 TODO:
+
 - Fine-tune the best model
 - New base config
 - Supervised training
 - Generate pseudolabels
 
-| **Computer** | **Task**       |
-|--------------|----------------|
-| KN           |                |
-| WGM          | Finetuning new |
-| DAD          | Supervised new |
-| Titan X      | PL 5           |
-| Mamba 0      | New base       |
-| Mamba 1      | PL 1           |
-| Mamba 2      | PL 3           |
-| Mamba 3      | PL 4           |
-| Valeria 1    |                |
-| Valeria 2    |                |
+| **Computer** | **Task**                           |
+|--------------|------------------------------------|
+| KN           |                                    |
+| WGM          | Finetuning new -> new gen pl train |
+| DAD          | Supervised new                     |
+| Titan X      | PL 5                               |
+| Mamba 0      | New base                           |
+| Mamba 1      | PL 1                               |
+| Mamba 2      | PL 3                               |
+| Mamba 3      | PL 4                               |
+| Valeria 1    |                                    |
+| Valeria 2    |                                    |
 
 # Scratch for finetuning
 

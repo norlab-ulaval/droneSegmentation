@@ -9,8 +9,8 @@ import torch.nn as nn
 from PIL import Image
 from albumentations import Normalize, Compose
 from albumentations.pytorch import ToTensorV2
-from transformers import AutoImageProcessor, AutoModelForImageClassification
 from tqdm import tqdm
+from transformers import AutoImageProcessor, AutoModelForImageClassification
 
 SPLIT = os.environ.get("SPLIT", None)
 if SPLIT is None:
@@ -48,6 +48,11 @@ model.eval()
 output_dir.mkdir(parents=True, exist_ok=True)
 
 #########################################
+SPLIT = os.environ.get("SPLIT", None)
+if SPLIT is None:
+    raise ValueError(
+        "SPLIT environment variable must be set: '1', '2', '3', '4'")
+
 processed_images = set()
 processed_folder = Path(output_dir)
 if processed_folder.exists():
@@ -72,7 +77,17 @@ for patch_size in patch_sizes:
         total_pixels = 0
         image_count = 0
 
-        image_files = [f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))]
+        image_files = sorted([f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))])
+        quarter_size = len(image_files) // 4
+        if SPLIT == '1':
+            image_files = image_files[:quarter_size]
+        elif SPLIT == '2':
+            image_files = image_files[quarter_size:2 * quarter_size]
+        elif SPLIT == '3':
+            image_files = image_files[2 * quarter_size:3 * quarter_size]
+        elif SPLIT == '4':
+            image_files = image_files[3 * quarter_size:]
+
         for image_file in tqdm(image_files, unit="file"):
             image_name = Path(image_file).stem
 
