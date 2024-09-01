@@ -81,7 +81,8 @@ for patch_size in patch_sizes:
 
         image_files = sorted([f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))])
         subset_size = len(image_files) // 7
-        image_files = image_files[(SUBSPLIT - 1) * subset_size:SUBSPLIT * subset_size]
+        if SUBSPLIT != 7:
+            image_files = image_files[(SUBSPLIT - 1) * subset_size:SUBSPLIT * subset_size]
         if SUBSPLIT == 7:
             image_files = image_files[(SUBSPLIT - 1) * subset_size:]
 
