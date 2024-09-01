@@ -48,10 +48,10 @@ model.eval()
 output_dir.mkdir(parents=True, exist_ok=True)
 
 #########################################
-SPLIT = os.environ.get("SPLIT", None)
-if SPLIT is None:
+SUBSPLIT = os.environ.get("SUBSPLIT", None)
+if SUBSPLIT is None:
     raise ValueError(
-        "SPLIT environment variable must be set: '1', '2', '3', '4'")
+        "SUBSPLIT environment variable must be set: '1', '2', '3', '4'")
 
 processed_images = set()
 processed_folder = Path(output_dir)
@@ -79,13 +79,13 @@ for patch_size in patch_sizes:
 
         image_files = sorted([f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))])
         quarter_size = len(image_files) // 4
-        if SPLIT == '1':
+        if SUBSPLIT == '1':
             image_files = image_files[:quarter_size]
-        elif SPLIT == '2':
+        elif SUBSPLIT == '2':
             image_files = image_files[quarter_size:2 * quarter_size]
-        elif SPLIT == '3':
+        elif SUBSPLIT == '3':
             image_files = image_files[2 * quarter_size:3 * quarter_size]
-        elif SPLIT == '4':
+        elif SUBSPLIT == '4':
             image_files = image_files[3 * quarter_size:]
 
         for image_file in tqdm(image_files, unit="file"):
