@@ -23,7 +23,9 @@ weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_be
 image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT} batch/")
 output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+visible_devices = os.environ.get("CUDA_VISIBLE_DEVICES", None)
+device = 'cuda' if visible_devices is None else 'cuda:' + visible_devices
+device = torch.device(device if torch.cuda.is_available() else "cpu")
 
 model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
 processor = AutoImageProcessor.from_pretrained(model_name)
