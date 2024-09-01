@@ -18,9 +18,9 @@ if SPLIT is None:
         "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
 
 # Paths
-results_dir = Path("/data/droneSegResults")
-weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT} batch/")
+results_dir = Path("/home/kamyar/Documents")
+weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/{SPLIT} batch/")
 output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -54,7 +54,7 @@ if SUBSPLIT is None:
         "SUBSPLIT environment variable must be set: '1', '2', '3', '4', '5', '6', '7'")
 
 SUBSPLIT = int(SUBSPLIT.strip())
-
+print(SUBSPLIT, SPLIT)
 processed_images = set()
 processed_folder = Path(output_dir)
 if processed_folder.exists():
@@ -81,9 +81,10 @@ for patch_size in patch_sizes:
 
         image_files = sorted([f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))])
         subset_size = len(image_files) // 7
-        image_files = image_files[(SUBSPLIT - 1) * subset_size:SUBSPLIT * subset_size]
+        image_files = image_files[(SUBSPLIT - 1) * subset_size + 1:SUBSPLIT * subset_size]
         if SUBSPLIT == 7:
-            image_files = image_files[(SUBSPLIT - 1) * subset_size:]
+            image_files = image_files[(SUBSPLIT - 1) * subset_size + 1:]
+
 
         for image_file in tqdm(image_files, unit="file"):
             image_name = Path(image_file).stem
