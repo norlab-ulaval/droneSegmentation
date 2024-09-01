@@ -173,8 +173,12 @@ docker run --gpus=all --rm --ipc host -it \
   
 export SPLIT=Fifth
 export SUBSPLIT=1
+export CUDA_VISIBLE_DEVICES=0
 export SUBSPLIT=2
+export CUDA_VISIBLE_DEVICES=1
 export SUBSPLIT=3
+export CUDA_VISIBLE_DEVICES=2
 export SUBSPLIT=4
-python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184.py
+export CUDA_VISIBLE_DEVICES=2
+python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184_PL_generation.py
 ```
