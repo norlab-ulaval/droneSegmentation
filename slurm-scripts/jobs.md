@@ -127,11 +127,11 @@ PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.p
 
 ```shell
 docker run --gpus=all --rm --ipc host -it \
-  -e CUDA_VISIBLE_DEVICES=0 \
+  -e CUDA_VISIBLE_DEVICES=1 \
   -v .:/app \
   -v /data/drone_dataset:/data/drone_dataset \
   -v /data/M2F_Train_Val_split/:/data/drone_annotated \
-  -v ./output_new_base:/app/output \
+  -v ./output_PL2_other:/app/output \
   -v /dev/shm/:/dev/shm/ \
   droneseg bash
   
@@ -143,6 +143,7 @@ sh make.sh
 
 cd /app
 export SLURM_TMPDIR=/data/
+export SPLIT='PL2'
 python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
 
 PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
