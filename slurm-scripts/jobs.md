@@ -127,9 +127,17 @@ PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.p
 
 ```shell
 docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=0 \
+  -v .:/app \
+  -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
+  -v /data/M2F_Train_Val_split/:/data/drone_annotated \
+  -v ./output_PL2:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+docker run --gpus=all --rm --ipc host -it \
   -e CUDA_VISIBLE_DEVICES=1 \
   -v .:/app \
-  -v /data/drone_dataset:/data/drone_dataset \
+  -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
   -v /data/M2F_Train_Val_split/:/data/drone_annotated \
   -v ./output_PL2_other:/app/output \
   -v /dev/shm/:/dev/shm/ \
@@ -146,8 +154,9 @@ export SLURM_TMPDIR=/data/
 export SPLIT='PL2'
 python lowAltitude_segmentation/Mask2Former/mask2former/data/datasets/register_drone_semantic.py
 
-PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 \
-  --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml
+  
+PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.py --num-gpus 1 --config-file lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_Crop640.yaml
 ```
 
 # Scratch pad for PL generation
