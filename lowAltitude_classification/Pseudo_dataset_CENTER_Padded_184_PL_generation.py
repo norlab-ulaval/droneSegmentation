@@ -12,16 +12,16 @@ from albumentations.pytorch import ToTensorV2
 from tqdm import tqdm
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 
-SPLIT = os.environ.get("SPLIT", None)
-if SPLIT is None:
-    raise ValueError(
-        "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
+# SPLIT = os.environ.get("SPLIT", None)
+# if SPLIT is None:
+#     raise ValueError(
+#         "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
 
 # Paths
-results_dir = Path("/data/droneSegResults")
+results_dir = Path('/data/drone_dataset_v2/train/masks')
 weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT} batch/")
-output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
+image_folder = Path('/data/drone_dataset_v2/train/images')
+output_dir = results_dir  # / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -48,12 +48,12 @@ model.eval()
 output_dir.mkdir(parents=True, exist_ok=True)
 
 #########################################
-SUBSPLIT = os.environ.get("SUBSPLIT", None)
-if SUBSPLIT is None:
-    raise ValueError(
-        "SUBSPLIT environment variable must be set: '1', '2', '3', '4', '5', '6', '7'")
+# SUBSPLIT = os.environ.get("SUBSPLIT", None)
+# if SUBSPLIT is None:
+#     raise ValueError(
+#         "SUBSPLIT environment variable must be set: '1', '2', '3', '4', '5', '6', '7'")
 
-SUBSPLIT = int(SUBSPLIT.strip())
+# SUBSPLIT = int(SUBSPLIT.strip())
 
 processed_images = set()
 processed_folder = Path(output_dir)
@@ -80,11 +80,11 @@ for patch_size in patch_sizes:
         image_count = 0
 
         image_files = sorted([f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))])
-        subset_size = len(image_files) // 7
-        if SUBSPLIT != 7:
-            image_files = image_files[(SUBSPLIT - 1) * subset_size:SUBSPLIT * subset_size]
-        if SUBSPLIT == 7:
-            image_files = image_files[(SUBSPLIT - 1) * subset_size:]
+        # subset_size = len(image_files) // 7
+        # if SUBSPLIT != 7:
+        #     image_files = image_files[(SUBSPLIT - 1) * subset_size:SUBSPLIT * subset_size]
+        # if SUBSPLIT == 7:
+        #     image_files = image_files[(SUBSPLIT - 1) * subset_size:]
 
         for image_file in tqdm(image_files, unit="file"):
             image_name = Path(image_file).stem
@@ -172,9 +172,13 @@ for patch_size in patch_sizes:
 
             output_filename = Path(image_path).with_suffix('.png').name
             overlap_folder = Path(
-                output_dir) / f'center-{central_window_size}_patch-{patch_size}_step-{int(step_size)}_pad-{int(padding)}'
+                output_dir)  # / f'center-{central_window_size}_patch-{patch_size}_step-{int(step_size)}_pad-{int(padding)}'
             overlap_folder.mkdir(exist_ok=True, parents=True)
-            cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
+
+            if (overlap_folder / output_filename).exists():
+                print(f"File {output_filename} already exists.")
+            else:
+                cv2.imwrite(str(overlap_folder / output_filename), segmentation_map)
 
             ###################################
             processed_images.add(image_name)

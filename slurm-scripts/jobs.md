@@ -180,5 +180,6 @@ export SUBSPLIT=3
 export CUDA_VISIBLE_DEVICES=2
 export SUBSPLIT=4
 export CUDA_VISIBLE_DEVICES=2
+
 python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184_PL_generation.py
 ```
