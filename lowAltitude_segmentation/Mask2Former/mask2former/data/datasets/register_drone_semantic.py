@@ -230,6 +230,10 @@ if SPLIT == 'PL':
     _root = f"{tmp_dir}/drone_dataset"
 elif SPLIT == 'PL2':
     _root = f"{tmp_dir}/drone_dataset_v2"
+elif SPLIT == 'PL_half':
+    _root = '/data/Unlabeled_Half'
+elif SPLIT == 'PL_quarter':
+    _root = '/data/Unlabeled_Quarter'
 elif SPLIT == 'DL':
     _root = f"{tmp_dir}/drone_annotated"
 else:
