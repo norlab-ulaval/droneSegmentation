@@ -127,6 +127,13 @@ PYTHONPATH=$PYTHONPATH:. python lowAltitude_segmentation/Mask2Former/train_net.p
 
 ```shell
 docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/drone_dataset_v2:/data/drone_dataset_v2 \
+  -v ~/Datasets/M2F_Train_Val_split/:/data/drone_annotated \
+  -v ./output_PL2:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+docker run --gpus=all --rm --ipc host -it \
   -e CUDA_VISIBLE_DEVICES=0 \
   -v .:/app \
   -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
