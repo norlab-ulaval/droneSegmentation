@@ -54,7 +54,7 @@ if SUBSPLIT is None:
         "SUBSPLIT environment variable must be set: '1', '2', '3', '4', '5', '6', '7'")
 
 SUBSPLIT = int(SUBSPLIT.strip())
-print(SUBSPLIT, SPLIT)
+
 processed_images = set()
 processed_folder = Path(output_dir)
 if processed_folder.exists():
@@ -81,10 +81,10 @@ for patch_size in patch_sizes:
 
         image_files = sorted([f for f in os.listdir(image_folder) if f.endswith(('.jpg', '.JPG'))])
         subset_size = len(image_files) // 7
-        image_files = image_files[(SUBSPLIT - 1) * subset_size + 1:SUBSPLIT * subset_size]
+        if SUBSPLIT != 7:
+            image_files = image_files[(SUBSPLIT - 1) * subset_size:SUBSPLIT * subset_size]
         if SUBSPLIT == 7:
-            image_files = image_files[(SUBSPLIT - 1) * subset_size + 1:]
-
+            image_files = image_files[(SUBSPLIT - 1) * subset_size:]
 
         for image_file in tqdm(image_files, unit="file"):
             image_name = Path(image_file).stem
