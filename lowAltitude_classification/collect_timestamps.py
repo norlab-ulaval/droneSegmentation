@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+from datetime import datetime
 
 
 def extract_timestamp(logfile_content, message):
@@ -9,6 +10,10 @@ def extract_timestamp(logfile_content, message):
     )
     matches = pattern.findall(logfile_content)
     return matches if matches else []
+
+
+def parse_timestamp(stamp: str) -> datetime:
+    return datetime.strptime(stamp, "%Y-%m-%d %H:%M:%S,%f")
 
 
 results_path = Path("/data/droneSegResults")
@@ -34,6 +39,11 @@ for logpath in all_logs:
     loglines = logpath.read_text()
     start = extract_timestamp(loglines, "Fold 1/5")
     end = extract_timestamp(loglines, "Average validation accuracy across folds")
-    print(len(start), len(end), logpath.stem)
+    if "filtered" in logpath.stem:
+        st_time = parse_timestamp(start[-1])
+        en_time = parse_timestamp(end[-1])
+        delta = en_time - st_time
+        print("Filtered:", delta.total_seconds(), "seconds", delta)
+    # print(len(start), len(end), logpath.stem)
 
 # pass
