@@ -223,8 +223,19 @@ def register_all_mapillary_vistas(root):
 
 
 # Can either be PL or DL (pseudo-labels or drone labels)
-SPLIT = os.environ.get('SPLIT', 'PL')
+# SPLIT = os.environ.get('SPLIT', 'PL')
+#
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/drone_dataset"
+# elif SPLIT == 'PL2':
+#     _root = f"{tmp_dir}/drone_dataset_v2"
+# elif SPLIT == 'DL':
+#     _root = f"{tmp_dir}/drone_annotated"
+# else:
+#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
+<<<<<<< HEAD
 tmp_dir = os.environ['SLURM_TMPDIR']
 if SPLIT == 'PL':
     _root = f"{tmp_dir}/drone_dataset"
@@ -240,4 +251,7 @@ else:
     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
 # _root = '/home/kamyar/Documents/M2F_Train_Val_split'
+=======
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
+>>>>>>> eee57f5 (PHASE1)
 register_all_mapillary_vistas(_root)
