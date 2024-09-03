@@ -554,3 +554,103 @@ import os
 #         print(f'Updated indices in {filename}')
 #
 # print('All applicable files have been processed.')
+
+
+# import os
+# import shutil
+#
+#
+# def match_and_copy_images(image_folder, annotation_folder, target_folder):
+#     os.makedirs(target_folder, exist_ok=True)
+#
+#     # Create a set to store image names without extensions
+#     image_names = set()
+#
+#     for root, _, files in os.walk(image_folder):
+#         for file in files:
+#             # Add the image filename without extension to the set
+#             image_name, _ = os.path.splitext(file)
+#             image_names.add(image_name)
+#
+#         # Walk through the annotation folder and its subfolders
+#     for root, _, files in os.walk(annotation_folder):
+#         for file in files:
+#             # Extract the annotation file name without extension
+#             annotation_name, _ = os.path.splitext(file)
+#
+#             # Check if the annotation name matches any image name
+#             if annotation_name in image_names:
+#                 # Source path of the annotation file
+#                 src_path = os.path.join(root, file)
+#
+#                 # Destination path in the target folder
+#                 dest_path = os.path.join(target_folder, file)
+#
+#                 # Copy the matched annotation to the target folder
+#                 shutil.copy2(src_path, dest_path)
+#                 print(f"Copied: {src_path} -> {dest_path}")
+#
+#
+# if __name__ == "__main__":
+#     image_folder = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_Quarter'
+#     annotation_folder = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_PL_version2'
+#     target_folder = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_PL_version2_Quarter'
+#
+#     match_and_copy_images(image_folder, annotation_folder, target_folder)
+
+#
+# import os
+# from pathlib import Path
+# import filecmp
+# import shutil
+#
+#
+# def get_all_image_paths(directory):
+#     """Recursively get all image file paths in a directory."""
+#     return set(Path(directory).rglob("*.*"))
+#
+#
+# def remove_uncommon_images(dir1, dir2):
+#     """Find and remove uncommon images between two directories based on name."""
+#     images_dir1 = get_all_image_paths(dir1)
+#     images_dir2 = get_all_image_paths(dir2)
+#
+#     basenames_dir1 = {img.stem for img in images_dir1}
+#     basenames_dir2 = {img.stem for img in images_dir2}
+#
+#     common_basenames = basenames_dir1.intersection(basenames_dir2)
+#
+#     for img in images_dir1:
+#         if img.stem not in common_basenames:
+#             print(f"Removing {img}")
+#             os.remove(img)
+#     for img in images_dir2:
+#         if img.stem not in common_basenames:
+#             print(f"Removing {img}")
+#             os.remove(img)
+#
+# if __name__ == "__main__":
+#     directory1 = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_Half'
+#     directory2 = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_PL_version2_Half'
+#
+#     remove_uncommon_images(directory1, directory2)
+
+
+import os
+import shutil
+
+# Set the path to the parent directory
+parent_dir = "/home/kamyar/Documents/Unlabeled_Quarter/images"
+
+# Loop through all subdirectories in the parent directory
+for subdir, dirs, files in os.walk(parent_dir):
+    if subdir != parent_dir:  # Skip the parent directory itself
+        for file in files:
+            # Get the full file path
+            file_path = os.path.join(subdir, file)
+            # Move the file to the parent directory
+            shutil.move(file_path, parent_dir)
+        # Remove the empty subdirectory
+        os.rmdir(subdir)
+
+print("All images have been moved to the parent directory.")
