@@ -137,19 +137,44 @@ docker run --gpus=all --rm --ipc host -it \
   -e CUDA_VISIBLE_DEVICES=0 \
   -v .:/app \
   -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
+  -v /data/Unlabeled_Half:/data/Unlabeled_Half \
+  -v /data/Unlabeled_Quarter:/data/Unlabeled_Quarter \
   -v /data/M2F_Train_Val_split/:/data/drone_annotated \
-  -v ./output_PL2:/app/output \
+  -v ./output_half:/app/output \
   -v /dev/shm/:/dev/shm/ \
   droneseg bash
 docker run --gpus=all --rm --ipc host -it \
   -e CUDA_VISIBLE_DEVICES=1 \
   -v .:/app \
   -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
+  -v /data/Unlabeled_Half:/data/Unlabeled_Half \
+  -v /data/Unlabeled_Quarter:/data/Unlabeled_Quarter \
   -v /data/M2F_Train_Val_split/:/data/drone_annotated \
-  -v ./output_PL2_other:/app/output \
+  -v ./output_quarter:/app/output \
   -v /dev/shm/:/dev/shm/ \
   droneseg bash
-  
+# Crop
+docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=2 \
+  -v .:/app \
+  -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
+  -v /data/Unlabeled_Half:/data/Unlabeled_Half \
+  -v /data/Unlabeled_Quarter:/data/Unlabeled_Quarter \
+  -v /data/M2F_Train_Val_split/:/data/drone_annotated \
+  -v ./output_half_crop:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+docker run --gpus=all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=3 \
+  -v .:/app \
+  -v /data/drone_dataset_v2:/data/drone_dataset_v2 \
+  -v /data/Unlabeled_Half:/data/Unlabeled_Half \
+  -v /data/Unlabeled_Quarter:/data/Unlabeled_Quarter \
+  -v /data/M2F_Train_Val_split/:/data/drone_annotated \
+  -v ./output_quarter_crop:/app/output \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg bash
+
 pip install -U pip
 pip install -r lowAltitude_segmentation/Mask2Former/requirements.txt
 cd /app/lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops
