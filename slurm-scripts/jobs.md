@@ -200,3 +200,18 @@ export CUDA_VISIBLE_DEVICES=2
 
 python lowAltitude_classification/Pseudo_dataset_CENTER_Padded_184_PL_generation.py
 ```
+
+# Classifier
+
+```shell
+docker run --gpus=all --rm --ipc host -it \
+  -v .:/app \
+  -v ~/Datasets/iNat_Classifier_Non_filtered:/home/kamyar/Documents/iNat_Classifier_Non_filtered \
+  -v ./lowAltitude_classification/:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/ \
+  -v classif_output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Base_iNat_classifier/ \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg_cls bash
+  
+# data on /data/iNat_Classifier_Non_filtered
+python lowAltitude_classification/Base_iNat_classifier/iNat_Classifier_Base.py
+```

@@ -114,7 +114,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     scheduler = StepLR(optimizer, step_size=3, gamma=0.0001)
     loss_fn = nn.CrossEntropyLoss()
 
-    num_epochs = 1
+    num_epochs = 5
     best_accuracy = 0.0
     best_epoch = -1
     best_model_weights = None
