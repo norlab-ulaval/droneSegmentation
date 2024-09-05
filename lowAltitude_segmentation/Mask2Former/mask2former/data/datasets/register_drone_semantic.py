@@ -235,23 +235,20 @@ def register_all_mapillary_vistas(root):
 # else:
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
-<<<<<<< HEAD
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
-    _root = f"{tmp_dir}/drone_dataset"
-elif SPLIT == 'PL2':
-    _root = f"{tmp_dir}/drone_dataset_v2"
-elif SPLIT == 'PL_half':
-    _root = '/data/Unlabeled_Half'
-elif SPLIT == 'PL_quarter':
-    _root = '/data/Unlabeled_Quarter'
-elif SPLIT == 'DL':
-    _root = f"{tmp_dir}/drone_annotated"
-else:
-    raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
-# _root = '/home/kamyar/Documents/M2F_Train_Val_split'
-=======
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/drone_dataset"
+# elif SPLIT == 'PL2':
+#     _root = f"{tmp_dir}/drone_dataset_v2"
+# elif SPLIT == 'PL_half':
+#     _root = '/data/Unlabeled_Half'
+# elif SPLIT == 'PL_quarter':
+#     _root = '/data/Unlabeled_Quarter'
+# elif SPLIT == 'DL':
+#     _root = f"{tmp_dir}/drone_annotated"
+# else:
+#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
+
 _root = '/home/kamyar/Documents/M2F_Train_Val_split'
->>>>>>> eee57f5 (PHASE1)
 register_all_mapillary_vistas(_root)
