@@ -1,0 +1,7 @@
+Class: American Mountain-Ash (ID: 0), Color: [0, 128, 0]
+Class: Background (ID: 1), Color: [128, 128, 128]
+Class: Dead Trees (ID: 7), Color: [128, 128, 0]
+Class: Fir (ID: 9), Color: [0, 255, 255]
+Class: Mountain Maple (ID: 14), Color: [128, 128, 0]
+Class: Paper Birch (ID: 15), Color: [255, 128, 0]
+Class: Yellow Birch (ID: 25), Color: [255, 128, 255]

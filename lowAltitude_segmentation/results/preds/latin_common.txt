@@ -1,0 +1,24 @@
+Bryophyta&Moss
+Polypodiopsida&Fern
+Abies&Fir
+Amelanchier&Serviceberry
+Carex&Sedge
+Epilobium&Willowherb
+Picea&Spruce
+Vaccinium&Blueberry
+Viburnum&Viburnum
+Acer rubrum&Red Maple
+Acer spicatum&Mountain Maple
+Betula alleghaniensis&Yellow Birch
+Betula papyrifera&Paper Birch
+Chamaedaphne calyculata&Leatherleaf
+Kalmia angustifolia&Sheep Laurel
+Pinus banksiana&Jack Pine
+Populus tremuloides&Trembling Aspen
+Prunus pensylvanica&Fire Cherry
+Rhododendron groenlandicum&Bog Labrador Tea
+Rubus idaeus&Red Raspberry
+Sorbus americana&American Mountain-Ash
+Taxus canadensis&Canadian Yew
+Background&Background
+Dead Trees&Dead Trees
