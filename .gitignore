@@ -165,6 +165,7 @@ scratches/
 /data/
 *.pth
 *.png
+!**/figs/**/*.png
 *.jpg
 *.JPG
 Mask2former_best_pretrain_output/
