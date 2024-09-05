@@ -24,7 +24,6 @@ def calculate_metrics(pred_folder, annot_folder):
         all_preds.extend(pred_image.flatten())
         all_annots.extend(annot_image.flatten())
 
-    # Convert lists to numpy arrays
     all_preds = np.array(all_preds)
     all_annots = np.array(all_annots)
 
@@ -38,40 +37,74 @@ def calculate_metrics(pred_folder, annot_folder):
 
 
 
-pred_folder =  '/home/kamyar/Documents/Test_Annotated_Predictions/CENTER/52_Final_5e'
+pred_folder =  '/home/kamyar/Documents/M2F_Results'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
-results = []
 
+# overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
+# print(f"Overall F1 Score: {overall_f1}")
+# print(f"Pixel Accuracy: {pAcc}")
+
+results = []
 for subdir in os.listdir(pred_folder):
 
-
-
-    ######################################### center
+    ################################################# M2F
+    subdir_path = os.path.join(pred_folder, subdir)
     params = subdir.split('_')
-    center = int(params[0].split('-')[1])
-    patch = int(params[1].split('-')[1])
-    step = int(params[2].split('-')[1])
-    pad = int(params[3].split('-')[1])
+    PL_Version = ''
 
-    if pad == 184 and step == 27:
+    if len(params) == 3:
+        PL_Version = params[1]
+        experiment = params[2]
+    else:
+        experiment = params[0]
 
-        subdir_path = os.path.join(pred_folder, subdir)
+    for subsubdir in os.listdir(subdir_path):
+        if subsubdir == 'output_test':
+            subsubdir_path = os.path.join(subdir_path, subsubdir)
 
-        overall_f1, pAcc = calculate_metrics(subdir_path, annot_folder)
+            overall_f1, pAcc = calculate_metrics(subsubdir_path, annot_folder)
 
-        print(f"Overall F1 Score: {overall_f1}")
-        print(f"Pixel Accuracy: {pAcc}")
+            print(f"Overall F1 Score: {overall_f1}")
+            print(f"Pixel Accuracy: {pAcc}")
 
-        results.append({
-            "Central Size": subdir.split('_')[0].split('-')[1],
-            "Patch Size": subdir.split('_')[1].split('-')[1],
-            "Step Size": subdir.split('_')[2].split('-')[1],
-            "Pad Size": subdir.split('_')[3].split('-')[1],
+            results.append({
+                "PL_Version": PL_Version,
+                "experiment": experiment,
 
-            "F1": f'{overall_f1:.4f}',
-            "pAcc": f'{pAcc:.4f}',
-        })
+                "F1": f'{overall_f1:.4f}',
+                "pAcc": f'{pAcc:.4f}',
+            })
+
+
+#
+#
+#
+#     ######################################### center
+#     params = subdir.split('_')
+#     center = int(params[0].split('-')[1])
+#     patch = int(params[1].split('-')[1])
+#     step = int(params[2].split('-')[1])
+#     pad = int(params[3].split('-')[1])
+#
+#     if pad == 184 and step == 27:
+#
+#         subdir_path = os.path.join(pred_folder, subdir)
+#
+#         overall_f1, pAcc = calculate_metrics(subdir_path, annot_folder)
+#
+#         print(f"Overall F1 Score: {overall_f1}")
+#         print(f"Pixel Accuracy: {pAcc}")
+#
+#         results.append({
+#             "Central Size": subdir.split('_')[0].split('-')[1],
+#             "Patch Size": subdir.split('_')[1].split('-')[1],
+#             "Step Size": subdir.split('_')[2].split('-')[1],
+#             "Pad Size": subdir.split('_')[3].split('-')[1],
+#
+#             "F1": f'{overall_f1:.4f}',
+#             "pAcc": f'{pAcc:.4f}',
+#         })
 
 
     ######################################## patch sizes
@@ -114,9 +147,9 @@ for subdir in os.listdir(pred_folder):
     #     "F1": f'{overall_f1:.4f}',
     #     "pAcc": f'{pAcc:.4f}',
     # })
-
+#
 df = pd.DataFrame(results)
-df = df.sort_values(by=["Pad Size"])
+# df = df.sort_values(by=["Pad Size"])
 
-df.to_csv("lowAltitude_classification/results/New_phase_2/center/test/phase2-test-center_METRICS.csv",
+df.to_csv("lowAltitude_classification/results/NEW_phase_3/test/phase3-test-M2F_METRICS.csv",
           index=False)
