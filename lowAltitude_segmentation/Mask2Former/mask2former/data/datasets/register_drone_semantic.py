@@ -272,5 +272,4 @@ def register_all_mapillary_vistas(root):
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
 _root = '/home/kamyar/Documents/M2F_Train_Val_split'
-
 register_all_mapillary_vistas(_root)
