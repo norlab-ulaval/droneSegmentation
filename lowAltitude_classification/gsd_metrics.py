@@ -75,7 +75,7 @@ def main():
                     "f1": f1_score,
                 }
 
-                all_values.extend(gsd_values)
+                all_values.append(gsd_values)
 
         df = pd.DataFrame(all_values)
         output_dir = results_dir / args.subset / args.mode
