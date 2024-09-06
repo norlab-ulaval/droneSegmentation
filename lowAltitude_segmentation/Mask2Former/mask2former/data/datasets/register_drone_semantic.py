@@ -290,7 +290,7 @@ elif SPLIT == 'PL_sixtyfourth':
 elif SPLIT == 'PL_1p5':
     _root = '/data/Unlabeled_1p5'
 elif SPLIT == 'PL_128':
-    _root = '/data/Unlabeled_128'
+    _root = '/data/Unlabeled_128_v1'
 elif SPLIT == 'PL2':
     _root = f"{tmp_dir}/drone_dataset_v2"
 elif SPLIT == 'PL2_half':

@@ -8,7 +8,8 @@ import math
 
 
 def copy_to(src, dst):
-    os.system(f'cp {src} {dst}')
+    print(f'Copying {src} to {dst}')
+    print(os.system(f'cp {src} {dst}'))
 
 
 # 3/4 dataset
@@ -69,6 +70,7 @@ for split in splits:
     print(f'{split_root} will have {len(images)} images and {len(masks)} masks')
     print(f'{num_images / len(images)}x reduction')
     with mp.Pool(64) as p:
+        print('Copying...')
         p.map(functools.partial(copy_to, dst=split_images), images)
         p.map(functools.partial(copy_to, dst=split_masks), masks)
 
