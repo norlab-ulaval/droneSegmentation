@@ -145,6 +145,7 @@ docker run --gpus=all --rm --ipc host -it \
   -v /data/Unlabeled_Sixteenth_v1:/data/Unlabeled_Sixteenth_v1 \
   -v /data/Unlabeled_Thirtysecond_v1:/data/Unlabeled_Thirtysecond_v1 \
   -v /data/Unlabeled_Sixtyfourth_v1:/data/Unlabeled_Sixtyfourth_v1 \
+  -v /data/Unlabeled_1p5:/data/Unlabeled_1p5 \
   -v /data/M2F_Train_Val_split/:/data/drone_annotated \
   -v ./output_eight:/app/output \
   -v /dev/shm/:/dev/shm/ \

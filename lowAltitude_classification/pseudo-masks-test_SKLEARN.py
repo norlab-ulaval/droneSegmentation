@@ -56,8 +56,10 @@ for subdir in os.listdir(pred_folder):
     if len(params) == 3:
         PL_Version = params[1]
         experiment = params[2]
-    else:
+    elif params[0] == 'MovingWINDOW' or params[0] == 'SUPERVISED':
         experiment = params[0]
+    else:
+        continue
 
     for subsubdir in os.listdir(subdir_path):
         if subsubdir == 'output_test':
@@ -147,7 +149,7 @@ for subdir in os.listdir(pred_folder):
     #     "F1": f'{overall_f1:.4f}',
     #     "pAcc": f'{pAcc:.4f}',
     # })
-#
+# #
 df = pd.DataFrame(results)
 # df = df.sort_values(by=["Pad Size"])
 
