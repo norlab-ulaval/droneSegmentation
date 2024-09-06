@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from gsd_utils import evaluate_segmentation
+from gsd_utils import compute_metrics
 
 # Paths
 gsddata_dir = Path("data") / "gsds"
@@ -29,9 +29,9 @@ def parse_arguments():
     )
     parser.add_argument(
         "--psize",
-        help="Patch size",
+        help="Base window size",
         type=int,
-        default=128,
+        default=184,
     )
     parser.add_argument(
         "--subset",
@@ -45,42 +45,35 @@ def main():
     args = parse_arguments()
     gsddat_folder = gsddata_dir / args.mode / args.subset
 
-    patch_sizes = [args.psize]
+    win_sizes = (args.psize * SCALES).astype(int).tolist()
 
     all_values = []
 
-    for patch_size in patch_sizes:
-        for overlap in overlaps:
-            patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
-            gsd_po_dir = gsddat_folder / patch_overlap
+    for overlap in overlaps:
+        patch_overlap = f"p{args.psize:04}-o{overlap * 100:.0f}"
+        exp_dir = gsddat_folder / patch_overlap
+
+        # For each window size
+        for win_idx, win_size in enumerate(win_sizes):
+            win_dir = exp_dir / f"WIN{win_idx}"
 
             # For each GSD:
             for gsd_idx, scale in enumerate(SCALES):
-                gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
+                gsd_dir = win_dir / f"GSD{gsd_idx}"
 
                 gsd_plab_dir = gsd_dir / "pseudolabels"
                 gsd_annot_dir = gsd_dir / "annotations"
 
-                ious, accs, f1s, all_predictions, all_targets = evaluate_segmentation(
-                    gsd_plab_dir,
-                    gsd_annot_dir,
-                    [1],
-                    num_classes=26,
-                )
+                f1_score, pixel_acc = compute_metrics(gsd_plab_dir, gsd_annot_dir)
 
-                correct = all_predictions == all_targets
-                print(correct.sum(), all_predictions.shape, correct.shape)
-
-                gsd_values = [
-                    {
-                        "GSD": f"GSD{gsd_idx}",
-                        "scale": scale,
-                        "iou": iou,
-                        "acc": acc,
-                        "f1": f1,
-                    }
-                    for iou, acc, f1 in zip(ious, accs, f1s)
-                ]
+                gsd_values = {
+                    "WIN": f"WIN{win_idx}",
+                    "GSD": f"GSD{gsd_idx}",
+                    "scale": scale,
+                    "winsize": win_size,
+                    "acc": pixel_acc,
+                    "f1": f1_score,
+                }
 
                 all_values.extend(gsd_values)
 
@@ -88,7 +81,7 @@ def main():
         output_dir = results_dir / args.subset / args.mode
         output_dir.mkdir(exist_ok=True, parents=True)
         df.to_csv(
-            output_dir / f"gsd-{args.subset}-p{args.psize}.csv",
+            output_dir / f"multigsd-{args.subset}-p{args.psize}.csv",
             index=False,
         )
 
