@@ -1,9 +1,10 @@
 import functools
-import math
+import multiprocessing as mp
 import os
 import pathlib
-import multiprocessing as mp
 import random
+
+import math
 
 quarter_root = '/data/drone_dataset'
 splits = ['eight', 'sixteenth', 'thirtysecond', 'sixtyfourth']
@@ -17,6 +18,10 @@ full_root = pathlib.Path('/data/drone_dataset')
 half_root = pathlib.Path('/data/Unlabeled_Half_v1')
 new_split = pathlib.Path('/data/Unlabeled_1p5')
 new_split.mkdir(parents=True, exist_ok=True)
+new_split_train_images = new_split / 'train' / 'images'
+new_split_train_images.mkdir(parents=True, exist_ok=True)
+new_split_train_masks = new_split / 'train' / 'masks'
+new_split_train_masks.mkdir(parents=True, exist_ok=True)
 
 set_full_images = set(full_root.glob('train/images/*.JPG'))
 set_full_masks = set(full_root.glob('train/masks/*.png'))
@@ -34,8 +39,8 @@ set_images_new_split = set_half_images.union(set_images_to_add)
 set_masks_new_split = set_half_masks.union(set_masks_to_add)
 
 with mp.Pool(64) as p:
-    p.map(functools.partial(copy_to, dst=new_split / 'train' / 'images'), set_images_to_add)
-    p.map(functools.partial(copy_to, dst=new_split / 'train' / 'masks'), set_masks_to_add)
+    p.map(functools.partial(copy_to, dst=new_split_train_images), set_images_to_add)
+    p.map(functools.partial(copy_to, dst=new_split_train_masks), set_masks_to_add)
 
 os.system(f'cp -r {half_root}/val/ {new_split}/')
 
