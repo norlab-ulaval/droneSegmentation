@@ -251,7 +251,6 @@ def register_all_mapillary_vistas(root):
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
 
-
 # SPLIT = os.environ.get('SPLIT', 'PL')
 # tmp_dir = os.environ['SLURM_TMPDIR']
 # if SPLIT == 'PL':
@@ -290,6 +289,8 @@ elif SPLIT == 'PL_sixtyfourth':
     _root = '/data/Unlabeled_Sixtyfourth_v1'
 elif SPLIT == 'PL_1p5':
     _root = '/data/Unlabeled_1p5'
+elif SPLIT == 'PL_128':
+    _root = '/data/Unlabeled_128_v1'
 elif SPLIT == 'PL2':
     _root = f"{tmp_dir}/drone_dataset_v2"
 elif SPLIT == 'PL2_half':
