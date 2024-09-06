@@ -1,0 +1,6 @@
+Class: Background (ID: 1), Color: [128, 128, 128]
+Class: Spruce (ID: 2), Color: [0, 0, 128]
+Class: Blueberry (ID: 3), Color: [0, 0, 255]
+Class: Fern (ID: 8), Color: [255, 255, 0]
+Class: Jack Pine (ID: 11), Color: [192, 192, 192]
+Class: Wood (ID: 24), Color: [128, 255, 255]

@@ -13,7 +13,7 @@ __author__ = 'ychfan'
 #  getImgIds  - Get img ids that satisfy given filter conditions.
 #  loadAnns   - Load anns with the specified ids.
 #  loadCats   - Load cats with the specified ids.
-#  loadImgs   - Load imgs with the specified ids.
+#  loadImgs   - Load preds with the specified ids.
 #  annToMask  - Convert segmentation in an annotation to binary mask.
 #  loadRes    - Load algorithm results and create API for accessing them.
 

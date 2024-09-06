@@ -1,0 +1,8 @@
+Class: Background (ID: 1), Color: [128, 128, 128]
+Class: Fern (ID: 8), Color: [255, 255, 0]
+Class: Moss (ID: 13), Color: [0, 128, 128]
+Class: Mountain Maple (ID: 14), Color: [128, 128, 0]
+Class: Red Maple (ID: 16), Color: [128, 255, 0]
+Class: Red Raspberry (ID: 17), Color: [128, 0, 255]
+Class: Viburnum (ID: 22), Color: [0, 255, 128]
+Class: Wood (ID: 24), Color: [128, 255, 255]
