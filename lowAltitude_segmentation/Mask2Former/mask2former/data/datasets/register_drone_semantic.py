@@ -251,7 +251,6 @@ def register_all_mapillary_vistas(root):
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
 
-
 # SPLIT = os.environ.get('SPLIT', 'PL')
 # tmp_dir = os.environ['SLURM_TMPDIR']
 # if SPLIT == 'PL':
