@@ -29,8 +29,7 @@ def subset_dataset(images, masks, split):
 
 
 def copy_to(src, dst):
-    print(f'Copying {src} to {dst}')
-    print(os.system(f'cp {src} {dst}'))
+    os.system(f'cp {src} {dst}')
 
 
 def write_dataset(images, masks, out):
