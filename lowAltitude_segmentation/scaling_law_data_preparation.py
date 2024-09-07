@@ -68,6 +68,7 @@ if __name__ == '__main__':
     print(f'{len(subset_images)} images and {len(subset_masks)} masks will be copied to {out}')
     print('Should reduce the dataset by', split, 'times')
     print(f'{len(subset_images) / len(images)}x reduction')
+    print(f'Size of the dataset: {len(subset_images)}')
 
     if dry_run:
         print('Dry running...')
