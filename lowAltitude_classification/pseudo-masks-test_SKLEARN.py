@@ -37,7 +37,7 @@ def calculate_metrics(pred_folder, annot_folder):
 
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/Scaling'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/Scaling/'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
 
@@ -67,7 +67,7 @@ for subdir in os.listdir(pred_folder):
                 "F1": f'{overall_f1:.4f}',
                 "pAcc": f'{pAcc:.4f}',
             })
-
+    #
 
     ################################################# M2F
     # subdir_path = os.path.join(pred_folder, subdir)
@@ -172,7 +172,7 @@ for subdir in os.listdir(pred_folder):
     # })
 # #
 df = pd.DataFrame(results)
-# df = df.sort_values(by=["Pad Size"])
+df = df.sort_values(by=["factor"])
 
 df.to_csv("lowAltitude_classification/results/scaling/test/scaling-test-METRICS.csv",
           index=False)

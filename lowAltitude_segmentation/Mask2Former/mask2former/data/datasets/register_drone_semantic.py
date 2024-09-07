@@ -272,7 +272,6 @@ def register_all_mapillary_vistas(root):
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
 
 
-<<<<<<< HEAD
 # SPLIT = os.environ.get('SPLIT', 'PL')
 # tmp_dir = os.environ['SLURM_TMPDIR']
 # if SPLIT == 'PL':
@@ -301,7 +300,7 @@ def register_all_mapillary_vistas(root):
 #     _root = f"{tmp_dir}/drone_annotated"
 # else:
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-=======
+
 # SPLIT = os.environ.get('SPLIT', 'PL')
 # tmp_dir = os.environ['SLURM_TMPDIR']
 # if SPLIT == 'PL':
@@ -330,7 +329,6 @@ def register_all_mapillary_vistas(root):
 #     _root = f"{tmp_dir}/drone_annotated"
 # else:
 #     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
->>>>>>> refs/remotes/origin/main
 
-# _root = '/home/kamyar/Documents/M2F_Train_Val_split'
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)
