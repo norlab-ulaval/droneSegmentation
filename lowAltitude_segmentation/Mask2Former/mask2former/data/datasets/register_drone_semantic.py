@@ -1,5 +1,6 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 import os
+import pathlib
 
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from detectron2.data.datasets import load_sem_seg
@@ -222,134 +223,10 @@ def register_all_mapillary_vistas(root):
         )
 
 
-# Can either be PL or DL (pseudo-labels or drone labels)
-# SPLIT = os.environ.get('SPLIT', 'PL')
-#
-# tmp_dir = os.environ['SLURM_TMPDIR']
-# if SPLIT == 'PL':
-#     _root = f"{tmp_dir}/drone_dataset"
-# elif SPLIT == 'PL2':
-#     _root = f"{tmp_dir}/drone_dataset_v2"
-# elif SPLIT == 'DL':
-#     _root = f"{tmp_dir}/drone_annotated"
-# else:
-#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
-
-# tmp_dir = os.environ['SLURM_TMPDIR']
-# if SPLIT == 'PL':
-#     _root = f"{tmp_dir}/drone_dataset"
-# elif SPLIT == 'PL2':
-#     _root = f"{tmp_dir}/drone_dataset_v2"
-# elif SPLIT == 'PL_half':
-#     _root = '/data/Unlabeled_Half'
-# elif SPLIT == 'PL_quarter':
-#     _root = '/data/Unlabeled_Quarter'
-# elif SPLIT == 'DL':
-#     _root = f"{tmp_dir}/drone_annotated"
-# else:
-#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
-
-# SPLIT = os.environ.get('SPLIT', 'PL')
-# tmp_dir = os.environ['SLURM_TMPDIR']
-# if SPLIT == 'PL':
-#     _root = f"{tmp_dir}/drone_dataset"
-# elif SPLIT == 'PL_half':
-#     _root = '/data/Unlabeled_Half_v1'
-# elif SPLIT == 'PL_quarter':
-#     _root = '/data/Unlabeled_Quarter_v1'
-# elif SPLIT == 'PL2':
-#     _root = f"{tmp_dir}/drone_dataset_v2"
-# elif SPLIT == 'PL2_half':
-#     _root = '/data/Unlabeled_Half'
-# elif SPLIT == 'PL2_quarter':
-#     _root = '/data/Unlabeled_Quarter'
-# elif SPLIT == 'DL':
-#     _root = f"{tmp_dir}/drone_annotated"
-# else:
-#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
-
-<<<<<<< HEAD
-# SPLIT = os.environ.get('SPLIT', 'PL')
-# tmp_dir = os.environ['SLURM_TMPDIR']
-# if SPLIT == 'PL':
-#     _root = f"{tmp_dir}/drone_dataset"
-# elif SPLIT == 'PL_half':
-#     _root = '/data/Unlabeled_Half_v1'
-# elif SPLIT == 'PL_quarter':
-#     _root = '/data/Unlabeled_Quarter_v1'
-# elif SPLIT == 'PL_eight':
-#     _root = '/data/Unlabeled_Eight_v1'
-# elif SPLIT == 'PL_sixteenth':
-#     _root = '/data/Unlabeled_Sixteenth_v1'
-# elif SPLIT == 'PL_thirtysecond':
-#     _root = '/data/Unlabeled_Thirtysecond_v1'
-# elif SPLIT == 'PL_sixtyfourth':
-#     _root = '/data/Unlabeled_Sixtyfourth_v1'
-# elif SPLIT == '1p5':
-#     _root = '/data/Unlabeled_1p5'
-# elif SPLIT == 'PL2':
-#     _root = f"{tmp_dir}/drone_dataset_v2"
-# elif SPLIT == 'PL2_half':
-#     _root = '/data/Unlabeled_Half'
-# elif SPLIT == 'PL2_quarter':
-#     _root = '/data/Unlabeled_Quarter'
-# elif SPLIT == 'DL':
-#     _root = f"{tmp_dir}/drone_annotated"
-# else:
-#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
-# SPLIT = os.environ.get('SPLIT', 'PL')
-# tmp_dir = os.environ['SLURM_TMPDIR']
-# if SPLIT == 'PL':
-#     _root = f"{tmp_dir}/drone_dataset"
-# elif SPLIT == 'PL_half':
-#     _root = '/data/Unlabeled_Half_v1'
-# elif SPLIT == 'PL_quarter':
-#     _root = '/data/Unlabeled_Quarter_v1'
-# elif SPLIT == 'PL_eight':
-#     _root = '/data/Unlabeled_Eight_v1'
-# elif SPLIT == 'PL_sixteenth':
-#     _root = '/data/Unlabeled_Sixteenth_v1'
-# elif SPLIT == 'PL_thirtysecond':
-#     _root = '/data/Unlabeled_Thirtysecond_v1'
-# elif SPLIT == 'PL_sixtyfourth':
-#     _root = '/data/Unlabeled_Sixtyfourth_v1'
-# elif SPLIT == 'PL_1p5':
-#     _root = '/data/Unlabeled_1p5'
-# elif SPLIT == 'PL2':
-#     _root = f"{tmp_dir}/drone_dataset_v2"
-# elif SPLIT == 'PL2_half':
-#     _root = '/data/Unlabeled_Half'
-# elif SPLIT == 'PL2_quarter':
-#     _root = '/data/Unlabeled_Quarter'
-# elif SPLIT == 'DL':
-#     _root = f"{tmp_dir}/drone_annotated"
-# else:
-#     raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
 SPLIT = os.environ.get('SPLIT', 'PL')
 tmp_dir = os.environ['SLURM_TMPDIR']
 if SPLIT == 'PL':
     _root = f"{tmp_dir}/drone_dataset"
-elif SPLIT == 'PL_half':
-    _root = '/data/Unlabeled_Half_v1'
-elif SPLIT == 'PL_quarter':
-    _root = '/data/Unlabeled_Quarter_v1'
-elif SPLIT == 'PL_eight':
-    _root = '/data/Unlabeled_Eight_v1'
-elif SPLIT == 'PL_sixteenth':
-    _root = '/data/Unlabeled_Sixteenth_v1'
-elif SPLIT == 'PL_thirtysecond':
-    _root = '/data/Unlabeled_Thirtysecond_v1'
-elif SPLIT == 'PL_sixtyfourth':
-    _root = '/data/Unlabeled_Sixtyfourth_v1'
-elif SPLIT == 'PL_1p5':
-    _root = '/data/Unlabeled_1p5'
-elif SPLIT == 'PL_128':
-    _root = '/data/Unlabeled_128_v1'
 elif SPLIT == 'PL2':
     _root = f"{tmp_dir}/drone_dataset_v2"
 elif SPLIT == 'PL2_half':
@@ -359,8 +236,9 @@ elif SPLIT == 'PL2_quarter':
 elif SPLIT == 'DL':
     _root = f"{tmp_dir}/drone_annotated"
 else:
-    raise ValueError(f"Invalid SPLIT: {SPLIT}, should be PL or DL")
-
+    _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
+    p = pathlib.Path(_root)
+    assert p.exists(), f"Path {_root} does not exist"
 
 # _root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)
