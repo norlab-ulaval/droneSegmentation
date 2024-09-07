@@ -31,11 +31,11 @@ patch_sizes = [184]
 overlaps = [0.85]
 
 weight_file_path = Path('/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth')
-image_folder = '/home/kamyar/Documents/Train-val_Annotated'
+image_folder = '/home/kamyar/Documents/Test_Annotated'
 
-csv_filename = 'lowAltitude_classification/results/New_phase_2/stride/val/phase2-val-stride.csv'
+csv_filename = 'lowAltitude_classification/results/New_phase_2/stride/test/phase2-test-stride.csv'
 file_exists = os.path.isfile(csv_filename)
-#
+
 with open(csv_filename, mode='a', newline='') as file:
     writer = csv.writer(file)
     if not file_exists or os.stat(csv_filename).st_size == 0:
@@ -46,7 +46,7 @@ with open(csv_filename, mode='a', newline='') as file:
 
     filename = weight_file_path.name
     output_folder_name = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
-    output_folder = Path(f'/home/kamyar/Documents/Train-val_Annotated_Predictions/stride/{output_folder_name}')
+    output_folder = Path(f'/home/kamyar/Documents/Test_Annotated_Predictions/stride/{output_folder_name}')
     output_folder.mkdir(exist_ok=True, parents=True)
 
     for patch_size in patch_sizes:
