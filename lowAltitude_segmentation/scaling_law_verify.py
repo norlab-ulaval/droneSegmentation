@@ -17,15 +17,15 @@ if __name__ == '__main__':
     total_images = len(full_images)
     assert total_images == len(full_masks)
 
-    splits = data_path.glob('drone_dataset_[0-9].[0-9]*')
-    for split in splits:
+    paths = data_path.glob('drone_dataset_[0-9].[0-9]*')
+    for path in paths:
         print('-' * 80)
-        name = str(split).split('/')[-1]
+        name = str(path).split('/')[-1]
         print('Name:', name)
         split = name.split('_')[-1].replace('.', '/')
         print('Split:', split)
         split = eval(split)
         print('Expected split:', split)
         print('Expected number of images:', total_images * split)
-        images, masks = read_dataset(split)
+        images, masks = read_dataset(path)
         print('Actual number of images:', len(images))
