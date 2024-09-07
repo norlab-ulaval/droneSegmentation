@@ -222,23 +222,23 @@ def register_all_mapillary_vistas(root):
             **meta
         )
 
+#
+# SPLIT = os.environ.get('SPLIT', 'PL')
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/drone_dataset"
+# elif SPLIT == 'PL2':
+#     _root = f"{tmp_dir}/drone_dataset_v2"
+# elif SPLIT == 'PL2_half':
+#     _root = '/data/Unlabeled_Half'
+# elif SPLIT == 'PL2_quarter':
+#     _root = '/data/Unlabeled_Quarter'
+# elif SPLIT == 'DL':
+#     _root = f"{tmp_dir}/drone_annotated"
+# else:
+#     _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
+#     p = pathlib.Path(_root)
+#     assert p.exists(), f"Path {_root} does not exist"
 
-SPLIT = os.environ.get('SPLIT', 'PL')
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
-    _root = f"{tmp_dir}/drone_dataset"
-elif SPLIT == 'PL2':
-    _root = f"{tmp_dir}/drone_dataset_v2"
-elif SPLIT == 'PL2_half':
-    _root = '/data/Unlabeled_Half'
-elif SPLIT == 'PL2_quarter':
-    _root = '/data/Unlabeled_Quarter'
-elif SPLIT == 'DL':
-    _root = f"{tmp_dir}/drone_annotated"
-else:
-    _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
-    p = pathlib.Path(_root)
-    assert p.exists(), f"Path {_root} does not exist"
-
-# _root = '/home/kamyar/Documents/M2F_Train_Val_split'
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)
