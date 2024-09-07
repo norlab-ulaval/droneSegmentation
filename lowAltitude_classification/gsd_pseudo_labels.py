@@ -1,5 +1,4 @@
 import argparse
-import os
 import time
 from pathlib import Path
 
@@ -53,7 +52,7 @@ batch_size = 1024
 
 # GSD metrics
 GSD_FACTOR = 1.5
-N_GSD = 6
+N_GSD = 4
 # GSD_FACTOR=8 and N_GSD = 4
 # => SCALES = [1, 1/8, 1/64, 1/512]
 SCALES = np.logspace(0, -(N_GSD - 1), num=N_GSD, base=GSD_FACTOR)
@@ -69,9 +68,9 @@ def parse_arguments():
     )
     parser.add_argument(
         "--psize",
-        help="Patch size",
+        help="Base window size",
         type=int,
-        default=128,
+        default=184,
     )
     parser.add_argument(
         "--subset",
@@ -175,21 +174,22 @@ def main():
     gsddat_folder = gsddata_dir / args.mode / args.subset
     csv_path = results_dir / f"gsd-pseudolabelgen-{args.subset}-p{args.psize}.csv"
 
-    patch_sizes = [args.psize]
+    win_sizes = (args.psize * SCALES).astype(int).tolist()
 
     gsd_metrics = []
 
-    for patch_size in patch_sizes:
-        print(f"Pseudo labels with patch size {args.psize}")
-        for overlap in overlaps:
-            patch_overlap = f"p{patch_size:04}-o{overlap * 100:.0f}"
-            gsd_po_dir = gsddat_folder / patch_overlap
+    for overlap in overlaps:
+        patch_overlap = f"p{args.psize:04}-o{overlap * 100:.0f}"
+        exp_dir = gsddat_folder / patch_overlap
+
+        # For each window size
+        for win_idx, win_size in enumerate(win_sizes):
+            print(f"Pseudo labels with window size {win_size}")
+            win_dir = exp_dir / f"WIN{win_idx}"
 
             # For each GSD:
             for gsd_idx, scale in enumerate(SCALES):
-                scaled_patchsize = int(scale * patch_size)
-
-                gsd_dir = gsd_po_dir / f"GSD{gsd_idx}"
+                gsd_dir = win_dir / f"GSD{gsd_idx}"
 
                 # Create directories for GSD
                 gsd_plab_dir = gsd_dir / "pseudolabels"
@@ -200,7 +200,7 @@ def main():
                 gsd_annot_dir.mkdir(parents=True, exist_ok=True)
 
                 image_paths = list(image_folder.glob("*"))
-                for image_path in tqdm(image_paths, desc=f"[PL-{gsd_idx}]"):
+                for image_path in tqdm(image_paths, desc=f"[W-{win_idx}:PL-{gsd_idx}]"):
                     if image_path.suffix not in (".jpg", ".JPG", ".png"):
                         continue
 
@@ -224,18 +224,21 @@ def main():
                     pslab_start = time.perf_counter()
                     segmentation_map = generate_pseudo_labels(
                         image=scaled_image,
-                        patch_size=scaled_patchsize,
+                        patch_size=win_size,
                         overlap=overlap,
                     )
                     pslab_time = time.perf_counter() - pslab_start
-                    tqdm.write(f"[PL-{gsd_idx}] Time taken: {pslab_time:.2f}s")
+                    tqdm.write(
+                        f"[W-{win_idx}:PL-{gsd_idx}] Time taken: {pslab_time:.2f}s"
+                    )
 
                     gsd_metrics.append(
                         {
-                            "TAG": f"GSD{gsd_idx}",
+                            "GSD_TAG": f"GSD{gsd_idx}",
+                            "WIN_TAG": f"WIN{win_idx}",
                             "FNAME": image_path.stem,
                             "SIZE": scaled_image.shape[0],
-                            "PATCHSIZE": scaled_patchsize,
+                            "WINSIZE": win_size,
                             "PSLAB_TIME": pslab_time,
                         }
                     )
