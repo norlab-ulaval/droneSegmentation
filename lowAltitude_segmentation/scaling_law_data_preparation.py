@@ -1,79 +1,77 @@
+import argparse
 import functools
 import multiprocessing as mp
 import os
 import pathlib
 import random
+from collections import deque
 
 import math
+import tqdm
+
+
+def read_dataset(root):
+    images = sorted(list(root.glob('train/images/*.JPG')))
+    masks = sorted(list(root.glob('train/masks/*.png')))
+    for image, mask in zip(images, masks):
+        assert image.stem == mask.stem
+    return images, masks
+
+
+def subset_dataset(images, masks, split):
+    num_images = len(images)
+    chosen_idx = random.sample(range(num_images), math.ceil(num_images * split))
+    subset_images = [images[i] for i in chosen_idx]
+    subset_masks = [masks[i] for i in chosen_idx]
+    for image, mask in zip(subset_images, subset_masks):
+        assert image.stem == mask.stem
+    return subset_images, subset_masks
 
 
 def copy_to(src, dst):
-    print(f'Copying {src} to {dst}')
-    print(os.system(f'cp {src} {dst}'))
+    os.system(f'cp {src} {dst}')
 
 
-# 3/4 dataset
-# full_root = pathlib.Path('/data/drone_dataset')
-# half_root = pathlib.Path('/data/Unlabeled_Half_v1')
-# new_split = pathlib.Path('/data/Unlabeled_1p5')
-# new_split.mkdir(parents=True, exist_ok=True)
-# new_split_train_images = new_split / 'train' / 'images'
-# new_split_train_images.mkdir(parents=True, exist_ok=True)
-# new_split_train_masks = new_split / 'train' / 'masks'
-# new_split_train_masks.mkdir(parents=True, exist_ok=True)
-#
-# set_full_images = set(full_root.glob('train/images/*.JPG'))
-# set_full_masks = set(full_root.glob('train/masks/*.png'))
-# set_half_images = set(half_root.glob('train/images/*.JPG'))
-# set_half_masks = set(half_root.glob('train/masks/*.png'))
-#
-# set_images_not_in_half = set_full_images - set_half_images
-# set_masks_not_in_half = set_full_masks - set_half_masks
-#
-# to_add_idx = random.sample(range(len(set_images_not_in_half)), math.ceil(len(set_images_not_in_half) / 2))
-# set_images_to_add = [list(set_images_not_in_half)[i] for i in to_add_idx]
-# set_masks_to_add = [list(set_masks_not_in_half)[i] for i in to_add_idx]
-#
-# set_images_new_split = set_half_images.union(set_images_to_add)
-# set_masks_new_split = set_half_masks.union(set_masks_to_add)
-#
-# with mp.Pool(64) as p:
-#     p.map(functools.partial(copy_to, dst=new_split_train_images), set_images_to_add)
-#     p.map(functools.partial(copy_to, dst=new_split_train_masks), set_masks_to_add)
-#
-# os.system(f'cp -r {half_root}/val/ {new_split}/')
+def write_dataset(images, masks, out):
+    out_images = out / 'train' / 'images'
+    out_images.mkdir(parents=True, exist_ok=True)
+    out_masks = out / 'train' / 'masks'
+    out_masks.mkdir(parents=True, exist_ok=True)
 
-
-splits = ['128']
-previous_split_root = pathlib.Path('/data/Unlabeled_Sixtyfourth_v1')
-for split in splits:
-    train_image_path = previous_split_root / 'train' / 'images'
-    train_mask_path = previous_split_root / 'train' / 'masks'
-    images = sorted(list(train_image_path.glob('*.JPG')))
-    masks = sorted(list(train_mask_path.glob('*.png')))
-    num_images = len(images)
-
-    print(f'{previous_split_root} has {len(images)} images and {len(masks)} masks')
-
-    chosen_idx = random.sample(range(len(images)), math.ceil(len(images) / 2))
-    images = [images[i] for i in chosen_idx]
-    masks = [masks[i] for i in chosen_idx]
-
-    split_root = pathlib.Path(f'/data/Unlabeled_{split.capitalize()}_v1')
-    split_root.mkdir(parents=True, exist_ok=True)
-    split_images = split_root / 'train' / 'images'
-    split_images.mkdir(parents=True, exist_ok=True)
-    split_masks = split_root / 'train' / 'masks'
-    split_masks.mkdir(parents=True, exist_ok=True)
-
-    # Copy
-    print(f'{split_root} will have {len(images)} images and {len(masks)} masks')
-    print(f'{num_images / len(images)}x reduction')
     with mp.Pool(64) as p:
-        print('Copying...')
-        p.map(functools.partial(copy_to, dst=split_images), images)
-        p.map(functools.partial(copy_to, dst=split_masks), masks)
+        print('Copying images...')
+        it = tqdm.tqdm(p.imap(functools.partial(copy_to, dst=out_images), images), total=len(images))
+        deque(it, maxlen=0)
+        print('Copying masks...')
+        it = tqdm.tqdm(p.imap(functools.partial(copy_to, dst=out_masks), masks), total=len(masks))
+        deque(it, maxlen=0)
 
-    os.system(f'cp -r {previous_split_root}/val/ {split_root}/')
+    os.system(f'cp -r {full_root}/val/ {out}/')
 
-    previous_split_root = split_root
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--full_root', type=str, required=True, help='Path to the full dataset')
+    parser.add_argument('--out', type=str, required=True, help='Path to the output directory')
+    parser.add_argument('--split', type=str, required=True, help='Split factor (e.g. 1/2, 1/4, 1/8)')
+    parser.add_argument('--dry_run', action='store_true', help='Dry run')
+    args = parser.parse_args()
+
+    full_root = pathlib.Path(args.full_root)
+    out = pathlib.Path(args.out)
+    split = eval(args.split)
+    dry_run = args.dry_run
+
+    images, masks = read_dataset(full_root)
+    subset_images, subset_masks = subset_dataset(images, masks, split)
+
+    print(f'{len(subset_images)} images and {len(subset_masks)} masks will be copied to {out}')
+    print('Should reduce the dataset by', split, 'times')
+    print(f'{len(subset_images) / len(images)}x reduction')
+    print(f'Size of the dataset: {len(subset_images)}')
+
+    if dry_run:
+        print('Dry running...')
+        exit(0)
+
+    write_dataset(subset_images, subset_masks, out)
