@@ -1,5 +1,7 @@
 import pathlib
 
+import math
+
 
 def read_dataset(root):
     images = sorted(list(root.glob('train/images/*.JPG')))
@@ -26,6 +28,10 @@ if __name__ == '__main__':
         print('Split:', split)
         split = eval(split)
         print('Expected split:', split)
-        print('Expected number of images:\t', total_images * split)
+        print('Expected number of images:\t', math.ceil(total_images * split))
         images, masks = read_dataset(path)
         print('Actual number of images:\t', len(images))
+
+        if len(images) != math.ceil(total_images * split):
+            print('Mismatch!')
+            raise ValueError(f'Error in {name}')
