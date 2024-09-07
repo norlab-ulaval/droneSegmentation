@@ -2,8 +2,8 @@ Bryophyta&Moss
 Polypodiopsida&Fern
 Abies&Fir
 Amelanchier&Serviceberry
-Carex&Sedge
-Epilobium&Willowherb
+Carex&Sedges
+Epilobium&Willowherbs
 Picea&Spruce
 Vaccinium&Blueberry
 Viburnum&Viburnum
@@ -22,3 +22,4 @@ Sorbus americana&American Mountain-Ash
 Taxus canadensis&Canadian Yew
 Background&Background
 Dead Trees&Dead Trees
+Wood&Wood
