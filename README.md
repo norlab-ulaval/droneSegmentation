@@ -22,7 +22,7 @@ podman run --device nvidia.com/gpu=all --rm --ipc host -it \
   -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
   -v /dev/shm/:/dev/shm/ \
   droneseg_cls bash
-  
+
 docker run --gpus=all --rm --ipc host -it \
   -v .:/app \
   -v ~/Datasets/Drone_Unlabeled_Dataset_Patch_split:/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split \
@@ -48,7 +48,7 @@ podman run --gpus all --devices nvidia.com/gpu=all --rm --ipc host -it \
   -v /dev/shm/:/dev/shm/ \
   droneseg_seg bash
 
-sftp kanas@132.203.26.231
+sftp mamba-server
 pwd , lpwd
 put -r 'iNaturalist_split/'
 
