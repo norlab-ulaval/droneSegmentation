@@ -136,7 +136,7 @@ docker run --gpus=all --rm --ipc host -it \
   
 # ---
 export CUDA_VISIBLE_DEVICES=3
-export SPLIT='1.8'
+export SPLIT='1.64'
 docker run --gpus=all --rm --ipc host -it \
   -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
   -e SPLIT=$SPLIT \
