@@ -12,8 +12,8 @@ def read_dataset(root):
 
 
 if __name__ == '__main__':
-    full_root = pathlib.Path('/data/drone_dataset')
-    data_path = pathlib.Path('/data/')
+    full_root = pathlib.Path('~/Datasets/drone_dataset').expanduser()
+    data_path = pathlib.Path('~/Datasets').expanduser()
 
     full_images, full_masks = read_dataset(full_root)
     total_images = len(full_images)
