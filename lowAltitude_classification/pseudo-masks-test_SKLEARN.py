@@ -37,7 +37,7 @@ def calculate_metrics(pred_folder, annot_folder):
 
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/scaling_3'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/scaling_4'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
 
@@ -174,5 +174,5 @@ for subdir in os.listdir(pred_folder):
 df = pd.DataFrame(results)
 # df = df.sort_values(by=["factor"])
 
-df.to_csv("lowAltitude_classification/results/scaling/test/scaling-test-METRICS_version3.csv",
+df.to_csv("lowAltitude_classification/results/scaling/test/scaling-test-METRICS_version5.csv",
           index=False)
