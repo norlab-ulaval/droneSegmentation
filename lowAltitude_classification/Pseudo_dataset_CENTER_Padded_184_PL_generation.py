@@ -119,6 +119,11 @@ for patch_size in patch_sizes:
                     patches.append(patch)
                     coordinates.append((x, y))
 
+#                    for angle in [90, 180, 270]:
+#                        rotated_patch = torch.rot90(patch, k=angle // 90, dims=(1, 2))
+#                        patches.append(rotated_patch)
+#                        coordinates.append((x, y))
+
                     if len(patches) == batch_size:
                         patches_tensor = torch.stack(patches).to(device)
 
