@@ -13,18 +13,18 @@ from tqdm import tqdm
 import pandas as pd
 
 # Paths
-results_dir = Path("lowAltitude_classification/results/New_phase_1")
+results_dir = Path("lowAltitude_classification/results/phase1_ViT")
 # parent_weights_folder = Path("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results")
 
 val_image_folder = Path("/home/kamyar/Documents/Train-val_Annotated/")
 test_image_folder = Path("/home/kamyar/Documents/Test_Annotated/")
 val_annotation_folder = Path("/home/kamyar/Documents/Train-val_Annotated_masks")
 test_annotation_folder = Path("/home/kamyar/Documents/Test_Annotated_masks")
-output_csv_path = results_dir / 'DifferentWindowSizes.csv'
+output_csv_path = results_dir / 'ViT.csv'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
+model_name = "google/vit-large-patch16-224"
 processor = AutoImageProcessor.from_pretrained(model_name)
 mean = processor.image_mean
 std = processor.image_std
@@ -34,8 +34,8 @@ transform = Compose([
     ToTensorV2()
 ])
 
-patch_sizes = [144, 184, 256, 320]
-overlaps = [0.5]
+patch_sizes = [224]
+overlaps = [0.0]
 
 results = []
 
@@ -136,15 +136,16 @@ def process_images(image_folder, annotation_folder, y_true, y_pred, total_pixels
 
 # for weight_folder in os.listdir(parent_weights_folder):
 #     weight_folder_path = parent_weights_folder / weight_folder / 'checkpoints'
-weight_folder_path = Path('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_best/checkpoints')
+weight_folder_path = Path('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_ViT')
 # weight_folder_path = Path('/home/kamyar/Documents/Best_classifier_Weight')
+
 if weight_folder_path.is_dir():
     for weight_file in os.listdir(weight_folder_path):
         if weight_file.endswith('.pth'):
             weight_file_path = weight_folder_path / weight_file
             model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
             model = model.to(device)
-            model.classifier = nn.Linear(2048, 26).to(device)
+            model.classifier = nn.Linear(1024, 26).to(device)
             model.load_state_dict(torch.load(weight_file_path))
             model.eval()
 

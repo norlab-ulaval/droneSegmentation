@@ -34,11 +34,11 @@ DRONE_SEM_SEG_CATEGORIES = [
 
 id_to_color_name = {category['id']: (category['color'], category['name']) for category in DRONE_SEM_SEG_CATEGORIES}
 
-image_folder = '/home/kamyar/Documents/FIG_QUalitative/images'
-annotation_folder = '/home/kamyar/Documents/FIG_QUalitative/annotations'
-voting_folder = '/home/kamyar/Documents/FIG_QUalitative/voting'
-PT_folder = '/home/kamyar/Documents/FIG_QUalitative/PT'
-PTFT_folder = '/home/kamyar/Documents/FIG_QUalitative/PT + FT'
+image_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/images'
+annotation_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/annotations'
+voting_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/MW'
+PT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/PT'
+PTFT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/FT'
 
 def save_image_and_txt(image_array, image_color, image_name, folder, color_mapping):
     color_image = Image.fromarray(image_color)
@@ -57,7 +57,11 @@ for image_file in os.listdir(image_folder):
     if image_file.endswith('.jpg'):
         image_path = os.path.join(image_folder, image_file)
         annotation_file = image_file.replace('.jpg', '.png')
-        annotation_path = os.path.join(annotation_folder, annotation_file)
+
+        base_name = os.path.splitext(image_file)[0]
+        annotation_filename = f'{base_name}-label-ground-truth-semantic.png'
+        annotation_path = os.path.join(annotation_folder, annotation_filename)
+
         voting_path = os.path.join(voting_folder, annotation_file)
         PT_path = os.path.join(PT_folder, annotation_file)
         PTFT_path = os.path.join(PTFT_folder, annotation_file)

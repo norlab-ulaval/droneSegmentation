@@ -33,41 +33,46 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-
-
-
-
-pred_folder =  '/home/kamyar/Documents/M2F_Results/scaling_5'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/PL_V1_FINETUNE/output_test'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
 
-# overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
-# print(f"Overall F1 Score: {overall_f1}")
-# print(f"Pixel Accuracy: {pAcc}")
+overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
+print(f"Overall F1 Score: {overall_f1}")
+print(f"Pixel Accuracy: {pAcc}")
+#
+# results = []
+# for subdir in os.listdir(pred_folder):
+#     if subdir.split('_')[0][0] == '5':
+#         subdir_path = os.path.join(pred_folder, subdir)
+#         overall_f1, pAcc = calculate_metrics(subdir_path, annot_folder)
+#         results.append({
+#             "fold": int(subdir.split('_')[0][1]),
+#             "F1": f'{overall_f1:.4f}',
+#             "pAcc": f'{pAcc:.4f}',
+#         })
 
-results = []
-for subdir in os.listdir(pred_folder):
 
     ############################################## Scale
 
-    subdir_path = os.path.join(pred_folder, subdir)
-    factor = subdir
-    for subsubdir in os.listdir(subdir_path):
-        if subsubdir == 'output_test':
-            subsubdir_path = os.path.join(subdir_path, subsubdir)
-
-            overall_f1, pAcc = calculate_metrics(subsubdir_path, annot_folder)
-
-            print(f"Overall F1 Score: {overall_f1}")
-            print(f"Pixel Accuracy: {pAcc}")
-
-            results.append({
-                "factor": factor,
-
-                "F1": f'{overall_f1:.4f}',
-                "pAcc": f'{pAcc:.4f}',
-            })
+    # subdir_path = os.path.join(pred_folder, subdir)
+    # factor = subdir
+    # for subsubdir in os.listdir(subdir_path):
+    #     if subsubdir == 'output_test':
+    #         subsubdir_path = os.path.join(subdir_path, subsubdir)
     #
+    #         overall_f1, pAcc = calculate_metrics(subsubdir_path, annot_folder)
+    #
+    #         print(f"Overall F1 Score: {overall_f1}")
+    #         print(f"Pixel Accuracy: {pAcc}")
+    #
+    #         results.append({
+    #             "factor": factor,
+    #
+    #             "F1": f'{overall_f1:.4f}',
+    #             "pAcc": f'{pAcc:.4f}',
+    #         })
+    # #
 
     ################################################# M2F
     # subdir_path = os.path.join(pred_folder, subdir)
@@ -171,8 +176,9 @@ for subdir in os.listdir(pred_folder):
     #     "pAcc": f'{pAcc:.4f}',
     # })
 # #
-df = pd.DataFrame(results)
+# df = pd.DataFrame(results)
+
 # df = df.sort_values(by=["factor"])
 
-df.to_csv("lowAltitude_classification/results/scaling/test/scaling-test-METRICS_version6.csv",
-          index=False)
+# df.to_csv("lowAltitude_classification/results/phase1_ViT/dino.csv",
+#           index=False)

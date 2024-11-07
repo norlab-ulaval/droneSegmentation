@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df = pd.read_csv('lowAltitude_classification/results/New_phase_1/DifferentWindowSizes.csv')
+df = pd.read_csv('lowAltitude_classification/results/phase1_ViT/ViT.csv')
 df_filtered = df[df['Overlap'] != 0.2]
 df_filtered['Weight File'] = df_filtered['Weight File'].apply(lambda x: x.split('_')[0])
 df_val = df_filtered[df_filtered['Dataset'] == 'Validation']
@@ -35,7 +35,7 @@ df_val_metrics = pd.merge(df_val_f1_MACRO, df_val_acc, on='Patch Size')
 # print(df_val_metrics)
 # exit()
 
-df_val_metrics.to_csv('lowAltitude_classification/results/New_phase_1/VAL_differentPatchSize.csv', index=False)
+df_val_metrics.to_csv('lowAltitude_classification/results/phase1_ViT/VAL_ViT.csv', index=False)
 
 ###############################################################################
 
@@ -66,4 +66,4 @@ df_test_metrics = pd.merge(df_test_f1_MACRO, df_test_acc, on='Patch Size')
 # df_test_metrics = pd.merge(df_test_metrics, df_test_f1_weighted, on='Weight File')
 
 # print(df_test_metrics)
-df_test_metrics.to_csv('lowAltitude_classification/results/New_phase_1/TEST_differentPatchSize.csv', index=False)
+df_test_metrics.to_csv('lowAltitude_classification/results/phase1_ViT/TEST_ViT.csv', index=False)

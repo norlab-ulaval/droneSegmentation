@@ -29,7 +29,7 @@ output_dir = results_dir / 'M2F_Results/moving-window/val'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
+model_name = "google/vit-large-patch16-224"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)

@@ -1,0 +1,9 @@
+pl_precision = 44.37
+pl_recall = 44.25
+pl_f1 = 40.69
+pt_precision = 45.08
+pt_recall = 49.85
+pt_f1 = 43.82
+ft_precision = 49.04
+ft_recall = 49.07
+ft_f1 = 45.56
