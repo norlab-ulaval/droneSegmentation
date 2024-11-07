@@ -32,8 +32,8 @@
 #     remove_non_jpg_files(directory)
 #
 #
-import os
-
+# import os
+#
 #
 # def rename_images(folder_path):
 #     for filename in os.listdir(folder_path):
@@ -54,9 +54,9 @@ import os
 #
 #
 # # Example usage
-# folder_path = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/First batch'
+# folder_path = '/home/kamyar/Documents/Train-val_Annotated'
 # rename_images(folder_path)
-#
+
 
 # import os
 # import shutil
@@ -635,48 +635,22 @@ import os
 #
 #     remove_uncommon_images(directory1, directory2)
 
-#
-# import os
-# import shutil
-#
-# # Set the path to the parent directory
-# parent_dir = "/home/kamyar/Documents/Unlabeled_Quarter/images"
-#
-# # Loop through all subdirectories in the parent directory
-# for subdir, dirs, files in os.walk(parent_dir):
-#     if subdir != parent_dir:  # Skip the parent directory itself
-#         for file in files:
-#             # Get the full file path
-#             file_path = os.path.join(subdir, file)
-#             # Move the file to the parent directory
-#             shutil.move(file_path, parent_dir)
-#         # Remove the empty subdirectory
-#         os.rmdir(subdir)
-#
-# print("All images have been moved to the parent directory.")
-
-
 
 import os
-import random
 import shutil
 
-# Define paths
-source_folder = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/First batch'
-destination_folder = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_split/First batch_annotation'
+# Set the path to the parent directory
+parent_dir = "/home/kamyar/Documents/Unlabeled_Quarter/images"
 
-# Create destination folder if it doesn't exist
-if not os.path.exists(destination_folder):
-    os.makedirs(destination_folder)
+# Loop through all subdirectories in the parent directory
+for subdir, dirs, files in os.walk(parent_dir):
+    if subdir != parent_dir:  # Skip the parent directory itself
+        for file in files:
+            # Get the full file path
+            file_path = os.path.join(subdir, file)
+            # Move the file to the parent directory
+            shutil.move(file_path, parent_dir)
+        # Remove the empty subdirectory
+        os.rmdir(subdir)
 
-# Get all image filenames from the source folder
-all_images = [img for img in os.listdir(source_folder) if img.endswith(('.png', '.jpg', '.JPG'))]
-
-# Randomly sample 5000 images
-sampled_images = random.sample(all_images, 5000)
-
-# Copy sampled images to the destination folder
-for img in sampled_images:
-    shutil.copy(os.path.join(source_folder, img), os.path.join(destination_folder, img))
-
-print(f"Sampled {len(sampled_images)} images and copied them to {destination_folder}.")
+print("All images have been moved to the parent directory.")
