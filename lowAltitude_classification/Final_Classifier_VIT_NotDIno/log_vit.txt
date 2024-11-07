@@ -1,0 +1,83 @@
+2024-10-30 17:44:49,012 [DEBUG] - iNat_ViT.py: Fold 1/5
+2024-10-30 17:48:32,394 [DEBUG] - iNat_ViT.py: Fold 1/5
+2024-10-30 17:49:58,976 [DEBUG] - iNat_ViT.py: Fold 1/5
+2024-10-30 17:51:01,660 [DEBUG] - iNat_ViT.py: Fold 1/5
+2024-10-30 17:51:33,534 [DEBUG] - iNat_ViT.py: Fold 1/5
+2024-10-30 17:52:02,971 [DEBUG] - iNat_ViT.py: Fold 1/5
+2024-10-30 18:54:37,559 [DEBUG] - iNat_ViT.py: Epoch 1 - Training Loss: 0.4338 Accuracy: 0.8670
+2024-10-30 18:58:51,542 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3451 Accuracy: 0.8931
+2024-10-30 18:58:52,726 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 1 at epoch 1 with accuracy 0.8931
+2024-10-30 20:01:43,257 [DEBUG] - iNat_ViT.py: Epoch 2 - Training Loss: 0.2753 Accuracy: 0.9133
+2024-10-30 20:06:01,447 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3117 Accuracy: 0.9019
+2024-10-30 20:06:02,615 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 1 at epoch 2 with accuracy 0.9019
+2024-10-30 21:09:28,080 [DEBUG] - iNat_ViT.py: Epoch 3 - Training Loss: 0.2281 Accuracy: 0.9278
+2024-10-30 21:13:47,356 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2739 Accuracy: 0.9137
+2024-10-30 21:13:48,524 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 1 at epoch 3 with accuracy 0.9137
+2024-10-30 22:17:15,849 [DEBUG] - iNat_ViT.py: Epoch 4 - Training Loss: 0.2088 Accuracy: 0.9335
+2024-10-30 22:21:35,196 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2708 Accuracy: 0.9153
+2024-10-30 22:21:36,537 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 1 at epoch 4 with accuracy 0.9153
+2024-10-30 23:25:04,713 [DEBUG] - iNat_ViT.py: Epoch 5 - Training Loss: 0.2060 Accuracy: 0.9344
+2024-10-30 23:29:23,970 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2701 Accuracy: 0.9151
+2024-10-30 23:29:24,585 [DEBUG] - iNat_ViT.py: Fold 2/5
+2024-10-31 00:32:57,238 [DEBUG] - iNat_ViT.py: Epoch 1 - Training Loss: 0.4399 Accuracy: 0.8647
+2024-10-31 00:37:14,938 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3511 Accuracy: 0.8899
+2024-10-31 00:37:16,170 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 2 at epoch 1 with accuracy 0.8899
+2024-10-31 01:40:46,726 [DEBUG] - iNat_ViT.py: Epoch 2 - Training Loss: 0.2746 Accuracy: 0.9132
+2024-10-31 01:45:04,281 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3121 Accuracy: 0.9009
+2024-10-31 01:45:05,502 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 2 at epoch 2 with accuracy 0.9009
+2024-10-31 02:48:40,309 [DEBUG] - iNat_ViT.py: Epoch 3 - Training Loss: 0.2297 Accuracy: 0.9273
+2024-10-31 02:52:58,075 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2528 Accuracy: 0.9210
+2024-10-31 02:52:59,300 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 2 at epoch 3 with accuracy 0.9210
+2024-10-31 03:56:30,229 [DEBUG] - iNat_ViT.py: Epoch 4 - Training Loss: 0.2022 Accuracy: 0.9358
+2024-10-31 04:00:48,685 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2503 Accuracy: 0.9216
+2024-10-31 04:00:49,866 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 2 at epoch 4 with accuracy 0.9216
+2024-10-31 05:04:21,692 [DEBUG] - iNat_ViT.py: Epoch 5 - Training Loss: 0.2016 Accuracy: 0.9361
+2024-10-31 05:08:39,751 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2509 Accuracy: 0.9215
+2024-10-31 05:08:40,359 [DEBUG] - iNat_ViT.py: Fold 3/5
+2024-10-31 06:12:13,850 [DEBUG] - iNat_ViT.py: Epoch 1 - Training Loss: 0.4403 Accuracy: 0.8642
+2024-10-31 06:16:32,933 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3158 Accuracy: 0.9012
+2024-10-31 06:16:34,174 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 3 at epoch 1 with accuracy 0.9012
+2024-10-31 07:20:05,091 [DEBUG] - iNat_ViT.py: Epoch 2 - Training Loss: 0.2759 Accuracy: 0.9124
+2024-10-31 07:24:24,449 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3064 Accuracy: 0.9055
+2024-10-31 07:24:25,636 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 3 at epoch 2 with accuracy 0.9055
+2024-10-31 08:28:00,595 [DEBUG] - iNat_ViT.py: Epoch 3 - Training Loss: 0.2274 Accuracy: 0.9279
+2024-10-31 08:32:19,731 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2673 Accuracy: 0.9164
+2024-10-31 08:32:20,926 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 3 at epoch 3 with accuracy 0.9164
+2024-10-31 09:35:50,864 [DEBUG] - iNat_ViT.py: Epoch 4 - Training Loss: 0.2152 Accuracy: 0.9315
+2024-10-31 09:40:09,870 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2661 Accuracy: 0.9181
+2024-10-31 09:40:11,139 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 3 at epoch 4 with accuracy 0.9181
+2024-10-31 10:44:30,944 [DEBUG] - iNat_ViT.py: Epoch 5 - Training Loss: 0.2067 Accuracy: 0.9345
+2024-10-31 10:48:52,724 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2636 Accuracy: 0.9186
+2024-10-31 10:48:53,961 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 3 at epoch 5 with accuracy 0.9186
+2024-10-31 10:48:53,973 [DEBUG] - iNat_ViT.py: Fold 4/5
+2024-10-31 11:53:11,031 [DEBUG] - iNat_ViT.py: Epoch 1 - Training Loss: 0.4374 Accuracy: 0.8655
+2024-10-31 11:57:38,587 [DEBUG] - iNat_ViT.py: Validation Loss: 0.3321 Accuracy: 0.8967
+2024-10-31 11:57:39,825 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 4 at epoch 1 with accuracy 0.8967
+2024-10-31 13:02:08,276 [DEBUG] - iNat_ViT.py: Epoch 2 - Training Loss: 0.2744 Accuracy: 0.9134
+2024-10-31 13:06:28,291 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2877 Accuracy: 0.9092
+2024-10-31 13:06:29,519 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 4 at epoch 2 with accuracy 0.9092
+2024-10-31 14:10:09,581 [DEBUG] - iNat_ViT.py: Epoch 3 - Training Loss: 0.2298 Accuracy: 0.9273
+2024-10-31 14:14:27,990 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2713 Accuracy: 0.9161
+2024-10-31 14:14:29,199 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 4 at epoch 3 with accuracy 0.9161
+2024-10-31 15:17:58,193 [DEBUG] - iNat_ViT.py: Epoch 4 - Training Loss: 0.2165 Accuracy: 0.9307
+2024-10-31 15:22:17,101 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2683 Accuracy: 0.9169
+2024-10-31 15:22:18,323 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 4 at epoch 4 with accuracy 0.9169
+2024-10-31 16:25:48,042 [DEBUG] - iNat_ViT.py: Epoch 5 - Training Loss: 0.2182 Accuracy: 0.9306
+2024-10-31 16:30:07,227 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2681 Accuracy: 0.9162
+2024-10-31 16:30:07,830 [DEBUG] - iNat_ViT.py: Fold 5/5
+2024-10-31 17:33:43,584 [DEBUG] - iNat_ViT.py: Epoch 1 - Training Loss: 0.4349 Accuracy: 0.8672
+2024-10-31 17:38:01,676 [DEBUG] - iNat_ViT.py: Validation Loss: 0.4575 Accuracy: 0.8606
+2024-10-31 17:38:02,895 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 5 at epoch 1 with accuracy 0.8606
+2024-10-31 18:41:30,953 [DEBUG] - iNat_ViT.py: Epoch 2 - Training Loss: 0.2746 Accuracy: 0.9136
+2024-10-31 18:45:49,039 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2829 Accuracy: 0.9102
+2024-10-31 18:45:50,323 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 5 at epoch 2 with accuracy 0.9102
+2024-10-31 19:49:22,631 [DEBUG] - iNat_ViT.py: Epoch 3 - Training Loss: 0.2287 Accuracy: 0.9275
+2024-10-31 19:53:41,007 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2844 Accuracy: 0.9114
+2024-10-31 19:53:42,204 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 5 at epoch 3 with accuracy 0.9114
+2024-10-31 20:57:11,290 [DEBUG] - iNat_ViT.py: Epoch 4 - Training Loss: 0.2207 Accuracy: 0.9300
+2024-10-31 21:01:30,147 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2838 Accuracy: 0.9121
+2024-10-31 21:01:31,341 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 5 at epoch 4 with accuracy 0.9121
+2024-10-31 22:05:02,093 [DEBUG] - iNat_ViT.py: Epoch 5 - Training Loss: 0.2183 Accuracy: 0.9303
+2024-10-31 22:09:21,393 [DEBUG] - iNat_ViT.py: Validation Loss: 0.2853 Accuracy: 0.9121
+2024-10-31 22:09:22,607 [DEBUG] - iNat_ViT.py: Best model weights saved for fold 5 at epoch 5 with accuracy 0.9121
+2024-10-31 22:09:22,607 [DEBUG] - iNat_ViT.py: Average validation accuracy across folds: 0.9167

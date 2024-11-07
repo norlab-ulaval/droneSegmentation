@@ -1,6 +1,6 @@
 American Mountain-Ash: 0
 Background: 1
-Spruce: 2
+Black Spruce: 2
 Blueberry: 3
 Bog Labrador Tea: 4
 Boulders: 5
