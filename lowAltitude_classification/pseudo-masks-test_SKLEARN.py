@@ -33,7 +33,7 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/PL_V1_FINETUNE/output_test'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/SUPERVISED_IGNOREVALUE'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
 
