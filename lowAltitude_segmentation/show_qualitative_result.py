@@ -2,6 +2,7 @@ import numpy as np
 from PIL import Image
 import os
 
+
 # Define the categories with their corresponding colors and names
 DRONE_SEM_SEG_CATEGORIES = [
     {"color": [0, 128, 0], "id": 0, "name": "American Mountain-Ash"},
@@ -34,11 +35,11 @@ DRONE_SEM_SEG_CATEGORIES = [
 
 id_to_color_name = {category['id']: (category['color'], category['name']) for category in DRONE_SEM_SEG_CATEGORIES}
 
-image_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/images'
-annotation_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/annotations'
-voting_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/MW'
-PT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/PT'
-PTFT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/FT'
+image_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/images'
+annotation_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/annotations'
+voting_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/MW'
+PT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/PT'
+PTFT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/FT'
 
 def save_image_and_txt(image_array, image_color, image_name, folder, color_mapping):
     color_image = Image.fromarray(image_color)
@@ -94,7 +95,8 @@ for image_file in os.listdir(image_folder):
                 if id_val in id_to_color_name:
                     color_PTFT[PTFT == id_val] = id_to_color_name[id_val][0]
 
-            save_image_and_txt(annotation, color_annotation, f'{image_file}_annotation', annotation_folder, id_to_color_name)
-            save_image_and_txt(voting, color_voting, f'{image_file}_voting', voting_folder, id_to_color_name)
-            save_image_and_txt(PT, color_PT, f'{image_file}_PT', PT_folder, id_to_color_name)
-            save_image_and_txt(PTFT, color_PTFT, f'{image_file}_PTFT', PTFT_folder, id_to_color_name)
+            file_name = os.path.splitext(image_file)[0]
+            save_image_and_txt(annotation, color_annotation, f'{file_name}_annotations', annotation_folder, id_to_color_name)
+            save_image_and_txt(voting, color_voting, f'{file_name}_MW', voting_folder, id_to_color_name)
+            save_image_and_txt(PT, color_PT, f'{file_name}_PT', PT_folder, id_to_color_name)
+            save_image_and_txt(PTFT, color_PTFT, f'{file_name}_FT', PTFT_folder, id_to_color_name)

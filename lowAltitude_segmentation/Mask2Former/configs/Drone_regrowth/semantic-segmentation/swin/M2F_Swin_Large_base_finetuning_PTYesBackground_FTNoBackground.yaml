@@ -1,4 +1,4 @@
-_BASE_: "../M2F_ResNet50_base.yaml"
+_BASE_: "../M2F_ResNet50_base_NoBackground.yaml"
 MODEL:
   BACKBONE:
     NAME: "D2SwinTransformer"
@@ -11,7 +11,7 @@ MODEL:
     DROP_PATH_RATE: 0.1
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
-  WEIGHTS: "/home/kamyar/Documents/M2F_Results/PL_V1_PRETRAIN/model_best.pth"
+  WEIGHTS: "/home/kamyar/Documents/M2F_Results/PT_ignoreValue255/model_best.pth"
   PIXEL_MEAN: [ 123.675, 116.280, 103.530 ]
   PIXEL_STD: [ 58.395, 57.120, 57.375 ]
 INPUT:
