@@ -33,14 +33,14 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/output_PTYesBackground_FTYesBackground/output_test'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/output_no_no_2/output_test'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
 print(f"Overall F1 Score: {overall_f1}")
 print(f"Pixel Accuracy: {pAcc}")
-#
+
 # results = []
 # for subdir in os.listdir(pred_folder):
 #     if subdir.split('_')[0][0] == '5':

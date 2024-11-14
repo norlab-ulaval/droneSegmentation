@@ -86,9 +86,9 @@ class Predictor():
         cfg['SOLVER']['BEST_CHECKPOINTER']['METRIC'] = 'yolo'
 
         cfg.merge_from_file(
-            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_finetuning_PTYesBackground_FTYesBackground.yaml", allow_unsafe=True)
+            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_finetuning_PTNoBackground_FTNoBackground.yaml", allow_unsafe=True)
 
-        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/output_PTYesBackground_FTYesBackground/model_best.pth'
+        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/output_no_no_2/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -124,7 +124,7 @@ def process_images(input_dir, output_dir):
 
 
 input_directory = '/home/kamyar/Documents/Test_Annotated'
-output_directory = '/home/kamyar/Documents/M2F_Results/output_PTYesBackground_FTYesBackground/output_test'
+output_directory = '/home/kamyar/Documents/M2F_Results/output_no_no_2/output_test'
 
 process_images(input_directory, output_directory)
 print("done")
