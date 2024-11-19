@@ -212,33 +212,33 @@ def register_all_mapillary_vistas(root):
         gt_dir = os.path.join(root, dirname, "masks")
         name = f"drone_dataset_sem_seg_{name}"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="JPG")
+            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="jpg")
         )
         MetadataCatalog.get(name).set(
             image_root=image_dir,
             sem_seg_root=gt_dir,
             evaluator_type="sem_seg",
-            ignore_label=255,
+            ignore_label=1,
             **meta
         )
 
 
-SPLIT = os.environ.get('SPLIT', 'PL')
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
-    _root = f"{tmp_dir}/drone_dataset"
-elif SPLIT == 'PL2':
-    _root = f"{tmp_dir}/drone_dataset_v2"
-elif SPLIT == 'PL2_half':
-    _root = '/data/Unlabeled_Half'
-elif SPLIT == 'PL2_quarter':
-    _root = '/data/Unlabeled_Quarter'
-elif SPLIT == 'DL':
-    _root = f"{tmp_dir}/drone_annotated"
-else:
-    _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
-    p = pathlib.Path(_root)
-    assert p.exists(), f"Path {_root} does not exist"
+# SPLIT = os.environ.get('SPLIT', 'PL')
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/drone_dataset"
+# elif SPLIT == 'PL2':
+#     _root = f"{tmp_dir}/drone_dataset_v2"
+# elif SPLIT == 'PL2_half':
+#     _root = '/data/Unlabeled_Half'
+# elif SPLIT == 'PL2_quarter':
+#     _root = '/data/Unlabeled_Quarter'
+# elif SPLIT == 'DL':
+#     _root = f"{tmp_dir}/drone_annotated"
+# else:
+#     _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
+#     p = pathlib.Path(_root)
+#     assert p.exists(), f"Path {_root} does not exist"
 
-# _root = '/home/kamyar/Documents/M2F_Train_Val_split'
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)

@@ -86,9 +86,9 @@ class Predictor():
         cfg['SOLVER']['BEST_CHECKPOINTER']['METRIC'] = 'yolo'
 
         cfg.merge_from_file(
-            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_finetuning_PTNoBackground_FTNoBackground.yaml", allow_unsafe=True)
+            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml", allow_unsafe=True)
 
-        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/output_no_no_2/model_best.pth'
+        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/PT_ignoreValue255/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -123,8 +123,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = '/home/kamyar/Documents/Test_Annotated'
-output_directory = '/home/kamyar/Documents/M2F_Results/output_no_no_2/output_test'
+input_directory = '/home/kamyar/Documents/M2F_Train_Val_split/val/images'
+output_directory = '/home/kamyar/Documents/M2F_Results/PT_ignoreValue255/output_val'
 
 process_images(input_directory, output_directory)
 print("done")
