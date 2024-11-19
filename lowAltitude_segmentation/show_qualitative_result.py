@@ -97,6 +97,6 @@ for image_file in os.listdir(image_folder):
 
             file_name = os.path.splitext(image_file)[0]
             save_image_and_txt(annotation, color_annotation, f'{file_name}_annotations', annotation_folder, id_to_color_name)
-            save_image_and_txt(voting, color_voting, f'{file_name}_MW', voting_folder, id_to_color_name)
-            save_image_and_txt(PT, color_PT, f'{file_name}_PT', PT_folder, id_to_color_name)
-            save_image_and_txt(PTFT, color_PTFT, f'{file_name}_FT', PTFT_folder, id_to_color_name)
+            # save_image_and_txt(voting, color_voting, f'{file_name}_MW', voting_folder, id_to_color_name)
+            # save_image_and_txt(PT, color_PT, f'{file_name}_PT', PT_folder, id_to_color_name)
+            # save_image_and_txt(PTFT, color_PTFT, f'{file_name}_FT', PTFT_folder, id_to_color_name)
