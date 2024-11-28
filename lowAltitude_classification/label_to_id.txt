@@ -1,26 +1,24 @@
 American Mountain-Ash: 0
 Background: 1
-Black Spruce: 2
-Blueberry: 3
-Bog Labrador Tea: 4
-Boulders: 5
-Canada Yew: 6
-Dead Trees: 7
-Fern: 8
-Fir: 9
-Fire Cherry: 10
-Jack Pine: 11
-Leatherleaf: 12
-Moss: 13
-Mountain Maple: 14
-Paper Birch: 15
-Red Maple: 16
-Red Raspberry: 17
-Sedges: 18
-Serviceberries: 19
-Sheep Laurel: 20
-Trembling Aspen: 21
-Viburnum: 22
-Willowherbs: 23
-Wood: 24
-Yellow Birch: 25
+Bog Labrador Tea: 2
+Boulders: 3
+Canada Yew: 4
+Dead Trees: 5
+Fern: 6
+Fir: 7
+Fire Cherry: 8
+LowBush Blueberry: 9
+Moss: 10
+Mountain Maple: 11
+Paper Birch: 12
+Pine: 13
+Red Maple: 14
+Red Raspberry: 15
+Sedges: 16
+Serviceberries: 17
+Sheep Laurel: 18
+Spruce: 19
+Trembling Aspen: 20
+Willowherbs: 21
+Wood: 22
+Yellow Birch: 23

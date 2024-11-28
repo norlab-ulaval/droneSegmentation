@@ -29,9 +29,9 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = "/home/kamyar/Documents/iNat_Classifier_Non_filtered"
-output_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt"
-log_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Base_iNat_classifier/log.txt"
+data_folder = "/data/iNat_Classifier_Non_filtered"
+output_file_path = "/data/lowAltitude_classification/label_to_id.txt"
+log_file_path = "/data/lowAltitude_classification/Base_iNat_classifier/log.txt"
 
 u.setup_logging("base", log_file_path)
 logger = logging.getLogger("base")

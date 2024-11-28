@@ -10,6 +10,7 @@ from albumentations import Normalize, Compose
 from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
+import torch.nn.functional as F
 
 # SPLIT = os.environ.get("SPLIT", None)
 # if SPLIT is None:
@@ -23,13 +24,13 @@ from pathlib import Path
 
 results_dir = Path("/home/kamyar/Documents/")
 weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path(f"/home/kamyar/Documents/M2F_Train_Val_split/val/images")
-output_dir = results_dir / 'M2F_Results/moving-window/val'
+image_folder = Path(f"/home/kamyar/Documents/Test_Annotated")
+output_dir = results_dir / 'M2F_Results/MovingWINDOW/output_test_ignore_12_22_overlap0'
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model_name = "google/vit-large-patch16-224"
+model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
@@ -44,7 +45,7 @@ transform = Compose([
 ])
 
 patch_sizes = [184]
-overlaps = [0.85]
+overlaps = [0.0]
 
 model.load_state_dict(torch.load(weight_file_path))
 model.eval()
@@ -56,7 +57,7 @@ for patch_size in patch_sizes:
     offsets = np.stack([x_offsets, y_offsets], axis=-1).reshape(-1, 2)
 
     for overlap in overlaps:
-        padding = patch_size // 8
+        padding = patch_size
         step_size = int(patch_size * (1 - overlap))
         batch_size = 256
 
@@ -93,6 +94,8 @@ for patch_size in patch_sizes:
                             with torch.no_grad(), torch.cuda.amp.autocast():
                                 outputs = model(patches_tensor)
 
+                            if os.environ.get('IGNORE_12_AND_22', False):
+                                outputs.logits[:, [12, 22]] = -torch.inf
                             predicted_classes = torch.argmax(outputs.logits, dim=1)
 
                             for patch_idx, (x, y) in enumerate(coordinates):
@@ -114,6 +117,9 @@ for patch_size in patch_sizes:
                     with torch.no_grad(), torch.cuda.amp.autocast():
                         outputs = model(patches_tensor)
 
+                    if os.environ.get('IGNORE_12_AND_22', False):
+                        outputs.logits[:, [12, 22]] = -torch.inf
+
                     predicted_classes = torch.argmax(outputs.logits, dim=1)
 
                     for patch_idx, (x, y) in enumerate(coordinates):
@@ -128,7 +134,6 @@ for patch_size in patch_sizes:
                         pixel_predictions[pixel_coords[:, 1], pixel_coords[:, 0], predicted_class] += 1
 
                 segmentation_map = np.argmax(pixel_predictions, axis=2)
-
                 output_filename = Path(image_path).with_suffix('.png').name
                 # overlap_folder = Path(output_folder) / f'{patch_size}_{int(overlap * 100)}'
                 # overlap_folder.mkdir(exist_ok=True, parents=True)

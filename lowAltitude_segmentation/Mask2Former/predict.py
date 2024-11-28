@@ -62,6 +62,8 @@
 
 import sys
 import os
+import torch
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
@@ -72,6 +74,8 @@ from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer, ColorMode
 from detectron2.data import MetadataCatalog
 from detectron2.projects.deeplab import add_deeplab_config
+from fontTools.unicodedata import script
+
 from mask2former import add_maskformer2_config
 
 
@@ -86,9 +90,9 @@ class Predictor():
         cfg['SOLVER']['BEST_CHECKPOINTER']['METRIC'] = 'yolo'
 
         cfg.merge_from_file(
-            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base.yaml", allow_unsafe=True)
+            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_supervised.yaml", allow_unsafe=True)
 
-        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/PT_ignoreValue255/model_best.pth'
+        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/SUPERVISED/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -98,10 +102,17 @@ class Predictor():
     def predict(self, image_path, output_path):
         im = cv2.imread(str(image_path))
         outputs = self.predictor(im)
-        cls = outputs["sem_seg"].argmax(0)
-        # plt.imshow(cls.cpu().numpy())
-        # plt.show()
-        # cls[cls > 0] -= 1
+        scores = outputs["sem_seg"]
+
+        # remove scores at index 12 and 22
+
+        if os.environ.get('IGNORE_12_AND_22', False):
+            # print(scores.shape)
+            scores[[12, 22], :, :] = -torch.inf
+        cls = scores.argmax(0)
+        confidence = outputs["sem_seg"].max(0)
+        # print(confidence)
+
         # v = Visualizer(im[:, :, ::-1], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE)
         # semantic_result = v.draw_sem_seg(cls.to("cpu")).get_image()
         cv2.imwrite(output_path, cls.to("cpu").numpy())
@@ -123,8 +134,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = '/home/kamyar/Documents/M2F_Train_Val_split/val/images'
-output_directory = '/home/kamyar/Documents/M2F_Results/PT_ignoreValue255/output_val'
+input_directory = '/home/kamyar/Documents/Test_Annotated'
+output_directory = '/home/kamyar/Documents/M2F_Results/SUPERVISED/test_ignore_12_22'
 
 process_images(input_directory, output_directory)
 print("done")

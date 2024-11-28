@@ -14,6 +14,7 @@ from albumentations import (
     Compose,
     HorizontalFlip,
     Normalize,
+    Perspective,
     RandomBrightnessContrast,
     RandomResizedCrop,
     ShiftScaleRotate,
@@ -32,12 +33,12 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = "/home/kamyar/Documents/iNat_Classifier_filtered"
-output_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt"
-log_file_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Augmentation_iNat_classifier/log_aug22.txt"
+data_folder = "/data/iNat_Classifier_filtered"
+output_file_path = "/data/droneSegmentation/lowAltitude_classification/label_to_id.txt"
+log_file_path = "/data/droneSegmentation/lowAltitude_classification/Augmentation_iNat_classifier/log_aug23.txt"
 
-u.setup_logging("aug22", log_file_path)
-logger = logging.getLogger("aug22")
+u.setup_logging("aug23", log_file_path)
+logger = logging.getLogger("aug23")
 
 dataset = ImageFolder(root=data_folder)
 label_to_id = dataset.class_to_idx
@@ -72,6 +73,7 @@ train_transform = Compose(
             ratio=(0.75, 1.3333),
         ),
         HorizontalFlip(p=0.5),
+        Perspective(scale=(0.3, 0.6), p=0.5),
         ShiftScaleRotate(
             shift_limit=0.1,
             scale_limit=0.1,
@@ -199,7 +201,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             model_weights = model.state_dict()
             t = datetime.date.today()
             pth_name = (
-                f"22{fold + 1}_aug2_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                f"23{fold + 1}_aug3_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
             )
             torch.save(
                 model_weights,
@@ -210,7 +212,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
                 best_accuracy = accuracy_valid
                 best_epoch = epoch
                 best_model_weights = model_weights
-                pth_name = f"22{fold + 1}_aug2_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                pth_name = f"23{fold + 1}_aug3_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
                 torch.save(
                     model_weights,
                     checkpoint_dir / pth_name,

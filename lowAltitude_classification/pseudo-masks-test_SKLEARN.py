@@ -27,14 +27,16 @@ def calculate_metrics(pred_folder, annot_folder):
     all_preds = np.array(all_preds)
     all_annots = np.array(all_annots)
 
-    overall_f1_score = f1_score(all_annots, all_preds, average='macro')
+    # overall_f1_score = f1_score(all_annots, all_preds, average='macro')
+    overall_f1_score = f1_score(all_annots, all_preds, labels=[c for c in range(26) if c not in [12, 22]],
+                                average='macro')
     pixel_accuracy = accuracy_score(all_annots, all_preds)
 
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/PL_V1_PRETRAIN/output_val'
-annot_folder = '/home/kamyar/Documents/M2F_Train_Val_split/val/masks'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/SUPERVISED/test_ignore_12_22'
+annot_folder = '/home/kamyar/Documents/Test_Annotated_masks'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
