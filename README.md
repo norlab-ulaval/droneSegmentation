@@ -12,7 +12,21 @@ podman run --gpus all --rm --ipc host -it \
   -v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
   -v /dev/shm/:/dev/shm/ \
   droneseg_cls bash
-
+  
+docker build -t droneseg_cls -f DockerfileClassif .
+export CUDA_VISIBLE_DEVICES=3
+docker run --gpus all --rm --ipc host -it \
+  -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
+  -v .:/app \
+  -v ./data \
+  -v /data/droneseg/iNat_Classifier_filtered:/app/data/iNat_Classifier_filtered \
+  -v output_cls_aug4:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+  -v /dev/shm/:/dev/shm/ \
+  droneseg_cls bash
+PYTHONPATH=. python3 lowAltitude_classification/Augmentation_iNat_classifier/iNat_Classifier_Augment4.py
+PYTHONPATH=. python3 lowAltitude_classification/Augmentation_iNat_classifier/iNat_Classifier_Augment3.py
+PYTHONPATH=. python3 lowAltitude_classification/Augmentation_iNat_classifier/iNat_Classifier_Augment2.py
+PYTHONPATH=. python3 lowAltitude_classification/Augmentation_iNat_classifier/iNat_Classifier_Augment1.py
 
 podman run --device nvidia.com/gpu=all --rm --ipc host -it \
   -v .:/app \

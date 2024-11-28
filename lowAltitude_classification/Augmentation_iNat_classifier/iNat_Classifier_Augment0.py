@@ -30,9 +30,9 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = "/data/Documents/iNat_Classifier_filtered"
-output_file_path = "/data/droneSegmentation/lowAltitude_classification/label_to_id.txt"
-log_file_path = "/data/droneSegmentation/lowAltitude_classification/Augmentation_iNat_classifier/log_aug20.txt"
+data_folder = "data/Documents/iNat_Classifier_filtered"
+output_file_path = "lowAltitude_classification/label_to_id.txt"
+log_file_path = "lowAltitude_classification/Augmentation_iNat_classifier/log_aug20.txt"
 
 u.setup_logging("aug20", log_file_path)
 logger = logging.getLogger("aug20")
