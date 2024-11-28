@@ -37,9 +37,9 @@ output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
 checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-log_file_path = lac_dir / "Rebalance_iNat_Classifier/log_rebalance0.txt"
-u.setup_logging("rebalance0", log_file_path)
-logger = logging.getLogger("rebalance0")
+log_file_path = lac_dir / "Rebalance_iNat_Classifier/log_rebalance1.txt"
+u.setup_logging("rebalance1", log_file_path)
+logger = logging.getLogger("rebalance1")
 
 dataset = ImageFolder(root=data_folder)
 label_to_id = dataset.class_to_idx
@@ -71,14 +71,6 @@ train_transform = Compose(
             ratio=(0.75, 1.3333),
         ),
         HorizontalFlip(p=0.5),
-        ColorJitter(
-            brightness=(0.3, 0.5),
-            contrast=(0.3, 0.5),
-            saturation=(0.3, 0.5),
-            hue=0.2,
-            p=0.5,
-        ),
-        Blur(blur_limit=(3, 7), p=0.5),
         Normalize(mean=mean, std=std),
         ToTensorV2(),
     ]
@@ -115,13 +107,13 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_labels = [dataset.targets[i] for i in train_idx]
     ######
 
-    # average of number of classes: 11360 -> * 26 = 295,360
+    # number of background images: 25650 -> * 26 = 666,900
     train_loader = DataLoader(
         train_subset,
         sampler=ImbalancedDatasetSampler(
             train_subset,
             labels=train_labels,
-            num_samples=295360,
+            num_samples=,
         ),
         batch_size=16,
         num_workers=16,
@@ -204,7 +196,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             accuracy = accuracy_valid
             model_weights = model.state_dict()
             t = datetime.date.today()
-            pth_name = f"30{fold + 1}_balanced0_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+            pth_name = f"31{fold + 1}_balanced1_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
             torch.save(
                 model_weights,
                 checkpoint_dir / pth_name,
@@ -214,7 +206,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
                 best_accuracy = accuracy_valid
                 best_epoch = epoch
                 best_model_weights = model_weights
-                pth_name = f"30{fold + 1}_balanced0_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                pth_name = f"31{fold + 1}_balanced1_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
                 torch.save(
                     model_weights,
                     checkpoint_dir / pth_name,

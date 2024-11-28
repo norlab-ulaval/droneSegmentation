@@ -31,18 +31,15 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-previous_checkpoint_path = "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/rebalance2/checkpoints/314_balanced1_time2024-08-14_1e_acc96.pth"
-
-
 data_folder = Path("data/iNat_Classifier_filtered")
 lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
 checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-log_file_path = lac_dir / "Rebalance_iNat_Classifier/log_rebalance1.txt"
-u.setup_logging("rebalance1", log_file_path)
-logger = logging.getLogger("rebalance1")
+log_file_path = lac_dir / "Rebalance_iNat_Classifier/log_rebalance2.txt"
+u.setup_logging("rebalance2", log_file_path)
+logger = logging.getLogger("rebalance2")
 
 dataset = ImageFolder(root=data_folder)
 label_to_id = dataset.class_to_idx
@@ -74,14 +71,6 @@ train_transform = Compose(
             ratio=(0.75, 1.3333),
         ),
         HorizontalFlip(p=0.5),
-        ColorJitter(
-            brightness=(0.3, 0.5),
-            contrast=(0.3, 0.5),
-            saturation=(0.3, 0.5),
-            hue=0.2,
-            p=0.5,
-        ),
-        Blur(blur_limit=(3, 7), p=0.5),
         Normalize(mean=mean, std=std),
         ToTensorV2(),
     ]
@@ -109,9 +98,6 @@ fold_accuracies = []
 
 # For each fold
 for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
-    if fold < 3:
-        continue
-
     logger.debug(f"Fold {fold + 1}/{kf.get_n_splits()}")
 
     train_subset = Subset(dataset, train_idx)
@@ -121,13 +107,13 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_labels = [dataset.targets[i] for i in train_idx]
     ######
 
-    # number of background images: 25650 -> * 26 = 666,900
+    #
     train_loader = DataLoader(
         train_subset,
         sampler=ImbalancedDatasetSampler(
             train_subset,
             labels=train_labels,
-            num_samples=666900,
+            num_samples=,
         ),
         batch_size=16,
         num_workers=16,
@@ -140,9 +126,6 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     model.classifier = nn.Linear(2048, len(label_to_id)).to(device)
     model = model.to(device)
 
-    if previous_checkpoint_path:
-        model.load_state_dict(torch.load(previous_checkpoint_path))
-
     optimizer = optim.AdamW(model.parameters(), lr=0.00001, weight_decay=1e-3)
     scheduler = StepLR(optimizer, step_size=3, gamma=0.0001)
     loss_fn = nn.CrossEntropyLoss()
@@ -153,8 +136,6 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     best_model_weights = None
 
     for epoch in range(num_epochs):
-        if epoch == 0 and fold == 3:
-            continue
         model.train()
         loss_accumulated_train = 0.0
         total_samples_train = 0
@@ -215,7 +196,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             accuracy = accuracy_valid
             model_weights = model.state_dict()
             t = datetime.date.today()
-            pth_name = f"31{fold + 1}_balanced1_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+            pth_name = f"32{fold + 1}_balanced2_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
             torch.save(
                 model_weights,
                 checkpoint_dir / pth_name,
@@ -225,7 +206,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
                 best_accuracy = accuracy_valid
                 best_epoch = epoch
                 best_model_weights = model_weights
-                pth_name = f"31{fold + 1}_balanced1_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                pth_name = f"32{fold + 1}_balanced2_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
                 torch.save(
                     model_weights,
                     checkpoint_dir / pth_name,

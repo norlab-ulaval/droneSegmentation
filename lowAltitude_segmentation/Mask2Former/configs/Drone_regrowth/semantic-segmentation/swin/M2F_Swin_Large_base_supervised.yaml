@@ -1,4 +1,4 @@
-_BASE_: "../M2F_ResNet50_base_IGNORE255.yaml"
+_BASE_: "../M2F_ResNet50_base_NoBackground.yaml"
 MODEL:
   BACKBONE:
     NAME: "D2SwinTransformer"

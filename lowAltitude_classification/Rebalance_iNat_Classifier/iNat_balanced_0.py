@@ -7,7 +7,6 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torchvision.transforms
 from albumentations import (
     Blur,
     CenterCrop,
@@ -15,23 +14,14 @@ from albumentations import (
     Compose,
     HorizontalFlip,
     Normalize,
-    Perspective,
-    RandomBrightnessContrast,
     RandomResizedCrop,
-    ShiftScaleRotate,
     SmallestMaxSize,
-    OneOf,
-    MotionBlur,
-    MedianBlur,
-    OpticalDistortion,
-    GridDistortion,
-    Defocus,
-    RandomFog
 )
 from albumentations.pytorch import ToTensorV2
 from sklearn.model_selection import StratifiedKFold
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader, Subset
+from torchsampler import ImbalancedDatasetSampler
 from torchvision.datasets import ImageFolder
 from tqdm import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
@@ -42,11 +32,14 @@ import utils as u
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_folder = Path("data/iNat_Classifier_filtered")
-output_file_path = Path("lowAltitude_classification/label_to_id.txt")
-log_file_path = Path("lowAltitude_classification/Augmentation_iNat_classifier/log_aug25.txt")
+lac_dir = Path("lowAltitude_classification")
+output_file_path = lac_dir / "label_to_id.txt"
+checkpoint_dir = lac_dir / "checkpoints"
+checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-u.setup_logging("aug25", log_file_path)
-logger = logging.getLogger("aug25")
+log_file_path = lac_dir / "Rebalance_iNat_Classifier/log_rebalance0.txt"
+u.setup_logging("rebalance0", log_file_path)
+logger = logging.getLogger("rebalance0")
 
 dataset = ImageFolder(root=data_folder)
 label_to_id = dataset.class_to_idx
@@ -55,12 +48,9 @@ with open(output_file_path, "w") as file:
     for label, idx in label_to_id.items():
         file.write(f"{label}: {idx}\n")
 
-json_path = Path(output_file_path).with_suffix(".json")
-with open(json_path, "w") as f:
+json_path = output_file_path.with_suffix(".json")
+with json_path.open(mode="w") as f:
     json.dump(label_to_id, f, indent=2, sort_keys=True)
-
-checkpoint_dir = json_path.parent / "checkpoints"
-checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
 model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
@@ -81,36 +71,6 @@ train_transform = Compose(
             ratio=(0.75, 1.3333),
         ),
         HorizontalFlip(p=0.5),
-        Perspective(scale=(0.3, 0.6), p=0.5),
-        ShiftScaleRotate(
-            shift_limit=0.1,
-            scale_limit=0.1,
-            rotate_limit=45,
-            p=0.5,
-        ),
-        OneOf([
-            MotionBlur(p=.2),
-            MedianBlur(blur_limit=3, p=0.1),
-        ], p=0.3),
-
-        Defocus(
-            radius=(3, 5),
-            alias_blur=(0.1, 0.2),
-            p=0.5,
-        ),
-        RandomFog(),
-        ColorJitter(
-            brightness=(0.3, 0.5),
-            contrast=(0.3, 0.5),
-            saturation=(0.3, 0.5),
-            hue=0.2,
-            p=0.5,
-        ),
-        OneOf([
-            OpticalDistortion(p=0.3),
-            GridDistortion(p=.1),
-        ], p=0.2),
-        Blur(blur_limit=(3, 7), p=0.5),
         Normalize(mean=mean, std=std),
         ToTensorV2(),
     ]
@@ -143,7 +103,21 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_subset = Subset(dataset, train_idx)
     val_subset = Subset(dataset, val_idx)
 
-    train_loader = DataLoader(train_subset, shuffle=True, batch_size=16, num_workers=16)
+    ##### special for ImbalancedDatasetSampler
+    train_labels = [dataset.targets[i] for i in train_idx]
+    ######
+
+    # total number of current dataset
+    train_loader = DataLoader(
+        train_subset,
+        sampler=ImbalancedDatasetSampler(
+            train_subset,
+            labels=train_labels,
+            num_samples=299677,
+        ),
+        batch_size=16,
+        num_workers=16,
+    )
     val_loader = DataLoader(val_subset, batch_size=16, shuffle=False, num_workers=16)
 
     model = AutoModelForImageClassification.from_pretrained(
@@ -222,9 +196,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             accuracy = accuracy_valid
             model_weights = model.state_dict()
             t = datetime.date.today()
-            pth_name = (
-                f"25{fold + 1}_aug5_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
-            )
+            pth_name = f"30{fold + 1}_balanced0_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
             torch.save(
                 model_weights,
                 checkpoint_dir / pth_name,
@@ -234,7 +206,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
                 best_accuracy = accuracy_valid
                 best_epoch = epoch
                 best_model_weights = model_weights
-                pth_name = f"25{fold + 1}_aug5_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+                pth_name = f"30{fold + 1}_balanced0_time{t}_best_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
                 torch.save(
                     model_weights,
                     checkpoint_dir / pth_name,
