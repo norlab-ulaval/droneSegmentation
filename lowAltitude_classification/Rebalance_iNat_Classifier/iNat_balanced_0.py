@@ -113,7 +113,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
         sampler=ImbalancedDatasetSampler(
             train_subset,
             labels=train_labels,
-            num_samples=299677,
+            num_samples=318265,
         ),
         batch_size=16,
         num_workers=16,
