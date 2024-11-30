@@ -20,14 +20,18 @@ def find_min_max_and_second_min_max_folders(parent_folder):
     # Get the min, second min, max, and second max
     min_folder, min_count = sorted_folders[0]
     second_min_folder, second_min_count = sorted_folders[1]
+    third_min_folder, third_min_count = sorted_folders[2]
     max_folder, max_count = sorted_folders[-1]
     second_max_folder, second_max_count = sorted_folders[-2]
+    third_max_folder, third_max_count = sorted_folders[-3]
 
     return {
         "max": (max_folder, max_count),
         "second_max": (second_max_folder, second_max_count),
+        "third_max": (third_max_folder, third_max_count),
         "min": (min_folder, min_count),
-        "second_min": (second_min_folder, second_min_count)
+        "second_min": (second_min_folder, second_min_count),
+        "third_min": (third_min_folder, third_min_count)
     }
 
 # Example usage
@@ -37,7 +41,9 @@ result = find_min_max_and_second_min_max_folders(parent_folder)
 if result:
     print(f"Folder with maximum images: {result['max'][0]} ({result['max'][1]} images)")
     print(f"Folder with second maximum images: {result['second_max'][0]} ({result['second_max'][1]} images)")
+    print(f"Folder with third maximum images: {result['third_max'][0]} ({result['third_max'][1]} images)")
     print(f"Folder with minimum images: {result['min'][0]} ({result['min'][1]} images)")
     print(f"Folder with second minimum images: {result['second_min'][0]} ({result['second_min'][1]} images)")
+    print(f"Folder with third minimum images: {result['third_min'][0]} ({result['third_min'][1]} images)")
 else:
     print("Not enough folders with images to determine second max/min.")
