@@ -107,13 +107,13 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_labels = [dataset.targets[i] for i in train_idx]
     ######
 
-    #
+    # number of Paper Birch (2455 images) * 24 = 58920 ----------------  third minimum
     train_loader = DataLoader(
         train_subset,
         sampler=ImbalancedDatasetSampler(
             train_subset,
             labels=train_labels,
-            num_samples=,
+            num_samples=58920,
         ),
         batch_size=16,
         num_workers=16,

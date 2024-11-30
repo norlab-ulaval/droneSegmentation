@@ -107,13 +107,13 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_labels = [dataset.targets[i] for i in train_idx]
     ######
 
-    # number of background images: 25650 -> * 26 = 666,900
+    # number of Pine (26842 images) * 24 = 644208 ---------------- third maximum
     train_loader = DataLoader(
         train_subset,
         sampler=ImbalancedDatasetSampler(
             train_subset,
             labels=train_labels,
-            num_samples=,
+            num_samples=644208,
         ),
         batch_size=16,
         num_workers=16,
