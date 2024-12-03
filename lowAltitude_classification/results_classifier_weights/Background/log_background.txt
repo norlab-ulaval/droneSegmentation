@@ -1,0 +1,73 @@
+2024-11-28 16:37:09,126 [DEBUG] - iNat_Background_Clean.py: Fold 1/5
+2024-11-28 18:09:39,458 [DEBUG] - iNat_Background_Clean.py: Epoch 1 - Training Loss: 0.1265 Accuracy: 0.9630
+2024-11-28 18:17:52,826 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0875 Accuracy: 0.9749
+2024-11-28 18:17:54,033 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 1 at epoch 1 with accuracy 0.9749
+2024-11-28 19:50:42,514 [DEBUG] - iNat_Background_Clean.py: Epoch 2 - Training Loss: 0.0848 Accuracy: 0.9746
+2024-11-28 19:58:59,427 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0843 Accuracy: 0.9749
+2024-11-28 21:31:48,941 [DEBUG] - iNat_Background_Clean.py: Epoch 3 - Training Loss: 0.0713 Accuracy: 0.9785
+2024-11-28 21:40:09,132 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0922 Accuracy: 0.9733
+2024-11-28 23:12:58,579 [DEBUG] - iNat_Background_Clean.py: Epoch 4 - Training Loss: 0.0630 Accuracy: 0.9807
+2024-11-28 23:21:23,074 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0876 Accuracy: 0.9743
+2024-11-29 00:54:12,683 [DEBUG] - iNat_Background_Clean.py: Epoch 5 - Training Loss: 0.0615 Accuracy: 0.9813
+2024-11-29 01:02:41,239 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0841 Accuracy: 0.9757
+2024-11-29 01:02:42,423 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 1 at epoch 5 with accuracy 0.9757
+2024-11-29 01:02:42,424 [DEBUG] - iNat_Background_Clean.py: Fold 2/5
+2024-11-29 02:35:34,382 [DEBUG] - iNat_Background_Clean.py: Epoch 1 - Training Loss: 0.1248 Accuracy: 0.9638
+2024-11-29 02:44:01,781 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.1075 Accuracy: 0.9697
+2024-11-29 02:44:02,996 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 2 at epoch 1 with accuracy 0.9697
+2024-11-29 04:16:53,396 [DEBUG] - iNat_Background_Clean.py: Epoch 2 - Training Loss: 0.0830 Accuracy: 0.9756
+2024-11-29 04:25:20,894 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.1211 Accuracy: 0.9644
+2024-11-29 05:58:11,073 [DEBUG] - iNat_Background_Clean.py: Epoch 3 - Training Loss: 0.0699 Accuracy: 0.9789
+2024-11-29 06:06:38,614 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0934 Accuracy: 0.9735
+2024-11-29 06:06:39,829 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 2 at epoch 3 with accuracy 0.9735
+2024-11-29 07:39:29,112 [DEBUG] - iNat_Background_Clean.py: Epoch 4 - Training Loss: 0.0661 Accuracy: 0.9797
+2024-11-29 07:47:54,260 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0925 Accuracy: 0.9737
+2024-11-29 07:47:55,494 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 2 at epoch 4 with accuracy 0.9737
+2024-11-29 09:20:44,621 [DEBUG] - iNat_Background_Clean.py: Epoch 5 - Training Loss: 0.0640 Accuracy: 0.9803
+2024-11-29 09:29:12,560 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0907 Accuracy: 0.9743
+2024-11-29 09:29:13,798 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 2 at epoch 5 with accuracy 0.9743
+2024-11-29 09:29:13,800 [DEBUG] - iNat_Background_Clean.py: Fold 3/5
+2024-11-29 11:02:04,960 [DEBUG] - iNat_Background_Clean.py: Epoch 1 - Training Loss: 0.1251 Accuracy: 0.9631
+2024-11-29 11:10:31,613 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0852 Accuracy: 0.9750
+2024-11-29 11:10:32,895 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 3 at epoch 1 with accuracy 0.9750
+2024-11-29 12:43:15,110 [DEBUG] - iNat_Background_Clean.py: Epoch 2 - Training Loss: 0.0846 Accuracy: 0.9748
+2024-11-29 12:51:15,094 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0989 Accuracy: 0.9709
+2024-11-29 14:25:51,921 [DEBUG] - iNat_Background_Clean.py: Epoch 3 - Training Loss: 0.0705 Accuracy: 0.9788
+2024-11-29 14:33:53,917 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0804 Accuracy: 0.9768
+2024-11-29 14:33:55,105 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 3 at epoch 3 with accuracy 0.9768
+2024-11-29 16:05:06,332 [DEBUG] - iNat_Background_Clean.py: Epoch 4 - Training Loss: 0.0590 Accuracy: 0.9821
+2024-11-29 16:13:06,563 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0791 Accuracy: 0.9773
+2024-11-29 16:13:07,765 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 3 at epoch 4 with accuracy 0.9773
+2024-11-29 17:44:17,473 [DEBUG] - iNat_Background_Clean.py: Epoch 5 - Training Loss: 0.0577 Accuracy: 0.9827
+2024-11-29 17:52:18,126 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0800 Accuracy: 0.9767
+2024-11-29 17:52:18,816 [DEBUG] - iNat_Background_Clean.py: Fold 4/5
+2024-11-29 19:23:28,198 [DEBUG] - iNat_Background_Clean.py: Epoch 1 - Training Loss: 0.1247 Accuracy: 0.9635
+2024-11-29 19:31:30,512 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0937 Accuracy: 0.9716
+2024-11-29 19:31:31,717 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 4 at epoch 1 with accuracy 0.9716
+2024-11-29 21:02:40,514 [DEBUG] - iNat_Background_Clean.py: Epoch 2 - Training Loss: 0.0833 Accuracy: 0.9749
+2024-11-29 21:10:41,175 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0843 Accuracy: 0.9746
+2024-11-29 21:10:42,373 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 4 at epoch 2 with accuracy 0.9746
+2024-11-29 22:41:51,368 [DEBUG] - iNat_Background_Clean.py: Epoch 3 - Training Loss: 0.0696 Accuracy: 0.9789
+2024-11-29 22:49:51,707 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0784 Accuracy: 0.9765
+2024-11-29 22:49:53,095 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 4 at epoch 3 with accuracy 0.9765
+2024-11-30 00:21:03,048 [DEBUG] - iNat_Background_Clean.py: Epoch 4 - Training Loss: 0.0494 Accuracy: 0.9845
+2024-11-30 00:29:04,399 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0764 Accuracy: 0.9777
+2024-11-30 00:29:05,627 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 4 at epoch 4 with accuracy 0.9777
+2024-11-30 02:00:14,142 [DEBUG] - iNat_Background_Clean.py: Epoch 5 - Training Loss: 0.0473 Accuracy: 0.9854
+2024-11-30 02:08:14,755 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0757 Accuracy: 0.9776
+2024-11-30 02:08:15,364 [DEBUG] - iNat_Background_Clean.py: Fold 5/5
+2024-11-30 03:39:27,618 [DEBUG] - iNat_Background_Clean.py: Epoch 1 - Training Loss: 0.1217 Accuracy: 0.9644
+2024-11-30 03:47:28,086 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.1071 Accuracy: 0.9679
+2024-11-30 03:47:29,286 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 5 at epoch 1 with accuracy 0.9679
+2024-11-30 05:18:40,410 [DEBUG] - iNat_Background_Clean.py: Epoch 2 - Training Loss: 0.0832 Accuracy: 0.9752
+2024-11-30 05:26:40,119 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0892 Accuracy: 0.9753
+2024-11-30 05:26:41,331 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 5 at epoch 2 with accuracy 0.9753
+2024-11-30 06:57:53,476 [DEBUG] - iNat_Background_Clean.py: Epoch 3 - Training Loss: 0.0690 Accuracy: 0.9793
+2024-11-30 07:05:52,660 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0825 Accuracy: 0.9759
+2024-11-30 07:05:53,977 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 5 at epoch 3 with accuracy 0.9759
+2024-11-30 08:37:04,360 [DEBUG] - iNat_Background_Clean.py: Epoch 4 - Training Loss: 0.0526 Accuracy: 0.9844
+2024-11-30 08:45:03,689 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0821 Accuracy: 0.9756
+2024-11-30 10:16:14,958 [DEBUG] - iNat_Background_Clean.py: Epoch 5 - Training Loss: 0.0523 Accuracy: 0.9846
+2024-11-30 10:24:14,763 [DEBUG] - iNat_Background_Clean.py: Validation Loss: 0.0801 Accuracy: 0.9766
+2024-11-30 10:24:15,979 [DEBUG] - iNat_Background_Clean.py: Best model weights saved for fold 5 at epoch 5 with accuracy 0.9766
+2024-11-30 10:24:15,979 [DEBUG] - iNat_Background_Clean.py: Average validation accuracy across folds: 0.9762

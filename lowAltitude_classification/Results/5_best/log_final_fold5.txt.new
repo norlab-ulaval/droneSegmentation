@@ -1,8 +1,0 @@
-2024-08-16 14:52:48,305 [DEBUG] - iNat_Final.py: Fold 5/5
-2024-08-16 16:40:08,978 [DEBUG] - iNat_Final.py: Epoch 4 - Training Loss: 0.1649 Accuracy: 0.9486
-2024-08-16 16:47:47,024 [DEBUG] - iNat_Final.py: Validation Loss: 0.1682 Accuracy: 0.9485
-2024-08-16 16:47:48,353 [DEBUG] - iNat_Final.py: Best model weights saved for fold 5 at epoch 4 with accuracy 0.9485
-2024-08-16 18:34:45,457 [DEBUG] - iNat_Final.py: Epoch 5 - Training Loss: 0.1466 Accuracy: 0.9535
-2024-08-16 18:42:23,372 [DEBUG] - iNat_Final.py: Validation Loss: 0.1504 Accuracy: 0.9536
-2024-08-16 18:42:24,601 [DEBUG] - iNat_Final.py: Best model weights saved for fold 5 at epoch 5 with accuracy 0.9536
-2024-08-16 18:42:24,601 [DEBUG] - iNat_Final.py: Average validation accuracy across folds: 0.9536

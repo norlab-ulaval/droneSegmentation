@@ -38,15 +38,13 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-previous_checkpoint_path = "/app/lowAltitude_classification/checkpoints/55_Final_time2024-08-16_best_3e_acc94.pth"
-
 data_folder = 'data/iNat_Classifier_filtered'
 lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
 checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
-log_file_path = lac_dir / "Final_iNat_Classifier/log_final_fold5.txt"
+log_file_path = lac_dir / "Final_iNat_Classifier/log_final.txt"
 u.setup_logging("final", log_file_path)
 logger = logging.getLogger("final")
 
@@ -135,10 +133,7 @@ dataset = albumentations_transform(dataset, train_transform)
 kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=1)
 fold_accuracies = []
 
-# For each fold
 for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
-    if fold < 4:
-        continue
     logger.debug(f"Fold {fold + 1}/{kf.get_n_splits()}")
 
     train_subset = Subset(dataset, train_idx)
@@ -148,13 +143,13 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     train_labels = [dataset.targets[i] for i in train_idx]
     ######
 
-    # average of number of classes: 11360 -> * 26 = 295,360
+    # total number of current dataset
     train_loader = DataLoader(
         train_subset,
         sampler=ImbalancedDatasetSampler(
             train_subset,
             labels=train_labels,
-            num_samples=295360,
+            num_samples=318265,
         ),
         batch_size=16,
         num_workers=16,
@@ -167,9 +162,6 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     model.classifier = nn.Linear(2048, len(label_to_id)).to(device)
     model = model.to(device)
 
-    if previous_checkpoint_path:
-        model.load_state_dict(torch.load(previous_checkpoint_path))
-
     optimizer = optim.AdamW(model.parameters(), lr=0.00001, weight_decay=1e-3)
     scheduler = StepLR(optimizer, step_size=3, gamma=0.0001)
     loss_fn = nn.CrossEntropyLoss()
@@ -180,9 +172,6 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
     best_model_weights = None
 
     for epoch in range(num_epochs):
-        if epoch < 3:
-            continue
-
         model.train()
         loss_accumulated_train = 0.0
         total_samples_train = 0
