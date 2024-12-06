@@ -1,49 +1,46 @@
 import os
+import random
+import shutil
 
-def find_min_max_and_second_min_max_folders(parent_folder):
-    # Dictionary to store folder names and their image count
-    folder_image_count = {}
 
-    # Loop through all subfolders
-    for root, dirs, files in os.walk(parent_folder):
-        # Count images in each subfolder
-        image_count = sum(1 for file in files if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff')))
-        if image_count > 0:  # Only include folders with images
-            folder_image_count[root] = image_count
+def split_images_into_groups(source_folder, output_folder, num_groups=2):
+    """
+    Splits images from a source folder with subfolders into multiple groups.
 
-    if len(folder_image_count) < 2:
-        return None  # Not enough folders with images
+    Args:
+        source_folder (str): Path to the source folder containing images.
+        output_folder (str): Path to the output folder for the groups.
+        num_groups (int): Number of groups to split the images into.
+    """
+    # Gather all image paths
+    image_paths = []
+    for root, _, files in os.walk(source_folder):
+        for file in files:
+            if file.lower().endswith(('.png', '.jpg', '.jpeg', '.JPG')):
+                image_paths.append(os.path.join(root, file))
 
-    # Sort the folders by image count
-    sorted_folders = sorted(folder_image_count.items(), key=lambda x: x[1])
+    # Shuffle the image paths for randomness
+    random.shuffle(image_paths)
 
-    # Get the min, second min, max, and second max
-    min_folder, min_count = sorted_folders[0]
-    second_min_folder, second_min_count = sorted_folders[1]
-    third_min_folder, third_min_count = sorted_folders[2]
-    max_folder, max_count = sorted_folders[-1]
-    second_max_folder, second_max_count = sorted_folders[-2]
-    third_max_folder, third_max_count = sorted_folders[-3]
+    # Split the images into groups
+    groups = [[] for _ in range(num_groups)]
+    for idx, image_path in enumerate(image_paths):
+        groups[idx % num_groups].append(image_path)
 
-    return {
-        "max": (max_folder, max_count),
-        "second_max": (second_max_folder, second_max_count),
-        "third_max": (third_max_folder, third_max_count),
-        "min": (min_folder, min_count),
-        "second_min": (second_min_folder, second_min_count),
-        "third_min": (third_min_folder, third_min_count)
-    }
+    # Create group folders and copy files
+    for i, group in enumerate(groups):
+        group_folder = os.path.join(output_folder, f"group_{i + 1}")
+        os.makedirs(group_folder, exist_ok=True)
+        for image_path in group:
+            relative_path = os.path.relpath(image_path, source_folder)
+            dest_path = os.path.join(group_folder, relative_path)
+            os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+            shutil.copy(image_path, dest_path)
+
+    print(f"Images successfully split into {num_groups} groups at {output_folder}")
+
 
 # Example usage
-parent_folder = "/home/kamyar/Documents/iNat_Classifier_filtered"  # Replace with your folder path
-result = find_min_max_and_second_min_max_folders(parent_folder)
-
-if result:
-    print(f"Folder with maximum images: {result['max'][0]} ({result['max'][1]} images)")
-    print(f"Folder with second maximum images: {result['second_max'][0]} ({result['second_max'][1]} images)")
-    print(f"Folder with third maximum images: {result['third_max'][0]} ({result['third_max'][1]} images)")
-    print(f"Folder with minimum images: {result['min'][0]} ({result['min'][1]} images)")
-    print(f"Folder with second minimum images: {result['second_min'][0]} ({result['second_min'][1]} images)")
-    print(f"Folder with third minimum images: {result['third_min'][0]} ({result['third_min'][1]} images)")
-else:
-    print("Not enough folders with images to determine second max/min.")
+source_folder = "/home/kamyar/Documents/split/group_5"  # Replace with your source folder
+output_folder = "/home/kamyar/Documents/split/group_5_1"  # Replace with your output folder
+split_images_into_groups(source_folder, output_folder)

@@ -13,14 +13,14 @@ from tqdm import tqdm
 import pandas as pd
 
 # Paths
-results_dir = Path("lowAltitude_classification/results_new_classifier/phase1_evaluation_drone")
-parent_weights_folder = Path("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/results_classifier_weights")
+results_dir = Path("lowAltitude_classification/results_Journal/phase1_evaluation_drone")
+parent_weights_folder = Path("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/results_Journal_classifier_weights/new")
 
 val_image_folder = Path("/home/kamyar/Documents/Train-val_Annotated/")
 test_image_folder = Path("/home/kamyar/Documents/Test_Annotated/")
 val_annotation_folder = Path("/home/kamyar/Documents/Train-val_Annotated_masks_updated")
 test_annotation_folder = Path("/home/kamyar/Documents/Test_Annotated_masks_updated")
-output_csv_path = results_dir / 'phase1_evaluation_drone.csv'
+output_csv_path = results_dir / 'phase1_evaluation_drone_final.csv'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -134,10 +134,7 @@ def process_images(image_folder, annotation_folder, y_true, y_pred, total_pixels
 
 
 for weight_folder in os.listdir(parent_weights_folder):
-    weight_folder_path = parent_weights_folder / weight_folder / 'checkpoints'
-# weight_folder_path = Path('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/Results/5_ViT')
-# weight_folder_path = Path('/home/kamyar/Documents/Best_classifier_Weight')
-
+    weight_folder_path = parent_weights_folder / weight_folder
     if weight_folder_path.is_dir():
         for weight_file in os.listdir(weight_folder_path):
             if weight_file.endswith('.pth'):
