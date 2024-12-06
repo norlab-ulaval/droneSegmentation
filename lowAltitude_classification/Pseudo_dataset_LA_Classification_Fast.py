@@ -10,22 +10,21 @@ from albumentations import Normalize, Compose
 from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
-import torch.nn.functional as F
 
-# SPLIT = os.environ.get("SPLIT", None)
-# if SPLIT is None:
-#     raise ValueError("SPLIT environment variable must be set: 'Fifth batch'  'First batch'  'Fourth batch'  'Second batch'  'Third batch'")
+SPLIT = os.environ.get("SPLIT", None)
+if SPLIT is None:
+    raise ValueError("SPLIT environment variable must be set: 'group_1'  'group_2'  'group_3'  'group_4_1'  'group_4_2'  'group_5_1'  'group_5_2'")
 
 # Paths
-# results_dir = Path("/data/droneSegResults")
-# weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-# image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Drone_Unlabeled_Dataset_Patch_split/{SPLIT}/")
-# output_dir = results_dir / 'Unlabeled_Drone_Dataset_PL' / image_folder.name
+results_dir = Path("/data/droneseg")
+weight_file_path = Path("/data/droneseg/Best_classifier_Weight/53_Final_time2024-12-05_best_5e_acc95.pth")
+image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
+output_dir = results_dir / 'results/PseudoLabel' / image_folder.name
 
-results_dir = Path("/home/kamyar/Documents/")
-weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path(f"/home/kamyar/Documents/Test_Annotated")
-output_dir = results_dir / 'M2F_Results/MovingWINDOW/output_test_ignore_12_22_overlap0'
+# results_dir = Path("/home/kamyar/Documents/")
+# weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
+# image_folder = Path(f"/home/kamyar/Documents/Test_Annotated")
+# output_dir = results_dir / 'M2F_Results/MovingWINDOW/output_test_ignore_12_22_overlap0'
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -34,7 +33,7 @@ model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
 model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
 model = model.to(device)
-num_classes = 26
+num_classes = 24
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
@@ -45,7 +44,7 @@ transform = Compose([
 ])
 
 patch_sizes = [184]
-overlaps = [0.0]
+overlaps = [0.85]
 
 model.load_state_dict(torch.load(weight_file_path))
 model.eval()
@@ -94,8 +93,6 @@ for patch_size in patch_sizes:
                             with torch.no_grad(), torch.cuda.amp.autocast():
                                 outputs = model(patches_tensor)
 
-                            if os.environ.get('IGNORE_12_AND_22', False):
-                                outputs.logits[:, [12, 22]] = -torch.inf
                             predicted_classes = torch.argmax(outputs.logits, dim=1)
 
                             for patch_idx, (x, y) in enumerate(coordinates):
@@ -116,9 +113,6 @@ for patch_size in patch_sizes:
 
                     with torch.no_grad(), torch.cuda.amp.autocast():
                         outputs = model(patches_tensor)
-
-                    if os.environ.get('IGNORE_12_AND_22', False):
-                        outputs.logits[:, [12, 22]] = -torch.inf
 
                     predicted_classes = torch.argmax(outputs.logits, dim=1)
 
