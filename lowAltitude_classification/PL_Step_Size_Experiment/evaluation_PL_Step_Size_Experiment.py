@@ -4,6 +4,7 @@ from sklearn.metrics import f1_score, accuracy_score
 from PIL import Image
 import pandas as pd
 from pathlib import Path
+import csv
 
 def load_image(image_path):
     return np.array(Image.open(image_path))
@@ -34,8 +35,14 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  Path('/home/kamyar/Documents/PL_Step_Size_Experiment/Train-val')
-annot_folder = Path('/home/kamyar/Documents/Train-val_Annotated_masks_updated')
+pred_folder =  Path('/home/kamyar/Documents/PL_Step_Size_Experiment/test')
+annot_folder = Path('/home/kamyar/Documents/Test_Annotated_masks_updated')
+
+csv_num_votes = Path('lowAltitude_classification/PL_Step_Size_Experiment/PL_num_votes_per_step_size.csv')
+with open(csv_num_votes, mode='r') as file:
+    reader = csv.reader(file)
+    num_votes_dict = {row[0]: row[1] for row in reader}
+
 
 results = []
 for subdir in os.listdir(pred_folder):
@@ -44,6 +51,7 @@ for subdir in os.listdir(pred_folder):
     results.append({
         "Dataset": pred_folder.name,
         "step size": subdir,
+        "num_votes": num_votes_dict[subdir],
         "F1": f'{overall_f1:.4f}',
         "pAcc": f'{pAcc:.4f}',
     })
