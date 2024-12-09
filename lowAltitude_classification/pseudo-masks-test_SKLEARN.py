@@ -33,8 +33,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/PL_Window_Size_Experiment/test/184'
-annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_updated'
+pred_folder =  '/home/kamyar/Documents/PL_Center_vs_entire/val/128'
+annot_folder = '/home/kamyar/Documents/Train-val_Annotated_masks_updated'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
