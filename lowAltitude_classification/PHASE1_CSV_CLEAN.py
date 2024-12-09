@@ -61,5 +61,5 @@ df_test_acc = df_test.groupby('Weight File')['Accuracy'].mean().reset_index()
 df_test_f1_MACRO = df_test.groupby('Weight File')['F1 Score - Macro'].mean().reset_index()
 df_test_metrics = pd.merge(df_test_acc, df_test_f1_MACRO, on='Weight File')
 
-print(df_test_metrics)
+# print(df_test_metrics)
 # df_test_metrics.to_csv('lowAltitude_classification/results/phase1_ViT/TEST_ViT.csv', index=False)
