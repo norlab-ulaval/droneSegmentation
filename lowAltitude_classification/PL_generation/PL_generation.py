@@ -11,20 +11,20 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-SPLIT = os.environ.get("SPLIT", None)
-if SPLIT is None:
-    raise ValueError("SPLIT environment variable must be set: 'group_1'  'group_2'  'group_3'  'group_4_1'  'group_4_2'  'group_5_1'  'group_5_2'")
+# SPLIT = os.environ.get("SPLIT", None)
+# if SPLIT is None:
+#     raise ValueError("SPLIT environment variable must be set: 'group_1'  'group_2'  'group_3'  'group_4_1'  'group_4_2'  'group_5_1'  'group_5_2'")
 
 # Paths
-results_dir = Path("/data/droneseg")
-weight_file_path = Path("/data/droneseg/Best_classifier_Weight/53_Final_time2024-12-05_best_5e_acc95.pth")
-image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
-output_dir = results_dir / 'results/PseudoLabel_256' / image_folder.name
+# results_dir = Path("/data/droneseg")
+# weight_file_path = Path("/data/droneseg/Best_classifier_Weight/53_Final_time2024-12-05_best_5e_acc95.pth")
+# image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
+# output_dir = results_dir / 'results/PseudoLabel_256' / image_folder.name
 
-# results_dir = Path("/home/kamyar/Documents/")
-# weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight_NEW/53_Final_time2024-12-05_best_5e_acc95.pth")
-# image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/group_1")
-# output_dir = results_dir / 'Unlabeled_Drone_Dataset_143k_Patched_split_PL_results/group_1'
+results_dir = Path("/home/kamyar/Documents/")
+weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight_NEW/53_Final_time2024-12-05_best_5e_acc95.pth")
+image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/group_1")
+output_dir = results_dir / 'Unlabeled_Drone_Dataset_143k_Patched_split_PL_256_results/group_1'
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
