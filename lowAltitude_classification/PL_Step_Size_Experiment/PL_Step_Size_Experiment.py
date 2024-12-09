@@ -23,9 +23,9 @@ from pathlib import Path
 
 results_dir = Path("/home/kamyar/Documents/PL_Step_Size_Experiment")
 weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight_NEW/53_Final_time2024-12-05_best_5e_acc95.pth")
-# image_folder_test = Path(f"/home/kamyar/Documents/Test_Annotated")
+image_folder_test = Path(f"/home/kamyar/Documents/Test_Annotated")
 image_folder_val = Path("/home/kamyar/Documents/Train-val_Annotated")
-image_folders = [image_folder_val]
+image_folders = [image_folder_val, image_folder_test]
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.metrics import f1_score, accuracy_score
 from PIL import Image
 import pandas as pd
+from pathlib import Path
 
 def load_image(image_path):
     return np.array(Image.open(image_path))
@@ -33,15 +34,15 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/PL_Step_Size_Experiment/Train-val'
-annot_folder = '/home/kamyar/Documents/Train-val_Annotated_masks_updated'
+pred_folder =  Path('/home/kamyar/Documents/PL_Step_Size_Experiment/Train-val')
+annot_folder = Path('/home/kamyar/Documents/Train-val_Annotated_masks_updated')
 
 results = []
 for subdir in os.listdir(pred_folder):
     subdir_path = os.path.join(pred_folder, subdir)
     overall_f1, pAcc = calculate_metrics(subdir_path, annot_folder)
     results.append({
-        "Dataset": pred_folder,
+        "Dataset": pred_folder.name,
         "step size": subdir,
         "F1": f'{overall_f1:.4f}',
         "pAcc": f'{pAcc:.4f}',
