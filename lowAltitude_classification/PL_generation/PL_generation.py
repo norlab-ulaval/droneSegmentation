@@ -62,6 +62,14 @@ for patch_size in patch_sizes:
 
         for image_file in os.listdir(image_folder):
             if image_file.endswith(('.jpg', '.JPG', '.png')):
+
+                ############ skip if we already processed this image
+                output_filename = Path(image_file).with_suffix('.png').name
+                output_filepath = output_dir / output_filename
+                if output_filepath.exists():
+                    continue
+                #######################################################
+
                 begin_time = time.perf_counter()
                 image_path = os.path.join(image_folder, image_file)
                 image = Image.open(image_path)

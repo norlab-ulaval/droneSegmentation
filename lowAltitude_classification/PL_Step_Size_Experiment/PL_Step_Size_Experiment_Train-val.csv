@@ -1,6 +1,6 @@
-Dataset,step size,F1,pAcc
-Train-val,38,0.4506,0.5724
-Train-val,32,0.4505,0.5715
-Train-val,256,0.4071,0.5206
-Train-val,128,0.4282,0.5509
-Train-val,64,0.4472,0.5684
+Dataset,step size,num_votes,F1,pAcc
+Train-val,38,45.378116607666016,0.4506,0.5724
+Train-val,32,64.0,0.4505,0.5715
+Train-val,256,1.0,0.4071,0.5206
+Train-val,128,4.0,0.4282,0.5509
+Train-val,64,16.0,0.4472,0.5684
