@@ -49,5 +49,5 @@ for subdir in os.listdir(pred_folder):
     })
 
 df = pd.DataFrame(results)
-df.to_csv("lowAltitude_classification/PL_Step_Size_Experiment/PL_Step_Size_Experiment.csv",
+df.to_csv(f"lowAltitude_classification/PL_Step_Size_Experiment/PL_Step_Size_Experiment_{pred_folder.name}.csv",
           index=False)
