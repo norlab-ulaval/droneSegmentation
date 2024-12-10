@@ -215,7 +215,8 @@ if SPLIT == 'PL':
     _root = f"{tmp_dir}/M2F_pretrain_data"
 elif SPLIT == 'FT':
     _root = f"{tmp_dir}/Annotated_data_split"
-# else:
-#     _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
-#     p = pathlib.Path(_root)
-#     assert p.exists(), f"Path {_root} does not exist"
+else:
+    _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
+    p = pathlib.Path(_root)
+    assert p.exists(), f"Path {_root} does not exist"
+register_all_mapillary_vistas(_root)
