@@ -7,5 +7,7 @@ from . import (
     register_coco_panoptic_annos_semseg,
     register_ade20k_instance,
     register_mapillary_vistas_panoptic,
-    register_drone_semantic
+    register_drone_semantic,
+    register_drone_semantic_ignore1,
+    register_drone_semantic_ignore255
 )
