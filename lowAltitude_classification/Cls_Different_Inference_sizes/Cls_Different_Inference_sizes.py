@@ -14,13 +14,13 @@ import pandas as pd
 import torch.nn.functional as F
 
 # Paths
-parent_weights_folder = Path("lowAltitude_classification/results_Journal_classifier_weights/final")
+# parent_weights_folder = Path("lowAltitude_classification/results_Journal_classifier_weights/final")
 
 val_image_folder = Path("/home/kamyar/Documents/Train-val_Annotated/")
 test_image_folder = Path("/home/kamyar/Documents/Test_Annotated/")
 val_annotation_folder = Path("/home/kamyar/Documents/Train-val_Annotated_masks_updated")
 test_annotation_folder = Path("/home/kamyar/Documents/Test_Annotated_masks_updated")
-output_csv_path = 'lowAltitude_classification/Different_Inference_size_classifier/Different_Inference_classifier.csv'
+output_csv_path = 'lowAltitude_classification/Cls_Different_Inference_sizes/Different_Inference_classifier.csv'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -64,30 +64,14 @@ def process_images(image_folder, annotation_folder, y_true, y_pred, total_pixels
 
         width, height = image.size
 
-        # Calculate padding to make dimensions divisible by patch_size
-        pad_width = (patch_size - width % patch_size) % patch_size
-        pad_height = (patch_size - height % patch_size) % patch_size
-
-        padded_image = F.pad(image_tensor.unsqueeze(0),
-                             (pad_width // 2, pad_width - pad_width // 2,
-                              pad_height // 2, pad_height - pad_height // 2),
-                             mode='constant', value=0).squeeze(0)
-
-        padded_annotation = np.pad(annotation_np,
-                                   ((pad_height // 2, pad_height - pad_height // 2),
-                                    (pad_width // 2, pad_width - pad_width // 2)),
-                                   mode='constant', constant_values=255)
-
-        padded_width, padded_height = padded_image.shape[2], padded_image.shape[1]
-
         patches = []
         coordinates = []
         annotation_patches = []
 
-        for x in range(0, padded_width - patch_size + 1, step_size):
-            for y in range(0, padded_height - patch_size + 1, step_size):
-                patch = padded_image[:, y:y + patch_size, x:x + patch_size]
-                annotation_patch = padded_annotation[y:y + patch_size, x:x + patch_size]
+        for x in range(0, width - patch_size + 1, step_size):
+            for y in range(0, height - patch_size + 1, step_size):
+                patch = image_tensor[:, y:y + patch_size, x:x + patch_size]
+                annotation_patch = annotation_np[y:y + patch_size, x:x + patch_size]
 
                 patches.append(patch)
                 coordinates.append((x, y))
