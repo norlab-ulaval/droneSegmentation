@@ -8,17 +8,18 @@ df_val = df[df['Dataset'] == 'Validation']
 df_test = df[df['Dataset'] == 'Test']
 
 df_val['Experiment'] = df_val['Experiment'].apply(lambda x: x[:-1])
+############## we decided to discard 21 aug1
+df_val = df_val[df_val['Experiment'] != 21]
 
-
+############## we decided to discard 21 aug1
 index_to_name_mapping = {
     '0': '0-Base',
     '1': '1-Filtered',
     '20': '20-Aug0',
-    '21': '21-Aug1',
-    '22': '22-Aug2',
-    '23': '23-Aug3',
-    '24': '24-Aug4',
-    '25': '25-Aug5',
+    '22': '21-Aug1',
+    '23': '22-Aug2',
+    '24': '23-Aug3',
+    '25': '24-Aug4',
     '30': '30-Balanced0',
     '4': '4-Background',
     '5': '5-Final',
@@ -34,6 +35,9 @@ df_val_metrics.to_csv('lowAltitude_classification/Cls_Different_Techniques/CLS_a
 ###############################################################################
 
 df_test['Experiment'] = df_test['Experiment'].apply(lambda x: x[:-1])
+############## we decided to discard 21 aug1
+df_test = df_test[df_test['Experiment'] != 21]
+
 df_test['Experiment'] = df_test['Experiment'].map(index_to_name_mapping)
 
 df_test_acc = df_test.groupby('Experiment')['pAcc'].mean().reset_index()

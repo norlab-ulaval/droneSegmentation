@@ -1,6 +1,6 @@
 from pathlib import Path
 import pandas as pd
-
+import os
 
 def p(n: float, factor: int = 100) -> float:
     return factor * n
@@ -8,33 +8,45 @@ def p(n: float, factor: int = 100) -> float:
 
 def process_csv(csv_path: Path):
     df = pd.read_csv(csv_path)
+    file_name = os.path.basename(csv_path)
+    val_test = file_name.split('_')[0]
 
-    df.index = df.Experiment.str.lstrip("experiment ").apply(
-        pd.to_numeric,
-        errors="coerce",
-    )
-    df["F1diff"] = df.F1.diff()
-    df.loc[20:, "F1diff"] = df.loc[20:].F1 - df.F1[1]
+    df.loc[1, "F1diff"] = df.loc[1, "F1"] - df.loc[0, "F1"]
+    df.loc[8, "F1diff"] = df.loc[8, "F1"] - df.loc[0, "F1"]
+    for i in range(2, 7):
+        df.loc[i, "F1diff"] = df.loc[i, "F1"] - df.loc[8, "F1"]
+    df.loc[7, "F1diff"] = df.loc[7, "F1"] - df.loc[8, "F1"]
+    df.loc[9, "F1diff"] = df.loc[9, "F1"] - df.loc[0, "F1"]
 
-    outname = f"{csv_path.stem}.dat"
+    outname = f"lowAltitude_classification/Cls_Different_Techniques/Classifier_techniques_results{val_test}.dat"
 
-    with (outname).open(mode="w") as f:
-        print(f"f1-base = {p(df.F1[0]):.2f}", file=f)
-        print(f"f1-filt = {p(df.F1[1]):.2f}", file=f)
-        for i in range(6):
-            print(f"f1-aug{i} = {p(df.F1[20+i]):.2f}", file=f)
-        for i in range(2):
-            print(f"f1-bal{i} = {p(df.F1[30+i]):.2f}", file=f)
-        print(f"f1-bg = {p(df.F1[4]):.2f}", file=f)
-        print(f"f1-final = {p(df.F1[5]):.2f}", file=f)
+    counter = 0
+    counter_dif = 1
+    with open(outname, mode="w") as f:
+        print(f"f1-base = {p(df.F1[counter]):.2f}", file=f)
+        counter += 1
+        print(f"f1-filt = {p(df.F1[counter]):.2f}", file=f)
+        counter += 1
+        for i in range(5):
+            print(f"f1-aug{i} = {p(df.F1[counter]):.2f}", file=f)
+            counter += 1
 
-        print(f"f1d-filt = {p(df.F1diff[1]):.2f}", file=f)
-        for i in range(6):
-            print(f"f1d-aug{i} = {p(df.F1diff[20+i]):.2f}", file=f)
-        for i in range(2):
-            print(f"f1d-bal{i} = {p(df.F1diff[30+i]):.2f}", file=f)
-        print(f"f1d-bg = {p(df.F1diff[4]):.2f}", file=f)
-        print(f"f1d-final = {p(df.F1diff[5]):.2f}", file=f)
+        print(f"f1-bal = {p(df.F1[counter]):.2f}", file=f)
+        counter += 1
+        print(f"f1-bg = {p(df.F1[counter]):.2f}", file=f)
+        counter += 1
+        print(f"f1-final = {p(df.F1[counter]):.2f}", file=f)
+
+        print(f"f1d-filt = {p(df.F1diff[counter_dif]):.2f}", file=f)
+        counter_dif += 1
+        for i in range(5):
+            print(f"f1d-aug{i} = {p(df.F1diff[counter_dif]):.2f}", file=f)
+            counter_dif += 1
+        print(f"f1d-bal = {p(df.F1diff[counter_dif]):.2f}", file=f)
+        counter_dif += 1
+        print(f"f1d-bg = {p(df.F1diff[counter_dif]):.2f}", file=f)
+        counter_dif += 1
+        print(f"f1d-final = {p(df.F1diff[counter_dif]):.2f}", file=f)
 
 
 if __name__ == "__main__":
