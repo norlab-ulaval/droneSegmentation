@@ -118,11 +118,20 @@ class Trainer(DefaultTrainer):
         # we can use the saved checkpoint to debug.
         ret.append(hooks.EvalHook(cfg.TEST.EVAL_PERIOD, test_and_save_results))
 
+        def eval_and_save_results():
+            self._last_eval_results = self.eval(self.cfg, self.model)
+            return self._last_eval_results
+
+        ret.append(hooks.EvalHook(cfg.SOLVER.CHECKPOINT_PERIOD, eval_and_save_results))
+
         # Best checkpoint
         if cfg.SOLVER.BEST_CHECKPOINTER and comm.is_main_process():
-            ret.append(
-                hooks.BestCheckpointer(cfg.TEST.EVAL_PERIOD, self.checkpointer, cfg.SOLVER.BEST_CHECKPOINTER.METRIC,
-                                       mode=cfg.SOLVER.BEST_CHECKPOINTER.MODE))
+            # ret.append(
+            #     hooks.BestCheckpointer(cfg.TEST.EVAL_PERIOD, self.checkpointer, cfg.SOLVER.BEST_CHECKPOINTER.METRIC,
+            #                            mode=cfg.SOLVER.BEST_CHECKPOINTER.MODE))
+            ret.append(hooks.BestCheckpointer(cfg.SOLVER.CHECKPOINT_PERIOD, self.checkpointer,
+                                              cfg.SOLVER.BEST_CHECKPOINTER.METRIC,
+                                              mode=cfg.SOLVER.BEST_CHECKPOINTER.MODE))
 
         if comm.is_main_process():
             # Here the default print/log frequency of each writer is used.
