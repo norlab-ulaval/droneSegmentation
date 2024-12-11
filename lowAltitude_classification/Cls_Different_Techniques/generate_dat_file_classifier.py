@@ -14,8 +14,8 @@ def process_csv(csv_path: Path):
     df.loc[1, "F1diff"] = df.loc[1, "F1"] - df.loc[0, "F1"]
     df.loc[8, "F1diff"] = df.loc[8, "F1"] - df.loc[0, "F1"]
     for i in range(2, 7):
-        df.loc[i, "F1diff"] = df.loc[i, "F1"] - df.loc[8, "F1"]
-    df.loc[7, "F1diff"] = df.loc[7, "F1"] - df.loc[8, "F1"]
+        df.loc[i, "F1diff"] = df.loc[i, "F1"] - df.loc[0, "F1"]
+    df.loc[7, "F1diff"] = df.loc[7, "F1"] - df.loc[0, "F1"]
     df.loc[9, "F1diff"] = df.loc[9, "F1"] - df.loc[0, "F1"]
 
     outname = f"lowAltitude_classification/Cls_Different_Techniques/Classifier_techniques_results{val_test}.dat"
