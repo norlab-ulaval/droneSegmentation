@@ -28,13 +28,15 @@ def calculate_metrics(pred_folder, annot_folder):
     all_annots = np.array(all_annots)
 
     overall_f1_score = f1_score(all_annots, all_preds, average='macro')
+    f1_per_clsas = f1_score(all_annots, all_preds, average=None)
+    print(f1_per_clsas)
     pixel_accuracy = accuracy_score(all_annots, all_preds)
 
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/MV_NoVote'
-annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_updated'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255/output_test'
+annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_wacv_new_id_map'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)
