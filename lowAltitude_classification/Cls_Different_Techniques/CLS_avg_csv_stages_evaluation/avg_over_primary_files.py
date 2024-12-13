@@ -2,8 +2,11 @@ import pandas as pd
 
 
 df = pd.read_csv(
-    'lowAltitude_classification/Cls_Different_Techniques/CLS_primary_csv_stages_evaluation/phase1_evaluation_drone_merged.csv')
-df['Experiment'] = df['Experiment'].apply(lambda x: x.split('_')[0])
+    'lowAltitude_classification/Cls_Different_Techniques/CLS_primary_csv_stages_evaluation/phase1_evaluation_drone.csv')
+# df['Experiment'] = df['Weight File'].apply(lambda x: x.split('_')[0])
+df = df.rename(columns={'Weight File': 'Experiment'}).assign(Experiment=df['Weight File'].apply(lambda x: x.split('_')[0]))
+df = df.rename(columns={'Accuracy': 'pAcc'})
+df = df.rename(columns={'F1 Score - Macro': 'F1'})
 df_val = df[df['Dataset'] == 'Validation']
 df_test = df[df['Dataset'] == 'Test']
 

@@ -209,14 +209,17 @@ def register_all_mapillary_vistas(root):
         )
 
 
-SPLIT = os.environ.get('SPLIT', 'PL')
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
-    _root = f"{tmp_dir}/M2F_pretrain_data"
-elif SPLIT == 'FT':
-    _root = f"{tmp_dir}/Annotated_data_split"
-else:
-    _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
-    p = pathlib.Path(_root)
-    assert p.exists(), f"Path {_root} does not exist"
+# SPLIT = os.environ.get('SPLIT', 'PL')
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/M2F_pretrain_data"
+# elif SPLIT == 'FT':
+#     _root = f"{tmp_dir}/Annotated_data_split"
+# else:
+#     _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
+#     p = pathlib.Path(_root)
+#     assert p.exists(), f"Path {_root} does not exist"
+# register_all_mapillary_vistas(_root)
+
+_root = '/home/kamyar/Documents/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)

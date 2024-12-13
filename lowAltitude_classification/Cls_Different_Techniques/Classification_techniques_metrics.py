@@ -13,14 +13,14 @@ from tqdm import tqdm
 import pandas as pd
 
 # Paths
-results_dir = Path("lowAltitude_classification/results_Journal/phase1_evaluation_drone")
-parent_weights_folder = Path("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/results_Journal_classifier_weights/new")
+results_dir = Path("lowAltitude_classification/Cls_Different_Techniques/CLS_primary_csv_stages_evaluation/")
+parent_weights_folder = Path("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/results_Journal_classifier_weights")
 
 val_image_folder = Path("/home/kamyar/Documents/Train-val_Annotated/")
 test_image_folder = Path("/home/kamyar/Documents/Test_Annotated/")
 val_annotation_folder = Path("/home/kamyar/Documents/Train-val_Annotated_masks_updated")
 test_annotation_folder = Path("/home/kamyar/Documents/Test_Annotated_masks_updated")
-output_csv_path = results_dir / 'phase1_evaluation_drone_final.csv'
+output_csv_path = results_dir / 'phase1_evaluation_drone.csv'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -38,6 +38,7 @@ patch_sizes = [256]
 overlaps = [0.0]
 
 results = []
+
 
 def process_images(image_folder, annotation_folder, y_true, y_pred, total_pixels, correct_predictions, description, model, patch_size, overlap):
     x_offsets, y_offsets = np.meshgrid(np.arange(patch_size), np.arange(patch_size))

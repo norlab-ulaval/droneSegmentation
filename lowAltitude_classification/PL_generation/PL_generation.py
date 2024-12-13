@@ -23,8 +23,8 @@ from pathlib import Path
 
 results_dir = Path("/home/kamyar/Documents/")
 weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight_NEW/53_Final_time2024-12-05_best_5e_acc95.pth")
-image_folder = Path(f"/home/kamyar/Documents/Test_Annotated")
-output_dir = results_dir / 'M2F_Results/MV'
+image_folder = Path(f"/home/kamyar/Documents/M2F_Train_Val_split/val/images")
+output_dir = results_dir / 'M2F_Results/MV_val'
 ############
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
