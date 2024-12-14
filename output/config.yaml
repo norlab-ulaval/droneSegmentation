@@ -359,7 +359,7 @@ MODEL:
     QK_SCALE: null
     USE_CHECKPOINT: false
     WINDOW_SIZE: 12
-  WEIGHTS: lowAltitude_segmentation/Mask2Former/ADE20K_Swin-L (IN21k).pkl
+  WEIGHTS: /home/kamyar/PycharmProjects/droneSegmentation/output/model_best.pth
 OUTPUT_DIR: ./output
 SEED: -1
 SOLVER:
