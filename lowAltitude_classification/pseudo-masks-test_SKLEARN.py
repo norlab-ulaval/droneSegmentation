@@ -18,25 +18,28 @@ def calculate_metrics(pred_folder, annot_folder):
         annot_path = os.path.join(annot_folder, annotation_filename)
         pred_image = load_image(pred_path)
         annot_image = load_image(annot_path)
+        # f1_score_ = f1_score(pred_image.flatten(), annot_image.flatten(), average='macro')
+        # print(filename, f1_score_)
 
         assert pred_image.shape == annot_image.shape, f"Shape mismatch: {filename}"
 
         all_preds.extend(pred_image.flatten())
         all_annots.extend(annot_image.flatten())
-
+    #
     all_preds = np.array(all_preds)
     all_annots = np.array(all_annots)
-
+    #
     overall_f1_score = f1_score(all_annots, all_preds, average='macro')
-    f1_per_clsas = f1_score(all_annots, all_preds, average=None)
-    print(f1_per_clsas)
+    # f1_per_clsas = f1_score(all_annots, all_preds, average=None)
+    # print(f1_per_clsas)
     pixel_accuracy = accuracy_score(all_annots, all_preds)
 
     return overall_f1_score, pixel_accuracy
+    #return "", ""
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255/output_test'
-annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_wacv_new_id_map'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/MV_remove_image'
+annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_removing_image'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)

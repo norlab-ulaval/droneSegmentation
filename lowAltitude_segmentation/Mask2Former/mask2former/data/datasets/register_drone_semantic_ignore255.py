@@ -198,7 +198,7 @@ def register_all_mapillary_vistas(root):
         gt_dir = os.path.join(root, dirname, "masks")
         name = f"drone_dataset_sem_seg_ignore255_{name}"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="JPG")
+            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="jpg")
         )
         MetadataCatalog.get(name).set(
             image_root=image_dir,
@@ -209,17 +209,17 @@ def register_all_mapillary_vistas(root):
         )
 
 
-SPLIT = os.environ.get('SPLIT', 'PL')
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
-    _root = f"{tmp_dir}/M2F_pretrain_data"
-elif SPLIT == 'FT':
-    _root = f"{tmp_dir}/Annotated_data_split"
-else:
-    _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
-    p = pathlib.Path(_root)
-    assert p.exists(), f"Path {_root} does not exist"
-register_all_mapillary_vistas(_root)
-
-# _root = '/home/kamyar/Documents/M2F_Train_Val_split'
+# SPLIT = os.environ.get('SPLIT', 'PL')
+# tmp_dir = os.environ['SLURM_TMPDIR']
+# if SPLIT == 'PL':
+#     _root = f"{tmp_dir}/M2F_pretrain_data"
+# elif SPLIT == 'FT':
+#     _root = f"{tmp_dir}/Annotated_data_split"
+# else:
+#     _root = f"{tmp_dir}/drone_dataset_{SPLIT}"
+#     p = pathlib.Path(_root)
+#     assert p.exists(), f"Path {_root} does not exist"
 # register_all_mapillary_vistas(_root)
+
+_root = '/home/kamyar/Documents/M2F_pretrain_data'
+register_all_mapillary_vistas(_root)
