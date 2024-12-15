@@ -1,9 +1,9 @@
 from segments import SegmentsClient, SegmentsDataset
 from segments.utils import export_dataset
 
-release = '/home/kamyar/Downloads/Drone_dataset-2 images with change.json'
+release = '/home/kamyar/Downloads/Drone_dataset_2-V0.1.json'
 dataset = SegmentsDataset(release, labelset='ground-truth', filter_by=['labeled', 'reviewed'])
-export_dataset(dataset, export_format='semantic', export_folder='/home/kamyar/Documents/new_test_images/2 changes')
+export_dataset(dataset, export_format='semantic', export_folder='/home/kamyar/Documents/1 change')
 
 # import matplotlib.pyplot as plt
 # from segments.utils import get_semantic_bitmap

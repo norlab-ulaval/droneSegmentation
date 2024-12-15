@@ -42,10 +42,10 @@ class Predictor():
         outputs = self.predictor(im)
         cls = outputs["sem_seg"].argmax(0)
 
-        # v = Visualizer(im[:, :, ::-1], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE)
-        # semantic_result = v.draw_sem_seg(cls.to("cpu")).get_image()
-        cv2.imwrite(output_path, cls.to("cpu").numpy())
-        # cv2.imwrite(output_path, semantic_result)
+        v = Visualizer(im[:, :, ::-1], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE)
+        semantic_result = v.draw_sem_seg(cls.to("cpu")).get_image()
+        # cv2.imwrite(output_path, cls.to("cpu").numpy())
+        cv2.imwrite(output_path, semantic_result)
 
 
 def process_images(input_dir, output_dir):
@@ -64,7 +64,7 @@ def process_images(input_dir, output_dir):
 
 
 input_directory = '/home/kamyar/Documents/Test_Annotated'
-output_directory = '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/output_test'
+output_directory = '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/output_test_color'
 
 process_images(input_directory, output_directory)
 print("done")

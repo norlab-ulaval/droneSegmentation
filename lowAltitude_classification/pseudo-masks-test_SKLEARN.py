@@ -38,7 +38,7 @@ def calculate_metrics(pred_folder, annot_folder):
     #return "", ""
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/MV_remove_image'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/test_remove'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_removing_image'
 
 
