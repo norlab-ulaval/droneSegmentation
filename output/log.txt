@@ -1086,3 +1086,25 @@ MaskFormer(
 [12/16 17:02:08] d2.data.build INFO: Using training sampler TrainingSampler
 [12/16 17:02:08] d2.data.common INFO: Serializing the dataset using: <class 'detectron2.data.common._TorchSerializedList'>
 [12/16 17:02:08] d2.data.common INFO: Serializing 143055 elements to byte tensors and concatenating them all ...
+[12/16 17:02:08] d2.data.common INFO: Serialized dataset takes 39.25 MiB
+[12/16 17:02:08] d2.data.build INFO: Making batched data loader with batch_size=16
+[12/16 17:02:08] d2.checkpoint.detection_checkpoint INFO: [DetectionCheckpointer] Loading from lowAltitude_segmentation/Mask2Former/ADE20K_Swin-L (IN21k).pkl ...
+[12/16 17:02:08] fvcore.common.checkpoint INFO: [Checkpointer] Loading from lowAltitude_segmentation/Mask2Former/ADE20K_Swin-L (IN21k).pkl ...
+[12/16 17:02:09] fvcore.common.checkpoint INFO: Reading a file from 'MaskFormer Model Zoo'
+[12/16 17:02:09] mask2former.modeling.transformer_decoder.mask2former_transformer_decoder WARNING: Weight format of MultiScaleMaskedTransformerDecoder have changed! Please upgrade your models. Applying automatic conversion now ...
+[12/16 17:02:09] fvcore.common.checkpoint WARNING: Skip loading parameter 'sem_seg_head.predictor.class_embed.weight' to the model due to incompatible shapes: (151, 256) in the checkpoint but (25, 256) in the model! You might want to double check if this is expected.
+[12/16 17:02:09] fvcore.common.checkpoint WARNING: Skip loading parameter 'sem_seg_head.predictor.class_embed.bias' to the model due to incompatible shapes: (151,) in the checkpoint but (25,) in the model! You might want to double check if this is expected.
+[12/16 17:02:09] fvcore.common.checkpoint WARNING: Skip loading parameter 'criterion.empty_weight' to the model due to incompatible shapes: (151,) in the checkpoint but (25,) in the model! You might want to double check if this is expected.
+[12/16 17:02:09] fvcore.common.checkpoint WARNING: Some model parameters or buffers are not found in the checkpoint:
+[34mcriterion.empty_weight[0m
+[34msem_seg_head.predictor.class_embed.{bias, weight}[0m
+[12/16 17:02:09] d2.engine.train_loop INFO: Starting training from iteration 0
+[12/16 17:02:15] d2.utils.events INFO:  eta: 1 day, 16:36:10  iter: 19  total_loss: 8.867  loss_ce: 5.66  loss_mask: 0.8699  loss_dice: 2.367    time: 0.2069  last_time: 0.1842  data_time: 0.0278  last_data_time: 0.0080   lr: 9.9998e-06  max_mem: 7706M
+[12/16 17:02:19] d2.utils.events INFO:  eta: 1 day, 16:33:05  iter: 39  total_loss: 8.575  loss_ce: 5.057  loss_mask: 1.035  loss_dice: 2.504    time: 0.2012  last_time: 0.2052  data_time: 0.0080  last_data_time: 0.0091   lr: 9.9995e-06  max_mem: 7708M
+[12/16 17:02:23] d2.utils.events INFO:  eta: 1 day, 16:43:49  iter: 59  total_loss: 8.462  loss_ce: 5.282  loss_mask: 0.9206  loss_dice: 2.276    time: 0.2013  last_time: 0.1928  data_time: 0.0092  last_data_time: 0.0108   lr: 9.9993e-06  max_mem: 7713M
+[12/16 17:02:27] d2.utils.events INFO:  eta: 1 day, 17:03:19  iter: 79  total_loss: 8.016  loss_ce: 4.883  loss_mask: 0.9286  loss_dice: 2.181    time: 0.2011  last_time: 0.1860  data_time: 0.0093  last_data_time: 0.0074   lr: 9.9991e-06  max_mem: 7717M
+[12/16 17:02:31] d2.utils.events INFO:  eta: 1 day, 17:06:46  iter: 99  total_loss: 7.352  loss_ce: 4.438  loss_mask: 0.8951  loss_dice: 2.083    time: 0.2002  last_time: 0.1856  data_time: 0.0088  last_data_time: 0.0077   lr: 9.9988e-06  max_mem: 7733M
+[12/16 17:02:35] d2.utils.events INFO:  eta: 1 day, 17:03:34  iter: 119  total_loss: 7.12  loss_ce: 4.222  loss_mask: 0.8975  loss_dice: 2.043    time: 0.1999  last_time: 0.1904  data_time: 0.0088  last_data_time: 0.0074   lr: 9.9986e-06  max_mem: 7746M
+[12/16 17:02:39] d2.utils.events INFO:  eta: 1 day, 17:02:09  iter: 139  total_loss: 7.077  loss_ce: 4.079  loss_mask: 0.9421  loss_dice: 2.035    time: 0.1995  last_time: 0.1894  data_time: 0.0082  last_data_time: 0.0078   lr: 9.9983e-06  max_mem: 7746M
+[12/16 17:02:43] d2.utils.events INFO:  eta: 1 day, 16:55:19  iter: 159  total_loss: 7.328  loss_ce: 4.173  loss_mask: 0.9774  loss_dice: 2.11    time: 0.1988  last_time: 0.1843  data_time: 0.0083  last_data_time: 0.0076   lr: 9.9981e-06  max_mem: 7746M
+[12/16 17:02:47] d2.utils.events INFO:  eta: 1 day, 17:02:01  iter: 179  total_loss: 6.806  loss_ce: 3.738  loss_mask: 0.9525  loss_dice: 1.954    time: 0.1985  last_time: 0.1985  data_time: 0.0087  last_data_time: 0.0093   lr: 9.9979e-06  max_mem: 7746M
