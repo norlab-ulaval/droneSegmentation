@@ -18,14 +18,17 @@ def calculate_metrics(pred_folder, annot_folder):
         annot_path = os.path.join(annot_folder, annotation_filename)
         pred_image = load_image(pred_path)
         annot_image = load_image(annot_path)
-        # f1_score_ = f1_score(pred_image.flatten(), annot_image.flatten(), average='macro')
+        # f1_score_ = f1_score(annot_image.flatten(), pred_image.flatten(), average='macro')
         # print(filename, f1_score_)
+        # pixel_accuracy_ = accuracy_score(annot_image.flatten(), pred_image.flatten())
+        # print(filename, pixel_accuracy_)
 
         assert pred_image.shape == annot_image.shape, f"Shape mismatch: {filename}"
 
         all_preds.extend(pred_image.flatten())
         all_annots.extend(annot_image.flatten())
-    #
+
+
     all_preds = np.array(all_preds)
     all_annots = np.array(all_annots)
     #
@@ -38,8 +41,9 @@ def calculate_metrics(pred_folder, annot_folder):
     #return "", ""
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/test_remove'
-annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_removing_image'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/second_stage_training_output_Test'
+# pred_folder_2 =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/output_test'
+annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_updated'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)

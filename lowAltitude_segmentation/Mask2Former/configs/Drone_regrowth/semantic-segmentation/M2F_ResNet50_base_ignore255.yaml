@@ -1,3 +1,4 @@
+
 _BASE_: M2F_BaseSemantic_ignore255.yaml
 MODEL:
   META_ARCHITECTURE: "MaskFormer"
