@@ -30,7 +30,7 @@ class Predictor():
         cfg.merge_from_file(
             "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_ignore255.yaml", allow_unsafe=True)
 
-        cfg.MODEL.WEIGHTS = '/home/kamyar/PycharmProjects/droneSegmentation/output/model_0000299.pth'
+        cfg.MODEL.WEIGHTS = '/home/kamyar/PycharmProjects/droneSegmentation/output/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False

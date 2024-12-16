@@ -41,7 +41,7 @@ def calculate_metrics(pred_folder, annot_folder):
     #return "", ""
 
 
-pred_folder =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/second_stage_training_output_Test'
+pred_folder =  '/home/kamyar/Documents/M2F_Results/MV_NoVote'
 # pred_folder_2 =  '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/output_test'
 annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_updated'
 
