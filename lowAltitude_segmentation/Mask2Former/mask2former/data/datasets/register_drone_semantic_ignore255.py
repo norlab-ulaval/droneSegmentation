@@ -216,7 +216,7 @@ if SPLIT == 'PL':
 elif SPLIT == 'FT':
     _root = f"{tmp_dir}/Annotated_data_split"
 else:
-    _root = f"{tmp_dir}/Scaling_datasets/{SPLIT}"
+    _root = f"{tmp_dir}/scaling_datasets/{SPLIT}"
     p = pathlib.Path(_root)
     assert p.exists(), f"Path {_root} does not exist"
 register_all_mapillary_vistas(_root)
