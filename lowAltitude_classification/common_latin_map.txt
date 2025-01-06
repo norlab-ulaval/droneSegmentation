@@ -1,20 +1,20 @@
 American Mountain-Ash: Sorbus americana
 Bog Labrador Tea: Rhododendron groenlandicum
-Canadian Yew: Taxus canadensis
+Canada Yew: Taxus canadensis
 Fern: Polypodiopsida
 Fir: Abies
 Fire Cherry: Prunus pensylvanica
-Lowbush Blueberry: Vaccinium angustifolium
+LowBush Blueberry: Vaccinium angustifolium
 Moss: Bryophyta
 Mountain Maple: Acer spicatum
 Paper Birch: Betula papyrifera
 Pine: Pinus
 Red Maple: Acer rubrum
 Red Raspberry: Rubus idaeus
-Sedge: Cyperaceae
-Serviceberry: Amelanchier
+Sedges: Cyperaceae
+Serviceberries: Amelanchier
 Sheep Laurel: Kalmia angustifolia
 Spruce: Picea
 Trembling Aspen: Populus tremuloides
-Willowherb: Epilobium
+Willowherbs: Epilobium
 Yellow Birch: Betula alleghaniensis

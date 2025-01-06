@@ -30,7 +30,7 @@ class Predictor():
         cfg.merge_from_file(
             "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_ignore255.yaml", allow_unsafe=True)
 
-        cfg.MODEL.WEIGHTS = '/home/kamyar/PycharmProjects/droneSegmentation/output/model_best.pth'
+        cfg.MODEL.WEIGHTS = '/home/kamyar/Documents/M2F_Results/Scaling/scaling_1.2_run2/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -64,7 +64,7 @@ def process_images(input_dir, output_dir):
 
 
 input_directory = '/home/kamyar/Documents/Test_Annotated'
-output_directory = '/home/kamyar/Documents/M2F_Results/PT_ignore_255_pacc/second_stage_training_output_Test'
+output_directory = '/home/kamyar/Documents/M2F_Results/Scaling/scaling_1.2_run2/output_test'
 
 process_images(input_directory, output_directory)
 print("done")

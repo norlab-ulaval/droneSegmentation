@@ -1,4 +1,4 @@
-_BASE_: "../M2F_ResNet50_base_NoBackground.yaml"
+_BASE_: "../M2F_ResNet50_base_ignore255.yaml"
 MODEL:
   BACKBONE:
     NAME: "D2SwinTransformer"
@@ -37,5 +37,9 @@ TEST:
     MAX_SIZE: 4480
     FLIP: True
 
+
+OUTPUT_DIR: ./output_SP
 SOLVER:
-  BASE_LR: 0.0000001
+  BASE_LR: 0.000001
+  CHECKPOINT_PERIOD: 500
+  MAX_ITER: 50000
