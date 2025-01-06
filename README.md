@@ -79,10 +79,3 @@ cd lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops/ 
 python lowAltitude_segmentation/Mask2Former/train_net.py --config-file configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml --eval-only MODEL.WEIGHTS data/weights/model_0104999.pth
 python lowAltitude_segmentation/Mask2Former/train_net.py   --config-file configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml   --eval-only MODEL.WEIGHTS /home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_segmentation/Mask2Former/output/model_0104999.pth
 ```
-
-TODO
-1. Transfer data
-2. Add SSH Key
-3. git clone the project
-4. make slurm script
-5. sbatch + squeue
