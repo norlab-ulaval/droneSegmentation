@@ -3,43 +3,40 @@ from PIL import Image
 import os
 
 
-# Define the categories with their corresponding colors and names
 DRONE_SEM_SEG_CATEGORIES = [
-    {"color": [0, 128, 0], "id": 0, "name": "American Mountain-Ash"},
+    {"color": [255, 0, 0], "id": 0, "name": "American Mountain-Ash"},
     {"color": [128, 128, 128], "id": 1, "name": "Background"},
-    {"color": [0, 0, 128], "id": 2, "name": "Spruce"},
-    {"color": [0, 0, 255], "id": 3, "name": "Blueberry"},
-    {"color": [0, 255, 0], "id": 4, "name": "Bog Labrador Tea"},
-    {"color": [128, 0, 0], "id": 5, "name": "Boulders"},
-    {"color": [255, 0, 0], "id": 6, "name": "Canada Yew"},
-    {"color": [128, 128, 0], "id": 7, "name": "Dead Trees"},
-    {"color": [255, 255, 0], "id": 8, "name": "Fern"},
-    {"color": [0, 255, 255], "id": 9, "name": "Fir"},
-    {"color": [255, 0, 255], "id": 10, "name": "Fire Cherry"},
-    {"color": [192, 192, 192], "id": 11, "name": "Jack Pine"},
-    {"color": [128, 0, 128], "id": 12, "name": "Leatherleaf"},
-    {"color": [0, 128, 128], "id": 13, "name": "Moss"},
-    {"color": [128, 128, 0], "id": 14, "name": "Mountain Maple"},
-    {"color": [255, 128, 0], "id": 15, "name": "Paper Birch"},
-    {"color": [128, 255, 0], "id": 16, "name": "Red Maple"},
-    {"color": [128, 0, 255], "id": 17, "name": "Red Raspberry"},
-    {"color": [255, 0, 128], "id": 18, "name": "Sedges"},
-    {"color": [255, 128, 128], "id": 19, "name": "Serviceberries"},
-    {"color": [0, 128, 255], "id": 20, "name": "Sheep Laurel"},
-    {"color": [128, 128, 255], "id": 21, "name": "Trembling Aspen"},
-    {"color": [0, 255, 128], "id": 22, "name": "Viburnum"},
-    {"color": [255, 255, 128], "id": 23, "name": "Willowherbs"},
-    {"color": [128, 255, 255], "id": 24, "name": "Wood"},
-    {"color": [255, 128, 255], "id": 25, "name": "Yellow Birch"}
+    {"color": [0, 0, 255], "id": 2, "name": "Bog Labrador Tea"},
+    {"color": [255, 255, 0], "id": 3, "name": "Boulders"},
+    {"color": [0, 255, 255], "id": 4, "name": "Canada Yew"},
+    {"color": [255, 0, 255], "id": 5, "name": "Dead Trees"},
+    {"color": [128, 0, 0], "id": 6, "name": "Fern"},
+    {"color": [0, 128, 0], "id": 7, "name": "Fir"},
+    {"color": [0, 0, 128], "id": 8, "name": "Fire Cherry"},
+    {"color": [128, 128, 0], "id": 9, "name": "LowBush Blueberry"},
+    {"color": [0, 128, 128], "id": 10, "name": "Moss"},
+    {"color": [128, 0, 128], "id": 11, "name": "Mountain Maple"},
+    {"color": [192, 192, 192], "id": 12, "name": "Paper Birch"},
+    {"color": [0, 255, 0], "id": 13, "name": "Pine"},
+    {"color": [64, 224, 208], "id": 14, "name": "Red Maple"},
+    {"color": [255, 165, 0], "id": 15, "name": "Red Raspberry"},
+    {"color": [255, 215, 0], "id": 16, "name": "Sedges"},
+    {"color": [135, 206, 250], "id": 17, "name": "Serviceberries"},
+    {"color": [75, 0, 130], "id": 18, "name": "Sheep Laurel"},
+    {"color": [199, 21, 133], "id": 19, "name": "Spruce"},
+    {"color": [244, 164, 96], "id": 20, "name": "Trembling Aspen"},
+    {"color": [60, 179, 113], "id": 21, "name": "Willowherbs"},
+    {"color": [147, 112, 219], "id": 22, "name": "Wood"},
+    {"color": [166, 60, 20], "id": 23, "name": "Yellow Birch"}
 ]
 
 id_to_color_name = {category['id']: (category['color'], category['name']) for category in DRONE_SEM_SEG_CATEGORIES}
 
-image_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/images'
-annotation_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/annotations'
-voting_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/MW'
-PT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/PT'
-PTFT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal_3/FT'
+image_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/images'
+annotation_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/annotations'
+voting_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/MW'
+PT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/PT'
+PTFT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/FT'
 
 def save_image_and_txt(image_array, image_color, image_name, folder, color_mapping):
     color_image = Image.fromarray(image_color)
@@ -96,7 +93,7 @@ for image_file in os.listdir(image_folder):
                     color_PTFT[PTFT == id_val] = id_to_color_name[id_val][0]
 
             file_name = os.path.splitext(image_file)[0]
-            save_image_and_txt(annotation, color_annotation, f'{file_name}_annotations', annotation_folder, id_to_color_name)
-            # save_image_and_txt(voting, color_voting, f'{file_name}_MW', voting_folder, id_to_color_name)
-            # save_image_and_txt(PT, color_PT, f'{file_name}_PT', PT_folder, id_to_color_name)
-            # save_image_and_txt(PTFT, color_PTFT, f'{file_name}_FT', PTFT_folder, id_to_color_name)
+            save_image_and_txt(annotation, color_annotation, f'{file_name}', annotation_folder, id_to_color_name)
+            save_image_and_txt(voting, color_voting, f'{file_name}', voting_folder, id_to_color_name)
+            save_image_and_txt(PT, color_PT, f'{file_name}', PT_folder, id_to_color_name)
+            save_image_and_txt(PTFT, color_PTFT, f'{file_name}', PTFT_folder, id_to_color_name)
