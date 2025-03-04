@@ -39,11 +39,11 @@ def main():
             try:
                 i = child.expect(['Enter Auth Username:', 'Enter Auth Password:', 'Initialization Sequence Completed'])
                 if i == 0:
-                    child.sendline('GEnCWDRfZb66BJrRkzZf7yfB')
+                    child.sendline('')
                     child.expect('Enter Auth Password:')
-                    child.sendline('7iMnk7GE6gRkjc1gpNbfvhRb')
+                    child.sendline('')
                 elif i == 1:
-                    child.sendline('7iMnk7GE6gRkjc1gpNbfvhRb')
+                    child.sendline('')
 
                 child.expect('Initialization Sequence Completed')
 
