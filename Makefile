@@ -1,7 +1,11 @@
-.PHONY: cls-build cls-run cls-train cls-server seg-build seg-run seg-train
+.PHONY: cls-build cls-podbuild seg-build seg-podbuild cls-run cls-train cls-server seg-run seg-train
 
 cls-build:
+	docker build -t droneseg_cls -f DockerfileClassif .
+
+cls-podbuild:
 	buildah build -t droneseg_cls --layers -f DockerfileClassif .
+
 
 cls-run: cls-build
 	podman run --gpus all --rm --ipc host \
@@ -25,8 +29,12 @@ cls-server: cls-build
 	-v /dev/shm/:/dev/shm/ \
 	droneseg_cls bash
 
+# Segmentation
 
 seg-build:
+	docker build -t droneseg_seg -f DockerfileSeg .
+
+seg-podbuild:
 	buildah build -t droneseg_seg --layers -f DockerfileSeg .
 
 seg-run: seg-build
