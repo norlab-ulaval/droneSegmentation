@@ -57,15 +57,18 @@ If you use the code or data in an academic context, please cite the following wo
 
 ```bibtex
 @article{Nasiri2025,
-  title          = {{Using Citizen Science Data as Pre-Training for Semantic Segmentation of High-Resolution UAV Images for Natural Forests Post-Disturbance Assessment}},
-  author         = {Kamyar Nasiri and William Guimont-Martin and Damien LaRocque and Gabriel Jeanson and Hugo Bellemare-Vallières and Vincent Grondin and Philippe Bournival and Julie Lessard and Guillaume Drolet and Jean-Daniel Sylvain and Philippe Giguère},
-  journal        = {Forests},
-  year           = {2025},
-  volume         = {16},
-  number         = {4},
-  article-number = {616},
-  doi            = {10.3390/f16040616},
-  url            = {https://www.mdpi.com/1999-4907/16/4/616}
+  title     = {{Using Citizen Science Data as Pre-Training for Semantic Segmentation of High-Resolution UAV Images for Natural Forests Post-Disturbance Assessment}},
+  volume    = {16},
+  issn      = {1999-4907},
+  url       = {http://dx.doi.org/10.3390/f16040616},
+  doi       = {10.3390/f16040616},
+  number    = {4},
+  journal   = {Forests},
+  publisher = {MDPI AG},
+  author    = {Nasiri,  Kamyar and Guimont-Martin,  William and LaRocque,  Damien and Jeanson,  Gabriel and Bellemare-Vallières,  Hugo and Grondin,  Vincent and Bournival,  Philippe and Lessard,  Julie and Drolet,  Guillaume and Sylvain,  Jean-Daniel and Giguère,  Philippe},
+  year      = {2025},
+  month     = mar,
+  pages     = {616}
 }
 ```
 
