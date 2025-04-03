@@ -57,7 +57,7 @@ docker run --gpus all -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES --rm --ipc h
 |----------|------|
 | Classification  | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/classification/Best_Classifier_iNat.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492028&Signature=KkOJPJYAix0WTPcktjeDxuLmQPY%3D) |
 | Segmentation (Pre-trained `PT`)    | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/segmentation/PT.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492079&Signature=ovjoOXuy5V3qi7uKYO9d10oFkMc%3D) |
-| Segmentation (Finetuned  `FT`)    | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/segmentation/FT.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492067&Signature=8EBXI%2FUyhGWXgjGJ62KV0Ce%2BlSo%3D) |
+| Segmentation (Finetuned  `FT`)    | [Download](http://norlab.s3.valeria.science/wildref-q/models/segmentation/ft.pth?awsaccesskeyid=vci7flohypgloooah0s5&expires=2348492067&signature=8ebxi%2fuyhgwxgjgj62kv0ce%2blso%3d) |
 
 
 
