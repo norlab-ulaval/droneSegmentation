@@ -52,12 +52,31 @@ docker run --gpus all -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES --rm --ipc h
 ``` -->
 
 
+## _WilDReF-Q_ (UAV imagery dataset)
+### Labeled Dataset
+| Dataset | Description | Link |
+|----------|------|------|
+| Training set  | 71 patched UAV images (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/train.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491920&Signature=XaJuFVtVfBv1YHjQS6ex%2Bd5F%2B40%3D) |
+| Validation set  | 46 patched UAV images (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/val.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491907&Signature=OT2S3RYX4PGnSv2X0vF%2BDGFVSX8%3D) |
+| Test set   | 36 patched UAV images (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/test.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491807&Signature=boWUyLkH8DEhL50o%2Feaj%2FmOj9gY%3D) |
+
+
+### Unlabeled UAV Datasets
+
+| Dataset | Content | Description | Link |
+|--------------|---------|-------------|----------|
+| **Original (Non-Patched)** | Images | Raw UAV imagery without patching, over 11k images | [Download](http://norlab.s3.valeria.science/droneseg/unlabeled_data/unlabeled_drone_dataset_11k_original.tar.gz/unlabeled_drone_dataset_11k_original.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492445&Signature=bqxJyaBdu%2BlFl9eiMGEZ64AIJ84%3Dhttp://norlab.s3.valeria.science/droneseg/unlabeled_data/unlabeled_drone_dataset_11k_original.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492211&Signature=FHk2SvqjcfD9msxvjx7EwCMuUs0%3D) |
+| **Patched (for $S_{\text{M2F}}$ Pre-training)** | Images | Patched UAV images for segmentation model training, over 143k images | [Download]() |
+| **Patched (for $S_{\text{M2F}}$ Pre-training)** | Masks | Generated pseudo-labels for patched UAV images by the classifier $C_{\text{DINOv2}}$ | [Download](http://norlab.s3.valeria.science/WilDReF-Q/m2f_pretrain_masks.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491970&Signature=mgJB4B6WWtDD72jrrxC5MPt%2BOxw%3D) |
+
+
+
 ## Pre-trained Models  
 | Model | Link |
 |----------|------|
 | Classification  | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/classification/Best_Classifier_iNat.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492028&Signature=KkOJPJYAix0WTPcktjeDxuLmQPY%3D) |
 | Segmentation (Pre-trained `PT`)    | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/segmentation/PT.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492079&Signature=ovjoOXuy5V3qi7uKYO9d10oFkMc%3D) |
-| Segmentation (Finetuned  `FT`)    | [Download](http://norlab.s3.valeria.science/wildref-q/models/segmentation/ft.pth?awsaccesskeyid=vci7flohypgloooah0s5&expires=2348492067&signature=8ebxi%2fuyhgwxgjgj62kv0ce%2blso%3d) |
+| Segmentation (Finetuned  `FT`)    | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/segmentation/FT.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492067&Signature=8EBXI%2FUyhGWXgjGJ62KV0Ce%2BlSo%3D) |
 
 
 
