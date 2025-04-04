@@ -56,9 +56,9 @@ docker run --gpus all -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES --rm --ipc h
 ### Labeled Dataset
 | Dataset | Description | Link |
 |----------|------|------|
-| Training set  | 71 patched UAV images (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/train.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491920&Signature=XaJuFVtVfBv1YHjQS6ex%2Bd5F%2B40%3D) |
-| Validation set  | 46 patched UAV images (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/val.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491907&Signature=OT2S3RYX4PGnSv2X0vF%2BDGFVSX8%3D) |
-| Test set   | 36 patched UAV images (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/test.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491807&Signature=boWUyLkH8DEhL50o%2Feaj%2FmOj9gY%3D) |
+| Training set  | 71 patched UAV images and masks (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/train.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491920&Signature=XaJuFVtVfBv1YHjQS6ex%2Bd5F%2B40%3D) |
+| Validation set  | 46 patched UAV images and masks (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/val.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491907&Signature=OT2S3RYX4PGnSv2X0vF%2BDGFVSX8%3D) |
+| Test set   | 36 patched UAV images and masks (1024x1024) | [Download](http://norlab.s3.valeria.science/WilDReF-Q/annotated_data/test.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491807&Signature=boWUyLkH8DEhL50o%2Feaj%2FmOj9gY%3D) |
 
 
 ### Unlabeled UAV Datasets
