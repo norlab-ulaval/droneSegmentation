@@ -65,8 +65,8 @@ docker run --gpus all -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES --rm --ipc h
 
 | Dataset | Content | Description | Link |
 |--------------|---------|-------------|----------|
-| **Original (Non-Patched)** | Images | Raw UAV imagery without patching, over 11k images | [Download](http://norlab.s3.valeria.science/droneseg/unlabeled_data/unlabeled_drone_dataset_11k_original.tar.gz/unlabeled_drone_dataset_11k_original.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492445&Signature=bqxJyaBdu%2BlFl9eiMGEZ64AIJ84%3Dhttp://norlab.s3.valeria.science/droneseg/unlabeled_data/unlabeled_drone_dataset_11k_original.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492211&Signature=FHk2SvqjcfD9msxvjx7EwCMuUs0%3D) |
-| **Patched (for $S_{\text{M2F}}$ Pre-training)** | Images | Patched UAV images for segmentation model training, over 143k images | [Download]() |
+| **Original (Non-Patched)** | Images | Raw UAV imagery without patching, over 11k images | [Download](http://norlab.s3.valeria.science/droneseg/unlabeled_data/unlabeled_drone_dataset_11k_original.tar.gz/unlabeled_drone_dataset_11k_original.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348849208&Signature=XpGy8xYa5rD81%2FeUgc%2FAfc5VW64%3D) |
+| **Patched (for $S_{\text{M2F}}$ Pre-training)** | Images | Patched UAV images for segmentation model training, over 143k images | [Download](http://norlab.s3.valeria.science/WilDReF-Q/m2f_pretrain_data/m2f_pretrain_images.tar.gz/m2f_pretrain_images.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348849392&Signature=%2BcmqE1ycN25x1YezP4EaTwA9ek8%3D) |
 | **Patched (for $S_{\text{M2F}}$ Pre-training)** | Masks | Generated pseudo-labels for patched UAV images by the classifier $C_{\text{DINOv2}}$ | [Download](http://norlab.s3.valeria.science/WilDReF-Q/m2f_pretrain_masks.tar.gz?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348491970&Signature=mgJB4B6WWtDD72jrrxC5MPt%2BOxw%3D) |
 
 
