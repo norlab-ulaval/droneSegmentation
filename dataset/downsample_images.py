@@ -27,8 +27,8 @@ def process_images(input_folder, output_folder, size):
 
 
 if __name__ == "__main__":
-    input_folder = '/home/kamyar/Documents/DataSegmentation_split/val/images'
-    output_folder = '/home/kamyar/Documents/DataSegmentation_split/val_downsampled/images'
+    input_folder = ''
+    output_folder = ''
     size = (256, 256)
 
     process_images(input_folder, output_folder, size)

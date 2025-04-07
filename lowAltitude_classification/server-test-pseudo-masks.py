@@ -170,9 +170,9 @@ mapping = {
 
 ignored_classes = {}
 
-pred_folder = '/home/kamyar/Documents/Test_data_mask2former'
-target_folder = '/home/kamyar/Documents/Test_data_annotation'
-orig_folder = '/home/kamyar/Documents/Test_data'
+pred_folder = ''
+target_folder = ''
+orig_folder = ''
 
 avg_iou, avg_accuracy, avg_f1_score, all_predictions, all_targets = evaluate_segmentation(pred_folder, target_folder, identical_mapping, ignored_classes)
 
@@ -181,7 +181,7 @@ print(f'Average Pixel Accuracy: {avg_accuracy:.4f}')
 print(f'Average F1 Score: {avg_f1_score:.4f}')
 
 #
-# file_path = '/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt'
+# file_path = ''
 # class_mapping = read_class_mapping(file_path)
 # plot_confusion_matrix(all_predictions, all_targets, num_classes=32, class_mapping=class_mapping)
 

@@ -39,8 +39,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = '/home/kamyar/Documents/Train-val_Annotated_masks'
-output_directory = '/home/kamyar/Documents/Train-val_annotations_colorful'
+input_directory = ''
+output_directory = ''
 
 process_images(input_directory, output_directory)
 print("done")

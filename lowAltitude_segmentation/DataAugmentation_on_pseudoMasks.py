@@ -46,20 +46,20 @@ def process_image(image_path, seg_map_path, mode, margin):
     # This method assigns the nearest neighbor value to each pixel in the output image, which is crucial for maintaining the discrete nature of class labels.
     resized_seg_map = cv2.resize(cropped_seg_map, (384, 384), interpolation=cv2.INTER_NEAREST)
 
-    output_path_img = "/home/kamyar/Documents/segmentation_augmentation/" + mode + '/' + 'images/'
+    output_path_img = "segmentation_augmentation/" + mode + '/' + 'images/'
     os.makedirs(output_path_img, exist_ok=True)
     output_path_img = output_path_img + os.path.basename(image_path)
     cv2.imwrite(output_path_img, resized_image)
 
-    seg_output_path = "/home/kamyar/Documents/segmentation_augmentation/" + mode + '/' + 'masks/'
+    seg_output_path = "/segmentation_augmentation/" + mode + '/' + 'masks/'
     os.makedirs(seg_output_path, exist_ok=True)
     seg_output_path = seg_output_path + os.path.basename(seg_map_path)
     cv2.imwrite(seg_output_path, resized_seg_map)
 
-train_img_folder = "/home/kamyar/Documents/segmentation/train/images"
-train_mask_folder = "/home/kamyar/Documents/segmentation/train/masks"
-val_img_folder = "/home/kamyar/Documents/segmentation/val/images"
-val_mask_folder = "/home/kamyar/Documents/segmentation/val/masks"
+train_img_folder = ""
+train_mask_folder = ""
+val_img_folder = ""
+val_mask_folder = ""
 
 for image_name in os.listdir(train_img_folder):
     image_path = os.path.join(train_img_folder, image_name)

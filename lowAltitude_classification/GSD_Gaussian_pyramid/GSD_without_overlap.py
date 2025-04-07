@@ -16,10 +16,10 @@ import torch.nn.functional as F
 # Paths
 # parent_weights_folder = Path("lowAltitude_classification/results_Journal_classifier_weights/final")
 
-val_image_folder = Path("/home/kamyar/Documents/Train-val_Annotated/")
-test_image_folder = Path("/home/kamyar/Documents/Test_Annotated/")
-val_annotation_folder = Path("/home/kamyar/Documents/Train-val_Annotated_masks_updated")
-test_annotation_folder = Path("/home/kamyar/Documents/Test_Annotated_masks_updated")
+val_image_folder = Path("")
+test_image_folder = Path("")
+val_annotation_folder = Path("")
+test_annotation_folder = Path("")
 output_csv_path = 'lowAltitude_classification/Cls_Different_Inference_sizes/Different_Inference_classifier.csv'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -141,7 +141,7 @@ def process_images(image_folder, annotation_folder, y_true, y_pred, total_pixels
 #         for weight_file in os.listdir(weight_folder_path):
 #             if weight_file.endswith('.pth'):
 #                 weight_file_path = weight_folder_path / weight_file
-weight_folder_path = Path('/home/kamyar/Documents/Best_classifier_Weight_NEW/')
+weight_folder_path = Path('')
 if weight_folder_path.is_dir():
     for weight_file in os.listdir(weight_folder_path):
         if weight_file.endswith('.pth'):

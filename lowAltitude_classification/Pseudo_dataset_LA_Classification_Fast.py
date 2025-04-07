@@ -21,9 +21,9 @@ from pathlib import Path
 # image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
 # output_dir = results_dir / 'results/PseudoLabel_256' / image_folder.name
 
-results_dir = Path("/home/kamyar/Documents/")
-weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight_NEW/53_Final_time2024-12-05_best_5e_acc95.pth")
-image_folder = Path(f"/home/kamyar/Documents/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/group_1")
+results_dir = Path("")
+weight_file_path = Path("")
+image_folder = Path(f"")
 output_dir = results_dir / 'Unlabeled_Drone_Dataset_143k_Patched_split_PL_results/group_1'
 ############
 

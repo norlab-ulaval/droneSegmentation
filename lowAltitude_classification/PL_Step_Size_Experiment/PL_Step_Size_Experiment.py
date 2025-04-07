@@ -22,10 +22,10 @@ import csv
 # image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
 # output_dir = results_dir / 'results/PseudoLabel' / image_folder.name
 
-results_dir = Path("/home/kamyar/Documents/PL_Step_Size_Experiment")
-weight_file_path = Path("/home/kamyar/Documents/Best_classifier_Weight_NEW/53_Final_time2024-12-05_best_5e_acc95.pth")
-image_folder_test = Path(f"/home/kamyar/Documents/Test_Annotated")
-image_folder_val = Path("/home/kamyar/Documents/Train-val_Annotated")
+results_dir = Path("")
+weight_file_path = Path("")
+image_folder_test = Path(f"")
+image_folder_val = Path("")
 image_folders = [image_folder_test]
 ############
 

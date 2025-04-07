@@ -1,11 +1,11 @@
 import pandas as pd
 
-csv_files = ["/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/confusion_matrix_Precision_Recall/pl/metrics_cm.csv",
-             "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/confusion_matrix_Precision_Recall/pt/metrics_cm.csv",
-             "/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/confusion_matrix_Precision_Recall/ft/metrics_cm.csv"]
+csv_files = ["/pl/metrics_cm.csv",
+             "/pt/metrics_cm.csv",
+             "/ft/metrics_cm.csv"]
 
 
-with open("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/confusion_matrix_Precision_Recall/PrecisionRecall.dat", "w") as dat_file:
+with open("/PrecisionRecall.dat", "w") as dat_file:
     for csv_file in csv_files:
         df = pd.read_csv(csv_file)
 

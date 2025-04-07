@@ -221,5 +221,5 @@ else:
     assert p.exists(), f"Path {_root} does not exist"
 register_all_mapillary_vistas(_root)
 
-# _root = '/home/kamyar/Documents/M2F_pretrain_data'
+# _root = ''
 # register_all_mapillary_vistas(_root)

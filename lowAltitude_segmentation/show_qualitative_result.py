@@ -32,11 +32,11 @@ DRONE_SEM_SEG_CATEGORIES = [
 
 id_to_color_name = {category['id']: (category['color'], category['name']) for category in DRONE_SEM_SEG_CATEGORIES}
 
-image_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/images'
-annotation_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/annotations'
-voting_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/MW'
-PT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/PT'
-PTFT_folder = '/home/kamyar/Documents/FIG_Qualitative_Journal/FT'
+image_folder = ''
+annotation_folder = ''
+voting_folder = ''
+PT_folder = ''
+PTFT_folder = ''
 
 def save_image_and_txt(image_array, image_color, image_name, folder, color_mapping):
     color_image = Image.fromarray(image_color)

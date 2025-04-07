@@ -64,8 +64,8 @@ def calculate_metrics(cm, class_idx):
 
 
 if __name__ == '__main__':
-    annotation_folder = '/home/kamyar/Documents/Train-val_Annotated_masks'
-    prediction_folder = '/home/kamyar/Documents/Train-val_Annotated_Predictions/12_filtered_1e'
+    annotation_folder = ''
+    prediction_folder = ''
     label_to_id_path = 'lowAltitude_classification/label_to_id.txt'
 
     annotations = load_images_from_folder(annotation_folder)

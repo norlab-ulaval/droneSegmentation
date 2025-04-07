@@ -11,7 +11,7 @@ MODEL:
     DROP_PATH_RATE: 0.1
     PATCH_NORM: True
     PRETRAIN_IMG_SIZE: 384
-  WEIGHTS: "/home/kamyar/Documents/M2F_Results/ignore_255_run_1/model_best.pth"
+  WEIGHTS: ""
   PIXEL_MEAN: [ 123.675, 116.280, 103.530 ]
   PIXEL_STD: [ 58.395, 57.120, 57.375 ]
 INPUT:

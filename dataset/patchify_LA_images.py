@@ -40,6 +40,6 @@ def process_images(parent_folder, output_folder):
                 cv2.imwrite(output_filename, patch)
 
 
-input_folder = '/home/kamyar/Documents/Drone_Unlabeled_Dataset/new'
-output_folder = '/home/kamyar/Documents/Drone_Unlabeled_Dataset/new_patch'
+input_folder = ''
+output_folder = ''
 process_images(input_folder, output_folder)

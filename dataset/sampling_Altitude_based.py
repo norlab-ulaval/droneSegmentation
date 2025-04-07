@@ -5,8 +5,8 @@ For now, I just sample low-altitude drone images (altitude = 5)
 import os
 import shutil
 
-source_folder = "/home/kamyar/Documents/Dataset_indexed"
-destination_folder = "/home/kamyar/Documents/Dataset_lowAltitude"
+source_folder = ""
+destination_folder = ""
 
 if not os.path.exists(destination_folder):
     os.makedirs(destination_folder)

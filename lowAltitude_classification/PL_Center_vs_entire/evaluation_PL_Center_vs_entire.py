@@ -34,8 +34,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  Path('/home/kamyar/Documents/PL_Center_vs_entire/test')
-annot_folder = Path('/home/kamyar/Documents/Test_Annotated_masks_updated')
+pred_folder =  Path('')
+annot_folder = Path('')
 
 
 results = []

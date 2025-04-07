@@ -14,8 +14,8 @@ container_id=$(
     podman run --gpus all --ipc host \
         -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         -v .:/app/ \
-        -v /data/iNat_Classifier_filtered:/home/kamyar/Documents/iNat_Classifier_filtered \
-        -v ./lowAltitude_classification:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+        -v /data/iNat_Classifier_filtered: \
+        -v ./lowAltitude_classification: \
         -v /dev/shm/:/dev/shm/ \
         -d droneseg_cls bash -c 'python lowAltitude_classification/Augmentation_iNat_classifier/iNat_Classifier_Augment4.py'
 )

@@ -6,8 +6,8 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 from PIL import Image
 import numpy as np
 
-annotations_folder = '/home/kamyar/Documents/Test_Annotated_masks'
-predictions_folder = '/home/kamyar/Documents/M2F_Results/PL_V1_PRETRAIN/output_test'
+annotations_folder = ''
+predictions_folder = ''
 
 def load_image(image_path):
     return np.array(Image.open(image_path))

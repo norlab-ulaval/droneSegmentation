@@ -34,15 +34,15 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-SP_folder =  '/home/kamyar/Documents/M2F_Results/SP/output_test'
-no_vote_folder =  '/home/kamyar/Documents/M2F_Results/MV_NoVote'
-MW_folder = '/home/kamyar/Documents/M2F_Results/MV'
-PT_folder = '/home/kamyar/Documents/M2F_Results/PT/output_test'
-FT_folder = '/home/kamyar/Documents/M2F_Results/FT/output_test'
+SP_folder =  ''
+no_vote_folder =  ''
+MW_folder = ''
+PT_folder = ''
+FT_folder = ''
 folder_list = [SP_folder, no_vote_folder, MW_folder, PT_folder, FT_folder]
 ex_names = ["SP", "NO_VOTE", "MV", "PT", "FT"]
 
-annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_updated'
+annot_folder = ''
 
 
 results = []

@@ -2,9 +2,9 @@ import os
 import random
 import shutil
 
-source_dir = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch'
-half_dir = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_Half'
-quarter_dir = '/home/kamyar/Documents/Unlabeled_Drone_Dataset_Patch_Quarter'
+source_dir = ''
+half_dir = ''
+quarter_dir = ''
 
 os.makedirs(half_dir, exist_ok=True)
 os.makedirs(quarter_dir, exist_ok=True)

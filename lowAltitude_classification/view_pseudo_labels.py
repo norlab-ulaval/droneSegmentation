@@ -112,8 +112,8 @@ def evaluate_segmentation(query_filename, pred_folder, target_folder, ignored_cl
 if __name__ == "__main__":
     ignored_classes = [1]
 
-    parent_preds_folder = '/home/kamyar/Documents/Test_Annotated_Predictions/52_Final_5e/'
-    target_folder = '/home/kamyar/Documents/Test_Annotated_masks'
+    parent_preds_folder = ''
+    target_folder = ''
     image_query = '2024-06-06-023928-5-Zec-Batiscan-4000x4000-DJI-FC7303-patch-1.png'
     print(Path(image_query).exists())
 

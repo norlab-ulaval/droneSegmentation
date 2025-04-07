@@ -2,13 +2,13 @@ import os
 import random
 import shutil
 
-image_folder = '/home/kamyar/Documents/data_lowaltitude_patches'
-segmentation_folder = '/home/kamyar/Documents/dataset_pred/fast_patch_256_overlap_85'
+image_folder = ''
+segmentation_folder = ''
 
-train_img_folder = '/home/kamyar/Documents/Dataset_mask2former/train/images'
-train_mask_folder = '/home/kamyar/Documents/Dataset_mask2former/train/masks'
-validation_img_folder = '/home/kamyar/Documents/Dataset_mask2former/val/images'
-validation_mask_folder = '/home/kamyar/Documents/Dataset_mask2former/val/masks'
+train_img_folder = ''
+train_mask_folder = ''
+validation_img_folder = ''
+validation_mask_folder = ''
 
 os.makedirs(train_img_folder, exist_ok=True)
 os.makedirs(train_mask_folder, exist_ok=True)

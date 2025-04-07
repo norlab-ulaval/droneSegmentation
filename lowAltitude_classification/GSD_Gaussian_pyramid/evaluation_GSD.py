@@ -34,8 +34,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  '/home/kamyar/Documents/GSD_Gaussian/masks'
-annot_folder = '/home/kamyar/Documents/Test_Annotated_masks_updated'
+pred_folder =  ''
+annot_folder = ''
 
 results = []
 for subdir in os.listdir(pred_folder):

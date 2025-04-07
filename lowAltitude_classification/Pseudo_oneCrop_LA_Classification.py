@@ -20,7 +20,7 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/filtered_inat_without_background.pth'))
+model.load_state_dict(torch.load(''))
 model.eval()
 
 test_transform = Compose([
@@ -28,7 +28,7 @@ test_transform = Compose([
     ToTensorV2()
 ])
 
-image = Image.open('/home/kamyar/Desktop/2024-06-05-132500-19.374-ZecBatiscan-5280x5280-DJI-M3E-patch-6.jpg')
+image = Image.open('')
 image_np = np.array(image)
 transformed = test_transform(image=image_np)
 image_tensor = transformed['image'].to(device)
@@ -42,7 +42,7 @@ probabilities = torch.nn.functional.softmax(output.logits, dim=1)
 predicted_class = torch.argmax(probabilities, dim=1).item()
 
 label_to_id = {}
-with open("/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification/label_to_id.txt", 'r') as file:
+with open("", 'r') as file:
     for line in file:
         label, idx = line.strip().split(": ")
         label_to_id[int(idx)] = label

@@ -74,8 +74,8 @@ before_to_after_mapping = {
 # }
 
 
-source_folder_path = '/home/kamyar/Documents/Test_data_annotation'
-destination_folder_path = '/home/kamyar/Documents/Test_data_annotation_new_index'
+source_folder_path = ''
+destination_folder_path = ''
 
 
 os.makedirs(destination_folder_path, exist_ok=True)

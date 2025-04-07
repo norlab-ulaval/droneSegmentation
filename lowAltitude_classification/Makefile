@@ -5,7 +5,7 @@ build:
 
 run-server: build
 	podman run --gpus all --rm --ipc host -it \
-	-v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+	-v output: \
 	-v .:/app/ \
 	-v ../data:/data \
 	-v /dev/shm/:/dev/shm/ \
@@ -13,7 +13,7 @@ run-server: build
 
 runsh: build
 	podman run --gpus all --rm --ipc host -it \
-	-v output:/home/kamyar/PycharmProjects/droneSegmentation/lowAltitude_classification \
+	-v output: \
 	-v .:/app/ \
 	-v /dev/shm/:/dev/shm/ \
 	lowclass bash

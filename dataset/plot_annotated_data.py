@@ -49,8 +49,8 @@ def get_coordinates_from_folder(folder_path):
     return latitudes, longitudes
 
 # Input two folders
-folder1 = '/home/kamyar/Documents/Train-val_Annotated_Original'
-folder2 = '/home/kamyar/Documents/Test_Annotated_Original'
+folder1 = ''
+folder2 = ''
 
 # Get coordinates from both folders
 latitudes1, longitudes1 = get_coordinates_from_folder(folder1)
