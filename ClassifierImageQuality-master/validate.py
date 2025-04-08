@@ -35,7 +35,7 @@ print(f"Using {device} device")
 
 model = models.efficientnet_v2_s(pretrained=True)
 model.classifier[1] = nn.Linear(model.classifier[1].in_features, 4)
-model.load_state_dict(torch.load(''))
+model.load_state_dict(torch.load('ClassifierImageQuality-master/model_effnet_acc0.770383_badgood0.146552.pth'))
 model.to(device)
 
 loss_fn = nn.CrossEntropyLoss()

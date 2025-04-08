@@ -22,8 +22,8 @@ device = (
 )
 print(f"Using {device} device")
 
-image_dataset_directory = ''
-image_sort_directory = ''
+image_dataset_directory = 'data/iNat_Classifier_Non_filtered/Pine/images'
+image_sort_directory = 'data/iNat_Classifier_filtered/Pine/'
 #species_list = os.listdir(Path.cwd() / image_dataset_directory)
 
 #image_loader = DataLoader(image_dataset, batch_size=1, shuffle=True)

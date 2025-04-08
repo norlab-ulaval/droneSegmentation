@@ -3,7 +3,7 @@ from segments.utils import export_dataset
 
 release = 'Drone_dataset_2-V0.1.json'
 dataset = SegmentsDataset(release, labelset='ground-truth', filter_by=['labeled', 'reviewed'])
-export_dataset(dataset, export_format='semantic', export_folder='')
+export_dataset(dataset, export_format='semantic', export_folder='data/annotations')
 
 # import matplotlib.pyplot as plt
 # from segments.utils import get_semantic_bitmap

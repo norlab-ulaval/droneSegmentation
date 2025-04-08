@@ -47,9 +47,11 @@ def sample_and_move_images(folder1, folder2, dest_folder1, dest_folder2, sample_
     print(f"Sampled and moved {sample_size} images to destination folders, and removed them from the original folders.")
 
 
-folder1 = ''
-folder2 = ''
-dest_folder1 = ''
-dest_folder2 = ''
+# Define the folder paths
+folder1 = 'data/Dataset_mask2former/val/images'
+folder2 = 'data/Dataset_mask2former/val/masks'
+dest_folder1 = 'data/Dataset_mask2former/finetune/images'
+dest_folder2 = 'data/Dataset_mask2former/finetune/masks'
 
+# Sample and move images
 sample_and_move_images(folder1, folder2, dest_folder1, dest_folder2)

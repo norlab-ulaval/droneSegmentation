@@ -74,8 +74,8 @@ before_to_after_mapping = {
 # }
 
 
-source_folder_path = ''
-destination_folder_path = ''
+source_folder_path = 'data/Test_data_annotation'
+destination_folder_path = 'data/Test_data_annotation_new_index'
 
 
 os.makedirs(destination_folder_path, exist_ok=True)
