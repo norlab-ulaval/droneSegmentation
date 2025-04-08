@@ -40,8 +40,8 @@ import cv2
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = ''
-lac_dir = Path("")
+data_folder = 'data/iNat_Classifier_filtered'
+lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
 checkpoint_dir.mkdir(parents=True, exist_ok=True)
