@@ -240,5 +240,5 @@ def register_all_mapillary_vistas(root):
 #     p = pathlib.Path(_root)
 #     assert p.exists(), f"Path {_root} does not exist"
 
-_root = ''
+_root = 'data/M2F_Train_Val_split'
 register_all_mapillary_vistas(_root)

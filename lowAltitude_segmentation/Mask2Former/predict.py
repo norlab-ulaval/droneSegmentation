@@ -30,7 +30,7 @@ class Predictor():
         cfg.merge_from_file(
             "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_ignore255.yaml", allow_unsafe=True)
 
-        cfg.MODEL.WEIGHTS = ''
+        cfg.MODEL.WEIGHTS = 'results/M2F_Results/Scaling/scaling_1.2_run2/model_best.pth'
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -63,8 +63,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = ''
-output_directory = ''
+input_directory = 'data/Test_Annotated'
+output_directory = 'results/M2F_Results/Scaling/scaling_1.2_run2/output_test'
 
 process_images(input_directory, output_directory)
 print("done")

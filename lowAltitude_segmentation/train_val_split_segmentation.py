@@ -2,13 +2,13 @@ import os
 import random
 import shutil
 
-image_folder = ''
-segmentation_folder = ''
+image_folder = 'data/data_lowaltitude_patches'
+segmentation_folder = 'results/dataset_pred/fast_patch_256_overlap_85'
 
-train_img_folder = ''
-train_mask_folder = ''
-validation_img_folder = ''
-validation_mask_folder = ''
+train_img_folder = 'data/Dataset_mask2former/train/images'
+train_mask_folder = 'data/Dataset_mask2former/train/masks'
+validation_img_folder = 'data/Dataset_mask2former/val/images'
+validation_mask_folder = 'data/Dataset_mask2former/val/masks'
 
 os.makedirs(train_img_folder, exist_ok=True)
 os.makedirs(train_mask_folder, exist_ok=True)

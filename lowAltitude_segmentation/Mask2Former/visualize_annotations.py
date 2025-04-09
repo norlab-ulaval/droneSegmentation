@@ -39,8 +39,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = ''
-output_directory = ''
+input_directory = 'data/Train-val_Annotated_masks'
+output_directory = 'data/Train-val_annotations_colorful'
 
 process_images(input_directory, output_directory)
 print("done")
