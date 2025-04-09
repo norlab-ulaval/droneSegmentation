@@ -34,8 +34,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  ''
-annot_folder = ''
+pred_folder =  'results/GSD_Gaussian/masks'
+annot_folder = 'data/Test_Annotated_masks_updated'
 
 results = []
 for subdir in os.listdir(pred_folder):

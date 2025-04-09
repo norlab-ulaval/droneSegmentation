@@ -16,15 +16,15 @@ from pathlib import Path
 #     raise ValueError("SPLIT environment variable must be set: 'group_1'  'group_2'  'group_3'  'group_4_1'  'group_4_2'  'group_5_1'  'group_5_2'")
 
 # Paths
-# results_dir = Path("/data/droneseg")
-# weight_file_path = Path("/data/droneseg/Best_classifier_Weight/53_Final_time2024-12-05_best_5e_acc95.pth")
-# image_folder = Path(f"/data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
+# results_dir = Path("data/droneseg")
+# weight_file_path = Path("checkpoints/best-classifier/53_Final_time2024-12-05_best_5e_acc95.pth")
+# image_folder = Path(f"data/Unlabeled_Drone_Dataset/Unlabeled_Drone_Dataset_143k_Patched_split_7_Subsets/{SPLIT}/")
 # output_dir = results_dir / 'results/PseudoLabel' / image_folder.name
 
-results_dir = Path("")
-weight_file_path = Path("")
-image_folder_test = Path(f"")
-image_folder_val = Path("")
+results_dir = Path("results/PL_Window_Size_Experiment")
+weight_file_path = Path("checkpoints/best-classifier/53_Final_time2024-12-05_best_5e_acc95.pth")
+image_folder_test = Path("data/Test_Annotated")
+image_folder_val = Path("data/Train-val_Annotated")
 image_folders = [image_folder_test, image_folder_val]
 ############
 

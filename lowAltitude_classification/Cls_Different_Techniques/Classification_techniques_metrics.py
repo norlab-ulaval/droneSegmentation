@@ -14,12 +14,12 @@ import pandas as pd
 
 # Paths
 results_dir = Path("lowAltitude_classification/Cls_Different_Techniques/CLS_primary_csv_stages_evaluation/")
-parent_weights_folder = Path("")
+parent_weights_folder = Path("lowAltitude_classification/results_Journal_classifier_weights")
 
-val_image_folder = Path("")
-test_image_folder = Path("")
-val_annotation_folder = Path("")
-test_annotation_folder = Path("")
+val_image_folder = Path("data/Train-val_Annotated/")
+test_image_folder = Path("data/Test_Annotated/")
+val_annotation_folder = Path("data/Train-val_Annotated_masks_updated")
+test_annotation_folder = Path("data/Test_Annotated_masks_updated")
 output_csv_path = results_dir / 'phase1_evaluation_drone.csv'
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

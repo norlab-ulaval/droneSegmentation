@@ -22,8 +22,8 @@ def apply_gaussian_filter(input_folder, output_folder, sigmas):
                 print(f"Processed {image_name} with sigma={sigma}")
 
 if __name__ == "__main__":
-    input_folder = ""
-    output_folder = ""
+    input_folder = "data/Test_Annotated"
+    output_folder = "results/GSD_Gaussian/images_newKernel"
     sigmas = [1, 2, 4, 8, 16]
 
     apply_gaussian_filter(input_folder, output_folder, sigmas)

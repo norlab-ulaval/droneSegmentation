@@ -30,10 +30,10 @@ transform = Compose([
 patch_sizes = [184]
 overlaps = [0.85]
 
-weight_file_path = Path('')
-image_folder = ''
+weight_file_path = Path('checkpoints/best-classifier/52_Final_time2024-08-15_best_5e_acc94.pth')
+image_folder = 'data/Test_Annotated'
 
-csv_filename = ''
+csv_filename = 'lowAltitude_classification/results/New_phase_2/stride/test/phase2-test-stride.csv'
 file_exists = os.path.isfile(csv_filename)
 
 with open(csv_filename, mode='a', newline='') as file:
@@ -46,7 +46,7 @@ with open(csv_filename, mode='a', newline='') as file:
 
     filename = weight_file_path.name
     output_folder_name = f"{filename.split('_')[0]}_{filename.split('_')[1]}_{filename.split('_')[4]}"
-    output_folder = Path(f'stride/{output_folder_name}')
+    output_folder = Path(f'data/Test_Annotated_Predictions/stride/{output_folder_name}')
     output_folder.mkdir(exist_ok=True, parents=True)
 
     for patch_size in patch_sizes:

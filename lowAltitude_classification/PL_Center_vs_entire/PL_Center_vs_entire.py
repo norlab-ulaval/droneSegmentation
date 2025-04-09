@@ -30,10 +30,10 @@ transform = Compose([
 patch_sizes = [256]
 overlaps = [0.85]
 
-results_dir = Path("")
-weight_file_path = Path("")
-image_folder_test = Path(f"")
-image_folder_val = Path("")
+results_dir = Path("results/PL_Center_vs_entire")
+weight_file_path = Path("checkpoints/best-classifier/53_Final_time2024-12-05_best_5e_acc95.pth")
+image_folder_test = Path("data/Test_Annotated")
+image_folder_val = Path("data/Train-val_Annotated")
 image_folders = [image_folder_test, image_folder_val]
 
 model.load_state_dict(torch.load(weight_file_path))

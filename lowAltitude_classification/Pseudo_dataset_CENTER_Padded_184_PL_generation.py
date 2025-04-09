@@ -18,9 +18,9 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 #         "SPLIT environment variable must be set: 'Fifth'  'First'  'Fourth'  'Second'  'Third'")
 
 # Paths
-results_dir = Path('/data/drone_dataset_v2/train/masks')
-weight_file_path = Path("/data/Best_classifier_Weight/52_Final_time2024-08-15_best_5e_acc94.pth")
-image_folder = Path('/data/drone_dataset_v2/train/images')
+results_dir = Path('data/drone_dataset_v2/train/masks')
+weight_file_path = Path("checkpoints/best-classifier/52_Final_time2024-08-15_best_5e_acc94.pth")
+image_folder = Path('data/drone_dataset_v2/train/images')
 output_dir = results_dir  # / 'Unlabeled_Drone_Dataset_PL_version2' / image_folder.name
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

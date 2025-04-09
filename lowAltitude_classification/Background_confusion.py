@@ -64,8 +64,8 @@ def calculate_metrics(cm, class_idx):
 
 
 if __name__ == '__main__':
-    annotation_folder = ''
-    prediction_folder = ''
+    annotation_folder = 'data/Train-val_Annotated_masks'
+    prediction_folder = 'data/Train-val_Annotated_Predictions/12_filtered_1e'
     label_to_id_path = 'lowAltitude_classification/label_to_id.txt'
 
     annotations = load_images_from_folder(annotation_folder)

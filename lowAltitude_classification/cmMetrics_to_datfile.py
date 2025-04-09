@@ -1,11 +1,15 @@
 import pandas as pd
+from pathlib import Path
 
-csv_files = ["/pl/metrics_cm.csv",
-             "/pt/metrics_cm.csv",
-             "/ft/metrics_cm.csv"]
+cm_dir = Path("lowAltitude_classification/confusion_matrix_Precision_Recall")
+
+csv_files = [cm_dir / "pl/metrics_cm.csv",
+             cm_dir / "pt/metrics_cm.csv",
+             cm_dir / "ft/metrics_cm.csv"]
 
 
-with open("/PrecisionRecall.dat", "w") as dat_file:
+
+with open(cm_dir / "PrecisionRecall.dat", "w") as dat_file:
     for csv_file in csv_files:
         df = pd.read_csv(csv_file)
 

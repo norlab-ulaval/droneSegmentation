@@ -26,7 +26,7 @@ mean = processor.image_mean
 std = processor.image_std
 
 model.load_state_dict(
-    torch.load(''))
+    torch.load('checkpoints/filtered_inat.pth'))
 model.eval()
 
 transform = Compose([
@@ -34,7 +34,7 @@ transform = Compose([
     ToTensorV2()
 ])
 
-image_folder = ''
+image_folder = 'data/Test_data'
 patch_sizes = [256]
 overlaps = [0.85]
 
@@ -44,7 +44,7 @@ for patch_size in patch_sizes:
         step_size = int(patch_size * (1 - overlap))
         batch_size = 256
 
-        output_folder = f'/patch_{patch_size}_overlap_{int(overlap * 100)}'
+        output_folder = f'data/Test_pred/patch_{patch_size}_overlap_{int(overlap * 100)}'
         os.makedirs(output_folder, exist_ok=True)
 
         for image_file in os.listdir(image_folder):

@@ -34,8 +34,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  ''
-annot_folder = ''
+pred_folder =  'results/M2F_Results/Scaling'
+annot_folder = 'data/Test_Annotated_masks_updated'
 
 
 

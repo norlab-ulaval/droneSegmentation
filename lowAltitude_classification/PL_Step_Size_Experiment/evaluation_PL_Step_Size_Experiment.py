@@ -35,8 +35,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  Path('')
-annot_folder = Path('')
+pred_folder =  Path('results/PL_Step_Size_Experiment/test')
+annot_folder = Path('data/Test_Annotated_masks_updated')
 
 csv_num_votes = Path('lowAltitude_classification/PL_Step_Size_Experiment/PL_num_votes_per_step_size.csv')
 with open(csv_num_votes, mode='r') as file:

@@ -11,9 +11,9 @@ from albumentations.pytorch import ToTensorV2
 from transformers import AutoImageProcessor, AutoModelForImageClassification
 from pathlib import Path
 
-results_dir = Path("")
-weight_file_path = Path("")
-image_folders = Path(f"")
+results_dir = Path("results")
+weight_file_path = Path("checkpoints/best-classifier/53_Final_time2024-12-05_best_5e_acc95.pth")
+image_folders = results_dir / "GSD_Gaussian/images_newKernel"
 output_dirs = results_dir / 'GSD_Gaussian/masks_newKernel'
 ############
 

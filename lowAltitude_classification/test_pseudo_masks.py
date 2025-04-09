@@ -157,8 +157,8 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 if __name__ == "__main__":
     ignored_classes = [1]
 
-    parent_preds_folder =  ''
-    target_folder = ''
+    parent_preds_folder =  'results/M2F_Results/PL_V2_Crop640/output_test'
+    target_folder = 'data/Test_Annotated_masks'
 
     results = []
 

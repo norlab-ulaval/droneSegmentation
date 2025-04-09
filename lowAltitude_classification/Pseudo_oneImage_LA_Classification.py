@@ -26,7 +26,7 @@ model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load(''))
+model.load_state_dict(torch.load('checkpoints/filtered_inat_without_background.pth'))
 model.eval()
 
 transform = Compose([
@@ -34,7 +34,7 @@ transform = Compose([
     ToTensorV2()
 ])
 
-image_path = ''
+image_path = 'examples/2024-06-05-132224-5-ZecBatiscan-5280x5280-DJI-M3E-patch-11.jpg'
 image = Image.open(image_path)
 image_np = np.array(image)
 transformed = transform(image=image_np)
@@ -81,7 +81,7 @@ for pixel, class_value in final_predictions.items():
     segmentation_map[pixel[1], pixel[0]] = class_value
 
 class_labels = {}
-with open("", 'r') as file:
+with open("lowAltitude_classification/label_to_id.txt", 'r') as file:
     for line in file:
         label, idx = line.strip().split(": ")
         class_labels[int(idx)] = label

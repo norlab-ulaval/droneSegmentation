@@ -34,15 +34,15 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-SP_folder =  ''
-no_vote_folder =  ''
-MW_folder = ''
-PT_folder = ''
-FT_folder = ''
+SP_folder =  'results/M2F_Results/SP/output_test'
+no_vote_folder =  'results/M2F_Results/MV_NoVote'
+MW_folder = 'results/M2F_Results/MV'
+PT_folder = 'results/M2F_Results/PT/output_test'
+FT_folder = 'results/M2F_Results/FT/output_test'
 folder_list = [SP_folder, no_vote_folder, MW_folder, PT_folder, FT_folder]
 ex_names = ["SP", "NO_VOTE", "MV", "PT", "FT"]
 
-annot_folder = ''
+annot_folder = 'data/Test_Annotated_masks_updated'
 
 
 results = []

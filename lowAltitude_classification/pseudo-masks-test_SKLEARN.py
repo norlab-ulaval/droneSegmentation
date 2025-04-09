@@ -41,9 +41,9 @@ def calculate_metrics(pred_folder, annot_folder):
     #return "", ""
 
 
-pred_folder =  ''
-# pred_folder_2 =  ''
-annot_folder = ''
+pred_folder =  'results/M2F_Results/Scaling/scaling_1.2_run2/output_test'
+# pred_folder_2 =  'results/M2F_Results/PT_ignore_255_pacc/output_test'
+annot_folder = 'data/Test_Annotated_masks_updated'
 
 
 overall_f1, pAcc = calculate_metrics(pred_folder, annot_folder)

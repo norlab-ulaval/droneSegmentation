@@ -34,8 +34,8 @@ def calculate_metrics(pred_folder, annot_folder):
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  Path('')
-annot_folder = Path('')
+pred_folder =  Path('results/PL_Center_vs_entire/test')
+annot_folder = Path('data/Test_Annotated_masks_updated')
 
 
 results = []
