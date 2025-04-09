@@ -12,8 +12,7 @@ cls-run: cls-build
 	  -e CUDA_VISIBLE_DEVICES=$(CUDA_VISIBLE_DEVICES) \
 	  -v .:/app \
 	  -v ./data \
-	  -v ./data/iNaturalist_split: \
-	  -v output: \
+	  -v ./data/iNaturalist_split:/app/data/filtered_inat_split/ \
 	  -v /dev/shm/:/dev/shm/ \
 	  droneseg_cls bash -c "make cls-train"
 
@@ -24,7 +23,6 @@ cls-train:
 cls-server: cls-build
 	podman run --gpus all --rm --ipc host -it \
 	-e CUDA_VISIBLE_DEVICES=$(CUDA_VISIBLE_DEVICES) \
-	-v output: \
 	-v .:/app/ \
 	-v /dev/shm/:/dev/shm/ \
 	droneseg_cls bash
@@ -42,8 +40,7 @@ seg-run: seg-build
 	  -e CUDA_VISIBLE_DEVICES=$(CUDA_VISIBLE_DEVICES) \
 	  -v .:/app \
 	  -v ./data \
-	  -v ./data/iNaturalist_split: \
-	  -v output: \
+	  -v ./data/iNaturalist_split:/app/data/filtered_inat_split/ \
 	  -v /dev/shm/:/dev/shm/ \
 	  droneseg_seg bash
 
@@ -51,4 +48,4 @@ build-pixel-decoder:
 	cd lowAltitude_segmentation/Mask2Former/mask2former/modeling/pixel_decoder/ops/ && sh make.sh && cd -
 
 seg-train:
-	python lowAltitude_segmentation/Mask2Former/train_net.py   --config-file configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml   --eval-only MODEL.WEIGHTS
+	python lowAltitude_segmentation/Mask2Former/train_net.py   --config-file configs/Drone_regrowth/semantic-segmentation/swin/maskformer2_swin_large_IN21k_384_bs16_160k_res640.yaml   --eval-only MODEL.WEIGHTS lowAltitude_segmentation/Mask2Former/output/model_0104999.pth
