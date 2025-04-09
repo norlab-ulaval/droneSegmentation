@@ -24,14 +24,21 @@ def default_argument_parser():
     Returns:
         argparse.ArgumentParser:
     """
-    parser = argparse.ArgumentParser(description="Evaluate PQ metric for semantic segmentation.")
+    parser = argparse.ArgumentParser(
+        description="Evaluate PQ metric for semantic segmentation."
+    )
     # NOTE: currently does not support Cityscapes, you need to convert
     # Cityscapes prediction format to Detectron2 prediction format.
     parser.add_argument(
         "--dataset-name",
         default="ade20k_sem_seg_val",
-        choices=["ade20k_sem_seg_val", "coco_2017_test_stuff_10k_sem_seg", "ade20k_full_sem_seg_val"],
-        help="dataset name you want to evaluate")
+        choices=[
+            "ade20k_sem_seg_val",
+            "coco_2017_test_stuff_10k_sem_seg",
+            "ade20k_full_sem_seg_val",
+        ],
+        help="dataset name you want to evaluate",
+    )
     parser.add_argument("--json-file", default="", help="path to detection json file")
 
     return parser
@@ -46,36 +53,48 @@ def pq_compute_single_image(segm_gt, segm_dt, categories, ignore_label):
     pan_gt = segm_gt
     pan_pred = segm_dt
 
-    gt_ann = {'segments_info': []}
+    gt_ann = {"segments_info": []}
     labels, labels_cnt = np.unique(segm_gt, return_counts=True)
     for cat_id, cnt in zip(labels, labels_cnt):
         if cat_id == VOID:
             continue
-        gt_ann['segments_info'].append(
+        gt_ann["segments_info"].append(
             {"id": cat_id, "category_id": cat_id, "area": cnt, "iscrowd": 0}
         )
-    
-    pred_ann = {'segments_info': []}
-    for cat_id in np.unique(segm_dt):
-        pred_ann['segments_info'].append({"id": cat_id, "category_id": cat_id})
 
-    gt_segms = {el['id']: el for el in gt_ann['segments_info']}
-    pred_segms = {el['id']: el for el in pred_ann['segments_info']}
+    pred_ann = {"segments_info": []}
+    for cat_id in np.unique(segm_dt):
+        pred_ann["segments_info"].append({"id": cat_id, "category_id": cat_id})
+
+    gt_segms = {el["id"]: el for el in gt_ann["segments_info"]}
+    pred_segms = {el["id"]: el for el in pred_ann["segments_info"]}
 
     # predicted segments area calculation + prediction sanity checks
-    pred_labels_set = set(el['id'] for el in pred_ann['segments_info'])
+    pred_labels_set = set(el["id"] for el in pred_ann["segments_info"])
     labels, labels_cnt = np.unique(pan_pred, return_counts=True)
     for label, label_cnt in zip(labels, labels_cnt):
         if label not in pred_segms:
             if label == VOID:
                 continue
-            raise KeyError('In the image with ID {} segment with ID {} is presented in PNG and not presented in JSON.'.format(image_id, label))
-        pred_segms[label]['area'] = label_cnt
+            raise KeyError(
+                "In the image with ID {} segment with ID {} is presented in PNG and not presented in JSON.".format(
+                    image_id, label
+                )
+            )
+        pred_segms[label]["area"] = label_cnt
         pred_labels_set.remove(label)
-        if pred_segms[label]['category_id'] not in categories:
-            raise KeyError('In the image with ID {} segment with ID {} has unknown category_id {}.'.format(image_id, label, pred_segms[label]['category_id']))
+        if pred_segms[label]["category_id"] not in categories:
+            raise KeyError(
+                "In the image with ID {} segment with ID {} has unknown category_id {}.".format(
+                    image_id, label, pred_segms[label]["category_id"]
+                )
+            )
     if len(pred_labels_set) != 0:
-        raise KeyError('In the image with ID {} the following segment IDs {} are presented in JSON and not presented in PNG.'.format(image_id, list(pred_labels_set)))
+        raise KeyError(
+            "In the image with ID {} the following segment IDs {} are presented in JSON and not presented in PNG.".format(
+                image_id, list(pred_labels_set)
+            )
+        )
 
     # confusion matrix calculation
     pan_gt_pred = pan_gt.astype(np.uint64) * OFFSET + pan_pred.astype(np.uint64)
@@ -95,16 +114,21 @@ def pq_compute_single_image(segm_gt, segm_dt, categories, ignore_label):
             continue
         if pred_label not in pred_segms:
             continue
-        if gt_segms[gt_label]['iscrowd'] == 1:
+        if gt_segms[gt_label]["iscrowd"] == 1:
             continue
-        if gt_segms[gt_label]['category_id'] != pred_segms[pred_label]['category_id']:
+        if gt_segms[gt_label]["category_id"] != pred_segms[pred_label]["category_id"]:
             continue
 
-        union = pred_segms[pred_label]['area'] + gt_segms[gt_label]['area'] - intersection - gt_pred_map.get((VOID, pred_label), 0)
+        union = (
+            pred_segms[pred_label]["area"]
+            + gt_segms[gt_label]["area"]
+            - intersection
+            - gt_pred_map.get((VOID, pred_label), 0)
+        )
         iou = intersection / union
         if iou > 0.5:
-            pq_stat[gt_segms[gt_label]['category_id']].tp += 1
-            pq_stat[gt_segms[gt_label]['category_id']].iou += iou
+            pq_stat[gt_segms[gt_label]["category_id"]].tp += 1
+            pq_stat[gt_segms[gt_label]["category_id"]].iou += iou
             gt_matched.add(gt_label)
             pred_matched.add(pred_label)
 
@@ -114,10 +138,10 @@ def pq_compute_single_image(segm_gt, segm_dt, categories, ignore_label):
         if gt_label in gt_matched:
             continue
         # crowd segments are ignored
-        if gt_info['iscrowd'] == 1:
-            crowd_labels_dict[gt_info['category_id']] = gt_label
+        if gt_info["iscrowd"] == 1:
+            crowd_labels_dict[gt_info["category_id"]] = gt_label
             continue
-        pq_stat[gt_info['category_id']].fn += 1
+        pq_stat[gt_info["category_id"]].fn += 1
 
     # count false positives
     for pred_label, pred_info in pred_segms.items():
@@ -126,12 +150,14 @@ def pq_compute_single_image(segm_gt, segm_dt, categories, ignore_label):
         # intersection of the segment with VOID
         intersection = gt_pred_map.get((VOID, pred_label), 0)
         # plus intersection with corresponding CROWD region if it exists
-        if pred_info['category_id'] in crowd_labels_dict:
-            intersection += gt_pred_map.get((crowd_labels_dict[pred_info['category_id']], pred_label), 0)
+        if pred_info["category_id"] in crowd_labels_dict:
+            intersection += gt_pred_map.get(
+                (crowd_labels_dict[pred_info["category_id"]], pred_label), 0
+            )
         # predicted segment is ignored if more than half of the segment correspond to VOID and CROWD regions
-        if intersection / pred_info['area'] > 0.5:
+        if intersection / pred_info["area"] > 0.5:
             continue
-        pq_stat[pred_info['category_id']].fp += 1
+        pq_stat[pred_info["category_id"]].fp += 1
 
     return pq_stat
 
@@ -150,7 +176,7 @@ def main():
     for pred in predictions:
         image_id = os.path.basename(pred["file_name"]).split(".")[0]
         imgToAnns[image_id].append(
-            {"category_id" : pred["category_id"], "segmentation" : pred["segmentation"]}
+            {"category_id": pred["category_id"], "segmentation": pred["segmentation"]}
         )
 
     image_ids = list(imgToAnns.keys())
@@ -166,17 +192,35 @@ def main():
         categories[i] = {"id": i, "name": class_names[i], "isthing": 0}
 
     pq_stat = PQStat()
-    
+
     for image_id in tqdm(image_ids):
         if args.dataset_name == "ade20k_sem_seg_val":
-            gt_dir = os.path.join(_root, "ADEChallengeData2016", "annotations_detectron2", "validation")
-            segm_gt = read_image(os.path.join(gt_dir, image_id + ".png")).copy().astype(np.int64)
+            gt_dir = os.path.join(
+                _root, "ADEChallengeData2016", "annotations_detectron2", "validation"
+            )
+            segm_gt = (
+                read_image(os.path.join(gt_dir, image_id + ".png"))
+                .copy()
+                .astype(np.int64)
+            )
         elif args.dataset_name == "coco_2017_test_stuff_10k_sem_seg":
-            gt_dir = os.path.join(_root, "coco", "coco_stuff_10k", "annotations_detectron2", "test")
-            segm_gt = read_image(os.path.join(gt_dir, image_id + ".png")).copy().astype(np.int64)
+            gt_dir = os.path.join(
+                _root, "coco", "coco_stuff_10k", "annotations_detectron2", "test"
+            )
+            segm_gt = (
+                read_image(os.path.join(gt_dir, image_id + ".png"))
+                .copy()
+                .astype(np.int64)
+            )
         elif args.dataset_name == "ade20k_full_sem_seg_val":
-            gt_dir = os.path.join(_root, "ADE20K_2021_17_01", "annotations_detectron2", "validation")
-            segm_gt = read_image(os.path.join(gt_dir, image_id + ".tif")).copy().astype(np.int64)
+            gt_dir = os.path.join(
+                _root, "ADE20K_2021_17_01", "annotations_detectron2", "validation"
+            )
+            segm_gt = (
+                read_image(os.path.join(gt_dir, image_id + ".tif"))
+                .copy()
+                .astype(np.int64)
+            )
         else:
             raise ValueError(f"Unsupported dataset {args.dataset_name}")
 
@@ -187,7 +231,9 @@ def main():
             # map back category_id
             if hasattr(meta, "stuff_dataset_id_to_contiguous_id"):
                 if ann["category_id"] in meta.stuff_dataset_id_to_contiguous_id:
-                    category_id = meta.stuff_dataset_id_to_contiguous_id[ann["category_id"]]
+                    category_id = meta.stuff_dataset_id_to_contiguous_id[
+                        ann["category_id"]
+                    ]
             else:
                 category_id = ann["category_id"]
             mask = maskUtils.decode(ann["segmentation"])
@@ -203,25 +249,31 @@ def main():
         ).reshape(conf_matrix.shape)
 
         # pq
-        pq_stat_single = pq_compute_single_image(segm_gt, segm_dt, categories, meta.ignore_label)
+        pq_stat_single = pq_compute_single_image(
+            segm_gt, segm_dt, categories, meta.ignore_label
+        )
         pq_stat += pq_stat_single
 
     metrics = [("All", None), ("Stuff", False)]
     results = {}
     for name, isthing in metrics:
-        results[name], per_class_results = pq_stat.pq_average(categories, isthing=isthing)
-        if name == 'All':
-            results['per_class'] = per_class_results
+        results[name], per_class_results = pq_stat.pq_average(
+            categories, isthing=isthing
+        )
+        if name == "All":
+            results["per_class"] = per_class_results
     print("{:10s}| {:>5s}  {:>5s}  {:>5s} {:>5s}".format("", "PQ", "SQ", "RQ", "N"))
     print("-" * (10 + 7 * 4))
 
     for name, _isthing in metrics:
-        print("{:10s}| {:5.1f}  {:5.1f}  {:5.1f} {:5d}".format(
-            name,
-            100 * results[name]['pq'],
-            100 * results[name]['sq'],
-            100 * results[name]['rq'],
-            results[name]['n'])
+        print(
+            "{:10s}| {:5.1f}  {:5.1f}  {:5.1f} {:5d}".format(
+                name,
+                100 * results[name]["pq"],
+                100 * results[name]["sq"],
+                100 * results[name]["rq"],
+                results[name]["n"],
+            )
         )
 
     # calculate miou
@@ -241,5 +293,5 @@ def main():
     print(f"mIoU: {miou}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

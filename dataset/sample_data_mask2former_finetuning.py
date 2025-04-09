@@ -7,7 +7,9 @@ def get_base_name(file_name):
     return os.path.splitext(file_name)[0]
 
 
-def sample_and_move_images(folder1, folder2, dest_folder1, dest_folder2, sample_size=20):
+def sample_and_move_images(
+    folder1, folder2, dest_folder1, dest_folder2, sample_size=20
+):
     # Create destination folders if they don't exist
     os.makedirs(dest_folder1, exist_ok=True)
     os.makedirs(dest_folder2, exist_ok=True)
@@ -44,14 +46,16 @@ def sample_and_move_images(folder1, folder2, dest_folder1, dest_folder2, sample_
         shutil.move(src_file1, dest_file1)
         shutil.move(src_file2, dest_file2)
 
-    print(f"Sampled and moved {sample_size} images to destination folders, and removed them from the original folders.")
+    print(
+        f"Sampled and moved {sample_size} images to destination folders, and removed them from the original folders."
+    )
 
 
 # Define the folder paths
-folder1 = 'data/Dataset_mask2former/val/images'
-folder2 = 'data/Dataset_mask2former/val/masks'
-dest_folder1 = 'data/Dataset_mask2former/finetune/images'
-dest_folder2 = 'data/Dataset_mask2former/finetune/masks'
+folder1 = "data/Dataset_mask2former/val/images"
+folder2 = "data/Dataset_mask2former/val/masks"
+dest_folder1 = "data/Dataset_mask2former/finetune/images"
+dest_folder2 = "data/Dataset_mask2former/finetune/masks"
 
 # Sample and move images
 sample_and_move_images(folder1, folder2, dest_folder1, dest_folder2)

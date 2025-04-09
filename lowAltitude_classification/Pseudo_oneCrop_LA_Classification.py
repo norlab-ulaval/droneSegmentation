@@ -3,36 +3,35 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from PIL import Image
 from transformers import AutoImageProcessor, AutoModelForImageClassification
-from albumentations import (
-    Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
-)
+from albumentations import Normalize, CenterCrop, Compose, Resize, SmallestMaxSize
 from albumentations.pytorch import ToTensorV2
 import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model_name = 'facebook/dinov2-large-imagenet1k-1-layer'
+model_name = "facebook/dinov2-large-imagenet1k-1-layer"
 processor = AutoImageProcessor.from_pretrained(model_name)
-model = AutoModelForImageClassification.from_pretrained(model_name, ignore_mismatched_sizes=True)
+model = AutoModelForImageClassification.from_pretrained(
+    model_name, ignore_mismatched_sizes=True
+)
 model = model.to(device)
 num_classes = 31
 model.classifier = nn.Linear(2048, num_classes).to(device)
 mean = processor.image_mean
 std = processor.image_std
 
-model.load_state_dict(torch.load('checkpoints/filtered_inat_without_background.pth'))
+model.load_state_dict(torch.load("checkpoints/filtered_inat_without_background.pth"))
 model.eval()
 
-test_transform = Compose([
-    Normalize(mean=mean, std=std),
-    ToTensorV2()
-])
+test_transform = Compose([Normalize(mean=mean, std=std), ToTensorV2()])
 
-image_path = 'examples/2024-06-05-132500-19.374-ZecBatiscan-5280x5280-DJI-M3E-patch-6.jpg'
+image_path = (
+    "examples/2024-06-05-132500-19.374-ZecBatiscan-5280x5280-DJI-M3E-patch-6.jpg"
+)
 image = Image.open(image_path)
 image_np = np.array(image)
 transformed = test_transform(image=image_np)
-image_tensor = transformed['image'].to(device)
+image_tensor = transformed["image"].to(device)
 image = image_tensor.unsqueeze(0)
 
 with torch.no_grad():
@@ -43,7 +42,7 @@ probabilities = torch.nn.functional.softmax(output.logits, dim=1)
 predicted_class = torch.argmax(probabilities, dim=1).item()
 
 label_to_id = {}
-with open("lowAltitude_classification/label_to_id.txt", 'r') as file:
+with open("lowAltitude_classification/label_to_id.txt", "r") as file:
     for line in file:
         label, idx = line.strip().split(": ")
         label_to_id[int(idx)] = label

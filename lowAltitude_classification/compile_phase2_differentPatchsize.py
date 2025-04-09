@@ -16,7 +16,9 @@ def p(n: float, factor: int = 100) -> float:
 
 def process_csv(csv_path: Path):
     df = pd.read_csv(csv_path)
-    file_result = Path(f"lowAltitude_classification/metrics/phase2_patches/{csv_path.stem}.dat")
+    file_result = Path(
+        f"lowAltitude_classification/metrics/phase2_patches/{csv_path.stem}.dat"
+    )
     with file_result.open(mode="w") as f:
         for idx, row in df.iterrows():
             print(f"p{str(int(row['Patch Size']))} = {p(row['F1'])}", file=f)
@@ -50,8 +52,12 @@ def process_csv(csv_path: Path):
 
 
 if __name__ == "__main__":
-    test_res = Path("lowAltitude_classification/results/New_phase_2/patch/test/phase2-test-patch_METRICS.csv")
-    val_res = Path("lowAltitude_classification/results/New_phase_2/patch/val/phase2-val-patch_METRICS.csv")
+    test_res = Path(
+        "lowAltitude_classification/results/New_phase_2/patch/test/phase2-test-patch_METRICS.csv"
+    )
+    val_res = Path(
+        "lowAltitude_classification/results/New_phase_2/patch/val/phase2-val-patch_METRICS.csv"
+    )
 
     test_df = process_csv(test_res)
     val_df = process_csv(val_res)

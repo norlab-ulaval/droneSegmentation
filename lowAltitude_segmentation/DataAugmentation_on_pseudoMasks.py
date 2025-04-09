@@ -4,9 +4,11 @@ we do data augmentation here to make it similar to the HA images, so we first cr
 384 can be discussed, I searched for the Mask2Former training size of ade dataset for semantic segmentation: https://huggingface.co/facebook/mask2former-swin-large-ade-semantic/blob/main/preprocessor_config.json
 margin is to avoid being near borders of the image, because pseudo labels there, are very noisy and inaccurate
 """
+
 import cv2
 import os
 import numpy as np
+
 
 def find_largest_multiple(dim):
     return (dim // 384) * 384
@@ -34,27 +36,27 @@ def process_image(image_path, seg_map_path, mode, margin):
     else:
         start_y = margin
 
-
     # print(start_x, start_y)
-    cropped_image = image[start_y:start_y + h, start_x:start_x + h]
-    cropped_seg_map = seg_map[start_y:start_y + h, start_x:start_x + h]
-
-
+    cropped_image = image[start_y : start_y + h, start_x : start_x + h]
+    cropped_seg_map = seg_map[start_y : start_y + h, start_x : start_x + h]
 
     resized_image = cv2.resize(cropped_image, (384, 384), interpolation=cv2.INTER_AREA)
     # For segmentation maps or any other label maps, such as semantic segmentation outputs, using cv2.INTER_NEAREST is preferred.
     # This method assigns the nearest neighbor value to each pixel in the output image, which is crucial for maintaining the discrete nature of class labels.
-    resized_seg_map = cv2.resize(cropped_seg_map, (384, 384), interpolation=cv2.INTER_NEAREST)
+    resized_seg_map = cv2.resize(
+        cropped_seg_map, (384, 384), interpolation=cv2.INTER_NEAREST
+    )
 
-    output_path_img = "data/segmentation_augmentation/" + mode + '/' + 'images/'
+    output_path_img = "data/segmentation_augmentation/" + mode + "/" + "images/"
     os.makedirs(output_path_img, exist_ok=True)
     output_path_img = output_path_img + os.path.basename(image_path)
     cv2.imwrite(output_path_img, resized_image)
 
-    seg_output_path = "data/segmentation_augmentation/" + mode + '/' + 'masks/'
+    seg_output_path = "data/segmentation_augmentation/" + mode + "/" + "masks/"
     os.makedirs(seg_output_path, exist_ok=True)
     seg_output_path = seg_output_path + os.path.basename(seg_map_path)
     cv2.imwrite(seg_output_path, resized_seg_map)
+
 
 train_img_folder = "data/segmentation/train/images"
 train_mask_folder = "data/segmentation/train/masks"
@@ -63,11 +65,16 @@ val_mask_folder = "data/segmentation/val/masks"
 
 for image_name in os.listdir(train_img_folder):
     image_path = os.path.join(train_img_folder, image_name)
-    seg_map_path = os.path.join(train_mask_folder, os.path.splitext(image_name)[0] + '_segmentation_map' + '.png')
+    seg_map_path = os.path.join(
+        train_mask_folder,
+        os.path.splitext(image_name)[0] + "_segmentation_map" + ".png",
+    )
     # margin is to avoid being near borders of the image, because pseudo labels there, are very noisy and inaccurate
-    process_image(image_path, seg_map_path, 'train', margin=100)
+    process_image(image_path, seg_map_path, "train", margin=100)
 
 for image_name in os.listdir(val_img_folder):
     image_path = os.path.join(val_img_folder, image_name)
-    seg_map_path = os.path.join(val_mask_folder, os.path.splitext(image_name)[0] + '_segmentation_map' + '.png')
-    process_image(image_path, seg_map_path, 'val', margin=100)
+    seg_map_path = os.path.join(
+        val_mask_folder, os.path.splitext(image_name)[0] + "_segmentation_map" + ".png"
+    )
+    process_image(image_path, seg_map_path, "val", margin=100)

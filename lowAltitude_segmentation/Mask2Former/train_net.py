@@ -4,6 +4,7 @@ MaskFormer Training Script.
 
 This script is a simplified version of the training script in detectron2/tools.
 """
+
 from fvcore.nn import get_bn_modules
 
 try:
@@ -11,7 +12,7 @@ try:
     from shapely.errors import ShapelyDeprecationWarning
     import warnings
 
-    warnings.filterwarnings('ignore', category=ShapelyDeprecationWarning)
+    warnings.filterwarnings("ignore", category=ShapelyDeprecationWarning)
 except:
     pass
 
@@ -25,13 +26,14 @@ from typing import Any, Dict, List, Set
 import detectron2.utils.comm as comm
 import torch
 from detectron2.checkpoint import DetectionCheckpointer
-from detectron2.config import (get_cfg, CfgNode)
+from detectron2.config import get_cfg, CfgNode
 from detectron2.data import MetadataCatalog, build_detection_train_loader
 from detectron2.engine import (
     DefaultTrainer,
     default_argument_parser,
     default_setup,
-    launch, hooks,
+    launch,
+    hooks,
 )
 from detectron2.evaluation import (
     CityscapesInstanceEvaluator,
@@ -108,7 +110,11 @@ class Trainer(DefaultTrainer):
         # This is not always the best: if checkpointing has a different frequency,
         # some checkpoints may have more precise statistics than others.
         if comm.is_main_process():
-            ret.append(hooks.PeriodicCheckpointer(self.checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD))
+            ret.append(
+                hooks.PeriodicCheckpointer(
+                    self.checkpointer, cfg.SOLVER.CHECKPOINT_PERIOD
+                )
+            )
 
         def test_and_save_results():
             self._last_eval_results = self.test(self.cfg, self.model)
@@ -121,8 +127,13 @@ class Trainer(DefaultTrainer):
         # Best checkpoint
         if cfg.SOLVER.BEST_CHECKPOINTER and comm.is_main_process():
             ret.append(
-                hooks.BestCheckpointer(cfg.TEST.EVAL_PERIOD, self.checkpointer, cfg.SOLVER.BEST_CHECKPOINTER.METRIC,
-                                       mode=cfg.SOLVER.BEST_CHECKPOINTER.MODE))
+                hooks.BestCheckpointer(
+                    cfg.TEST.EVAL_PERIOD,
+                    self.checkpointer,
+                    cfg.SOLVER.BEST_CHECKPOINTER.METRIC,
+                    mode=cfg.SOLVER.BEST_CHECKPOINTER.MODE,
+                )
+            )
 
         if comm.is_main_process():
             # Here the default print/log frequency of each writer is used.
@@ -163,42 +174,71 @@ class Trainer(DefaultTrainer):
             "mapillary_vistas_panoptic_seg",
         ]:
             if cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON:
-                evaluator_list.append(COCOPanopticEvaluator(dataset_name, output_folder))
+                evaluator_list.append(
+                    COCOPanopticEvaluator(dataset_name, output_folder)
+                )
         # COCO
-        if evaluator_type == "coco_panoptic_seg" and cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON:
+        if (
+            evaluator_type == "coco_panoptic_seg"
+            and cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON
+        ):
             evaluator_list.append(COCOEvaluator(dataset_name, output_dir=output_folder))
-        if evaluator_type == "coco_panoptic_seg" and cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON:
-            evaluator_list.append(SemSegEvaluator(dataset_name, distributed=True, output_dir=output_folder))
+        if (
+            evaluator_type == "coco_panoptic_seg"
+            and cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON
+        ):
+            evaluator_list.append(
+                SemSegEvaluator(
+                    dataset_name, distributed=True, output_dir=output_folder
+                )
+            )
         # Mapillary Vistas
-        if evaluator_type == "mapillary_vistas_panoptic_seg" and cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON:
-            evaluator_list.append(InstanceSegEvaluator(dataset_name, output_dir=output_folder))
-        if evaluator_type == "mapillary_vistas_panoptic_seg" and cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON:
-            evaluator_list.append(SemSegEvaluator(dataset_name, distributed=True, output_dir=output_folder))
+        if (
+            evaluator_type == "mapillary_vistas_panoptic_seg"
+            and cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON
+        ):
+            evaluator_list.append(
+                InstanceSegEvaluator(dataset_name, output_dir=output_folder)
+            )
+        if (
+            evaluator_type == "mapillary_vistas_panoptic_seg"
+            and cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON
+        ):
+            evaluator_list.append(
+                SemSegEvaluator(
+                    dataset_name, distributed=True, output_dir=output_folder
+                )
+            )
         # Cityscapes
         if evaluator_type == "cityscapes_instance":
-            assert (
-                    torch.cuda.device_count() > comm.get_rank()
-            ), "CityscapesEvaluator currently do not work with multiple machines."
+            assert torch.cuda.device_count() > comm.get_rank(), (
+                "CityscapesEvaluator currently do not work with multiple machines."
+            )
             return CityscapesInstanceEvaluator(dataset_name)
         if evaluator_type == "cityscapes_sem_seg":
-            assert (
-                    torch.cuda.device_count() > comm.get_rank()
-            ), "CityscapesEvaluator currently do not work with multiple machines."
+            assert torch.cuda.device_count() > comm.get_rank(), (
+                "CityscapesEvaluator currently do not work with multiple machines."
+            )
             return CityscapesSemSegEvaluator(dataset_name)
         if evaluator_type == "cityscapes_panoptic_seg":
             if cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON:
-                assert (
-                        torch.cuda.device_count() > comm.get_rank()
-                ), "CityscapesEvaluator currently do not work with multiple machines."
+                assert torch.cuda.device_count() > comm.get_rank(), (
+                    "CityscapesEvaluator currently do not work with multiple machines."
+                )
                 evaluator_list.append(CityscapesSemSegEvaluator(dataset_name))
             if cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON:
-                assert (
-                        torch.cuda.device_count() > comm.get_rank()
-                ), "CityscapesEvaluator currently do not work with multiple machines."
+                assert torch.cuda.device_count() > comm.get_rank(), (
+                    "CityscapesEvaluator currently do not work with multiple machines."
+                )
                 evaluator_list.append(CityscapesInstanceEvaluator(dataset_name))
         # ADE20K
-        if evaluator_type == "ade20k_panoptic_seg" and cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON:
-            evaluator_list.append(InstanceSegEvaluator(dataset_name, output_dir=output_folder))
+        if (
+            evaluator_type == "ade20k_panoptic_seg"
+            and cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON
+        ):
+            evaluator_list.append(
+                InstanceSegEvaluator(dataset_name, output_dir=output_folder)
+            )
         # LVIS
         if evaluator_type == "lvis":
             return LVISEvaluator(dataset_name, output_dir=output_folder)
@@ -292,10 +332,12 @@ class Trainer(DefaultTrainer):
 
                 hyperparams = copy.copy(defaults)
                 if "backbone" in module_name:
-                    hyperparams["lr"] = hyperparams["lr"] * cfg.SOLVER.BACKBONE_MULTIPLIER
+                    hyperparams["lr"] = (
+                        hyperparams["lr"] * cfg.SOLVER.BACKBONE_MULTIPLIER
+                    )
                 if (
-                        "relative_position_bias_table" in module_param_name
-                        or "absolute_pos_embed" in module_param_name
+                    "relative_position_bias_table" in module_param_name
+                    or "absolute_pos_embed" in module_param_name
                 ):
                     print(module_param_name)
                     hyperparams["weight_decay"] = 0.0
@@ -309,14 +351,16 @@ class Trainer(DefaultTrainer):
             # detectron2 doesn't have full model gradient clipping now
             clip_norm_val = cfg.SOLVER.CLIP_GRADIENTS.CLIP_VALUE
             enable = (
-                    cfg.SOLVER.CLIP_GRADIENTS.ENABLED
-                    and cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE == "full_model"
-                    and clip_norm_val > 0.0
+                cfg.SOLVER.CLIP_GRADIENTS.ENABLED
+                and cfg.SOLVER.CLIP_GRADIENTS.CLIP_TYPE == "full_model"
+                and clip_norm_val > 0.0
             )
 
             class FullModelGradientClippingOptimizer(optim):
                 def step(self, closure=None):
-                    all_params = itertools.chain(*[x["params"] for x in self.param_groups])
+                    all_params = itertools.chain(
+                        *[x["params"] for x in self.param_groups]
+                    )
                     torch.nn.utils.clip_grad_norm_(all_params, clip_norm_val)
                     super().step(closure=closure)
 
@@ -368,7 +412,9 @@ def setup(args):
     cfg.freeze()
     default_setup(cfg, args)
     # Setup logger for "mask_former" module
-    setup_logger(output=cfg.OUTPUT_DIR, distributed_rank=comm.get_rank(), name="mask2former")
+    setup_logger(
+        output=cfg.OUTPUT_DIR, distributed_rank=comm.get_rank(), name="mask2former"
+    )
     return cfg
 
 

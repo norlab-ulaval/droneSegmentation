@@ -56,7 +56,9 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
 
         logger = logging.getLogger(__name__)
         mode = "training" if is_train else "inference"
-        logger.info(f"[{self.__class__.__name__}] Augmentations used in {mode}: {augmentations}")
+        logger.info(
+            f"[{self.__class__.__name__}] Augmentations used in {mode}: {augmentations}"
+        )
 
     @classmethod
     def from_config(cls, cfg, is_train=True):
@@ -78,21 +80,23 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
                 )
             )
         if cfg.INPUT.COLOR_AUG_SSD:
-            augs.append(ColorAugSSDTransform(img_format=cfg.INPUT.FORMAT, brightness_delta = 8,
-                                                                            contrast_low = 0.8,
-                                                                            contrast_high = 1.2,
-                                                                            saturation_low = 0.8,
-                                                                            saturation_high = 1.2,
-                                                                            hue_delta = 5))
+            augs.append(
+                ColorAugSSDTransform(
+                    img_format=cfg.INPUT.FORMAT,
+                    brightness_delta=8,
+                    contrast_low=0.8,
+                    contrast_high=1.2,
+                    saturation_low=0.8,
+                    saturation_high=1.2,
+                    hue_delta=5,
+                )
+            )
 
         augs.append(T.RandomFlip())
         augs.append(T.RandomSaturation(intensity_min=0.5, intensity_max=1.5))
         augs.append(T.RandomBrightness(intensity_min=0.7, intensity_max=1.3))
         augs.append(T.RandomContrast(intensity_min=0.8, intensity_max=1.2))
         augs.append(T.RandomLighting(scale=0.1))
-
-
-
 
         # Assume always applies to the training set.
         dataset_names = cfg.DATASETS.TRAIN
@@ -116,7 +120,9 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
         Returns:
             dict: a format that builtin models in detectron2 accept
         """
-        assert self.is_train, "MaskFormerSemanticDatasetMapper should only be used for training!"
+        assert self.is_train, (
+            "MaskFormerSemanticDatasetMapper should only be used for training!"
+        )
 
         dataset_dict = copy.deepcopy(dataset_dict)  # it will be modified by code below
         image = utils.read_image(dataset_dict["file_name"], format=self.img_format)
@@ -124,7 +130,9 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
 
         if "sem_seg_file_name" in dataset_dict:
             # PyTorch transformation not implemented for uint16, so converting it to double first
-            sem_seg_gt = utils.read_image(dataset_dict.pop("sem_seg_file_name"), format='L').astype("double")
+            sem_seg_gt = utils.read_image(
+                dataset_dict.pop("sem_seg_file_name"), format="L"
+            ).astype("double")
             # import matplotlib.pyplot as plt
             # plt.imshow(sem_seg_gt)
             # plt.show()
@@ -160,7 +168,9 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
             ]
             image = F.pad(image, padding_size, value=128).contiguous()
             if sem_seg_gt is not None:
-                sem_seg_gt = F.pad(sem_seg_gt, padding_size, value=self.ignore_label).contiguous()
+                sem_seg_gt = F.pad(
+                    sem_seg_gt, padding_size, value=self.ignore_label
+                ).contiguous()
 
         image_shape = (image.shape[-2], image.shape[-1])  # h, w
 
@@ -173,7 +183,9 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
             dataset_dict["sem_seg"] = sem_seg_gt.long()
 
         if "annotations" in dataset_dict:
-            raise ValueError("Semantic segmentation dataset should not have 'annotations'.")
+            raise ValueError(
+                "Semantic segmentation dataset should not have 'annotations'."
+            )
 
         # Prepare per-category binary masks
         if sem_seg_gt is not None:
@@ -190,17 +202,23 @@ class MaskFormerSemanticDatasetMapperColorAugmentations:
             # plt.show()
             # exit()
 
-
             masks = []
             for class_id in classes:
                 masks.append(sem_seg_gt == class_id)
 
             if len(masks) == 0:
                 # Some image does not have annotation (all ignored)
-                instances.gt_masks = torch.zeros((0, sem_seg_gt.shape[-2], sem_seg_gt.shape[-1]))
+                instances.gt_masks = torch.zeros(
+                    (0, sem_seg_gt.shape[-2], sem_seg_gt.shape[-1])
+                )
             else:
                 masks = BitMasks(
-                    torch.stack([torch.from_numpy(np.ascontiguousarray(x.copy())) for x in masks])
+                    torch.stack(
+                        [
+                            torch.from_numpy(np.ascontiguousarray(x.copy()))
+                            for x in masks
+                        ]
+                    )
                 )
                 instances.gt_masks = masks.tensor
 

@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 import os
 
+
 def p(n: float, factor: int = 100) -> float:
     return factor * n
 
@@ -9,7 +10,7 @@ def p(n: float, factor: int = 100) -> float:
 def process_csv(csv_path: Path):
     df = pd.read_csv(csv_path)
     file_name = os.path.basename(csv_path)
-    val_test = file_name.split('_')[0]
+    val_test = file_name.split("_")[0]
 
     df.loc[1, "F1diff"] = df.loc[1, "F1"] - df.loc[0, "F1"]
     df.loc[8, "F1diff"] = df.loc[8, "F1"] - df.loc[0, "F1"]
@@ -50,5 +51,9 @@ def process_csv(csv_path: Path):
 
 
 if __name__ == "__main__":
-    test_df = process_csv('lowAltitude_classification/Cls_Different_Techniques/CLS_avg_csv_stages_evaluation/TEST_CLS_evaluation_drone_AVG.csv')
-    val_df = process_csv('lowAltitude_classification/Cls_Different_Techniques/CLS_avg_csv_stages_evaluation/VAL_CLS_evaluation_drone_AVG.csv')
+    test_df = process_csv(
+        "lowAltitude_classification/Cls_Different_Techniques/CLS_avg_csv_stages_evaluation/TEST_CLS_evaluation_drone_AVG.csv"
+    )
+    val_df = process_csv(
+        "lowAltitude_classification/Cls_Different_Techniques/CLS_avg_csv_stages_evaluation/VAL_CLS_evaluation_drone_AVG.csv"
+    )

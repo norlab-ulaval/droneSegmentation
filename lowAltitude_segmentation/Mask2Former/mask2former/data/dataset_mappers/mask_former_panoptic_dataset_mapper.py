@@ -64,7 +64,9 @@ class MaskFormerPanopticDatasetMapper(MaskFormerSemanticDatasetMapper):
         Returns:
             dict: a format that builtin models in detectron2 accept
         """
-        assert self.is_train, "MaskFormerPanopticDatasetMapper should only be used for training!"
+        assert self.is_train, (
+            "MaskFormerPanopticDatasetMapper should only be used for training!"
+        )
 
         dataset_dict = copy.deepcopy(dataset_dict)  # it will be modified by code below
         image = utils.read_image(dataset_dict["file_name"], format=self.img_format)
@@ -73,7 +75,9 @@ class MaskFormerPanopticDatasetMapper(MaskFormerSemanticDatasetMapper):
         # semantic segmentation
         if "sem_seg_file_name" in dataset_dict:
             # PyTorch transformation not implemented for uint16, so converting it to double first
-            sem_seg_gt = utils.read_image(dataset_dict.pop("sem_seg_file_name")).astype("double")
+            sem_seg_gt = utils.read_image(dataset_dict.pop("sem_seg_file_name")).astype(
+                "double"
+            )
         else:
             sem_seg_gt = None
 
@@ -121,7 +125,9 @@ class MaskFormerPanopticDatasetMapper(MaskFormerSemanticDatasetMapper):
             ]
             image = F.pad(image, padding_size, value=128).contiguous()
             if sem_seg_gt is not None:
-                sem_seg_gt = F.pad(sem_seg_gt, padding_size, value=self.ignore_label).contiguous()
+                sem_seg_gt = F.pad(
+                    sem_seg_gt, padding_size, value=self.ignore_label
+                ).contiguous()
             pan_seg_gt = F.pad(
                 pan_seg_gt, padding_size, value=0
             ).contiguous()  # 0 is the VOID panoptic label
@@ -136,7 +142,9 @@ class MaskFormerPanopticDatasetMapper(MaskFormerSemanticDatasetMapper):
             dataset_dict["sem_seg"] = sem_seg_gt.long()
 
         if "annotations" in dataset_dict:
-            raise ValueError("Pemantic segmentation dataset should not have 'annotations'.")
+            raise ValueError(
+                "Pemantic segmentation dataset should not have 'annotations'."
+            )
 
         # Prepare per-category binary masks
         pan_seg_gt = pan_seg_gt.numpy()
@@ -153,10 +161,14 @@ class MaskFormerPanopticDatasetMapper(MaskFormerSemanticDatasetMapper):
         instances.gt_classes = torch.tensor(classes, dtype=torch.int64)
         if len(masks) == 0:
             # Some image does not have annotation (all ignored)
-            instances.gt_masks = torch.zeros((0, pan_seg_gt.shape[-2], pan_seg_gt.shape[-1]))
+            instances.gt_masks = torch.zeros(
+                (0, pan_seg_gt.shape[-2], pan_seg_gt.shape[-1])
+            )
         else:
             masks = BitMasks(
-                torch.stack([torch.from_numpy(np.ascontiguousarray(x.copy())) for x in masks])
+                torch.stack(
+                    [torch.from_numpy(np.ascontiguousarray(x.copy())) for x in masks]
+                )
             )
             instances.gt_masks = masks.tensor
 

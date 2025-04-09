@@ -323,18 +323,26 @@ if __name__ == "__main__":
 
     for name, dirname in [("train", "training"), ("val", "validation")]:
         image_dir = os.path.join(dataset_dir, f"ADEChallengeData2016/images/{dirname}/")
-        semantic_dir = os.path.join(dataset_dir, f"ADEChallengeData2016/annotations/{dirname}/")
+        semantic_dir = os.path.join(
+            dataset_dir, f"ADEChallengeData2016/annotations/{dirname}/"
+        )
         instance_dir = os.path.join(
             dataset_dir, f"ADEChallengeData2016/annotations_instance/{dirname}/"
         )
 
         # folder to store panoptic PNGs
-        out_folder = os.path.join(dataset_dir, f"ADEChallengeData2016/ade20k_panoptic_{name}/")
+        out_folder = os.path.join(
+            dataset_dir, f"ADEChallengeData2016/ade20k_panoptic_{name}/"
+        )
         # json with segmentations information
-        out_file = os.path.join(dataset_dir, f"ADEChallengeData2016/ade20k_panoptic_{name}.json")
+        out_file = os.path.join(
+            dataset_dir, f"ADEChallengeData2016/ade20k_panoptic_{name}.json"
+        )
 
         if not os.path.isdir(out_folder):
-            print("Creating folder {} for panoptic segmentation PNGs".format(out_folder))
+            print(
+                "Creating folder {} for panoptic segmentation PNGs".format(out_folder)
+            )
             os.mkdir(out_folder)
 
         # json config

@@ -9,5 +9,5 @@ from . import (
     register_mapillary_vistas_panoptic,
     register_drone_semantic,
     register_drone_semantic_ignore1,
-    register_drone_semantic_ignore255
+    register_drone_semantic_ignore255,
 )

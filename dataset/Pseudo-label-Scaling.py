@@ -2,9 +2,9 @@ import os
 import random
 import shutil
 
-source_dir = 'data/Unlabeled_Drone_Dataset_Patch'
-half_dir = 'data/Unlabeled_Drone_Dataset_Patch_Half'
-quarter_dir = 'data/Unlabeled_Drone_Dataset_Patch_Quarter'
+source_dir = "data/Unlabeled_Drone_Dataset_Patch"
+half_dir = "data/Unlabeled_Drone_Dataset_Patch_Half"
+quarter_dir = "data/Unlabeled_Drone_Dataset_Patch_Quarter"
 
 os.makedirs(half_dir, exist_ok=True)
 os.makedirs(quarter_dir, exist_ok=True)

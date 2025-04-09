@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
     images = []
     filenames = []
@@ -13,6 +14,7 @@ def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
             images.append(img)
             filenames.append(filename)
     return images, filenames
+
 
 # def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
 #     iou_scores = []
@@ -67,6 +69,7 @@ def compute_iou(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
         iou_scores.append(iou)
     return np.mean(iou_scores) if iou_scores else 0
 
+
 def compute_pixel_accuracy(prediction, target, ignored_classes):
     valid_mask = (prediction != -1) & (target != -1)
     if not np.any(valid_mask):
@@ -76,6 +79,7 @@ def compute_pixel_accuracy(prediction, target, ignored_classes):
     total = np.sum(mask)
     accuracy = correct / total if total != 0 else 0
     return accuracy
+
 
 def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1e-7):
     f1_scores = []
@@ -100,6 +104,7 @@ def compute_f1_score(prediction, target, num_classes, ignored_classes, epsilon=1
         f1_scores.append(f1)
     return np.mean(f1_scores) if f1_scores else 0, precision, recall
 
+
 def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
     pred_images, pred_filenames = load_images_from_folder(pred_folder)
     target_images, _ = load_images_from_folder(target_folder)
@@ -111,12 +116,8 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
     total_recall = 0
 
     for pred, target, filename in zip(pred_images, target_images, pred_filenames):
-        iou = compute_iou(
-            pred, target, num_classes=26, ignored_classes=ignored_classes
-        )
-        accuracy = compute_pixel_accuracy(
-            pred, target, ignored_classes=ignored_classes
-        )
+        iou = compute_iou(pred, target, num_classes=26, ignored_classes=ignored_classes)
+        accuracy = compute_pixel_accuracy(pred, target, ignored_classes=ignored_classes)
         f1_score, precision, recall = compute_f1_score(
             pred, target, num_classes=26, ignored_classes=ignored_classes
         )
@@ -154,45 +155,48 @@ def evaluate_segmentation(pred_folder, target_folder, ignored_classes):
 
     return avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall
 
+
 if __name__ == "__main__":
     ignored_classes = [1]
 
-    parent_preds_folder =  'results/M2F_Results/PL_V2_Crop640/output_test'
-    target_folder = 'data/Test_Annotated_masks'
+    parent_preds_folder = "results/M2F_Results/PL_V2_Crop640/output_test"
+    target_folder = "data/Test_Annotated_masks"
 
     results = []
 
     # for subdir in os.listdir(parent_preds_folder):
-        # if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
-        #     continue
+    # if subdir == 'CENTER' or subdir == 'DifferentPatchSize':
+    #     continue
 
-        # subdir_path = os.path.join(parent_preds_folder, subdir)
+    # subdir_path = os.path.join(parent_preds_folder, subdir)
 
     if os.path.isdir(parent_preds_folder):
-        avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = evaluate_segmentation(
-            parent_preds_folder, target_folder, ignored_classes
+        avg_iou, avg_accuracy, avg_f1_score, avg_precision, avg_recall = (
+            evaluate_segmentation(parent_preds_folder, target_folder, ignored_classes)
         )
-        print(f'mIoU: {avg_iou}, pAccuracy: {avg_accuracy}, F1 Score: {avg_f1_score}, Precision: {avg_precision}, Recall: {avg_recall}')
-            # results.append({
-            #     "Experiment": f"experiment {subdir}",
-            #     "mIoU": f'{avg_iou:.4f}',
-            #     "pAcc": f'{avg_accuracy:.4f}',
-            #     "F1": f'{avg_f1_score:.4f}',
-            # })
+        print(
+            f"mIoU: {avg_iou}, pAccuracy: {avg_accuracy}, F1 Score: {avg_f1_score}, Precision: {avg_precision}, Recall: {avg_recall}"
+        )
+        # results.append({
+        #     "Experiment": f"experiment {subdir}",
+        #     "mIoU": f'{avg_iou:.4f}',
+        #     "pAcc": f'{avg_accuracy:.4f}',
+        #     "F1": f'{avg_f1_score:.4f}',
+        # })
 
-            ####################### Different Patch sizes and overlaps
-            # results.append({
-            #     # "Experiment": f"experiment {idx}",
-            #     "Patch Size": subdir.split('_')[0],
-            #     "Overlap": subdir.split('_')[1],
-            #     # "precision": f'{avg_precision:.4f}',
-            #     # "recall": f'{avg_recall:.4f}',
-            #     "mIoU": f'{avg_iou:.4f}',
-            #     "pAcc": f'{avg_accuracy:.4f}',
-            #     "F1": f'{avg_f1_score:.4f}',
-            # })
+        ####################### Different Patch sizes and overlaps
+        # results.append({
+        #     # "Experiment": f"experiment {idx}",
+        #     "Patch Size": subdir.split('_')[0],
+        #     "Overlap": subdir.split('_')[1],
+        #     # "precision": f'{avg_precision:.4f}',
+        #     # "recall": f'{avg_recall:.4f}',
+        #     "mIoU": f'{avg_iou:.4f}',
+        #     "pAcc": f'{avg_accuracy:.4f}',
+        #     "F1": f'{avg_f1_score:.4f}',
+        # })
 
-            ######################## Different center assignment sizes
+        ######################## Different center assignment sizes
     #         results.append({
     #             "Central Size": subdir.split('_')[0].split('-')[1],
     #             "Patch Size": subdir.split('_')[1].split('-')[1],

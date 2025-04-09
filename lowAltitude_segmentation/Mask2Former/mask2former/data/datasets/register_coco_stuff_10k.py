@@ -208,7 +208,10 @@ def register_all_coco_stuff_10k(root):
         gt_dir = os.path.join(root, sem_seg_dirname)
         name = f"coco_2017_{name}_stuff_10k_sem_seg"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="jpg")
+            name,
+            lambda x=image_dir, y=gt_dir: load_sem_seg(
+                y, x, gt_ext="png", image_ext="jpg"
+            ),
         )
         MetadataCatalog.get(name).set(
             image_root=image_dir,

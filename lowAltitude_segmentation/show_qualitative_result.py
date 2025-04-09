@@ -27,37 +27,42 @@ DRONE_SEM_SEG_CATEGORIES = [
     {"color": [244, 164, 96], "id": 20, "name": "Trembling Aspen"},
     {"color": [60, 179, 113], "id": 21, "name": "Willowherbs"},
     {"color": [147, 112, 219], "id": 22, "name": "Wood"},
-    {"color": [166, 60, 20], "id": 23, "name": "Yellow Birch"}
+    {"color": [166, 60, 20], "id": 23, "name": "Yellow Birch"},
 ]
 
-id_to_color_name = {category['id']: (category['color'], category['name']) for category in DRONE_SEM_SEG_CATEGORIES}
+id_to_color_name = {
+    category["id"]: (category["color"], category["name"])
+    for category in DRONE_SEM_SEG_CATEGORIES
+}
 
-image_folder = 'lowAltitude_segmentation/figs/qualitative/images'
-annotation_folder = 'lowAltitude_segmentation/figs/qualitative/annotations'
-voting_folder = 'lowAltitude_segmentation/figs/qualitative/MW'
-PT_folder = 'lowAltitude_segmentation/figs/qualitative/PT'
-PTFT_folder = 'lowAltitude_segmentation/figs/qualitative/FT'
+image_folder = "lowAltitude_segmentation/figs/qualitative/images"
+annotation_folder = "lowAltitude_segmentation/figs/qualitative/annotations"
+voting_folder = "lowAltitude_segmentation/figs/qualitative/MW"
+PT_folder = "lowAltitude_segmentation/figs/qualitative/PT"
+PTFT_folder = "lowAltitude_segmentation/figs/qualitative/FT"
+
 
 def save_image_and_txt(image_array, image_color, image_name, folder, color_mapping):
     color_image = Image.fromarray(image_color)
-    image_save_path = os.path.join(folder, f'{image_name}.png')
+    image_save_path = os.path.join(folder, f"{image_name}.png")
     color_image.save(image_save_path)
 
-    txt_save_path = os.path.join(folder, f'{image_name}.txt')
-    with open(txt_save_path, 'w') as txt_file:
+    txt_save_path = os.path.join(folder, f"{image_name}.txt")
+    with open(txt_save_path, "w") as txt_file:
         unique_ids = np.unique(image_array)
         for id_val in unique_ids:
             if id_val in color_mapping:
                 color, class_name = color_mapping[id_val]
                 txt_file.write(f"Class: {class_name} (ID: {id_val}), Color: {color}\n")
 
+
 for image_file in os.listdir(image_folder):
-    if image_file.endswith('.jpg'):
+    if image_file.endswith(".jpg"):
         image_path = os.path.join(image_folder, image_file)
-        annotation_file = image_file.replace('.jpg', '.png')
+        annotation_file = image_file.replace(".jpg", ".png")
 
         base_name = os.path.splitext(image_file)[0]
-        annotation_filename = f'{base_name}-label-ground-truth-semantic.png'
+        annotation_filename = f"{base_name}-label-ground-truth-semantic.png"
         annotation_path = os.path.join(annotation_folder, annotation_filename)
 
         voting_path = os.path.join(voting_folder, annotation_file)
@@ -71,8 +76,12 @@ for image_file in os.listdir(image_folder):
             PT = np.array(Image.open(PT_path))
             PTFT = np.array(Image.open(PTFT_path))
 
-            color_annotation = np.zeros((annotation.shape[0], annotation.shape[1], 3), dtype=np.uint8)
-            color_voting = np.zeros((voting.shape[0], voting.shape[1], 3), dtype=np.uint8)
+            color_annotation = np.zeros(
+                (annotation.shape[0], annotation.shape[1], 3), dtype=np.uint8
+            )
+            color_voting = np.zeros(
+                (voting.shape[0], voting.shape[1], 3), dtype=np.uint8
+            )
             color_PT = np.zeros((PT.shape[0], PT.shape[1], 3), dtype=np.uint8)
             color_PTFT = np.zeros((PTFT.shape[0], PTFT.shape[1], 3), dtype=np.uint8)
 
@@ -93,7 +102,19 @@ for image_file in os.listdir(image_folder):
                     color_PTFT[PTFT == id_val] = id_to_color_name[id_val][0]
 
             file_name = os.path.splitext(image_file)[0]
-            save_image_and_txt(annotation, color_annotation, f'{file_name}', annotation_folder, id_to_color_name)
-            save_image_and_txt(voting, color_voting, f'{file_name}', voting_folder, id_to_color_name)
-            save_image_and_txt(PT, color_PT, f'{file_name}', PT_folder, id_to_color_name)
-            save_image_and_txt(PTFT, color_PTFT, f'{file_name}', PTFT_folder, id_to_color_name)
+            save_image_and_txt(
+                annotation,
+                color_annotation,
+                f"{file_name}",
+                annotation_folder,
+                id_to_color_name,
+            )
+            save_image_and_txt(
+                voting, color_voting, f"{file_name}", voting_folder, id_to_color_name
+            )
+            save_image_and_txt(
+                PT, color_PT, f"{file_name}", PT_folder, id_to_color_name
+            )
+            save_image_and_txt(
+                PTFT, color_PTFT, f"{file_name}", PTFT_folder, id_to_color_name
+            )

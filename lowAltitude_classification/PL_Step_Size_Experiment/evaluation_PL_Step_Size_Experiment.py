@@ -6,8 +6,10 @@ import pandas as pd
 from pathlib import Path
 import csv
 
+
 def load_image(image_path):
     return np.array(Image.open(image_path))
+
 
 def calculate_metrics(pred_folder, annot_folder):
     all_preds = []
@@ -16,7 +18,7 @@ def calculate_metrics(pred_folder, annot_folder):
     for filename in os.listdir(pred_folder):
         pred_path = os.path.join(pred_folder, filename)
         base_name = os.path.splitext(filename)[0]
-        annotation_filename = f'{base_name}-label-ground-truth-semantic.png'
+        annotation_filename = f"{base_name}-label-ground-truth-semantic.png"
         annot_path = os.path.join(annot_folder, annotation_filename)
         pred_image = load_image(pred_path)
         annot_image = load_image(annot_path)
@@ -29,17 +31,19 @@ def calculate_metrics(pred_folder, annot_folder):
     all_preds = np.array(all_preds)
     all_annots = np.array(all_annots)
 
-    overall_f1_score = f1_score(all_annots, all_preds, average='macro')
+    overall_f1_score = f1_score(all_annots, all_preds, average="macro")
     pixel_accuracy = accuracy_score(all_annots, all_preds)
 
     return overall_f1_score, pixel_accuracy
 
 
-pred_folder =  Path('results/PL_Step_Size_Experiment/test')
-annot_folder = Path('data/Test_Annotated_masks_updated')
+pred_folder = Path("results/PL_Step_Size_Experiment/test")
+annot_folder = Path("data/Test_Annotated_masks_updated")
 
-csv_num_votes = Path('lowAltitude_classification/PL_Step_Size_Experiment/PL_num_votes_per_step_size.csv')
-with open(csv_num_votes, mode='r') as file:
+csv_num_votes = Path(
+    "lowAltitude_classification/PL_Step_Size_Experiment/PL_num_votes_per_step_size.csv"
+)
+with open(csv_num_votes, mode="r") as file:
     reader = csv.reader(file)
     num_votes_dict = {row[0]: row[1] for row in reader}
 
@@ -48,14 +52,18 @@ results = []
 for subdir in os.listdir(pred_folder):
     subdir_path = os.path.join(pred_folder, subdir)
     overall_f1, pAcc = calculate_metrics(subdir_path, annot_folder)
-    results.append({
-        "Dataset": pred_folder.name,
-        "step size": subdir,
-        "num_votes": num_votes_dict[subdir],
-        "F1": f'{overall_f1:.4f}',
-        "pAcc": f'{pAcc:.4f}',
-    })
+    results.append(
+        {
+            "Dataset": pred_folder.name,
+            "step size": subdir,
+            "num_votes": num_votes_dict[subdir],
+            "F1": f"{overall_f1:.4f}",
+            "pAcc": f"{pAcc:.4f}",
+        }
+    )
 
 df = pd.DataFrame(results)
-df.to_csv(f"lowAltitude_classification/PL_Step_Size_Experiment/PL_Step_Size_Experiment_{pred_folder.name}.csv",
-          index=False)
+df.to_csv(
+    f"lowAltitude_classification/PL_Step_Size_Experiment/PL_Step_Size_Experiment_{pred_folder.name}.csv",
+    index=False,
+)

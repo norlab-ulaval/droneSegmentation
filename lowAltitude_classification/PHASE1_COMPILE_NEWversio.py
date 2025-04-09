@@ -9,8 +9,10 @@ def p(n: float, factor: int = 100) -> float:
 def process_csv(csv_path: Path):
     df = pd.read_csv(csv_path)
 
-    df["F1diff"] = df['F1 Score - Macro'].diff()
-    df.loc[df.index >= 2, "F1diff"] = df['F1 Score - Macro'] - df['F1 Score - Macro'].iloc[1]
+    df["F1diff"] = df["F1 Score - Macro"].diff()
+    df.loc[df.index >= 2, "F1diff"] = (
+        df["F1 Score - Macro"] - df["F1 Score - Macro"].iloc[1]
+    )
 
     outname = f"{csv_path.stem.rstrip('-avg')}.dat"
 
@@ -37,12 +39,9 @@ def process_csv(csv_path: Path):
         c += 1
 
 
-
-
-
 if __name__ == "__main__":
-    test_res = Path('lowAltitude_classification/results/New_phase_1/TEST_metrics.csv')
-    val_res = Path('lowAltitude_classification/results/New_phase_1/VAL_metrics.csv')
+    test_res = Path("lowAltitude_classification/results/New_phase_1/TEST_metrics.csv")
+    val_res = Path("lowAltitude_classification/results/New_phase_1/VAL_metrics.csv")
 
     process_csv(test_res)
     process_csv(val_res)

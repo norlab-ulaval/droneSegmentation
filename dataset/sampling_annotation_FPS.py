@@ -4,14 +4,15 @@ import random
 import exifread
 import shutil
 
+
 def get_coordinates_from_metadata(image_path):
-    with open(image_path, 'rb') as f:
+    with open(image_path, "rb") as f:
         tags = exifread.process_file(f)
 
-        gps_latitude = tags.get('GPS GPSLatitude')
-        gps_latitude_ref = tags.get('GPS GPSLatitudeRef')
-        gps_longitude = tags.get('GPS GPSLongitude')
-        gps_longitude_ref = tags.get('GPS GPSLongitudeRef')
+        gps_latitude = tags.get("GPS GPSLatitude")
+        gps_latitude_ref = tags.get("GPS GPSLatitudeRef")
+        gps_longitude = tags.get("GPS GPSLongitude")
+        gps_longitude_ref = tags.get("GPS GPSLongitudeRef")
 
         if gps_latitude and gps_longitude and gps_latitude_ref and gps_longitude_ref:
             lat = [float(x.num) / float(x.den) for x in gps_latitude.values]
@@ -25,6 +26,7 @@ def get_coordinates_from_metadata(image_path):
             return latitude, longitude
 
     return None
+
 
 def farthest_point_sampling(coords, n_samples):
     N = coords.shape[0]
@@ -44,12 +46,13 @@ def farthest_point_sampling(coords, n_samples):
 
     return sampled_indices
 
+
 def read_image_coordinates(image_dir):
     coords = []
     image_paths = []
     for root, _, files in os.walk(image_dir):
         for file in files:
-            if file.lower().endswith(('jpg', 'jpeg', 'png')):
+            if file.lower().endswith(("jpg", "jpeg", "png")):
                 image_path = os.path.join(root, file)
                 coord = get_coordinates_from_metadata(image_path)
                 if coord:
@@ -58,21 +61,24 @@ def read_image_coordinates(image_dir):
 
     return np.array(coords), image_paths
 
+
 def save_images(image_paths, dest_dir):
     os.makedirs(dest_dir, exist_ok=True)
     for image_path in image_paths:
         shutil.copy(image_path, dest_dir)
 
+
 def get_existing_images(dest_dir):
     existing_images = set()
     for root, _, files in os.walk(dest_dir):
         for file in files:
-            if file.lower().endswith(('jpg', 'jpeg', 'png')):
+            if file.lower().endswith(("jpg", "jpeg", "png")):
                 existing_images.add(file)
     return existing_images
 
-image_dir = 'data/Dataset_LowAltitude/Domtar_July9_indexed'
-dest_dir_1 = 'data/Dataset_LowAltitude/Domtar_July9_indexed_annotation'
+
+image_dir = "data/Dataset_LowAltitude/Domtar_July9_indexed"
+dest_dir_1 = "data/Dataset_LowAltitude/Domtar_July9_indexed_annotation"
 # dest_dir_2 = 'data/Dataset_LowAltitude/ZecChapais_June20_indexed_annotation_2'
 n_samples = 50
 

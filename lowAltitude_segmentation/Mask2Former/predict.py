@@ -17,20 +17,24 @@ from fontTools.unicodedata import script
 from mask2former import add_maskformer2_config
 
 
-class Predictor():
+class Predictor:
     def setup(self):
         cfg = get_cfg()
         add_deeplab_config(cfg)
         add_maskformer2_config(cfg)
 
-        cfg['SOLVER']['BEST_CHECKPOINTER'] = CfgNode()
-        cfg['SOLVER']['BEST_CHECKPOINTER']['ENABLED'] = False
-        cfg['SOLVER']['BEST_CHECKPOINTER']['METRIC'] = 'yolo'
+        cfg["SOLVER"]["BEST_CHECKPOINTER"] = CfgNode()
+        cfg["SOLVER"]["BEST_CHECKPOINTER"]["ENABLED"] = False
+        cfg["SOLVER"]["BEST_CHECKPOINTER"]["METRIC"] = "yolo"
 
         cfg.merge_from_file(
-            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_ignore255.yaml", allow_unsafe=True)
+            "lowAltitude_segmentation/Mask2Former/configs/Drone_regrowth/semantic-segmentation/swin/M2F_Swin_Large_base_ignore255.yaml",
+            allow_unsafe=True,
+        )
 
-        cfg.MODEL.WEIGHTS = 'results/M2F_Results/Scaling/scaling_1.2_run2/model_best.pth'
+        cfg.MODEL.WEIGHTS = (
+            "results/M2F_Results/Scaling/scaling_1.2_run2/model_best.pth"
+        )
         cfg.MODEL.MASK_FORMER.TEST.SEMANTIC_ON = True
         cfg.MODEL.MASK_FORMER.TEST.INSTANCE_ON = False
         cfg.MODEL.MASK_FORMER.TEST.PANOPTIC_ON = False
@@ -63,8 +67,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = 'data/Test_Annotated'
-output_directory = 'results/M2F_Results/Scaling/scaling_1.2_run2/output_test'
+input_directory = "data/Test_Annotated"
+output_directory = "results/M2F_Results/Scaling/scaling_1.2_run2/output_test"
 
 process_images(input_directory, output_directory)
 print("done")

@@ -12,14 +12,16 @@ from fontTools.unicodedata import script
 from mask2former import add_maskformer2_config
 
 
-class Predictor():
+class Predictor:
     def setup(self):
         self.metadata = MetadataCatalog.get("drone_dataset_sem_seg_val")
 
     def predict(self, image_path, output_path):
         im = cv2.imread(str(image_path), cv2.IMREAD_GRAYSCALE)
 
-        v = Visualizer(im[:, :], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE)
+        v = Visualizer(
+            im[:, :], self.metadata, scale=1.2, instance_mode=ColorMode.IMAGE
+        )
         semantic_result = v.draw_sem_seg(im).get_image()
         cv2.imwrite(output_path, semantic_result)
 
@@ -39,8 +41,8 @@ def process_images(input_dir, output_dir):
         print(f"Processed and saved: {output_path}")
 
 
-input_directory = 'data/Train-val_Annotated_masks'
-output_directory = 'data/Train-val_annotations_colorful'
+input_directory = "data/Train-val_Annotated_masks"
+output_directory = "data/Train-val_annotations_colorful"
 
 process_images(input_directory, output_directory)
 print("done")

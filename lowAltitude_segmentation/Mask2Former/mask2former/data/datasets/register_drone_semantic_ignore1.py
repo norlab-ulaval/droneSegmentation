@@ -173,7 +173,7 @@ DRONE_SEM_SEG_CATEGORIES = [
         "readable": "Yellow Birch",
         "name": "Yellow Birch",
         "evaluate": True,
-    }
+    },
 ]
 
 
@@ -198,14 +198,17 @@ def register_all_mapillary_vistas(root):
         gt_dir = os.path.join(root, dirname, "masks")
         name = f"drone_dataset_sem_seg_ignore1_{name}"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="JPG")
+            name,
+            lambda x=image_dir, y=gt_dir: load_sem_seg(
+                y, x, gt_ext="png", image_ext="JPG"
+            ),
         )
         MetadataCatalog.get(name).set(
             image_root=image_dir,
             sem_seg_root=gt_dir,
             evaluator_type="sem_seg",
             ignore_label=1,
-            **meta
+            **meta,
         )
 
 

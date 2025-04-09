@@ -173,7 +173,7 @@ DRONE_SEM_SEG_CATEGORIES = [
         "readable": "Yellow Birch",
         "name": "Yellow Birch",
         "evaluate": True,
-    }
+    },
 ]
 
 
@@ -198,22 +198,25 @@ def register_all_mapillary_vistas(root):
         gt_dir = os.path.join(root, dirname, "masks")
         name = f"drone_dataset_sem_seg_ignore255_{name}"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="jpg")
+            name,
+            lambda x=image_dir, y=gt_dir: load_sem_seg(
+                y, x, gt_ext="png", image_ext="jpg"
+            ),
         )
         MetadataCatalog.get(name).set(
             image_root=image_dir,
             sem_seg_root=gt_dir,
             evaluator_type="sem_seg",
             ignore_label=255,
-            **meta
+            **meta,
         )
 
 
-SPLIT = os.environ.get('SPLIT', 'PL')
-tmp_dir = os.environ['SLURM_TMPDIR']
-if SPLIT == 'PL':
+SPLIT = os.environ.get("SPLIT", "PL")
+tmp_dir = os.environ["SLURM_TMPDIR"]
+if SPLIT == "PL":
     _root = f"{tmp_dir}/M2F_pretrain_data"
-elif SPLIT == 'FT':
+elif SPLIT == "FT":
     _root = f"{tmp_dir}/Annotated_data_split"
 else:
     _root = f"{tmp_dir}/scaling_datasets/{SPLIT}"

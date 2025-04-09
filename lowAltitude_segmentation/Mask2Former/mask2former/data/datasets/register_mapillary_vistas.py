@@ -471,10 +471,14 @@ MAPILLARY_VISTAS_SEM_SEG_CATEGORIES = [
 
 
 def _get_mapillary_vistas_meta():
-    stuff_classes = [k["readable"] for k in MAPILLARY_VISTAS_SEM_SEG_CATEGORIES if k["evaluate"]]
+    stuff_classes = [
+        k["readable"] for k in MAPILLARY_VISTAS_SEM_SEG_CATEGORIES if k["evaluate"]
+    ]
     assert len(stuff_classes) == 65
 
-    stuff_colors = [k["color"] for k in MAPILLARY_VISTAS_SEM_SEG_CATEGORIES if k["evaluate"]]
+    stuff_colors = [
+        k["color"] for k in MAPILLARY_VISTAS_SEM_SEG_CATEGORIES if k["evaluate"]
+    ]
     assert len(stuff_colors) == 65
 
     ret = {
@@ -492,7 +496,10 @@ def register_all_mapillary_vistas(root):
         gt_dir = os.path.join(root, dirname, "labels")
         name = f"mapillary_vistas_sem_seg_{name}"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="jpg")
+            name,
+            lambda x=image_dir, y=gt_dir: load_sem_seg(
+                y, x, gt_ext="png", image_ext="jpg"
+            ),
         )
         MetadataCatalog.get(name).set(
             image_root=image_dir,

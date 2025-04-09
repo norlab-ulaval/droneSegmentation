@@ -4,8 +4,8 @@ repos:
     rev: v0.11.4
     hooks:
       # Run the linter.
-      - id: ruff
-        args: ["--fix", "--show-fixes"]
+      # - id: ruff
+      # args: ["--fix", "--show-fixes"]
       # Run the formatter.
       - id: ruff-format
         types_or: [python, pyi, jupyter]

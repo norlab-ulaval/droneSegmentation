@@ -17,11 +17,11 @@ def load_images_from_folder(folder, color_mode=cv2.IMREAD_GRAYSCALE):
 
 
 def load_label_mapping(label_to_id_path):
-    with open(label_to_id_path, 'r') as file:
+    with open(label_to_id_path, "r") as file:
         lines = file.readlines()
     label_mapping = {}
     for line in lines:
-        label, idx = line.split(':')
+        label, idx = line.split(":")
         label_mapping[int(idx)] = label.strip()
     return label_mapping
 
@@ -36,11 +36,12 @@ def compute_confusion_matrix(annotations, predictions, label_mapping):
 
 
 def plot_confusion_matrix(cm, label_mapping):
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=list(label_mapping.values()))
+    disp = ConfusionMatrixDisplay(
+        confusion_matrix=cm, display_labels=list(label_mapping.values())
+    )
     disp.plot(cmap=plt.cm.Blues, xticks_rotation=90)
-    plt.title('Confusion Matrix')
+    plt.title("Confusion Matrix")
     plt.show()
-
 
 
 def calculate_metrics(cm, class_idx):
@@ -58,15 +59,19 @@ def calculate_metrics(cm, class_idx):
 
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0
-    f1_score = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+    f1_score = (
+        2 * (precision * recall) / (precision + recall)
+        if (precision + recall) > 0
+        else 0
+    )
 
     return tp, fp, tn, fn, precision, recall, f1_score
 
 
-if __name__ == '__main__':
-    annotation_folder = 'data/Train-val_Annotated_masks'
-    prediction_folder = 'data/Train-val_Annotated_Predictions/12_filtered_1e'
-    label_to_id_path = 'lowAltitude_classification/label_to_id.txt'
+if __name__ == "__main__":
+    annotation_folder = "data/Train-val_Annotated_masks"
+    prediction_folder = "data/Train-val_Annotated_Predictions/12_filtered_1e"
+    label_to_id_path = "lowAltitude_classification/label_to_id.txt"
 
     annotations = load_images_from_folder(annotation_folder)
     predictions = load_images_from_folder(prediction_folder)
@@ -76,8 +81,8 @@ if __name__ == '__main__':
     class_idx = 1
     tp, fp, tn, fn, precision, recall, f1_score = calculate_metrics(cm, class_idx)
 
-    print(f'TP: {tp}, FP: {fp}, TN: {tn}, FN: {fn}')
-    print(f'Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1_score:.4f}')
+    print(f"TP: {tp}, FP: {fp}, TN: {tn}, FN: {fn}")
+    print(f"Precision: {precision:.4f}, Recall: {recall:.4f}, F1 Score: {f1_score:.4f}")
 
     # confusion_matrix_background = np.array([[tn, fp],
     #                              [fn, tp]])
@@ -91,6 +96,5 @@ if __name__ == '__main__':
     # plt.xlabel('Predicted Labels')
     # plt.ylabel('True Labels')
     # plt.show()
-
 
     # plot_confusion_matrix(cm, label_mapping)

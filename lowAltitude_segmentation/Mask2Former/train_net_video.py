@@ -4,11 +4,13 @@ MaskFormer Training Script.
 
 This script is a simplified version of the training script in detectron2/tools.
 """
+
 try:
     # ignore ShapelyDeprecationWarning from fvcore
     from shapely.errors import ShapelyDeprecationWarning
     import warnings
-    warnings.filterwarnings('ignore', category=ShapelyDeprecationWarning)
+
+    warnings.filterwarnings("ignore", category=ShapelyDeprecationWarning)
 except:
     pass
 
@@ -81,7 +83,9 @@ class Trainer(DefaultTrainer):
         dataset_dict = get_detection_dataset_dicts(
             dataset_name,
             filter_empty=cfg.DATALOADER.FILTER_EMPTY_ANNOTATIONS,
-            proposal_files=cfg.DATASETS.PROPOSAL_FILES_TRAIN if cfg.MODEL.LOAD_PROPOSALS else None,
+            proposal_files=cfg.DATASETS.PROPOSAL_FILES_TRAIN
+            if cfg.MODEL.LOAD_PROPOSALS
+            else None,
         )
 
         return build_detection_train_loader(cfg, mapper=mapper, dataset=dataset_dict)
@@ -136,7 +140,9 @@ class Trainer(DefaultTrainer):
 
                 hyperparams = copy.copy(defaults)
                 if "backbone" in module_name:
-                    hyperparams["lr"] = hyperparams["lr"] * cfg.SOLVER.BACKBONE_MULTIPLIER
+                    hyperparams["lr"] = (
+                        hyperparams["lr"] * cfg.SOLVER.BACKBONE_MULTIPLIER
+                    )
                 if (
                     "relative_position_bias_table" in module_param_name
                     or "absolute_pos_embed" in module_param_name
@@ -160,7 +166,9 @@ class Trainer(DefaultTrainer):
 
             class FullModelGradientClippingOptimizer(optim):
                 def step(self, closure=None):
-                    all_params = itertools.chain(*[x["params"] for x in self.param_groups])
+                    all_params = itertools.chain(
+                        *[x["params"] for x in self.param_groups]
+                    )
                     torch.nn.utils.clip_grad_norm_(all_params, clip_norm_val)
                     super().step(closure=closure)
 
@@ -196,6 +204,7 @@ class Trainer(DefaultTrainer):
             dict: a dict of result metrics
         """
         from torch.cuda.amp import autocast
+
         logger = logging.getLogger(__name__)
         if isinstance(evaluators, DatasetEvaluator):
             evaluators = [evaluators]
@@ -225,12 +234,14 @@ class Trainer(DefaultTrainer):
                 results_i = inference_on_dataset(model, data_loader, evaluator)
             results[dataset_name] = results_i
             if comm.is_main_process():
-                assert isinstance(
-                    results_i, dict
-                ), "Evaluator must return a dict on the main process. Got {} instead.".format(
-                    results_i
+                assert isinstance(results_i, dict), (
+                    "Evaluator must return a dict on the main process. Got {} instead.".format(
+                        results_i
+                    )
                 )
-                logger.info("Evaluation results for {} in csv format:".format(dataset_name))
+                logger.info(
+                    "Evaluation results for {} in csv format:".format(dataset_name)
+                )
                 print_csv_format(results_i)
 
         if len(results) == 1:
@@ -253,7 +264,11 @@ def setup(args):
     default_setup(cfg, args)
     # Setup logger for "mask_former" module
     setup_logger(name="mask2former")
-    setup_logger(output=cfg.OUTPUT_DIR, distributed_rank=comm.get_rank(), name="mask2former_video")
+    setup_logger(
+        output=cfg.OUTPUT_DIR,
+        distributed_rank=comm.get_rank(),
+        name="mask2former_video",
+    )
     return cfg
 
 

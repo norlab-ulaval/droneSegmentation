@@ -24,7 +24,7 @@ from albumentations import (
     MotionBlur,
     MedianBlur,
     OpticalDistortion,
-    GridDistortion
+    GridDistortion,
 )
 from albumentations.pytorch import ToTensorV2
 from sklearn.model_selection import StratifiedKFold
@@ -41,7 +41,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 data_folder = Path("data/iNat_Classifier_filtered")
 output_file_path = Path("lowAltitude_classification/label_to_id.txt")
-log_file_path = Path("lowAltitude_classification/Augmentation_iNat_classifier/log_aug24.txt")
+log_file_path = Path(
+    "lowAltitude_classification/Augmentation_iNat_classifier/log_aug24.txt"
+)
 
 u.setup_logging("aug24", log_file_path)
 logger = logging.getLogger("aug24")
@@ -86,10 +88,13 @@ train_transform = Compose(
             rotate_limit=45,
             p=0.5,
         ),
-        OneOf([
-            MotionBlur(p=.2),
-            MedianBlur(blur_limit=3, p=0.1),
-        ], p=0.3),
+        OneOf(
+            [
+                MotionBlur(p=0.2),
+                MedianBlur(blur_limit=3, p=0.1),
+            ],
+            p=0.3,
+        ),
         ColorJitter(
             brightness=(0.3, 0.5),
             contrast=(0.3, 0.5),
@@ -97,10 +102,13 @@ train_transform = Compose(
             hue=0.2,
             p=0.5,
         ),
-        OneOf([
-            OpticalDistortion(p=0.3),
-            GridDistortion(p=.1),
-        ], p=0.2),
+        OneOf(
+            [
+                OpticalDistortion(p=0.3),
+                GridDistortion(p=0.1),
+            ],
+            p=0.2,
+        ),
         Blur(blur_limit=(3, 7), p=0.5),
         Normalize(mean=mean, std=std),
         ToTensorV2(),

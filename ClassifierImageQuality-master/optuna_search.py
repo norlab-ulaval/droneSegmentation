@@ -13,6 +13,7 @@ from torch.utils.data import DataLoader
 import optuna
 from optuna.trial import TrialState
 
+
 def define_model(model_type):
     model = None
     if model_type == "EfficientNet":
@@ -23,17 +24,15 @@ def define_model(model_type):
         model.fc = nn.Linear(model.fc.in_features, 4)
     return model
 
+
 # 1. Define an objective function to be maximized.
 def objective(trial):
     batch_size = 64
 
-    train_dataset_path = './dataset/train'
-    test_dataset_path = './dataset/test'
+    train_dataset_path = "./dataset/train"
+    test_dataset_path = "./dataset/test"
 
-    transform = v2.Compose([
-        v2.ToTensor(),
-        v2.Resize(size=(224, 224))
-    ])
+    transform = v2.Compose([v2.ToTensor(), v2.Resize(size=(224, 224))])
 
     train_dataset = ImageFolder(root=train_dataset_path, transform=transform)
     test_dataset = ImageFolder(root=test_dataset_path, transform=transform)
@@ -41,15 +40,23 @@ def objective(trial):
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 
-
-    weigths = Tensor([trial.suggest_float("bad_weight", 0.0, 10.0), trial.suggest_float("good_weight", 0.0, 10.0), 7, 7])
-    #weigths = Tensor([12, 6, 8, 8])
+    weigths = Tensor(
+        [
+            trial.suggest_float("bad_weight", 0.0, 10.0),
+            trial.suggest_float("good_weight", 0.0, 10.0),
+            7,
+            7,
+        ]
+    )
+    # weigths = Tensor([12, 6, 8, 8])
     weigths.to(device)
 
     loss_fn = nn.CrossEntropyLoss(weigths)
     loss_fn.to(device)
 
-    model = define_model(trial.suggest_categorical("model_type", ["ResNet50", "EfficientNet"])).to(device)
+    model = define_model(
+        trial.suggest_categorical("model_type", ["ResNet50", "EfficientNet"])
+    ).to(device)
     model.to(device)
     optimizer_name = trial.suggest_categorical("optimizer", ["Adam", "RMSprop", "SGD"])
     lr = trial.suggest_float("lr", 1e-7, 1e-1, log=True)
@@ -67,12 +74,13 @@ def objective(trial):
         metric, accuracy = test(test_loader, model, loss_fn)
 
         # Not supported with multi objective
-        #trial.report(accuracy, t)
+        # trial.report(accuracy, t)
 
-        #if trial.should_prune():
+        # if trial.should_prune():
         #    raise optuna.exceptions.TrialPruned()
 
     return accuracy, metric
+
 
 # 3. Create a study object and optimize the objective function.
 
@@ -92,8 +100,9 @@ def train(dataloader, model, loss_fn, optimizer):
         optimizer.zero_grad()
 
         ##if batch % 10 == 0:
-            ##loss, current = loss.item(), (batch + 1) * len(X)
-            ##print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+        ##loss, current = loss.item(), (batch + 1) * len(X)
+        ##print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+
 
 def test(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
@@ -107,11 +116,18 @@ def test(dataloader, model, loss_fn):
             test_loss += loss_fn(pred, y).item()
             correct += (pred.argmax(1) == y).type(torch.float).sum().item()
             bad += (y == 0).type(torch.float).sum().item()
-            bad_predicted_as_good += torch.logical_and(pred.argmax(1) == 1, y == 0).type(torch.float).sum().item()
+            bad_predicted_as_good += (
+                torch.logical_and(pred.argmax(1) == 1, y == 0)
+                .type(torch.float)
+                .sum()
+                .item()
+            )
     test_loss /= num_batches
     correct /= size
     bad_predicted_as_good /= bad
-    print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n, Bad predicted as good: {100*bad_predicted_as_good:>0.2f}% of bad images")
+    print(
+        f"Test Error: \n Accuracy: {(100 * correct):>0.1f}%, Avg loss: {test_loss:>8f} \n, Bad predicted as good: {100 * bad_predicted_as_good:>0.2f}% of bad images"
+    )
     return bad_predicted_as_good, correct
 
 
@@ -124,9 +140,12 @@ device = (
 )
 print(f"Using {device} device")
 
-if(device == "cuda"):
+if device == "cuda":
     study_name = "optuna_search"
-    study = optuna.create_study(directions=["maximize", "minimize"], storage="sqlite:///{}.db".format(study_name))
+    study = optuna.create_study(
+        directions=["maximize", "minimize"],
+        storage="sqlite:///{}.db".format(study_name),
+    )
     print("Starting optimization...")
 
     study.optimize(objective, n_trials=99)

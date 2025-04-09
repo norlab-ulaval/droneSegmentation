@@ -2,13 +2,13 @@ import os
 import random
 import shutil
 
-image_folder = 'data/data_lowaltitude_patches'
-segmentation_folder = 'results/dataset_pred/fast_patch_256_overlap_85'
+image_folder = "data/data_lowaltitude_patches"
+segmentation_folder = "results/dataset_pred/fast_patch_256_overlap_85"
 
-train_img_folder = 'data/Dataset_mask2former/train/images'
-train_mask_folder = 'data/Dataset_mask2former/train/masks'
-validation_img_folder = 'data/Dataset_mask2former/val/images'
-validation_mask_folder = 'data/Dataset_mask2former/val/masks'
+train_img_folder = "data/Dataset_mask2former/train/images"
+train_mask_folder = "data/Dataset_mask2former/train/masks"
+validation_img_folder = "data/Dataset_mask2former/val/images"
+validation_mask_folder = "data/Dataset_mask2former/val/masks"
 
 os.makedirs(train_img_folder, exist_ok=True)
 os.makedirs(train_mask_folder, exist_ok=True)
@@ -26,15 +26,27 @@ validation_images = image_files[num_train:]
 
 for image_file in train_images:
     image_name = os.path.splitext(image_file)[0]
-    segmentation_file = image_name + '.png'
+    segmentation_file = image_name + ".png"
     if os.path.exists(os.path.join(segmentation_folder, segmentation_file)):
-        shutil.copy(os.path.join(image_folder, image_file), os.path.join(train_img_folder, image_file))
-        shutil.copy(os.path.join(segmentation_folder, segmentation_file), os.path.join(train_mask_folder, segmentation_file))
+        shutil.copy(
+            os.path.join(image_folder, image_file),
+            os.path.join(train_img_folder, image_file),
+        )
+        shutil.copy(
+            os.path.join(segmentation_folder, segmentation_file),
+            os.path.join(train_mask_folder, segmentation_file),
+        )
 for image_file in validation_images:
     image_name = os.path.splitext(image_file)[0]
-    segmentation_file = image_name + '.png'
+    segmentation_file = image_name + ".png"
     if os.path.exists(os.path.join(segmentation_folder, segmentation_file)):
-        shutil.copy(os.path.join(image_folder, image_file), os.path.join(validation_img_folder, image_file))
-        shutil.copy(os.path.join(segmentation_folder, segmentation_file), os.path.join(validation_mask_folder, segmentation_file))
+        shutil.copy(
+            os.path.join(image_folder, image_file),
+            os.path.join(validation_img_folder, image_file),
+        )
+        shutil.copy(
+            os.path.join(segmentation_folder, segmentation_file),
+            os.path.join(validation_mask_folder, segmentation_file),
+        )
 
 print("Splitting completed.")

@@ -16,7 +16,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "sidewalk, pavement", "id": 2377, "trainId": 8},
     {"name": "earth, ground", "id": 838, "trainId": 9},
     {"name": "cabinet", "id": 350, "trainId": 10},
-    {"name": "person, individual, someone, somebody, mortal, soul", "id": 1831, "trainId": 11},
+    {
+        "name": "person, individual, someone, somebody, mortal, soul",
+        "id": 1831,
+        "trainId": 11,
+    },
     {"name": "grass", "id": 1125, "trainId": 12},
     {"name": "windowpane, window", "id": 3055, "trainId": 13},
     {"name": "car, auto, automobile, machine, motorcar", "id": 401, "trainId": 14},
@@ -63,7 +67,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "fireplace, hearth, open fireplace", "id": 943, "trainId": 55},
     {"name": "pillow", "id": 1869, "trainId": 56},
     {"name": "screen door, screen", "id": 2251, "trainId": 57},
-    {"name": "toilet, can, commode, crapper, pot, potty, stool, throne", "id": 2793, "trainId": 58},
+    {
+        "name": "toilet, can, commode, crapper, pot, potty, stool, throne",
+        "id": 2793,
+        "trainId": 58,
+    },
     {"name": "skyscraper", "id": 2423, "trainId": 59},
     {"name": "grandstand, covered stand", "id": 1121, "trainId": 60},
     {"name": "box", "id": 266, "trainId": 61},
@@ -129,7 +137,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "hovel, hut, hutch, shack, shanty", "id": 1282, "trainId": 101},
     {"name": "apparel, wearing apparel, dress, clothes", "id": 38, "trainId": 102},
     {"name": "minibike, motorbike", "id": 1563, "trainId": 103},
-    {"name": "animal, animate being, beast, brute, creature, fauna", "id": 29, "trainId": 104},
+    {
+        "name": "animal, animate being, beast, brute, creature, fauna",
+        "id": 29,
+        "trainId": 104,
+    },
     {"name": "chandelier, pendant, pendent", "id": 480, "trainId": 105},
     {"name": "step, stair", "id": 2569, "trainId": 106},
     {"name": "booth, cubicle, stall, kiosk", "id": 247, "trainId": 107},
@@ -138,7 +150,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "sconce", "id": 2243, "trainId": 110},
     {"name": "pond", "id": 1941, "trainId": 111},
     {"name": "trade name, brand name, brand, marque", "id": 2833, "trainId": 112},
-    {"name": "bannister, banister, balustrade, balusters, handrail", "id": 120, "trainId": 113},
+    {
+        "name": "bannister, banister, balustrade, balusters, handrail",
+        "id": 120,
+        "trainId": 113,
+    },
     {"name": "bag", "id": 95, "trainId": 114},
     {"name": "traffic light, traffic signal, stoplight", "id": 2836, "trainId": 115},
     {"name": "gazebo", "id": 1087, "trainId": 116},
@@ -224,7 +240,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "pot", "id": 1974, "trainId": 188},
     {"name": "footbridge, overcrossing, pedestrian bridge", "id": 1013, "trainId": 189},
     {"name": "shower", "id": 2356, "trainId": 190},
-    {"name": "bag, traveling bag, travelling bag, grip, suitcase", "id": 97, "trainId": 191},
+    {
+        "name": "bag, traveling bag, travelling bag, grip, suitcase",
+        "id": 97,
+        "trainId": 191,
+    },
     {"name": "bulletin board, notice board", "id": 318, "trainId": 192},
     {"name": "confessional booth", "id": 592, "trainId": 193},
     {"name": "trunk, tree trunk, bole", "id": 2885, "trainId": 194},
@@ -377,7 +397,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "place mat", "id": 1896, "trainId": 321},
     {"name": "tomb", "id": 2800, "trainId": 322},
     {"name": "big top", "id": 190, "trainId": 323},
-    {"name": "gas pump, gasoline pump, petrol pump, island dispenser", "id": 3131, "trainId": 324},
+    {
+        "name": "gas pump, gasoline pump, petrol pump, island dispenser",
+        "id": 3131,
+        "trainId": 324,
+    },
     {"name": "lockers", "id": 1463, "trainId": 325},
     {"name": "cage", "id": 357, "trainId": 326},
     {"name": "finger", "id": 929, "trainId": 327},
@@ -387,7 +411,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "mat", "id": 1509, "trainId": 331},
     {"name": "stands", "id": 2539, "trainId": 332},
     {"name": "aquarium, fish tank, marine museum", "id": 3116, "trainId": 333},
-    {"name": "streetcar, tram, tramcar, trolley, trolley car", "id": 2615, "trainId": 334},
+    {
+        "name": "streetcar, tram, tramcar, trolley, trolley car",
+        "id": 2615,
+        "trainId": 334,
+    },
     {"name": "napkin, table napkin, serviette", "id": 1644, "trainId": 335},
     {"name": "dummy", "id": 818, "trainId": 336},
     {"name": "booklet, brochure, folder, leaflet, pamphlet", "id": 242, "trainId": 337},
@@ -418,7 +446,11 @@ ADE20K_SEM_SEG_FULL_CATEGORIES = [
     {"name": "mug", "id": 1619, "trainId": 362},
     {"name": "barbecue", "id": 125, "trainId": 363},
     {"name": "trailer", "id": 2838, "trainId": 364},
-    {"name": "toilet tissue, toilet paper, bathroom tissue", "id": 2792, "trainId": 365},
+    {
+        "name": "toilet tissue, toilet paper, bathroom tissue",
+        "id": 2792,
+        "trainId": 365,
+    },
     {"name": "organ", "id": 1695, "trainId": 366},
     {"name": "dishrag, dishcloth", "id": 746, "trainId": 367},
     {"name": "island", "id": 1343, "trainId": 368},
@@ -949,7 +981,10 @@ def register_all_ade20k_full(root):
         gt_dir = os.path.join(root, "annotations_detectron2", dirname)
         name = f"ade20k_full_sem_seg_{name}"
         DatasetCatalog.register(
-            name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="tif", image_ext="jpg")
+            name,
+            lambda x=image_dir, y=gt_dir: load_sem_seg(
+                y, x, gt_ext="tif", image_ext="jpg"
+            ),
         )
         MetadataCatalog.get(name).set(
             stuff_classes=meta["stuff_classes"][:],

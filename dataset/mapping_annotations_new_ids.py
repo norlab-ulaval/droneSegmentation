@@ -4,24 +4,24 @@ import numpy as np
 
 before_to_after_mapping = {
     0: None,  # Alders removed
-    1: 0,    # American Mountain-ash -> 0
-    2: 1,    # Background -> 1
-    3: 2,    # Black spruce -> 2
-    4: 4,    # Bog Labrador Tea -> 4
-    5: 5,    # Boulders -> 5
-    6: 6,    # Canada Yew -> 6
-    7: 13,   # Common Haircap Moss -> combined into Moss -> 13
-    8: 7,    # Dead trees -> 7
-    9: 13,   # Feather Mosses -> combined into Moss -> 13
-    10: 8,   # Ferns -> 8
-    11: 9,   # Fir -> 9
+    1: 0,  # American Mountain-ash -> 0
+    2: 1,  # Background -> 1
+    3: 2,  # Black spruce -> 2
+    4: 4,  # Bog Labrador Tea -> 4
+    5: 5,  # Boulders -> 5
+    6: 6,  # Canada Yew -> 6
+    7: 13,  # Common Haircap Moss -> combined into Moss -> 13
+    8: 7,  # Dead trees -> 7
+    9: 13,  # Feather Mosses -> combined into Moss -> 13
+    10: 8,  # Ferns -> 8
+    11: 9,  # Fir -> 9
     12: 10,  # Fire Cherry -> 10
     13: 11,  # Jack Pine -> 11
-    14: None, # Larch removed
+    14: None,  # Larch removed
     15: 12,  # Leatherleaf -> 12
     16: 14,  # Mountain Maple -> 14
     17: 15,  # Paper Birch -> 15
-    18: None, # Pixie Cup Lichens removed
+    18: None,  # Pixie Cup Lichens removed
     19: 16,  # Red Maple -> 16
     20: 17,  # Red Raspberry -> 17
     21: 18,  # Sedges -> 18
@@ -31,10 +31,10 @@ before_to_after_mapping = {
     25: 21,  # Trembling Aspen -> 21
     26: 22,  # Viburnums -> 22
     27: 23,  # Willowherbs -> 23
-    28: None, # Willows removed
-    29: 3,   # Blueberry -> 3
+    28: None,  # Willows removed
+    29: 3,  # Blueberry -> 3
     30: 24,  # Wood -> 24
-    31: 25   # Yellow Birch -> 25
+    31: 25,  # Yellow Birch -> 25
 }
 
 #
@@ -74,8 +74,8 @@ before_to_after_mapping = {
 # }
 
 
-source_folder_path = 'data/Test_data_annotation'
-destination_folder_path = 'data/Test_data_annotation_new_index'
+source_folder_path = "data/Test_data_annotation"
+destination_folder_path = "data/Test_data_annotation_new_index"
 
 
 os.makedirs(destination_folder_path, exist_ok=True)

@@ -26,7 +26,9 @@ if __name__ == "__main__":
         ann_id = 1
 
         # json
-        out_file = os.path.join(dataset_dir, f"ADEChallengeData2016/ade20k_instance_{name}.json")
+        out_file = os.path.join(
+            dataset_dir, f"ADEChallengeData2016/ade20k_instance_{name}.json"
+        )
 
         # json config
         instance_config_file = "datasets/ade20k_instance_imgCatIds.json"
@@ -86,27 +88,34 @@ if __name__ == "__main__":
                 assert len(instance_cat_id) == 1
 
                 anno = {}
-                anno['id'] = ann_id
+                anno["id"] = ann_id
                 ann_id += 1
-                anno['image_id'] = image['id']
+                anno["image_id"] = image["id"]
                 anno["iscrowd"] = int(0)
                 anno["category_id"] = int(map_id[instance_cat_id[0]])
 
                 inds = np.nonzero(mask)
                 ymin, ymax = inds[0].min(), inds[0].max()
                 xmin, xmax = inds[1].min(), inds[1].max()
-                anno["bbox"] = [int(xmin), int(ymin), int(xmax - xmin + 1), int(ymax - ymin + 1)]
+                anno["bbox"] = [
+                    int(xmin),
+                    int(ymin),
+                    int(xmax - xmin + 1),
+                    int(ymax - ymin + 1),
+                ]
                 # if xmax <= xmin or ymax <= ymin:
                 #     continue
-                rle = mask_util.encode(np.array(mask[:, :, None], order="F", dtype="uint8"))[0]
+                rle = mask_util.encode(
+                    np.array(mask[:, :, None], order="F", dtype="uint8")
+                )[0]
                 rle["counts"] = rle["counts"].decode("utf-8")
                 anno["segmentation"] = rle
                 anno["area"] = int(mask_util.area(rle))
                 annotations.append(anno)
 
         # save this
-        ann_dict['images'] = images
-        ann_dict['categories'] = category_dict
-        ann_dict['annotations'] = annotations
+        ann_dict["images"] = images
+        ann_dict["categories"] = category_dict
+        ann_dict["annotations"] = annotations
 
         save_json(ann_dict, out_file)

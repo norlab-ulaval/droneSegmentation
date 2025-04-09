@@ -106,7 +106,9 @@ def load_coco_panoptic_json(json_file, image_dir, gt_dir, semseg_dir, meta):
         # different extension, and images have extension ".jpg" for COCO. Need
         # to make image extension a user-provided argument if we extend this
         # function to support other COCO-like datasets.
-        image_file = os.path.join(image_dir, os.path.splitext(ann["file_name"])[0] + ".jpg")
+        image_file = os.path.join(
+            image_dir, os.path.splitext(ann["file_name"])[0] + ".jpg"
+        )
         label_file = os.path.join(gt_dir, ann["file_name"])
         sem_label_file = os.path.join(semseg_dir, ann["file_name"])
         segments_info = [_convert_category_id(x, meta) for x in ann["segments_info"]]
@@ -127,7 +129,13 @@ def load_coco_panoptic_json(json_file, image_dir, gt_dir, semseg_dir, meta):
 
 
 def register_coco_panoptic_annos_sem_seg(
-    name, metadata, image_root, panoptic_root, panoptic_json, sem_seg_root, instances_json
+    name,
+    metadata,
+    image_root,
+    panoptic_root,
+    panoptic_json,
+    sem_seg_root,
+    instances_json,
 ):
     panoptic_name = name
     delattr(MetadataCatalog.get(panoptic_name), "thing_classes")
@@ -142,7 +150,9 @@ def register_coco_panoptic_annos_sem_seg(
     semantic_name = name + "_with_sem_seg"
     DatasetCatalog.register(
         semantic_name,
-        lambda: load_coco_panoptic_json(panoptic_json, image_root, panoptic_root, sem_seg_root, metadata),
+        lambda: load_coco_panoptic_json(
+            panoptic_json, image_root, panoptic_root, sem_seg_root, metadata
+        ),
     )
     MetadataCatalog.get(semantic_name).set(
         sem_seg_root=sem_seg_root,

@@ -2,6 +2,7 @@ import os
 import cv2
 from tqdm import tqdm
 
+
 def patchify_image(image, patch_size=(1024, 1024)):
     height, width = image.shape[:2]
     patches = []
@@ -26,7 +27,10 @@ def process_images(parent_folder, output_folder):
     os.makedirs(output_folder, exist_ok=True)
 
     for subdir, _, files in os.walk(parent_folder):
-        for filename in tqdm([f for f in files if f.lower().endswith('.jpg')], desc=f"Processing images in {subdir}"):
+        for filename in tqdm(
+            [f for f in files if f.lower().endswith(".jpg")],
+            desc=f"Processing images in {subdir}",
+        ):
             image_path = os.path.join(subdir, filename)
             image = cv2.imread(image_path)
             patches = patchify_image(image)
@@ -36,10 +40,12 @@ def process_images(parent_folder, output_folder):
                 sub_output_folder = os.path.join(output_folder, relative_path)
                 os.makedirs(sub_output_folder, exist_ok=True)
 
-                output_filename = os.path.join(sub_output_folder, f'{os.path.splitext(filename)[0]}_patch_{i}.JPG')
+                output_filename = os.path.join(
+                    sub_output_folder, f"{os.path.splitext(filename)[0]}_patch_{i}.JPG"
+                )
                 cv2.imwrite(output_filename, patch)
 
 
-input_folder = 'data/Drone_Unlabeled_Dataset/new'
-output_folder = 'data/Drone_Unlabeled_Dataset/new_patch'
+input_folder = "data/Drone_Unlabeled_Dataset/new"
+output_folder = "data/Drone_Unlabeled_Dataset/new_patch"
 process_images(input_folder, output_folder)

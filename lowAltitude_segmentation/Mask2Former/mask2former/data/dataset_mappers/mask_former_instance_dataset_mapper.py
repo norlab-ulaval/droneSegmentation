@@ -53,7 +53,9 @@ class MaskFormerInstanceDatasetMapper:
 
         logger = logging.getLogger(__name__)
         mode = "training" if is_train else "inference"
-        logger.info(f"[{self.__class__.__name__}] Augmentations used in {mode}: {augmentations}")
+        logger.info(
+            f"[{self.__class__.__name__}] Augmentations used in {mode}: {augmentations}"
+        )
 
     @classmethod
     def from_config(cls, cfg, is_train=True):
@@ -92,7 +94,9 @@ class MaskFormerInstanceDatasetMapper:
         Returns:
             dict: a format that builtin models in detectron2 accept
         """
-        assert self.is_train, "MaskFormerPanopticDatasetMapper should only be used for training!"
+        assert self.is_train, (
+            "MaskFormerPanopticDatasetMapper should only be used for training!"
+        )
 
         dataset_dict = copy.deepcopy(dataset_dict)  # it will be modified by code below
         image = utils.read_image(dataset_dict["file_name"], format=self.img_format)
@@ -125,8 +129,8 @@ class MaskFormerInstanceDatasetMapper:
                 # COCO RLE
                 masks.append(mask_util.decode(segm))
             elif isinstance(segm, np.ndarray):
-                assert segm.ndim == 2, "Expect segmentation of 2 dimensions, got {}.".format(
-                    segm.ndim
+                assert segm.ndim == 2, (
+                    "Expect segmentation of 2 dimensions, got {}.".format(segm.ndim)
                 )
                 # mask array
                 masks.append(segm)

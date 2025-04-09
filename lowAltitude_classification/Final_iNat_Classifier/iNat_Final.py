@@ -24,7 +24,7 @@ from albumentations import (
     OpticalDistortion,
     GridDistortion,
     Defocus,
-    RandomFog
+    RandomFog,
 )
 from albumentations.pytorch import ToTensorV2
 from sklearn.model_selection import StratifiedKFold
@@ -38,7 +38,7 @@ import utils as u
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-data_folder = 'data/iNat_Classifier_filtered'
+data_folder = "data/iNat_Classifier_filtered"
 lac_dir = Path("lowAltitude_classification")
 output_file_path = lac_dir / "label_to_id.txt"
 checkpoint_dir = lac_dir / "checkpoints"
@@ -85,11 +85,13 @@ train_transform = Compose(
             rotate_limit=45,
             p=0.5,
         ),
-        OneOf([
-            MotionBlur(p=.2),
-            MedianBlur(blur_limit=3, p=0.1),
-        ], p=0.3),
-
+        OneOf(
+            [
+                MotionBlur(p=0.2),
+                MedianBlur(blur_limit=3, p=0.1),
+            ],
+            p=0.3,
+        ),
         Defocus(
             radius=(3, 5),
             alias_blur=(0.1, 0.2),
@@ -103,10 +105,13 @@ train_transform = Compose(
             hue=0.2,
             p=0.5,
         ),
-        OneOf([
-            OpticalDistortion(p=0.3),
-            GridDistortion(p=.1),
-        ], p=0.2),
+        OneOf(
+            [
+                OpticalDistortion(p=0.3),
+                GridDistortion(p=0.1),
+            ],
+            p=0.2,
+        ),
         Blur(blur_limit=(3, 7), p=0.5),
         Normalize(mean=mean, std=std),
         ToTensorV2(),
@@ -232,7 +237,9 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(dataset, dataset.targets)):
             accuracy = accuracy_valid
             model_weights = model.state_dict()
             t = datetime.date.today()
-            pth_name = f"5{fold + 1}_Final_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+            pth_name = (
+                f"5{fold + 1}_Final_time{t}_{epoch + 1}e_acc{100 * accuracy:2.0f}.pth"
+            )
             torch.save(
                 model_weights,
                 checkpoint_dir / pth_name,

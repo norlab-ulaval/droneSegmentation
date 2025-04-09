@@ -82,7 +82,9 @@ class VideoMaskFormer(nn.Module):
             size_divisibility = self.backbone.size_divisibility
         self.size_divisibility = size_divisibility
         self.sem_seg_postprocess_before_inference = sem_seg_postprocess_before_inference
-        self.register_buffer("pixel_mean", torch.Tensor(pixel_mean).view(-1, 1, 1), False)
+        self.register_buffer(
+            "pixel_mean", torch.Tensor(pixel_mean).view(-1, 1, 1), False
+        )
         self.register_buffer("pixel_std", torch.Tensor(pixel_std).view(-1, 1, 1), False)
 
         self.num_frames = num_frames
@@ -109,7 +111,11 @@ class VideoMaskFormer(nn.Module):
             num_points=cfg.MODEL.MASK_FORMER.TRAIN_NUM_POINTS,
         )
 
-        weight_dict = {"loss_ce": class_weight, "loss_mask": mask_weight, "loss_dice": dice_weight}
+        weight_dict = {
+            "loss_ce": class_weight,
+            "loss_mask": mask_weight,
+            "loss_dice": dice_weight,
+        }
 
         if deep_supervision:
             dec_layers = cfg.MODEL.MASK_FORMER.DEC_LAYERS
@@ -217,12 +223,18 @@ class VideoMaskFormer(nn.Module):
             del outputs
 
             input_per_image = batched_inputs[0]
-            image_size = images.image_sizes[0]  # image size without padding after data augmentation
+            image_size = images.image_sizes[
+                0
+            ]  # image size without padding after data augmentation
 
-            height = input_per_image.get("height", image_size[0])  # raw image size before data augmentation
+            height = input_per_image.get(
+                "height", image_size[0]
+            )  # raw image size before data augmentation
             width = input_per_image.get("width", image_size[1])
 
-            return retry_if_cuda_oom(self.inference_video)(mask_cls_result, mask_pred_result, image_size, height, width)
+            return retry_if_cuda_oom(self.inference_video)(
+                mask_cls_result, mask_pred_result, image_size, height, width
+            )
 
     def prepare_targets(self, targets, images):
         h_pad, w_pad = images.tensor.shape[-2:]
@@ -230,7 +242,9 @@ class VideoMaskFormer(nn.Module):
         for targets_per_video in targets:
             _num_instance = len(targets_per_video["instances"][0])
             mask_shape = [_num_instance, self.num_frames, h_pad, w_pad]
-            gt_masks_per_video = torch.zeros(mask_shape, dtype=torch.bool, device=self.device)
+            gt_masks_per_video = torch.zeros(
+                mask_shape, dtype=torch.bool, device=self.device
+            )
 
             gt_ids_per_video = []
             for f_i, targets_per_frame in enumerate(targets_per_video["instances"]):
@@ -243,19 +257,30 @@ class VideoMaskFormer(nn.Module):
             gt_ids_per_video = torch.cat(gt_ids_per_video, dim=1)
             valid_idx = (gt_ids_per_video != -1).any(dim=-1)
 
-            gt_classes_per_video = targets_per_frame.gt_classes[valid_idx]          # N,
-            gt_ids_per_video = gt_ids_per_video[valid_idx]                          # N, num_frames
+            gt_classes_per_video = targets_per_frame.gt_classes[valid_idx]  # N,
+            gt_ids_per_video = gt_ids_per_video[valid_idx]  # N, num_frames
 
-            gt_instances.append({"labels": gt_classes_per_video, "ids": gt_ids_per_video})
-            gt_masks_per_video = gt_masks_per_video[valid_idx].float()          # N, num_frames, H, W
+            gt_instances.append(
+                {"labels": gt_classes_per_video, "ids": gt_ids_per_video}
+            )
+            gt_masks_per_video = gt_masks_per_video[
+                valid_idx
+            ].float()  # N, num_frames, H, W
             gt_instances[-1].update({"masks": gt_masks_per_video})
 
         return gt_instances
 
-    def inference_video(self, pred_cls, pred_masks, img_size, output_height, output_width):
+    def inference_video(
+        self, pred_cls, pred_masks, img_size, output_height, output_width
+    ):
         if len(pred_cls) > 0:
             scores = F.softmax(pred_cls, dim=-1)[:, :-1]
-            labels = torch.arange(self.sem_seg_head.num_classes, device=self.device).unsqueeze(0).repeat(self.num_queries, 1).flatten(0, 1)
+            labels = (
+                torch.arange(self.sem_seg_head.num_classes, device=self.device)
+                .unsqueeze(0)
+                .repeat(self.num_queries, 1)
+                .flatten(0, 1)
+            )
             # keep top-10 predictions
             scores_per_image, topk_indices = scores.flatten(0, 1).topk(10, sorted=False)
             labels_per_image = labels[topk_indices]
@@ -264,10 +289,13 @@ class VideoMaskFormer(nn.Module):
 
             pred_masks = pred_masks[:, :, : img_size[0], : img_size[1]]
             pred_masks = F.interpolate(
-                pred_masks, size=(output_height, output_width), mode="bilinear", align_corners=False
+                pred_masks,
+                size=(output_height, output_width),
+                mode="bilinear",
+                align_corners=False,
             )
 
-            masks = pred_masks > 0.
+            masks = pred_masks > 0.0
 
             out_scores = scores_per_image.tolist()
             out_labels = labels_per_image.tolist()
