@@ -15,7 +15,6 @@ container_id=$(
         -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         -v .:/app/ \
         -v /data/iNat_Classifier_filtered:/app/data/iNat_Classifier_filtered \
-        -v ./lowAltitude_classification: \
         -v /dev/shm/:/dev/shm/ \
         -d droneseg_cls bash -c 'python lowAltitude_classification/Rebalance_iNat_Classifier/iNat_balanced_2.py'
 )

@@ -14,8 +14,7 @@ container_id=$(
     podman run --gpus all --ipc host \
         -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
         -v .:/app/ \
-        -v /data/iNat_Classifier_Non_filtered: \
-        -v ./lowAltitude_classification: \
+        -v /data/iNat_Classifier_Non_filtered:/app/data/iNat_Classifier_Non_filtered \
         -v /dev/shm/:/dev/shm/ \
         -d droneseg_cls bash -c "echo $CUDA_VISIBLE_DEVICES"
         #-d droneseg_cls bash -c "python lowAltitude_classification/server-pseudo-labels-la-classification.py"
