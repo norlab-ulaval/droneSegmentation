@@ -78,8 +78,14 @@ docker run --gpus all -e CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES --rm --ipc h
 | Segmentation (Pre-trained `PT`)    | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/segmentation/PT.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492079&Signature=ovjoOXuy5V3qi7uKYO9d10oFkMc%3D) |
 | Segmentation (Finetuned  `FT`)    | [Download](http://norlab.s3.valeria.science/WilDReF-Q/models/segmentation/FT.pth?AWSAccessKeyId=VCI7FLOHYPGLOOOAH0S5&Expires=2348492067&Signature=8EBXI%2FUyhGWXgjGJ62KV0Ce%2BlSo%3D) |
 
+## Contributing
 
+This project is maintained with `pre-commit`. To setup `pre-commit`, follow these commands.
 
+```sh
+pip install pre-commit
+pre-commit install
+```
 
 ## Citation
 
